@@ -56,7 +56,7 @@
       <div class="flex items-center gap-3">
         <div class="hidden sm:flex items-center gap-2 border-r border-zinc-800 pr-4">
           <a href="https://wa.me/5521989368930" target="_blank" class="p-2 text-zinc-400 hover:text-emerald-400 transition-colors" title="WhatsApp"><i data-lucide="message-circle" class="w-5 h-5"></i></a>
-          <a href="https://instagram.com" target="_blank" class="p-2 text-zinc-400 hover:text-pink-500 transition-colors" title="Instagram"><i data-lucide="instagram" class="w-5 h-5"></i></a>
+          <a id="headerInstagram" href="https://instagram.com" target="_blank" class="p-2 text-zinc-400 hover:text-pink-500 transition-colors" title="Instagram"><i data-lucide="instagram" class="w-5 h-5"></i></a>
           <a href="mailto:casa6producoes@gmail.com" class="p-2 text-zinc-400 hover:text-amber-500 transition-colors" title="E-mail"><i data-lucide="mail" class="w-5 h-5"></i></a>
         </div>
 
@@ -86,7 +86,7 @@
         <p id="displaySubtitle2" class="text-sm text-zinc-400">Do clima intimista de um acústico à energia de uma apresentação completa: repertório refinado, som de alta qualidade e o profissionalismo que o seu momento exige.</p>
       </div>
 
-      <div class="w-full max-w-4xl mx-auto rounded-2xl overflow-hidden border border-brand-border shadow-2xl bg-brand-cardBg aspect-video">
+      <div id="displayHeroVideoContainer" class="w-full max-w-4xl mx-auto rounded-2xl overflow-hidden border border-brand-border shadow-2xl bg-brand-cardBg aspect-video flex items-center justify-center">
         <iframe id="displayHeroVideo" class="w-full h-full" src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allowfullscreen></iframe>
       </div>
     </section>
@@ -228,6 +228,9 @@
           <a id="linkDeezer" href="https://deezer.com" target="_blank" class="px-5 py-3 rounded-xl bg-zinc-900 border border-zinc-700 text-white flex items-center gap-2 hover:bg-zinc-800"><i data-lucide="disc" class="w-4 h-4"></i> Deezer</a>
           <a id="linkApple" href="https://apple.com" target="_blank" class="px-5 py-3 rounded-xl bg-zinc-900 border border-zinc-700 text-pink-400 flex items-center gap-2 hover:bg-zinc-800"><i data-lucide="music-2" class="w-4 h-4"></i> Apple Music</a>
           <a id="linkYoutubeMusic" href="https://music.youtube.com" target="_blank" class="px-5 py-3 rounded-xl bg-red-950/40 border border-red-900/50 text-red-400 flex items-center gap-2 hover:bg-red-900/40"><i data-lucide="youtube" class="w-4 h-4"></i> YouTube Music</a>
+          <a id="linkInstagram" href="https://instagram.com" target="_blank" class="px-5 py-3 rounded-xl bg-pink-950/40 border border-pink-900/50 text-pink-400 flex items-center gap-2 hover:bg-pink-900/40 hidden"><i data-lucide="instagram" class="w-4 h-4"></i> Instagram</a>
+          <a id="linkTiktok" href="https://tiktok.com" target="_blank" class="px-5 py-3 rounded-xl bg-zinc-900 border border-zinc-700 text-zinc-200 flex items-center gap-2 hover:bg-zinc-800 hidden"><i data-lucide="video" class="w-4 h-4"></i> TikTok</a>
+          <a id="linkYoutubeProfile" href="https://youtube.com" target="_blank" class="px-5 py-3 rounded-xl bg-red-950/40 border border-red-900/50 text-red-400 flex items-center gap-2 hover:bg-red-900/40 hidden"><i data-lucide="youtube" class="w-4 h-4"></i> YouTube</a>
         </div>
       </div>
     </section>
@@ -292,6 +295,9 @@
           <button onclick="switchTab('tabMedia')" id="btnTabMedia" class="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-xs font-semibold text-zinc-400 hover:bg-zinc-800 hover:text-white transition-all">
             <i data-lucide="video" class="w-4 h-4"></i> Mídias & Streaming
           </button>
+          <button onclick="switchTab('tabEvents')" id="btnTabEvents" class="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-xs font-semibold text-zinc-400 hover:bg-zinc-800 hover:text-white transition-all">
+            <i data-lucide="calendar-check" class="w-4 h-4"></i> Eventos
+          </button>
           <button onclick="switchTab('tabDocs')" id="btnTabDocs" class="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-xs font-semibold text-zinc-400 hover:bg-zinc-800 hover:text-white transition-all">
             <i data-lucide="file-text" class="w-4 h-4"></i> Repertório & Contratos
           </button>
@@ -314,7 +320,7 @@
     <!-- Conteúdo do Painel Lateral -->
     <main class="flex-1 p-6 sm:p-10 overflow-y-auto">
       
-      <!-- Tab 0: Dashboard (Novo) -->
+      <!-- Tab 0: Dashboard -->
       <div id="tabDashboard" class="dashboard-tab max-w-4xl space-y-6">
         <div>
           <h2 class="text-xl font-bold text-white">Dashboard Geral</h2>
@@ -324,8 +330,8 @@
         <div class="grid sm:grid-cols-2 gap-4">
           <div class="bg-brand-cardBg border border-brand-border p-6 rounded-2xl space-y-2">
             <span class="text-xs text-zinc-400 uppercase font-semibold">Shows Agendados</span>
-            <p class="text-2xl font-bold text-white">0</p>
-            <p class="text-[11px] text-emerald-400">Próximos eventos sincronizados.</p>
+            <p id="dashEventCount" class="text-2xl font-bold text-white">0</p>
+            <p class="text-[11px] text-emerald-400">Próximos eventos cadastrados.</p>
           </div>
           <div class="bg-brand-cardBg border border-brand-border p-6 rounded-2xl space-y-2">
             <span class="text-xs text-zinc-400 uppercase font-semibold">Pagamentos & Cachês</span>
@@ -338,8 +344,8 @@
       <!-- Tab 1: Perfil & Bio -->
       <div id="tabBio" class="dashboard-tab max-w-3xl space-y-6 hidden">
         <div>
-          <h2 class="text-xl font-bold text-white">Editar Perfil, Bio e Textos da Hero</h2>
-          <p class="text-xs text-zinc-400 mt-1">Atualize as informações exibidas no topo e na biografia do seu Press Kit.</p>
+          <h2 class="text-xl font-bold text-white">Editar Perfil, Bio e Vídeo Principal</h2>
+          <p class="text-xs text-zinc-400 mt-1">Atualize as informações exibidas no topo e o vídeo em destaque (MP4 ou YouTube).</p>
         </div>
 
         <div class="bg-brand-cardBg border border-brand-border p-6 rounded-2xl space-y-4 text-xs">
@@ -360,6 +366,11 @@
             <textarea id="editSubtitle2" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white h-20">Do clima intimista de um acústico à energia de uma apresentação completa: repertório refinado, som de alta qualidade e o profissionalismo que o seu momento exige.</textarea>
           </div>
           <div>
+            <label class="block font-semibold text-zinc-300 mb-1">Primeiro Vídeo para Ver (Anexar MP4 ou Link YouTube)</label>
+            <input type="file" id="heroVideoMp4Input" accept="video/mp4" class="w-full text-zinc-400 file:mr-2 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:bg-amber-500 file:text-black mb-2">
+            <input type="text" id="heroVideoYoutubeInput" placeholder="Ou cole o Link do YouTube (Ex: https://www.youtube.com/watch?v=...)" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white">
+          </div>
+          <div>
             <label class="block font-semibold text-zinc-300 mb-1">Biografia do Artista</label>
             <textarea id="editBio" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white h-24">Músico profissional, multi-instrumentista e arranjador...</textarea>
           </div>
@@ -370,8 +381,8 @@
       <!-- Tab 2: Mídias & Streaming -->
       <div id="tabMedia" class="dashboard-tab max-w-3xl space-y-6 hidden">
         <div>
-          <h2 class="text-xl font-bold text-white">Gerenciamento de Mídias</h2>
-          <p class="text-xs text-zinc-400 mt-1">Envie vídeos em MP4, adicione fotos à galeria e configure os links de streaming.</p>
+          <h2 class="text-xl font-bold text-white">Gerenciamento de Mídias & Redes</h2>
+          <p class="text-xs text-zinc-400 mt-1">Envie vídeos em MP4, adicione fotos à galeria e configure os links de streaming e redes sociais.</p>
         </div>
 
         <div class="bg-brand-cardBg border border-brand-border p-6 rounded-2xl space-y-4 text-xs">
@@ -384,11 +395,35 @@
             <input type="file" id="galleryUploadInput" accept="image/*" multiple class="w-full text-zinc-400 file:mr-2 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:bg-amber-500 file:text-black">
           </div>
           <div class="space-y-2 pt-2 border-t border-zinc-800">
-            <label class="block font-semibold text-zinc-300">Links de Streaming ("Vamos Ouvir")</label>
+            <label class="block font-semibold text-zinc-300">Links de Streaming & Redes ("Vamos Ouvir")</label>
             <input type="text" id="editSpotifyLink" placeholder="URL do Perfil no Spotify" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-2.5 text-white">
             <input type="text" id="editDeezerLink" placeholder="URL do Perfil no Deezer" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-2.5 text-white">
+            <input type="text" id="editInstagramLink" placeholder="URL do Instagram" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-2.5 text-white">
+            <input type="text" id="editTiktokLink" placeholder="URL do TikTok" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-2.5 text-white">
+            <input type="text" id="editYoutubeLink" placeholder="URL do YouTube" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-2.5 text-white">
           </div>
           <button onclick="saveArtistEdits()" class="bg-amber-500 hover:bg-amber-600 text-black font-extrabold py-3 px-6 rounded-xl shadow-md">Atualizar Mídias</button>
+        </div>
+      </div>
+
+      <!-- Tab 2.5: Eventos Fechados -->
+      <div id="tabEvents" class="dashboard-tab max-w-3xl space-y-6 hidden">
+        <div>
+          <h2 class="text-xl font-bold text-white">Gerenciamento de Eventos Fechados</h2>
+          <p class="text-xs text-zinc-400 mt-1">Cadastre as informações dos eventos que já foram fechados.</p>
+        </div>
+
+        <div class="bg-brand-cardBg border border-brand-border p-6 rounded-2xl space-y-4 text-xs">
+          <input type="text" id="eventName" placeholder="Nome do Evento / Contratante (Ex: Casamento Ana & Carlos)" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white">
+          <input type="text" id="eventDate" placeholder="Data e Horário (Ex: 20/12/2026 às 19h)" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white">
+          <input type="text" id="eventLocation" placeholder="Local / Casa de Festa" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white">
+          <input type="text" id="eventFormat" placeholder="Formato do Show (Ex: Casamentos & Cerimônias)" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white">
+          <button onclick="addEvent()" class="bg-amber-500 hover:bg-amber-600 text-black font-extrabold py-2.5 px-4 rounded-xl">Adicionar Evento Fechado</button>
+          
+          <div class="pt-2 border-t border-zinc-800">
+            <span class="block text-zinc-300 font-semibold mb-2">Eventos Cadastrados:</span>
+            <div id="eventListContainer" class="bg-zinc-900 p-3 rounded-xl border border-zinc-800 text-zinc-400 min-h-[60px] space-y-2">Nenhum evento cadastrado ainda.</div>
+          </div>
         </div>
       </div>
 
@@ -416,11 +451,12 @@
       <div id="tabTeam" class="dashboard-tab max-w-3xl space-y-6 hidden">
         <div>
           <h2 class="text-xl font-bold text-white">Gestão da Equipe de Músicos</h2>
-          <p class="text-xs text-zinc-400 mt-1">Cadastre os músicos da banda para disparar os dados do show fechado via WhatsApp.</p>
+          <p class="text-xs text-zinc-400 mt-1">Cadastre os músicos da banda (nome e instrumento separados) para disparar os dados do show fechado via WhatsApp.</p>
         </div>
 
         <div class="bg-brand-cardBg border border-brand-border p-6 rounded-2xl space-y-4 text-xs">
-          <input type="text" id="musicianName" placeholder="Nome do Músico / Instrumento" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white">
+          <input type="text" id="musicianName" placeholder="Nome do Músico (Ex: João Silva)" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white">
+          <input type="text" id="musicianInstrument" placeholder="Instrumento (Ex: Violão / Voz)" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white">
           <input type="text" id="musicianPhone" placeholder="WhatsApp (Ex: 21999999999)" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white">
           <button onclick="addMusician()" class="bg-zinc-800 hover:bg-zinc-700 text-white font-bold py-2.5 px-4 rounded-xl">Adicionar Músico</button>
           
@@ -454,56 +490,59 @@
     </main>
   </div>
 
-  <!-- ==================== MODAL DE ORÇAMENTO COM AS 7 PERGUNTAS ==================== -->
+  <!-- ==================== MODAL DE ORÇAMENTO (COM SCROLL INTERNO PARA WEB) ==================== -->
   <div id="formatModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden items-center justify-center p-4 overflow-y-auto">
-    <div class="bg-brand-cardBg border border-brand-border w-full max-w-xl rounded-2xl p-6 sm:p-8 relative my-8 shadow-2xl">
-      <button onclick="closeFormatModal()" class="absolute top-4 right-4 text-zinc-400 hover:text-white p-2"><i data-lucide="x" class="w-6 h-6"></i></button>
+    <div class="bg-brand-cardBg border border-brand-border w-full max-w-xl rounded-2xl p-6 sm:p-8 relative my-8 shadow-2xl max-h-[90vh] flex flex-col">
+      <button onclick="closeFormatModal()" class="absolute top-4 right-4 text-zinc-400 hover:text-white p-2 z-10"><i data-lucide="x" class="w-6 h-6"></i></button>
 
-      <div class="mb-6">
+      <div class="mb-4 shrink-0">
         <span class="text-amber-500 font-bold text-xs uppercase tracking-widest">Solicitar Proposta</span>
         <h3 id="modalFormatTitle" class="text-xl sm:text-2xl font-bold text-white mt-1">Formato de Show</h3>
       </div>
 
-      <form id="quoteForm" onsubmit="handleFormSubmit(event)" class="space-y-4 text-left text-xs">
-        <div>
-          <label class="block font-semibold text-zinc-300 mb-1.5">1. Data e horário do evento</label>
-          <input type="text" id="fieldDate" placeholder="Ex: 15/12 às 20h" required class="w-full bg-zinc-900 border border-zinc-700 rounded-xl px-4 py-2.5 text-white">
-        </div>
+      <!-- Container com rolagem interna para evitar que a janela estoure a tela em web -->
+      <div class="overflow-y-auto pr-2 no-scrollbar flex-1">
+        <form id="quoteForm" onsubmit="handleFormSubmit(event)" class="space-y-4 text-left text-xs">
+          <div>
+            <label class="block font-semibold text-zinc-300 mb-1.5">1. Data e horário do evento</label>
+            <input type="text" id="fieldDate" placeholder="Ex: 15/12 às 20h" required class="w-full bg-zinc-900 border border-zinc-700 rounded-xl px-4 py-2.5 text-white">
+          </div>
 
-        <div>
-          <label class="block font-semibold text-zinc-300 mb-1.5">2. Tipo de evento (aniversário, confraternização, bodas, show em bar/restaurante...)</label>
-          <input type="text" id="fieldType" placeholder="Ex: Aniversário de 40 anos" required class="w-full bg-zinc-900 border border-zinc-700 rounded-xl px-4 py-2.5 text-white">
-        </div>
+          <div>
+            <label class="block font-semibold text-zinc-300 mb-1.5">2. Tipo de evento (aniversário, confraternização, bodas, show em bar/restaurante...)</label>
+            <input type="text" id="fieldType" placeholder="Ex: Aniversário de 40 anos" required class="w-full bg-zinc-900 border border-zinc-700 rounded-xl px-4 py-2.5 text-white">
+          </div>
 
-        <div>
-          <label class="block font-semibold text-zinc-300 mb-1.5">3. Público estimado (aprox. qtas pessoas)</label>
-          <input type="text" id="fieldPublic" placeholder="Ex: Aprox. 80 pessoas" required class="w-full bg-zinc-900 border border-zinc-700 rounded-xl px-4 py-2.5 text-white">
-        </div>
+          <div>
+            <label class="block font-semibold text-zinc-300 mb-1.5">3. Público estimado (aprox. qtas pessoas)</label>
+            <input type="text" id="fieldPublic" placeholder="Ex: Aprox. 80 pessoas" required class="w-full bg-zinc-900 border border-zinc-700 rounded-xl px-4 py-2.5 text-white">
+          </div>
 
-        <div>
-          <label class="block font-semibold text-zinc-300 mb-1.5">4. Local (bairro e/ou nome da casa de festa)</label>
-          <input type="text" id="fieldLocation" placeholder="Ex: Campo Grande, RJ" required class="w-full bg-zinc-900 border border-zinc-700 rounded-xl px-4 py-2.5 text-white">
-        </div>
+          <div>
+            <label class="block font-semibold text-zinc-300 mb-1.5">4. Local (bairro e/ou nome da casa de festa)</label>
+            <input type="text" id="fieldLocation" placeholder="Ex: Campo Grande, RJ" required class="w-full bg-zinc-900 border border-zinc-700 rounded-xl px-4 py-2.5 text-white">
+          </div>
 
-        <div>
-          <label class="block font-semibold text-zinc-300 mb-1.5">5. Estilo do show: mais animado ou mais intimista?</label>
-          <input type="text" id="fieldStyle" placeholder="Ex: Começar intimista e animar depois" required class="w-full bg-zinc-900 border border-zinc-700 rounded-xl px-4 py-2.5 text-white">
-        </div>
+          <div>
+            <label class="block font-semibold text-zinc-300 mb-1.5">5. Estilo do show: mais animado ou mais intimista?</label>
+            <input type="text" id="fieldStyle" placeholder="Ex: Começar intimista e animar depois" required class="w-full bg-zinc-900 border border-zinc-700 rounded-xl px-4 py-2.5 text-white">
+          </div>
 
-        <div>
-          <label class="block font-semibold text-zinc-300 mb-1.5">6. Tem algum gênero que gostaria de priorizar ou evitar?</label>
-          <input type="text" id="fieldRepertoire" placeholder="Ex: Priorizar MPB e Pop Rock" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl px-4 py-2.5 text-white">
-        </div>
+          <div>
+            <label class="block font-semibold text-zinc-300 mb-1.5">6. Tem algum gênero que gostaria de priorizar ou evitar?</label>
+            <input type="text" id="fieldRepertoire" placeholder="Ex: Priorizar MPB e Pop Rock" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl px-4 py-2.5 text-white">
+          </div>
 
-        <div>
-          <label class="block font-semibold text-zinc-300 mb-1.5">7. Sobre a estrutura do evento: o local já oferece sonorização ou a produção fica responsável?</label>
-          <input type="text" id="fieldSound" placeholder="Ex: Preciso que leve a estrutura de som" required class="w-full bg-zinc-900 border border-zinc-700 rounded-xl px-4 py-2.5 text-white">
-        </div>
+          <div>
+            <label class="block font-semibold text-zinc-300 mb-1.5">7. Sobre a estrutura do evento: o local já oferece sonorização ou a produção fica responsável?</label>
+            <input type="text" id="fieldSound" placeholder="Ex: Preciso que leve a estrutura de som" required class="w-full bg-zinc-900 border border-zinc-700 rounded-xl px-4 py-2.5 text-white">
+          </div>
 
-        <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-500 text-black font-extrabold py-3.5 px-4 rounded-xl text-sm flex items-center justify-center gap-2 mt-6 shadow-lg">
-          <i data-lucide="message-square" class="w-5 h-5"></i> Enviar Proposta via WhatsApp
-        </button>
-      </form>
+          <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-500 text-black font-extrabold py-3.5 px-4 rounded-xl text-sm flex items-center justify-center gap-2 mt-6 shadow-lg">
+            <i data-lucide="message-square" class="w-5 h-5"></i> Enviar Proposta via WhatsApp
+          </button>
+        </form>
+      </div>
     </div>
   </div>
 
@@ -541,9 +580,28 @@
       document.getElementById('displaySubtitle2').innerText = document.getElementById('editSubtitle2').value;
       document.getElementById('displayBio').innerText = document.getElementById('editBio').value;
 
-      const fileInput = document.getElementById('mp4UploadInput');
+      // Hero Video (MP4 or YouTube)
+      const fileInput = document.getElementById('heroVideoMp4Input');
+      const ytInput = document.getElementById('heroVideoYoutubeInput').value;
+      const heroContainer = document.getElementById('displayHeroVideoContainer');
+
       if (fileInput.files && fileInput.files[0]) {
         const videoUrl = URL.createObjectURL(fileInput.files[0]);
+        heroContainer.innerHTML = `<video controls class="w-full h-full object-cover" src="${videoUrl}"></video>`;
+      } else if (ytInput) {
+        let embedUrl = ytInput;
+        if (ytInput.includes('watch?v=')) {
+          embedUrl = ytInput.replace('watch?v=', 'embed/');
+        } else if (ytInput.includes('youtu.be/')) {
+          embedUrl = ytInput.replace('youtu.be/', 'www.youtube.com/embed/');
+        }
+        heroContainer.innerHTML = `<iframe class="w-full h-full" src="${embedUrl}" frameborder="0" allowfullscreen></iframe>`;
+      }
+
+      // Na Pratica MP4 Upload
+      const mp4Input = document.getElementById('mp4UploadInput');
+      if (mp4Input.files && mp4Input.files[0]) {
+        const videoUrl = URL.createObjectURL(mp4Input.files[0]);
         document.getElementById('publicMp4Container').innerHTML = `
           <div class="rounded-xl overflow-hidden border border-brand-border bg-black aspect-video">
             <video controls class="w-full h-full object-cover" src="${videoUrl}"></video>
@@ -551,13 +609,63 @@
         `;
       }
 
+      // Streaming & Social Links
       const spotLink = document.getElementById('editSpotifyLink').value;
       const deezLink = document.getElementById('editDeezerLink').value;
+      const instaLink = document.getElementById('editInstagramLink').value;
+      const tiktokLink = document.getElementById('editTiktokLink').value;
+      const ytLink = document.getElementById('editYoutubeLink').value;
+
       if(spotLink) document.getElementById('linkSpotify').href = spotLink;
       if(deezLink) document.getElementById('linkDeezer').href = deezLink;
 
+      const btnInsta = document.getElementById('linkInstagram');
+      if(instaLink) {
+        btnInsta.href = instaLink;
+        btnInsta.classList.remove('hidden');
+        document.getElementById('headerInstagram').href = instaLink;
+      }
+
+      const btnTiktok = document.getElementById('linkTiktok');
+      if(tiktokLink) {
+        btnTiktok.href = tiktokLink;
+        btnTiktok.classList.remove('hidden');
+      }
+
+      const btnYt = document.getElementById('linkYoutubeProfile');
+      if(ytLink) {
+        btnYt.href = ytLink;
+        btnYt.classList.remove('hidden');
+      }
+
       alert('Alterações salvas com sucesso!');
       toggleMode();
+    }
+
+    let eventsList = [];
+    function addEvent() {
+      const name = document.getElementById('eventName').value;
+      const date = document.getElementById('eventDate').value;
+      const location = document.getElementById('eventLocation').value;
+      const format = document.getElementById('eventFormat').value;
+
+      if(!name || !date) { alert('Preencha ao menos o nome e a data do evento.'); return; }
+      eventsList.push({ name, date, location, format });
+      
+      document.getElementById('eventName').value = '';
+      document.getElementById('eventDate').value = '';
+      document.getElementById('eventLocation').value = '';
+      document.getElementById('eventFormat').value = '';
+
+      document.getElementById('eventListContainer').innerHTML = eventsList.map((ev, idx) => `
+        <div class="p-2.5 bg-zinc-950 rounded-lg border border-zinc-800 text-xs">
+          <strong class="text-white">${idx + 1}. ${ev.name}</strong><br>
+          📅 ${ev.date} | 📍 ${ev.location || 'Local não informado'} | 🎵 ${ev.format || 'Geral'}
+        </div>
+      `).join('');
+
+      document.getElementById('dashEventCount').innerText = eventsList.length;
+      alert('Evento cadastrado com sucesso!');
     }
 
     let currentSelectedFormat = '';
@@ -601,12 +709,16 @@
     let musicians = [];
     function addMusician() {
       const name = document.getElementById('musicianName').value;
+      const instrument = document.getElementById('musicianInstrument').value;
       const phone = document.getElementById('musicianPhone').value;
-      if(!name || !phone) { alert('Preencha nome e telefone.'); return; }
-      musicians.push({ name, phone });
+      if(!name || !phone) { alert('Preencha o nome e o telefone do músico.'); return; }
+      musicians.push({ name, instrument, phone });
+      
       document.getElementById('musicianName').value = '';
+      document.getElementById('musicianInstrument').value = '';
       document.getElementById('musicianPhone').value = '';
-      document.getElementById('musicianList').innerHTML = musicians.map(m => `• ${m.name} (${m.phone})`).join('<br>');
+
+      document.getElementById('musicianList').innerHTML = musicians.map(m => `• ${m.name} (${m.instrument || 'Músico'}) - ${m.phone}`).join('<br>');
     }
 
     function dispatchShowToBand() {
