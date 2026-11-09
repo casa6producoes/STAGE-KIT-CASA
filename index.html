@@ -41,10 +41,10 @@
   <header class="fixed top-0 left-0 w-full z-50 bg-[#09090B]/90 backdrop-blur-header border-b border-brand-border">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
       
-      <!-- Logo "simbolo casa 6.jpeg" -->
+      <!-- Logo SIMBOLO CASA 6.jpg ao lado do StageKit -->
       <a href="#hero" class="flex items-center gap-3 group">
         <div class="w-10 h-10 rounded-xl bg-white overflow-hidden flex items-center justify-center p-0.5 shadow-md group-hover:scale-105 transition-transform duration-300">
-          <img src="simbolo casa 6.jpeg" alt="Casa 6 Produções" class="w-full h-full object-contain rounded-lg" onerror="this.src='https://via.placeholder.com/40?text=C6'" />
+          <img src="SIMBOLO CASA 6.jpg" alt="Casa 6 Produções" class="w-full h-full object-contain rounded-lg" onerror="this.src='https://via.placeholder.com/40?text=C6'" />
         </div>
         <div>
           <span class="block text-white font-bold text-lg leading-none tracking-wide">STAGEKIT</span>
@@ -81,9 +81,10 @@
         A TRILHA SONORA PERFEITA PARA O SEU MOMENTO.
       </h1>
 
-      <p id="displaySubtitle" class="text-base sm:text-lg text-zinc-400 max-w-3xl mx-auto leading-relaxed mb-10">
-        Já pensou em transformar o seu evento em uma experiência inesquecível, com uma trilha sonora executada sob medida e zero dor de cabeça com a produção?
-      </p>
+      <div class="text-base sm:text-lg text-zinc-400 max-w-3xl mx-auto leading-relaxed mb-10 space-y-3 text-left sm:text-center">
+        <p id="displaySubtitle1">Já pensou em transformar o seu evento em uma experiência inesquecível, com uma trilha sonora executada sob medida e zero dor de cabeça com a produção?</p>
+        <p id="displaySubtitle2" class="text-sm text-zinc-400">Do clima intimista de um acústico à energia de uma apresentação completa: repertório refinado, som de alta qualidade e o profissionalismo que o seu momento exige.</p>
+      </div>
 
       <div class="w-full max-w-4xl mx-auto rounded-2xl overflow-hidden border border-brand-border shadow-2xl bg-brand-cardBg aspect-video">
         <iframe id="displayHeroVideo" class="w-full h-full" src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allowfullscreen></iframe>
@@ -282,7 +283,10 @@
         </div>
 
         <nav class="space-y-1">
-          <button onclick="switchTab('tabBio')" id="btnTabBio" class="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-xs font-semibold bg-amber-500/10 text-amber-400 border border-amber-500/30 transition-all">
+          <button onclick="switchTab('tabDashboard')" id="btnTabDashboard" class="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-xs font-semibold bg-amber-500/10 text-amber-400 border border-amber-500/30 transition-all">
+            <i data-lucide="layout-dashboard" class="w-4 h-4"></i> Dashboard
+          </button>
+          <button onclick="switchTab('tabBio')" id="btnTabBio" class="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-xs font-semibold text-zinc-400 hover:bg-zinc-800 hover:text-white transition-all">
             <i data-lucide="user" class="w-4 h-4"></i> Perfil & Bio
           </button>
           <button onclick="switchTab('tabMedia')" id="btnTabMedia" class="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-xs font-semibold text-zinc-400 hover:bg-zinc-800 hover:text-white transition-all">
@@ -310,8 +314,29 @@
     <!-- Conteúdo do Painel Lateral -->
     <main class="flex-1 p-6 sm:p-10 overflow-y-auto">
       
+      <!-- Tab 0: Dashboard (Novo) -->
+      <div id="tabDashboard" class="dashboard-tab max-w-4xl space-y-6">
+        <div>
+          <h2 class="text-xl font-bold text-white">Dashboard Geral</h2>
+          <p class="text-xs text-zinc-400 mt-1">Visão geral de pagamentos, shows agendados e métricas do seu Press Kit.</p>
+        </div>
+
+        <div class="grid sm:grid-cols-2 gap-4">
+          <div class="bg-brand-cardBg border border-brand-border p-6 rounded-2xl space-y-2">
+            <span class="text-xs text-zinc-400 uppercase font-semibold">Shows Agendados</span>
+            <p class="text-2xl font-bold text-white">0</p>
+            <p class="text-[11px] text-emerald-400">Próximos eventos sincronizados.</p>
+          </div>
+          <div class="bg-brand-cardBg border border-brand-border p-6 rounded-2xl space-y-2">
+            <span class="text-xs text-zinc-400 uppercase font-semibold">Pagamentos & Cachês</span>
+            <p class="text-2xl font-bold text-amber-500">R$ 0,00</p>
+            <p class="text-[11px] text-zinc-500">Histórico financeiro em breve.</p>
+          </div>
+        </div>
+      </div>
+
       <!-- Tab 1: Perfil & Bio -->
-      <div id="tabBio" class="dashboard-tab max-w-3xl space-y-6">
+      <div id="tabBio" class="dashboard-tab max-w-3xl space-y-6 hidden">
         <div>
           <h2 class="text-xl font-bold text-white">Editar Perfil, Bio e Textos da Hero</h2>
           <p class="text-xs text-zinc-400 mt-1">Atualize as informações exibidas no topo e na biografia do seu Press Kit.</p>
@@ -327,8 +352,12 @@
             <input type="text" id="editTitle" value="A TRILHA SONORA PERFEITA PARA O SEU MOMENTO." class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white">
           </div>
           <div>
-            <label class="block font-semibold text-zinc-300 mb-1">Subtítulo</label>
-            <textarea id="editSubtitle" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white h-20">Já pensou em transformar o seu evento em uma experiência inesquecível...</textarea>
+            <label class="block font-semibold text-zinc-300 mb-1">Primeiro Parágrafo (Subtítulo)</label>
+            <textarea id="editSubtitle1" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white h-20">Já pensou em transformar o seu evento em uma experiência inesquecível, com uma trilha sonora executada sob medida e zero dor de cabeça com a produção?</textarea>
+          </div>
+          <div>
+            <label class="block font-semibold text-zinc-300 mb-1">Segundo Parágrafo (Descrição de Apoio)</label>
+            <textarea id="editSubtitle2" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white h-20">Do clima intimista de um acústico à energia de uma apresentação completa: repertório refinado, som de alta qualidade e o profissionalismo que o seu momento exige.</textarea>
           </div>
           <div>
             <label class="block font-semibold text-zinc-300 mb-1">Biografia do Artista</label>
@@ -425,7 +454,7 @@
     </main>
   </div>
 
-  <!-- ==================== MODAL DE ORÇAMENTO ==================== -->
+  <!-- ==================== MODAL DE ORÇAMENTO COM AS 7 PERGUNTAS ==================== -->
   <div id="formatModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden items-center justify-center p-4 overflow-y-auto">
     <div class="bg-brand-cardBg border border-brand-border w-full max-w-xl rounded-2xl p-6 sm:p-8 relative my-8 shadow-2xl">
       <button onclick="closeFormatModal()" class="absolute top-4 right-4 text-zinc-400 hover:text-white p-2"><i data-lucide="x" class="w-6 h-6"></i></button>
@@ -437,29 +466,42 @@
 
       <form id="quoteForm" onsubmit="handleFormSubmit(event)" class="space-y-4 text-left text-xs">
         <div>
-          <label class="block font-semibold text-zinc-300 mb-1.5">1. Verificar Disponibilidade de Data e Horário</label>
-          <input type="date" id="fieldDate" required class="w-full bg-zinc-900 border border-zinc-700 rounded-xl px-4 py-2.5 text-white">
-          <p class="text-[10px] text-emerald-400 mt-1">✓ Selecione o dia para checar se a agenda está livre.</p>
+          <label class="block font-semibold text-zinc-300 mb-1.5">1. Data e horário do evento</label>
+          <input type="text" id="fieldDate" placeholder="Ex: 15/12 às 20h" required class="w-full bg-zinc-900 border border-zinc-700 rounded-xl px-4 py-2.5 text-white">
         </div>
 
         <div>
-          <label class="block font-semibold text-zinc-300 mb-1.5">2. Tipo de evento</label>
-          <select id="fieldType" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl px-4 py-2.5 text-white">
-            <option value="Aniversário">Aniversário</option>
-            <option value="Casamento / Cerimônia">Casamento / Cerimônia</option>
-            <option value="Confraternização / Empresa">Confraternização / Empresa</option>
-            <option value="Bar / Restaurante">Bar / Restaurante</option>
-            <option value="Outro">Outro</option>
-          </select>
+          <label class="block font-semibold text-zinc-300 mb-1.5">2. Tipo de evento (aniversário, confraternização, bodas, show em bar/restaurante...)</label>
+          <input type="text" id="fieldType" placeholder="Ex: Aniversário de 40 anos" required class="w-full bg-zinc-900 border border-zinc-700 rounded-xl px-4 py-2.5 text-white">
         </div>
 
         <div>
-          <label class="block font-semibold text-zinc-300 mb-1.5">3. Local (Bairro e/ou casa de festa)</label>
+          <label class="block font-semibold text-zinc-300 mb-1.5">3. Público estimado (aprox. qtas pessoas)</label>
+          <input type="text" id="fieldPublic" placeholder="Ex: Aprox. 80 pessoas" required class="w-full bg-zinc-900 border border-zinc-700 rounded-xl px-4 py-2.5 text-white">
+        </div>
+
+        <div>
+          <label class="block font-semibold text-zinc-300 mb-1.5">4. Local (bairro e/ou nome da casa de festa)</label>
           <input type="text" id="fieldLocation" placeholder="Ex: Campo Grande, RJ" required class="w-full bg-zinc-900 border border-zinc-700 rounded-xl px-4 py-2.5 text-white">
         </div>
 
+        <div>
+          <label class="block font-semibold text-zinc-300 mb-1.5">5. Estilo do show: mais animado ou mais intimista?</label>
+          <input type="text" id="fieldStyle" placeholder="Ex: Começar intimista e animar depois" required class="w-full bg-zinc-900 border border-zinc-700 rounded-xl px-4 py-2.5 text-white">
+        </div>
+
+        <div>
+          <label class="block font-semibold text-zinc-300 mb-1.5">6. Tem algum gênero que gostaria de priorizar ou evitar?</label>
+          <input type="text" id="fieldRepertoire" placeholder="Ex: Priorizar MPB e Pop Rock" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl px-4 py-2.5 text-white">
+        </div>
+
+        <div>
+          <label class="block font-semibold text-zinc-300 mb-1.5">7. Sobre a estrutura do evento: o local já oferece sonorização ou a produção fica responsável?</label>
+          <input type="text" id="fieldSound" placeholder="Ex: Preciso que leve a estrutura de som" required class="w-full bg-zinc-900 border border-zinc-700 rounded-xl px-4 py-2.5 text-white">
+        </div>
+
         <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-500 text-black font-extrabold py-3.5 px-4 rounded-xl text-sm flex items-center justify-center gap-2 mt-6 shadow-lg">
-          <i data-lucide="message-square" class="w-5 h-5"></i> Enviar Orçamento via WhatsApp
+          <i data-lucide="message-square" class="w-5 h-5"></i> Enviar Proposta via WhatsApp
         </button>
       </form>
     </div>
@@ -479,7 +521,6 @@
       document.getElementById('artistDashboard').classList.toggle('hidden', !isAdminMode);
     }
 
-    // Alternância de Abas na Área do Artista
     function switchTab(tabId) {
       document.querySelectorAll('.dashboard-tab').forEach(el => el.classList.add('hidden'));
       document.getElementById(tabId).classList.remove('hidden');
@@ -496,7 +537,8 @@
     function saveArtistEdits() {
       document.getElementById('displayBadge').innerText = document.getElementById('editBadge').value;
       document.getElementById('displayTitle').innerText = document.getElementById('editTitle').value;
-      document.getElementById('displaySubtitle').innerText = document.getElementById('editSubtitle').value;
+      document.getElementById('displaySubtitle1').innerText = document.getElementById('editSubtitle1').value;
+      document.getElementById('displaySubtitle2').innerText = document.getElementById('editSubtitle2').value;
       document.getElementById('displayBio').innerText = document.getElementById('editBio').value;
 
       const fileInput = document.getElementById('mp4UploadInput');
@@ -536,13 +578,21 @@
       const phone = "5521989368930";
       const date = document.getElementById('fieldDate').value;
       const type = document.getElementById('fieldType').value;
+      const publicEst = document.getElementById('fieldPublic').value;
       const location = document.getElementById('fieldLocation').value;
+      const style = document.getElementById('fieldStyle').value;
+      const repertoire = document.getElementById('fieldRepertoire').value;
+      const sound = document.getElementById('fieldSound').value;
 
-      const text = `Olá, Matheus! Gostaria de consultar disponibilidade e orçar o formato *${currentSelectedFormat}*.\n\n` +
-        `🗓️ *Data Desejada:* ${date}\n` +
-        `🎉 *Tipo:* ${type}\n` +
-        `📍 *Local:* ${location}\n\n` +
-        `Aguardo retorno sobre a agenda!`;
+      const text = `Olá, Matheus! Gostaria de um orçamento para o formato *${currentSelectedFormat}*. Seguem os detalhes:\n\n` +
+        `1️⃣ *Data/Horário:* ${date}\n` +
+        `2️⃣ *Tipo:* ${type}\n` +
+        `3️⃣ *Público:* ${publicEst}\n` +
+        `4️⃣ *Local:* ${location}\n` +
+        `5️⃣ *Estilo:* ${style}\n` +
+        `6️⃣ *Repertório:* ${repertoire}\n` +
+        `7️⃣ *Som:* ${sound}\n\n` +
+        `Aguardo retorno!`;
 
       window.open(`https://wa.me/${phone}?text=${encodeURIComponent(text)}`, '_blank');
       closeFormatModal();
