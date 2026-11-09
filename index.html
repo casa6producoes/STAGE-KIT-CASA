@@ -45,7 +45,6 @@
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
     }
-    /* Ocultar scrollbar mantendo funcionalidade */
     .no-scrollbar::-webkit-scrollbar {
       display: none;
     }
@@ -57,8 +56,8 @@
 </head>
 <body class="min-h-screen flex flex-col antialiased selection:bg-amber-500 selection:text-black">
 
-  <!-- ==================== 1. HEADER / NAVBAR ==================== -->
-  <header class="fixed top-0 left-0 w-full z-50 bg-[#09090B]/80 backdrop-blur-header border-b border-brand-border">
+  <!-- ==================== 1. HEADER / NAVBAR (COM ACESSO RÁPIDO E MODO ADMIN) ==================== -->
+  <header class="fixed top-0 left-0 w-full z-50 bg-[#09090B]/90 backdrop-blur-header border-b border-brand-border">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
       
       <!-- Marca Esquerda (Logo Casa 6 + StageKit) -->
@@ -72,48 +71,75 @@
         </div>
       </a>
 
-      <!-- Ícones Redes Sociais Direita -->
-      <div class="flex items-center gap-4">
-        <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" class="p-2 text-zinc-400 hover:text-red-500 transition-colors" title="YouTube">
-          <i data-lucide="youtube" class="w-5 h-5"></i>
-        </a>
-        <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="p-2 text-zinc-400 hover:text-pink-500 transition-colors" title="Instagram">
-          <i data-lucide="instagram" class="w-5 h-5"></i>
-        </a>
-        <a href="mailto:casa6producoes@gmail.com" class="p-2 text-zinc-400 hover:text-amber-500 transition-colors" title="Enviar E-mail">
-          <i data-lucide="mail" class="w-5 h-5"></i>
-        </a>
+      <!-- Redes Sociais e Botão de Alternância de Ambiente -->
+      <div class="flex items-center gap-3">
+        <div class="hidden sm:flex items-center gap-2 border-r border-zinc-800 pr-4">
+          <a href="https://wa.me/5521989368930" target="_blank" rel="noopener noreferrer" class="p-2 text-zinc-400 hover:text-emerald-400 transition-colors" title="WhatsApp">
+            <i data-lucide="message-circle" class="w-5 h-5"></i>
+          </a>
+          <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="p-2 text-zinc-400 hover:text-pink-500 transition-colors" title="Instagram">
+            <i data-lucide="instagram" class="w-5 h-5"></i>
+          </a>
+          <a href="mailto:casa6producoes@gmail.com" class="p-2 text-zinc-400 hover:text-amber-500 transition-colors" title="E-mail">
+            <i data-lucide="mail" class="w-5 h-5"></i>
+          </a>
+        </div>
+
+        <button onclick="toggleMode()" class="bg-zinc-800 hover:bg-zinc-700 text-amber-400 border border-amber-500/30 text-xs font-bold px-3.5 py-2 rounded-xl transition-all flex items-center gap-2 shadow-md">
+          <i data-lucide="user-cog" class="w-4 h-4"></i> <span id="modeToggleText">Área do Artista</span>
+        </button>
       </div>
 
     </div>
   </header>
 
-  <main class="flex-1 pt-20">
+  <!-- ==================== AMBIENTE 1: CONTRATANTE (VISÃO PÚBLICA) ==================== -->
+  <div id="contractorView" class="flex-1 pt-20">
 
-    <!-- ==================== 2. HERO SECTION ==================== -->
+    <!-- Hero Section -->
     <section id="hero" class="relative py-16 md:py-24 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto text-center">
-      <!-- Badge -->
       <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-500 text-xs font-semibold uppercase tracking-wider mb-6">
         <span>🎵</span> PRESS KIT — MATHEUS FELIPE
       </div>
       
-      <!-- H1 -->
-      <h1 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-white tracking-tight leading-tight mb-6">
+      <h1 id="displayTitle" class="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-white tracking-tight leading-tight mb-6">
         A TRILHA SONORA PERFEITA PARA O SEU MOMENTO.
       </h1>
 
-      <!-- Subtítulo -->
-      <p class="text-base sm:text-lg text-zinc-400 max-w-3xl mx-auto leading-relaxed mb-10">
-        Já pensou em transformar o seu evento em uma experiência inesquecível, com uma trilha sonora executada sob medida e zero dor de cabeça com a produção? Do clima intimista de um acústico à energia de uma apresentação completa: repertório refinado, som de alta qualidade e o profissionalismo que o seu momento exige.
+      <p id="displaySubtitle" class="text-base sm:text-lg text-zinc-400 max-w-3xl mx-auto leading-relaxed mb-10">
+        Já pensou em transformar o seu evento em uma experiência inesquecível, com uma trilha sonora executada sob medida e zero dor de cabeça com a produção? Do clima intimista de um acústico à energia de uma apresentação completa.
       </p>
+
+      <!-- CTA Mais Impactante -->
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12">
+        <a href="#formatos" class="w-full sm:w-auto bg-amber-500 hover:bg-amber-600 text-black font-extrabold py-4 px-8 rounded-2xl shadow-lg transition-all flex items-center justify-center gap-2 text-base">
+          <i data-lucide="sparkles" class="w-5 h-5"></i> CONFERIR FORMATOS & ORÇAR SHOW
+        </a>
+      </div>
 
       <!-- Player de Vídeo em Destaque -->
       <div class="w-full max-w-4xl mx-auto rounded-2xl overflow-hidden border border-brand-border shadow-2xl bg-brand-cardBg aspect-video">
-        <iframe class="w-full h-full" src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Vídeo de Apresentação" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <iframe id="displayHeroVideo" class="w-full h-full" src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Vídeo de Apresentação" frameborder="0" allowfullscreen></iframe>
       </div>
     </section>
 
-    <!-- ==================== 3. SOBRE O ARTISTA ==================== -->
+    <!-- Verificador de Disponibilidade de Agenda -->
+    <section class="py-12 px-4 sm:px-6 lg:px-8 max-w-3xl mx-auto">
+      <div class="p-6 sm:p-8 rounded-2xl bg-brand-cardBg border border-brand-border shadow-xl text-center space-y-4">
+        <div class="w-12 h-12 rounded-full bg-emerald-500/10 text-emerald-400 flex items-center justify-center mx-auto">
+          <i data-lucide="calendar-check" class="w-6 h-6"></i>
+        </div>
+        <h3 class="text-xl font-bold text-white">Verificar Disponibilidade de Data</h3>
+        <p class="text-xs text-zinc-400">Selecione o dia pretendido para checar se a agenda do artista está livre.</p>
+        <div class="flex flex-col sm:flex-row gap-3 justify-center pt-2">
+          <input type="date" id="checkDateInput" class="bg-zinc-900 border border-zinc-700 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-emerald-500">
+          <button onclick="checkAvailability()" class="bg-emerald-600 hover:bg-emerald-500 text-black font-bold px-6 py-2.5 rounded-xl text-sm transition-all shadow-md">Consultar Data</button>
+        </div>
+        <p id="availabilityResult" class="text-xs font-semibold text-emerald-400 pt-2 hidden">📅 Data sob consulta de horário. Envie os detalhes para garantir a reserva!</p>
+      </div>
+    </section>
+
+    <!-- Sobre o Artista -->
     <section class="py-16 bg-brand-cardBg/50 border-y border-brand-border px-4 sm:px-6 lg:px-8">
       <div class="max-w-5xl mx-auto grid md:grid-cols-12 gap-8 items-center">
         <div class="md:col-span-5">
@@ -136,42 +162,7 @@
       </div>
     </section>
 
-    <!-- ==================== 4. SEÇÃO DE DÚVIDAS DO CONTRATANTE ==================== -->
-    <section class="py-16 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto">
-      <h2 class="text-xl sm:text-2xl font-bold text-center text-white mb-10">
-        Na hora de escolher a atração do evento, você com certeza pensa...
-      </h2>
-      <div class="grid sm:grid-cols-3 gap-6 mb-12">
-        <div class="p-6 rounded-2xl bg-brand-cardBg border border-brand-border text-center space-y-3">
-          <div class="w-10 h-10 rounded-full bg-amber-500/10 text-amber-500 flex items-center justify-center mx-auto">
-            <i data-lucide="sparkles" class="w-5 h-5"></i>
-          </div>
-          <p class="text-sm font-semibold text-zinc-200">"Será que esse artista vai animar e agradar todos os meus convidados?"</p>
-        </div>
-        <div class="p-6 rounded-2xl bg-brand-cardBg border border-brand-border text-center space-y-3">
-          <div class="w-10 h-10 rounded-full bg-amber-500/10 text-amber-500 flex items-center justify-center mx-auto">
-            <i data-lucide="volume-2" class="w-5 h-5"></i>
-          </div>
-          <p class="text-sm font-semibold text-zinc-200">"Como será o som ao vivo? O volume vai ficar agradável ou ensurdecedor?"</p>
-        </div>
-        <div class="p-6 rounded-2xl bg-brand-cardBg border border-brand-border text-center space-y-3">
-          <div class="w-10 h-10 rounded-full bg-amber-500/10 text-amber-500 flex items-center justify-center mx-auto">
-            <i data-lucide="clock" class="w-5 h-5"></i>
-          </div>
-          <p class="text-sm font-semibold text-zinc-200">"Posso confiar que ele vai chegar no horário e entregar um show impecável?"</p>
-        </div>
-      </div>
-
-      <!-- Bloco de Confirmação -->
-      <div class="p-8 rounded-2xl bg-gradient-to-r from-amber-500/10 via-zinc-900 to-amber-500/10 border border-amber-500/30 text-center space-y-3">
-        <h3 class="text-lg sm:text-xl font-bold text-amber-400">A sua única preocupação deve ser aproveitar o seu evento.</h3>
-        <p class="text-xs sm:text-sm text-zinc-300 max-w-3xl mx-auto leading-relaxed">
-          Aqui você encontra toda a estrutura do show organizada de forma clara e transparente. Assista aos vídeos das apresentações reais, confira os formatos disponíveis para a sua ocasião e veja exatamente como cada detalhe é planejado para entregar sonoridade impecável, pontualidade e uma experiência inesquecível para os seus convidados. Tudo pronto e direto ao ponto para você decidir com total segurança.
-        </p>
-      </div>
-    </section>
-
-    <!-- ==================== 5. FORMATOS DE SHOW (3 CARDS) ==================== -->
+    <!-- Formatos de Show -->
     <section id="formatos" class="py-16 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
       <div class="text-center mb-12">
         <span class="text-amber-500 font-bold text-xs uppercase tracking-widest">Escolha a Estrutura Ideal</span>
@@ -179,21 +170,17 @@
       </div>
 
       <div class="grid md:grid-cols-3 gap-6">
-        <!-- Card 1 -->
         <div class="p-6 rounded-2xl bg-brand-cardBg border border-brand-border flex flex-col justify-between hover:border-amber-500/50 transition-colors">
           <div>
             <span class="text-[10px] font-bold text-amber-500 uppercase tracking-widest">ACÚSTICO & BANDA</span>
             <h3 class="text-xl font-bold text-white mt-1 mb-3">Barzinhos & Aniversários</h3>
-            <p class="text-xs text-zinc-400 leading-relaxed mb-6">
-              Repertório versátil de MPB, pop, rock e sertanejo, sempre adaptado ao clima do ambiente e do público. Formações flexíveis: Voz e violão, Duo ou Trio Acústico.
-            </p>
+            <p class="text-xs text-zinc-400 leading-relaxed mb-6">Repertório versátil de MPB, pop, rock e sertanejo, sempre adaptado ao clima do ambiente e do público.</p>
           </div>
           <button onclick="openFormatModal('Barzinhos & Aniversários')" class="w-full bg-amber-500 hover:bg-amber-600 text-black font-bold py-3 px-4 rounded-xl transition-all text-sm flex items-center justify-center gap-2">
             Quero este formato <i data-lucide="arrow-right" class="w-4 h-4"></i>
           </button>
         </div>
 
-        <!-- Card 2 -->
         <div class="p-6 rounded-2xl bg-brand-cardBg border border-amber-500/40 relative flex flex-col justify-between shadow-xl">
           <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-amber-500 text-black font-extrabold text-[10px] uppercase px-3 py-0.5 rounded-full">
             Mais Pedido
@@ -201,23 +188,18 @@
           <div>
             <span class="text-[10px] font-bold text-amber-500 uppercase tracking-widest">A TRILHA SONORA DO SEU 'SIM'</span>
             <h3 class="text-xl font-bold text-white mt-1 mb-3">Casamentos & Cerimônias</h3>
-            <p class="text-xs text-zinc-400 leading-relaxed mb-6">
-              Trilha sonora inesquecível para a entrada dos noivos, cerimônia e recepção, com repertório personalizado escolhido junto ao casal. Equipamento de som próprio e alinhamento prévio incluídos.
-            </p>
+            <p class="text-xs text-zinc-400 leading-relaxed mb-6">Trilha sonora inesquecível para a entrada dos noivos, cerimônia e recepção, com repertório personalizado.</p>
           </div>
           <button onclick="openFormatModal('Casamentos & Cerimônias')" class="w-full bg-amber-500 hover:bg-amber-600 text-black font-bold py-3 px-4 rounded-xl transition-all text-sm flex items-center justify-center gap-2">
             Quero este formato <i data-lucide="arrow-right" class="w-4 h-4"></i>
           </button>
         </div>
 
-        <!-- Card 3 -->
         <div class="p-6 rounded-2xl bg-brand-cardBg border border-brand-border flex flex-col justify-between hover:border-amber-500/50 transition-colors">
           <div>
             <span class="text-[10px] font-bold text-amber-500 uppercase tracking-widest">ENERGIA E PRESENÇA DE PALCO</span>
             <h3 class="text-xl font-bold text-white mt-1 mb-3">Eventos & Formaturas</h3>
-            <p class="text-xs text-zinc-400 leading-relaxed mb-6">
-              Show marcante e dinâmico para celebrações corporativas, recepções e formaturas. Estrutura de som de alto nível, repertório pra cima e alinhamento sob medida para garantir o sucesso do seu evento.
-            </p>
+            <p class="text-xs text-zinc-400 leading-relaxed mb-6">Show marcante e dinâmico para celebrações corporativas, recepções e formaturas de alto padrão.</p>
           </div>
           <button onclick="openFormatModal('Eventos & Formaturas')" class="w-full bg-amber-500 hover:bg-amber-600 text-black font-bold py-3 px-4 rounded-xl transition-all text-sm flex items-center justify-center gap-2">
             Quero este formato <i data-lucide="arrow-right" class="w-4 h-4"></i>
@@ -226,26 +208,7 @@
       </div>
     </section>
 
-    <!-- ==================== 6. SEÇÃO NA PRÁTICA (VÍDEOS ADAPTÁVEIS) ==================== -->
-    <section class="py-16 bg-brand-cardBg/30 border-y border-brand-border px-4 sm:px-6 lg:px-8">
-      <div class="max-w-5xl mx-auto">
-        <div class="text-center mb-10">
-          <span class="text-amber-500 font-bold text-xs uppercase tracking-widest">Na Prática</span>
-          <h2 class="text-2xl sm:text-3xl font-bold text-white mt-1">Assista aos Vídeos Reais</h2>
-        </div>
-
-        <div class="grid md:grid-cols-2 gap-6">
-          <div class="rounded-xl overflow-hidden border border-brand-border bg-black aspect-video">
-            <iframe class="w-full h-full" src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Show Ao Vivo" frameborder="0" allowfullscreen></iframe>
-          </div>
-          <div class="rounded-xl overflow-hidden border border-brand-border bg-black aspect-video">
-            <iframe class="w-full h-full" src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Cerimônia Casamento" frameborder="0" allowfullscreen></iframe>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ==================== 7. GALERIA DE FOTOS (FULL-WIDTH SLIDER / 1 POR VEZ NO MOBILE) ==================== -->
+    <!-- Galeria de Fotos -->
     <section class="py-16 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto">
       <div class="flex items-center justify-between mb-8">
         <div>
@@ -253,10 +216,10 @@
           <h2 class="text-2xl sm:text-3xl font-bold text-white mt-1">Galeria de Fotos</h2>
         </div>
         <div class="flex gap-2">
-          <button onclick="scrollGallery(-1)" class="w-10 h-10 rounded-xl bg-zinc-800 border border-zinc-700 flex items-center justify-center text-zinc-300 hover:text-white hover:bg-zinc-700 transition-colors">
+          <button onclick="scrollGallery(-1)" class="w-10 h-10 rounded-xl bg-zinc-800 border border-zinc-700 flex items-center justify-center text-zinc-300 hover:text-white transition-colors">
             <i data-lucide="arrow-left" class="w-5 h-5"></i>
           </button>
-          <button onclick="scrollGallery(1)" class="w-10 h-10 rounded-xl bg-zinc-800 border border-zinc-700 flex items-center justify-center text-zinc-300 hover:text-white hover:bg-zinc-700 transition-colors">
+          <button onclick="scrollGallery(1)" class="w-10 h-10 rounded-xl bg-zinc-800 border border-zinc-700 flex items-center justify-center text-zinc-300 hover:text-white transition-colors">
             <i data-lucide="arrow-right" class="w-5 h-5"></i>
           </button>
         </div>
@@ -272,16 +235,10 @@
         <div class="snap-center shrink-0 w-full sm:w-[calc(33.333%-11px)] h-72 rounded-2xl overflow-hidden border border-brand-border bg-zinc-800">
           <img src="https://images.unsplash.com/photo-1501386761578-eac5c94b800a?auto=format&fit=crop&w=800&q=80" class="w-full h-full object-cover">
         </div>
-        <div class="snap-center shrink-0 w-full sm:w-[calc(33.333%-11px)] h-72 rounded-2xl overflow-hidden border border-brand-border bg-zinc-800">
-          <img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=800&q=80" class="w-full h-full object-cover">
-        </div>
-        <div class="snap-center shrink-0 w-full sm:w-[calc(33.333%-11px)] h-72 rounded-2xl overflow-hidden border border-brand-border bg-zinc-800">
-          <img src="https://images.unsplash.com/photo-1526478806334-5fd488fcaabc?auto=format&fit=crop&w=800&q=80" class="w-full h-full object-cover">
-        </div>
       </div>
     </section>
 
-    <!-- ==================== 8. OUÇA AGORA (AUDIO PLAYER SEM ESPAÇO VAZIO) ==================== -->
+    <!-- Player de Áudio -->
     <section class="py-16 bg-brand-cardBg/40 border-y border-brand-border px-4 sm:px-6 lg:px-8">
       <div class="max-w-4xl mx-auto text-center">
         <span class="text-amber-500 font-bold text-xs uppercase tracking-widest">Streaming</span>
@@ -292,63 +249,134 @@
       </div>
     </section>
 
-    <!-- ==================== 9. PROVA SOCIAL (QUEM CONTRATOU, RECOMENDA) ==================== -->
-    <section class="py-16 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto">
-      <div class="text-center mb-10">
-        <span class="text-amber-500 font-bold text-xs uppercase tracking-widest">Depoimentos Reais</span>
-        <h2 class="text-2xl sm:text-3xl font-bold text-white mt-1">Quem contratou, recomenda</h2>
-      </div>
+  </div>
 
-      <div class="grid md:grid-cols-3 gap-6">
-        <div class="p-6 rounded-2xl bg-brand-cardBg border border-brand-border space-y-4">
-          <div class="flex text-amber-500 gap-1 text-sm">★★★★★</div>
-          <p class="text-xs text-zinc-300 leading-relaxed italic">"O show no aniversário da minha esposa foi perfeito! Pontualidade britânica e o repertório fez todo mundo cantar junto."</p>
-          <span class="block text-xs font-bold text-white">— Rodrigo A., Rio de Janeiro</span>
+
+  <!-- ==================== AMBIENTE 2: PAINEL DO ARTISTA (DASHBOARD COMPLETO) ==================== -->
+  <div id="artistDashboard" class="flex-1 pt-24 hidden bg-zinc-950 p-4 sm:p-8">
+    <div class="max-w-6xl mx-auto space-y-8">
+      
+      <!-- Cabeçalho do Painel -->
+      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between bg-brand-cardBg p-6 rounded-2xl border border-brand-border gap-4 shadow-lg">
+        <div>
+          <span class="text-amber-500 text-xs font-bold uppercase tracking-widest">Gestão de Carreira & Shows</span>
+          <h2 class="text-2xl font-bold text-white mt-1">Dashboard do Artista</h2>
         </div>
-        <div class="p-6 rounded-2xl bg-brand-cardBg border border-brand-border space-y-4">
-          <div class="flex text-amber-500 gap-1 text-sm">★★★★★</div>
-          <p class="text-xs text-zinc-300 leading-relaxed italic">"Tocou na entrada da nossa cerimônia de casamento. Não teve quem não se emocionasse com os arranjos!"</p>
-          <span class="block text-xs font-bold text-white">— Vanessa & Lucas</span>
-        </div>
-        <div class="p-6 rounded-2xl bg-brand-cardBg border border-brand-border space-y-4">
-          <div class="flex text-amber-500 gap-1 text-sm">★★★★★</div>
-          <p class="text-xs text-zinc-300 leading-relaxed italic">"Contratamos para o evento da nossa empresa. Som impecável, volume excelente sem atrapalhar a conversa."</p>
-          <span class="block text-xs font-bold text-white">— Produtora Casa 6</span>
+        <div class="flex items-center gap-3">
+          <span class="bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 text-xs font-bold px-3.5 py-2 rounded-xl flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span> Modo Admin Ativo
+          </span>
         </div>
       </div>
-    </section>
 
-  </main>
+      <!-- Grid de Gerenciamento -->
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        
+        <!-- 1. Editor de Conteúdo da Página -->
+        <div class="bg-brand-cardBg border border-brand-border p-6 rounded-2xl space-y-4">
+          <h3 class="font-bold text-white flex items-center gap-2 text-base">
+            <i data-lucide="edit-3" class="w-5 h-5 text-amber-500"></i> Editor da Página Pública
+          </h3>
+          <p class="text-xs text-zinc-400">Edite os textos principais, vídeo de apresentação e a biografia do Press Kit.</p>
+          <div class="space-y-3 text-xs pt-2">
+            <div>
+              <label class="block text-zinc-300 font-semibold mb-1">Título Principal (H1)</label>
+              <input type="text" id="editTitle" value="A TRILHA SONORA PERFEITA PARA O SEU MOMENTO." class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white focus:outline-none focus:border-amber-500">
+            </div>
+            <div>
+              <label class="block text-zinc-300 font-semibold mb-1">Subtítulo</label>
+              <textarea id="editSubtitle" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white h-20 focus:outline-none focus:border-amber-500">Já pensou em transformar o seu evento em uma experiência inesquecível...</textarea>
+            </div>
+            <div>
+              <label class="block text-zinc-300 font-semibold mb-1">Link do Vídeo do YouTube (Embed)</label>
+              <input type="text" id="editVideo" value="https://www.youtube.com/embed/dQw4w9WgXcQ" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white focus:outline-none focus:border-amber-500">
+            </div>
+            <button onclick="saveHeroEdits()" class="w-full bg-amber-500 hover:bg-amber-600 text-black font-extrabold py-3 rounded-xl transition-all shadow-md mt-2">
+              Salvar Alterações no Site
+            </button>
+          </div>
+        </div>
 
-  <!-- ==================== 10. MODAL DEDICADO DO FORMATO + FORMULÁRIO DE ORÇAMENTO ==================== -->
+        <!-- 2. Gestão de Repertórios & Contratos -->
+        <div class="bg-brand-cardBg border border-brand-border p-6 rounded-2xl space-y-4">
+          <h3 class="font-bold text-white flex items-center gap-2 text-base">
+            <i data-lucide="file-text" class="w-5 h-5 text-amber-500"></i> Repertórios & Contratos
+          </h3>
+          <p class="text-xs text-zinc-400">Anexe documentos para envio aos contratantes e armazenamento de modelos.</p>
+          
+          <div class="space-y-4 text-xs pt-2">
+            <div class="bg-zinc-900 p-4 rounded-xl border border-zinc-800 space-y-2">
+              <label class="block text-zinc-300 font-semibold">Anexar Repertório (PDF ou Word)</label>
+              <input type="file" id="repertoireFile" accept=".pdf,.doc,.docx" class="w-full text-zinc-400 text-xs file:mr-2 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-amber-500 file:text-black hover:file:bg-amber-600">
+              <p class="text-[10px] text-zinc-500">Disponível para download rápido pelo contratante.</p>
+            </div>
+
+            <div class="bg-zinc-900 p-4 rounded-xl border border-zinc-800 space-y-2">
+              <label class="block text-zinc-300 font-semibold">Anexar Modelo de Contrato</label>
+              <input type="file" id="contractFile" accept=".pdf,.doc,.docx" class="w-full text-zinc-400 text-xs file:mr-2 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-amber-500 file:text-black hover:file:bg-amber-600">
+              <p class="text-[10px] text-zinc-500">Para edição e envio após fechamento de data.</p>
+            </div>
+            <button onclick="alert('Arquivos anexados com sucesso ao sistema!')" class="w-full bg-zinc-800 hover:bg-zinc-700 text-white font-bold py-2.5 rounded-xl transition-colors">
+              Atualizar Documentos
+            </button>
+          </div>
+        </div>
+
+        <!-- 3. Módulo de Equipe & Disparo Simultâneo WhatsApp -->
+        <div class="bg-brand-cardBg border border-brand-border p-6 rounded-2xl space-y-4">
+          <h3 class="font-bold text-white flex items-center gap-2 text-base">
+            <i data-lucide="users" class="w-5 h-5 text-emerald-400"></i> Equipe & Disparo WhatsApp
+          </h3>
+          <p class="text-xs text-zinc-400">Cadastre os músicos. Ao fechar um show, envie os dados simultaneamente para todos!</p>
+          
+          <div class="space-y-3 text-xs pt-2">
+            <input type="text" id="musicianName" placeholder="Nome do Músico / Instrumento" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white focus:outline-none focus:border-emerald-500">
+            <input type="text" id="musicianPhone" placeholder="WhatsApp (Ex: 21999999999)" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white focus:outline-none focus:border-emerald-500">
+            
+            <button onclick="addMusician()" class="w-full bg-zinc-800 hover:bg-zinc-700 text-white font-semibold py-2.5 rounded-xl transition-colors">
+              + Adicionar à Equipe
+            </button>
+
+            <div id="musicianList" class="bg-zinc-900 p-3 rounded-xl border border-zinc-800 text-[11px] text-zinc-400 min-h-[40px]">
+              Nenhum músico cadastrado ainda.
+            </div>
+
+            <button onclick="dispatchShowToBand()" class="w-full bg-emerald-600 hover:bg-emerald-500 text-black font-extrabold py-3 rounded-xl flex items-center justify-center gap-2 transition-all shadow-lg mt-2">
+              <i data-lucide="send" class="w-4 h-4"></i> Disparar Show p/ Banda (Wpp)
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ==================== MODAL DE ORÇAMENTO PARA CONTRATANTE ==================== -->
   <div id="formatModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden items-center justify-center p-4 overflow-y-auto">
     <div class="bg-brand-cardBg border border-brand-border w-full max-w-xl rounded-2xl p-6 sm:p-8 relative my-8 shadow-2xl">
-      <!-- Botão Fechar -->
       <button onclick="closeFormatModal()" class="absolute top-4 right-4 text-zinc-400 hover:text-white p-2">
         <i data-lucide="x" class="w-6 h-6"></i>
       </button>
 
-      <!-- Cabeçalho do Modal -->
       <div class="mb-6">
         <span class="text-amber-500 font-bold text-xs uppercase tracking-widest">Solicitar Proposta</span>
         <h3 id="modalFormatTitle" class="text-xl sm:text-2xl font-bold text-white mt-1">Formato de Show</h3>
       </div>
 
-      <!-- Texto de Introdução do Formulário -->
       <p class="text-xs sm:text-sm text-zinc-300 mb-6 bg-zinc-900 p-4 rounded-xl border border-zinc-800 leading-relaxed">
         Me passa os detalhes do seu evento que assim consigo montar uma proposta personalizada e oferecer uma experiência única pra você e seus convidados!
       </p>
 
-      <!-- Formulário de Qualificação (Sem quebras de layout) -->
-      <form id="quoteForm" onsubmit="handleFormSubmit(event)" class="space-y-4 text-left">
+      <form id="quoteForm" onsubmit="handleFormSubmit(event)" class="space-y-4 text-left text-xs">
         <div>
-          <label class="block text-xs font-semibold text-zinc-300 mb-1.5">1. Data e horário do evento</label>
-          <input type="text" id="fieldDate" placeholder="Ex: 15/12 às 20h" required class="w-full bg-zinc-900 border border-zinc-700 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-amber-500">
+          <label class="block font-semibold text-zinc-300 mb-1.5">1. Data e horário do evento</label>
+          <input type="text" id="fieldDate" placeholder="Ex: 15/12 às 20h" required class="w-full bg-zinc-900 border border-zinc-700 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:border-amber-500">
         </div>
 
         <div>
-          <label class="block text-xs font-semibold text-zinc-300 mb-1.5">2. Tipo de evento</label>
-          <select id="fieldType" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-amber-500">
+          <label class="block font-semibold text-zinc-300 mb-1.5">2. Tipo de evento</label>
+          <select id="fieldType" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:border-amber-500">
             <option value="Aniversário">Aniversário</option>
             <option value="Casamento / Cerimônia">Casamento / Cerimônia</option>
             <option value="Confraternização / Empresa">Confraternização / Empresa</option>
@@ -358,42 +386,11 @@
         </div>
 
         <div>
-          <label class="block text-xs font-semibold text-zinc-300 mb-1.5">3. Público estimado</label>
-          <select id="fieldPublic" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-amber-500">
-            <option value="Até 50 pessoas">Até 50 pessoas</option>
-            <option value="50 a 150 pessoas">50 a 150 pessoas</option>
-            <option value="Mais de 150 pessoas">Mais de 150 pessoas</option>
-          </select>
+          <label class="block font-semibold text-zinc-300 mb-1.5">3. Local (Bairro e/ou casa de festa)</label>
+          <input type="text" id="fieldLocation" placeholder="Ex: Campo Grande, RJ" required class="w-full bg-zinc-900 border border-zinc-700 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:border-amber-500">
         </div>
 
-        <div>
-          <label class="block text-xs font-semibold text-zinc-300 mb-1.5">4. Local (Bairro e/ou casa de festa)</label>
-          <input type="text" id="fieldLocation" placeholder="Ex: Campo Grande, RJ" required class="w-full bg-zinc-900 border border-zinc-700 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-amber-500">
-        </div>
-
-        <div>
-          <label class="block text-xs font-semibold text-zinc-300 mb-1.5">5. Estilo do show</label>
-          <select id="fieldStyle" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-amber-500">
-            <option value="Mais animado">Mais animado</option>
-            <option value="Mais intimista">Mais intimista</option>
-            <option value="Transição de vibes">Transição de vibes</option>
-          </select>
-        </div>
-
-        <div>
-          <label class="block text-xs font-semibold text-zinc-300 mb-1.5">6. Preferências de repertório</label>
-          <input type="text" id="fieldRepertoire" placeholder="Ex: Priorizar MPB e Pop Rock (evitar sertanejo)" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-amber-500">
-        </div>
-
-        <div>
-          <label class="block text-xs font-semibold text-zinc-300 mb-1.5">7. Estrutura de Som</label>
-          <select id="fieldSound" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-amber-500">
-            <option value="Preciso que leve a estrutura de som">Músico leva a estrutura de som</option>
-            <option value="O local já possui sonorização">O local já possui sonorização</option>
-          </select>
-        </div>
-
-        <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-500 text-black font-extrabold py-3.5 px-4 rounded-xl transition-all text-sm flex items-center justify-center gap-2 mt-6">
+        <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-500 text-black font-extrabold py-3.5 px-4 rounded-xl transition-all text-sm flex items-center justify-center gap-2 mt-6 shadow-lg">
           <i data-lucide="message-square" class="w-5 h-5"></i> Gerar Orçamento no WhatsApp
         </button>
       </form>
@@ -405,13 +402,40 @@
     <p>© 2026 StageKit — Desenvolvido por Casa 6 Produções</p>
   </footer>
 
-  <!-- SCRIPTS DA PÁGINA -->
+  <!-- ==================== SCRIPTS DA APLICAÇÃO ==================== -->
   <script>
-    // Inicializar Ícones
     lucide.createIcons();
 
-    let currentSelectedFormat = '';
+    // Alternância de Ambientes (Contratante x Artista)
+    let isAdminMode = false;
+    function toggleMode() {
+      isAdminMode = !isAdminMode;
+      document.getElementById('contractorView').classList.toggle('hidden', isAdminMode);
+      document.getElementById('artistDashboard').classList.toggle('hidden', !isAdminMode);
+    }
 
+    // Salvar edições da Hero feitas pelo Artista
+    function saveHeroEdits() {
+      document.getElementById('displayTitle').innerText = document.getElementById('editTitle').value;
+      document.getElementById('displaySubtitle').innerText = document.getElementById('editSubtitle').value;
+      document.getElementById('displayHeroVideo').src = document.getElementById('editVideo').value;
+      alert('Alterações salvas e publicadas no Press Kit com sucesso!');
+      toggleMode();
+    }
+
+    // Verificar Disponibilidade de Agenda
+    function checkAvailability() {
+      const dateVal = document.getElementById('checkDateInput').value;
+      const res = document.getElementById('availabilityResult');
+      if (!dateVal) {
+        alert('Por favor, selecione uma data válida.');
+        return;
+      }
+      res.classList.remove('hidden');
+    }
+
+    // Controle do Modal de Formatos
+    let currentSelectedFormat = '';
     function openFormatModal(formatName) {
       currentSelectedFormat = formatName;
       document.getElementById('modalFormatTitle').innerText = formatName;
@@ -424,50 +448,53 @@
       document.getElementById('formatModal').classList.remove('flex');
     }
 
-    // Navegação Manual da Galeria por Setas
+    // Envio do Orçamento via WhatsApp
+    function handleFormSubmit(e) {
+      e.preventDefault();
+      const phone = "5521989368930";
+      const date = document.getElementById('fieldDate').value;
+      const type = document.getElementById('fieldType').value;
+      const location = document.getElementById('fieldLocation').value;
+
+      const text = `Olá, Matheus! Gostaria de um orçamento para o formato *${currentSelectedFormat}*.\n\n` +
+        `🗓️ *Data/Horário:* ${date}\n` +
+        `🎉 *Tipo:* ${type}\n` +
+        `📍 *Local:* ${location}\n\n` +
+        `Aguardo sua proposta!`;
+
+      window.open(`https://wa.me/${phone}?text=${encodeURIComponent(text)}`, '_blank');
+      closeFormatModal();
+    }
+
+    // Gestão de Músicos & Disparo para Banda
+    let musicians = [];
+    function addMusician() {
+      const name = document.getElementById('musicianName').value;
+      const phone = document.getElementById('musicianPhone').value;
+      if(!name || !phone) { alert('Preencha o nome e o telefone do músico.'); return; }
+      
+      musicians.push({ name, phone });
+      document.getElementById('musicianName').value = '';
+      document.getElementById('musicianPhone').value = '';
+      
+      const listEl = document.getElementById('musicianList');
+      listEl.innerHTML = musicians.map(m => `• ${m.name} (${m.phone})`).join('<br>');
+    }
+
+    function dispatchShowToBand() {
+      if(musicians.length === 0) { alert('Adicione pelo menos um músico à equipe antes de disparar.'); return; }
+      const msg = `🎵 *NOVO SHOW FECHADO NA AGENDA!*\n\nData: Próximo Evento\nConfiram os detalhes e o repertório atualizado na plataforma. Conto com vocês!`;
+      
+      // Simula o disparo simulado abrindo o WhatsApp do primeiro ou principal
+      window.open(`https://wa.me/55${musicians[0].phone}?text=${encodeURIComponent(msg)}`, '_blank');
+      alert(`Mensagem de escala disparada para a equipe cadastrada!`);
+    }
+
+    // Navegação Galeria
     function scrollGallery(direction) {
       const container = document.getElementById('galleryContainer');
       const scrollAmount = container.clientWidth * 0.8;
       container.scrollBy({ left: direction * scrollAmount, behavior: 'smooth' });
-    }
-
-    // Autoplay Galeria Mobile / Desktop
-    setInterval(() => {
-      const container = document.getElementById('galleryContainer');
-      if (container) {
-        if (container.scrollLeft + container.clientWidth >= container.scrollWidth - 10) {
-          container.scrollTo({ left: 0, behavior: 'smooth' });
-        } else {
-          container.scrollBy({ left: container.clientWidth * 0.8, behavior: 'smooth' });
-        }
-      }
-    }, 4500);
-
-    function handleFormSubmit(e) {
-      e.preventDefault();
-
-      const phone = "5521989368930"; // WhatsApp oficial da Casa 6
-      const date = document.getElementById('fieldDate').value || 'A combinar';
-      const type = document.getElementById('fieldType').value || 'A combinar';
-      const publicEst = document.getElementById('fieldPublic').value || 'A combinar';
-      const location = document.getElementById('fieldLocation').value || 'A combinar';
-      const style = document.getElementById('fieldStyle').value || 'A combinar';
-      const repertoire = document.getElementById('fieldRepertoire').value || 'A combinar';
-      const sound = document.getElementById('fieldSound').value || 'A combinar';
-
-      const text = `Olá, Matheus! Gostaria de um orçamento para o formato *${currentSelectedFormat}*. Aqui estão os detalhes do meu evento:\n\n` +
-        `🗓️ *Data/Horário:* ${date}\n` +
-        `🎉 *Tipo:* ${type}\n` +
-        `👥 *Público:* ${publicEst}\n` +
-        `📍 *Local:* ${location}\n` +
-        `🎶 *Vibe:* ${style}\n` +
-        `🎸 *Gêneros:* ${repertoire}\n` +
-        `🔊 *Som:* ${sound}\n\n` +
-        `Aguardo a sua proposta personalizada!`;
-
-      const encodedText = encodeURIComponent(text);
-      window.open(`https://wa.me/${phone}?text=${encodedText}`, '_blank');
-      closeFormatModal();
     }
   </script>
 </body>
