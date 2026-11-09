@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Matheus Felipe — Apresentação e Formatos de Show</title>
+  <title>Matheus Felipe — Área do Artista & Press Kit</title>
   
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -52,7 +52,7 @@
         </div>
       </a>
 
-      <!-- Redes Sociais & Botão Modo Artista -->
+      <!-- Redes Sociais & Botão Alternar Visão -->
       <div class="flex items-center gap-3">
         <div class="hidden sm:flex items-center gap-2 border-r border-zinc-800 pr-4">
           <a href="https://wa.me/5521989368930" target="_blank" class="p-2 text-zinc-400 hover:text-emerald-400 transition-colors" title="WhatsApp"><i data-lucide="message-circle" class="w-5 h-5"></i></a>
@@ -60,16 +60,16 @@
           <a href="mailto:casa6producoes@gmail.com" class="p-2 text-zinc-400 hover:text-amber-500 transition-colors" title="E-mail"><i data-lucide="mail" class="w-5 h-5"></i></a>
         </div>
 
-        <button onclick="toggleMode()" class="bg-zinc-800 hover:bg-zinc-700 text-amber-400 border border-amber-500/30 text-xs font-bold px-3.5 py-2 rounded-xl transition-all flex items-center gap-2 shadow-md">
-          <i data-lucide="user-cog" class="w-4 h-4"></i> <span id="modeToggleText">Área do Artista</span>
+        <button onclick="toggleMode()" id="modeToggleButton" class="bg-amber-500 hover:bg-amber-600 text-black text-xs font-extrabold px-4 py-2 rounded-xl transition-all flex items-center gap-2 shadow-md">
+          <i data-lucide="globe" class="w-4 h-4"></i> <span id="modeToggleText">Ver Press Kit Público</span>
         </button>
       </div>
 
     </div>
   </header>
 
-  <!-- ==================== AMBIENTE 1: CONTRATANTE (VISÃO PÚBLICA) ==================== -->
-  <div id="contractorView" class="flex-1 pt-20">
+  <!-- ==================== AMBIENTE 1: CONTRATANTE (PRESS KIT PÚBLICO) ==================== -->
+  <div id="contractorView" class="flex-1 pt-20 hidden">
 
     <!-- Hero Section -->
     <section id="hero" class="relative py-16 md:py-24 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto text-center">
@@ -274,8 +274,8 @@
   </div>
 
 
-  <!-- ==================== AMBIENTE 2: ÁREA DO ARTISTA (MENU NA LATERAL ESQUERDA) ==================== -->
-  <div id="artistDashboard" class="flex-1 pt-20 hidden bg-zinc-950 flex flex-col md:flex-row">
+  <!-- ==================== AMBIENTE 2: ÁREA DO ARTISTA (FRONT-PAGE / BACKEND PRINCIPAL) ==================== -->
+  <div id="artistDashboard" class="flex-1 pt-20 bg-zinc-950 flex flex-col md:flex-row">
     
     <!-- Menu Lateral Esquerdo -->
     <aside class="w-full md:w-64 bg-brand-cardBg border-r border-brand-border p-6 flex flex-col justify-between shrink-0">
@@ -311,8 +311,8 @@
       </div>
 
       <div class="pt-6 border-t border-zinc-800">
-        <button onclick="toggleMode()" class="w-full bg-zinc-900 hover:bg-zinc-800 text-zinc-300 font-bold py-2.5 rounded-xl text-xs border border-zinc-700 flex items-center justify-center gap-2">
-          <i data-lucide="eye" class="w-4 h-4"></i> Ver Site Público
+        <button onclick="toggleMode()" class="w-full bg-amber-500 hover:bg-amber-600 text-black font-extrabold py-2.5 rounded-xl text-xs flex items-center justify-center gap-2 shadow-md">
+          <i data-lucide="globe" class="w-4 h-4"></i> Ver Press Kit Público
         </button>
       </div>
     </aside>
@@ -320,11 +320,25 @@
     <!-- Conteúdo do Painel Lateral -->
     <main class="flex-1 p-6 sm:p-10 overflow-y-auto">
       
-      <!-- Tab 0: Dashboard -->
+      <!-- Tab 0: Dashboard (Com o Link Personalizado do Press Kit) -->
       <div id="tabDashboard" class="dashboard-tab max-w-4xl space-y-6">
         <div>
           <h2 class="text-xl font-bold text-white">Dashboard Geral</h2>
-          <p class="text-xs text-zinc-400 mt-1">Visão geral de pagamentos, shows agendados e métricas do seu Press Kit.</p>
+          <p class="text-xs text-zinc-400 mt-1">Acesse seu link personalizado de Press Kit para enviar aos contratantes e gerencie seus dados.</p>
+        </div>
+
+        <!-- Bloco do Link Personalizado do Press Kit -->
+        <div class="bg-gradient-to-r from-amber-500/10 via-brand-cardBg to-brand-cardBg border border-amber-500/40 p-6 rounded-2xl space-y-3 shadow-xl">
+          <div class="flex items-center gap-2 text-amber-500 font-bold text-sm">
+            <i data-lucide="link" class="w-5 h-5"></i> Seu Link Personalizado do Press Kit
+          </div>
+          <p class="text-xs text-zinc-300">Envie este link para o cliente. Ele terá acesso exclusivo apenas às informações públicas e profissionais do seu show.</p>
+          <div class="flex flex-col sm:flex-row gap-2 pt-1">
+            <input type="text" id="pressKitLinkInput" readonly value="" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl px-4 py-2.5 text-xs text-amber-400 font-mono select-all">
+            <button onclick="copyPressKitLink()" class="bg-amber-500 hover:bg-amber-600 text-black font-bold px-5 py-2.5 rounded-xl text-xs shrink-0 flex items-center justify-center gap-2">
+              <i data-lucide="copy" class="w-4 h-4"></i> Copiar Link
+            </button>
+          </div>
         </div>
 
         <div class="grid sm:grid-cols-2 gap-4">
@@ -490,7 +504,7 @@
     </main>
   </div>
 
-  <!-- ==================== MODAL DE ORÇAMENTO (COM SCROLL INTERNO PARA WEB) ==================== -->
+  <!-- ==================== MODAL DE ORÇAMENTO ==================== -->
   <div id="formatModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden items-center justify-center p-4 overflow-y-auto">
     <div class="bg-brand-cardBg border border-brand-border w-full max-w-xl rounded-2xl p-6 sm:p-8 relative my-8 shadow-2xl max-h-[90vh] flex flex-col">
       <button onclick="closeFormatModal()" class="absolute top-4 right-4 text-zinc-400 hover:text-white p-2 z-10"><i data-lucide="x" class="w-6 h-6"></i></button>
@@ -500,7 +514,6 @@
         <h3 id="modalFormatTitle" class="text-xl sm:text-2xl font-bold text-white mt-1">Formato de Show</h3>
       </div>
 
-      <!-- Container com rolagem interna para evitar que a janela estoure a tela em web -->
       <div class="overflow-y-auto pr-2 no-scrollbar flex-1">
         <form id="quoteForm" onsubmit="handleFormSubmit(event)" class="space-y-4 text-left text-xs">
           <div>
@@ -553,11 +566,38 @@
   <script>
     lucide.createIcons();
 
-    let isAdminMode = false;
+    // Define automaticamente o link do Press Kit com base na URL atual da Vercel/GitHub Pages
+    document.addEventListener("DOMContentLoaded", function() {
+      const currentUrl = window.location.href.split('#')[0];
+      document.getElementById('pressKitLinkInput').value = currentUrl + (currentUrl.endsWith('/') ? '' : '/') + '#presskit';
+      
+      // Se a URL do navegador tiver #presskit, abre direto na visão do contratante
+      if(window.location.hash === '#presskit') {
+        isAdminMode = true; // Inverte para abrir o contratante
+        toggleMode();
+      }
+    });
+
+    function copyPressKitLink() {
+      const copyText = document.getElementById("pressKitLinkInput");
+      copyText.select();
+      copyText.setSelectionRange(0, 99999);
+      navigator.clipboard.writeText(copyText.value);
+      alert("Link do Press Kit copiado com sucesso! Pode enviar para o contratante.");
+    }
+
+    let isAdminMode = true; // Inicia na Área do Artista por padrão
     function toggleMode() {
       isAdminMode = !isAdminMode;
       document.getElementById('contractorView').classList.toggle('hidden', isAdminMode);
       document.getElementById('artistDashboard').classList.toggle('hidden', !isAdminMode);
+      
+      const btnText = document.getElementById('modeToggleText');
+      if(isAdminMode) {
+        btnText.innerText = "Ver Press Kit Público";
+      } else {
+        btnText.innerText = "Voltar ao Dashboard";
+      }
     }
 
     function switchTab(tabId) {
@@ -580,7 +620,6 @@
       document.getElementById('displaySubtitle2').innerText = document.getElementById('editSubtitle2').value;
       document.getElementById('displayBio').innerText = document.getElementById('editBio').value;
 
-      // Hero Video (MP4 or YouTube)
       const fileInput = document.getElementById('heroVideoMp4Input');
       const ytInput = document.getElementById('heroVideoYoutubeInput').value;
       const heroContainer = document.getElementById('displayHeroVideoContainer');
@@ -598,7 +637,6 @@
         heroContainer.innerHTML = `<iframe class="w-full h-full" src="${embedUrl}" frameborder="0" allowfullscreen></iframe>`;
       }
 
-      // Na Pratica MP4 Upload
       const mp4Input = document.getElementById('mp4UploadInput');
       if (mp4Input.files && mp4Input.files[0]) {
         const videoUrl = URL.createObjectURL(mp4Input.files[0]);
@@ -609,7 +647,6 @@
         `;
       }
 
-      // Streaming & Social Links
       const spotLink = document.getElementById('editSpotifyLink').value;
       const deezLink = document.getElementById('editDeezerLink').value;
       const instaLink = document.getElementById('editInstagramLink').value;
