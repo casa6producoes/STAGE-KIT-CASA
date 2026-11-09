@@ -29,17 +29,45 @@
   <script src="https://unpkg.com/lucide@latest"></script>
 
   <style>
-    body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #09090B; color: #FAFAFA; }
+    body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: var(--bg-color, #09090B); color: var(--text-color, #FAFAFA); transition: background-color 0.3s, color 0.3s; }
     .backdrop-blur-header { backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
     .no-scrollbar::-webkit-scrollbar { display: none; }
     .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
     .glow-gold { box-shadow: 0 0 25px -5px rgba(245, 158, 11, 0.4); }
+
+    /* Tema Claro e Escuro para o Painel do Artista */
+    body.light {
+      --bg-color: #F4F4F5;
+      --text-color: #18181B;
+    }
+    body.light #artistDashboard aside {
+      background-color: #FFFFFF !important;
+      border-color: #E4E4E7 !important;
+    }
+    body.light .dashboard-tab .bg-brand-cardBg,
+    body.light #artistDashboard main .bg-brand-cardBg,
+    body.light #artistDashboard main .bg-zinc-900,
+    body.light #artistDashboard main .bg-zinc-950 {
+      background-color: #FFFFFF !important;
+      border-color: #E4E4E7 !important;
+      color: #18181B !important;
+    }
+    body.light #artistDashboard input, 
+    body.light #artistDashboard textarea, 
+    body.light #artistDashboard select {
+      background-color: #F9FAFB !important;
+      border-color: #D1D5DB !important;
+      color: #111827 !important;
+    }
+    body.light #artistDashboard .text-white { color: #111827 !important; }
+    body.light #artistDashboard .text-zinc-400, 
+    body.light #artistDashboard .text-zinc-300 { color: #4B5563 !important; }
   </style>
 </head>
 <body class="min-h-screen flex flex-col antialiased selection:bg-amber-500 selection:text-black">
 
   <!-- ==================== HEADER DA PLATAFORMA ==================== -->
-  <header class="fixed top-0 left-0 w-full z-50 bg-[#09090B]/90 backdrop-blur-header border-b border-brand-border">
+  <header class="fixed top-0 left-0 w-full z-50 bg-[#09090B]/90 dark:bg-[#09090B]/90 backdrop-blur-header border-b border-brand-border">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
       
       <!-- Logo -->
@@ -73,10 +101,6 @@
         <!-- Botão Voltar ao Painel (Visível apenas para o Artista quando ele visualiza o press kit) -->
         <button id="btnBackToDashboard" onclick="showArtistDashboard()" class="hidden bg-zinc-800 hover:bg-zinc-700 text-amber-400 text-xs font-extrabold px-4 py-2 rounded-xl transition-all border border-amber-500/30 flex items-center gap-2 shadow-md">
           <i data-lucide="arrow-left" class="w-4 h-4"></i> Voltar ao Painel
-        </button>
-
-        <button onclick="toggleViewMode()" id="viewModeBtn" class="bg-amber-500 hover:bg-amber-600 text-black text-xs font-extrabold px-4 py-2 rounded-xl transition-all flex items-center gap-2 shadow-md">
-          <i data-lucide="eye" class="w-4 h-4"></i> <span id="viewModeText">Ver meu Press Kit</span>
         </button>
       </div>
 
@@ -157,11 +181,13 @@
   <!-- ==================== PRESS KIT PÚBLICO (FRONTEND) ==================== -->
   <div id="contractorView" class="flex-1 pt-20 hidden">
     <section id="hero" class="relative py-16 md:py-24 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto text-center">
-      <div id="displayBadge" class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-500 text-xs font-semibold uppercase tracking-wider mb-6">
-        <span>🎵</span> PRESS KIT — MATHEUS FELIPE
+      
+      <!-- Nome do Artista Destacado e Maior que a Frase CTA -->
+      <div id="displayBadge" class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-amber-500/15 border border-amber-500/30 text-amber-400 text-base sm:text-lg font-extrabold uppercase tracking-widest mb-4 shadow-md">
+        <span>🎵</span> PRESS KIT — <span id="displayArtistMainName">MATHEUS FELIPE</span>
       </div>
       
-      <h1 id="displayTitle" class="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-white tracking-tight leading-tight mb-6">
+      <h1 id="displayTitle" class="text-2xl sm:text-4xl lg:text-5xl font-bold text-zinc-300 tracking-tight leading-tight mb-6">
         A TRILHA SONORA PERFEITA PARA O SEU MOMENTO.
       </h1>
 
@@ -172,6 +198,44 @@
 
       <div id="displayHeroVideoContainer" class="w-full max-w-4xl mx-auto rounded-2xl overflow-hidden border border-brand-border shadow-2xl bg-brand-cardBg aspect-video flex items-center justify-center">
         <iframe id="displayHeroVideo" class="w-full h-full" src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allowfullscreen></iframe>
+      </div>
+    </section>
+
+    <!-- SEÇÃO FOTOS -->
+    <section id="photosSection" class="py-16 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
+      <div class="text-center mb-10">
+        <span class="text-amber-500 font-bold text-xs uppercase tracking-widest">Galeria</span>
+        <h2 class="text-2xl sm:text-3xl font-bold text-white mt-1">Fotos Oficiais</h2>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <div class="rounded-2xl overflow-hidden border border-brand-border aspect-square bg-zinc-800 shadow-lg">
+          <img id="displayPhoto1" src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=800&q=80" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500">
+        </div>
+        <div class="rounded-2xl overflow-hidden border border-brand-border aspect-square bg-zinc-800 shadow-lg">
+          <img id="displayPhoto2" src="https://images.unsplash.com/photo-1465847899084-d164df4dedc6?auto=format&fit=crop&w=800&q=80" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500">
+        </div>
+        <div class="rounded-2xl overflow-hidden border border-brand-border aspect-square bg-zinc-800 shadow-lg">
+          <img id="displayPhoto3" src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=800&q=80" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500">
+        </div>
+      </div>
+    </section>
+
+    <!-- SEÇÃO NA PRÁTICA (VÍDEOS) -->
+    <section id="practiceSection" class="py-16 bg-brand-cardBg/40 border-y border-brand-border px-4 sm:px-6 lg:px-8">
+      <div class="max-w-5xl mx-auto space-y-8">
+        <div class="text-center">
+          <span class="text-amber-500 font-bold text-xs uppercase tracking-widest">Performances</span>
+          <h2 class="text-2xl sm:text-3xl font-bold text-white mt-1">Na Prática</h2>
+          <p class="text-xs text-zinc-400 mt-1">Veja trechos reais de apresentações ao vivo.</p>
+        </div>
+        <div class="grid sm:grid-cols-2 gap-6">
+          <div class="rounded-2xl overflow-hidden border border-brand-border aspect-video bg-zinc-900 flex items-center justify-center">
+            <iframe class="w-full h-full" src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allowfullscreen></iframe>
+          </div>
+          <div class="rounded-2xl overflow-hidden border border-brand-border aspect-video bg-zinc-900 flex items-center justify-center">
+            <iframe class="w-full h-full" src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allowfullscreen></iframe>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -290,10 +354,12 @@
         </nav>
       </div>
 
-      <div class="pt-6 border-t border-zinc-800 space-y-2">
-        <button onclick="showPublicPressKit()" class="w-full bg-amber-500 hover:bg-amber-600 text-black font-extrabold py-2.5 rounded-xl text-xs flex items-center justify-center gap-2 shadow-md">
-          <i data-lucide="globe" class="w-4 h-4"></i> Ver Meu Press Kit
+      <div class="pt-6 border-t border-zinc-800 space-y-3">
+        <!-- Alternar Tema Claro / Escuro -->
+        <button onclick="toggleTheme()" id="themeToggleBtn" class="w-full bg-zinc-900 hover:bg-zinc-800 text-amber-400 font-bold py-2.5 rounded-xl text-xs border border-zinc-700 flex items-center justify-center gap-2 shadow-sm transition-all">
+          <i data-lucide="sun" class="w-4 h-4"></i> <span id="themeToggleText">Modo Claro</span>
         </button>
+
         <button onclick="logoutToHome()" class="w-full bg-zinc-900 hover:bg-zinc-800 text-zinc-400 hover:text-white font-bold py-2 rounded-xl text-xs border border-zinc-700 flex items-center justify-center gap-2">
           <i data-lucide="log-out" class="w-4 h-4"></i> Sair da Conta
         </button>
@@ -306,20 +372,30 @@
       <div id="tabDashboard" class="dashboard-tab max-w-4xl space-y-6">
         <div>
           <h2 class="text-xl font-bold text-white">Dashboard Geral</h2>
-          <p class="text-xs text-zinc-400 mt-1">Acesse seu link personalizado de Press Kit para enviar aos contratantes e gerencie seus dados.</p>
+          <p class="text-xs text-zinc-400 mt-1">Acesse seu link personalizado de Press Kit, edite o nome na URL para enviar aos contratantes e gerencie seus dados.</p>
         </div>
 
         <div class="bg-gradient-to-r from-amber-500/10 via-brand-cardBg to-brand-cardBg border border-amber-500/40 p-6 rounded-2xl space-y-3 shadow-xl">
           <div class="flex items-center gap-2 text-amber-500 font-bold text-sm">
-            <i data-lucide="link" class="w-5 h-5"></i> Seu Link Personalizado do Press Kit
+            <i data-lucide="link" class="w-5 h-5"><span>Seu Link Personalizado do Press Kit</span></i>
           </div>
-          <p class="text-xs text-zinc-300">Envie este link para o cliente. Ele abrirá diretamente a versão pública e visual do seu trabalho.</p>
-          <div class="flex flex-col sm:flex-row gap-2 pt-1">
-            <input type="text" id="pressKitLinkInput" readonly value="" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl px-4 py-2.5 text-xs text-amber-400 font-mono select-all">
-            <button onclick="copyPressKitLink()" class="bg-amber-500 hover:bg-amber-600 text-black font-bold px-5 py-2.5 rounded-xl text-xs shrink-0 flex items-center justify-center gap-2">
+          <p class="text-xs text-zinc-300">Personalize abaixo o final do seu link (slug) e envie para o cliente:</p>
+          
+          <div class="flex flex-col sm:flex-row items-center gap-2 pt-1">
+            <span class="text-xs text-zinc-400 font-mono select-none bg-zinc-900 px-3 py-2.5 rounded-xl border border-zinc-700">https://stagekitcasa6.vercel.app/</span>
+            <input type="text" id="customSlugInput" value="matheusefelipe" oninput="updateCustomLinkPreview()" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl px-4 py-2.5 text-xs text-amber-400 font-mono">
+            <button onclick="copyCustomPressKitLink()" class="bg-amber-500 hover:bg-amber-600 text-black font-bold px-5 py-2.5 rounded-xl text-xs shrink-0 flex items-center justify-center gap-2">
               <i data-lucide="copy" class="w-4 h-4"></i> Copiar Link
             </button>
           </div>
+          <p class="text-[11px] text-zinc-400 italic">Link completo: <span id="fullSlugPreview" class="text-amber-400 font-mono">https://stagekitcasa6.vercel.app/matheusefelipe</span></p>
+        </div>
+
+        <!-- Botão Único para Ver o Press Kit (conforme solicitação) -->
+        <div class="flex justify-start">
+          <button onclick="showPublicPressKit()" class="bg-amber-500 hover:bg-amber-600 text-black font-extrabold py-3 px-6 rounded-xl text-xs flex items-center gap-2 shadow-md transition-all">
+            <i data-lucide="eye" class="w-4 h-4"></i> Ver meu Press Kit
+          </button>
         </div>
 
         <div class="grid sm:grid-cols-2 gap-4">
@@ -344,7 +420,6 @@
         </div>
 
         <div class="bg-brand-cardBg border border-brand-border p-6 rounded-2xl space-y-4 text-xs">
-          <!-- Redes Sociais com pré-digitação -->
           <div class="space-y-3 pb-4 border-b border-zinc-800">
             <h3 class="font-bold text-amber-400 text-sm">Redes Sociais (Exibidas no Cabeçalho)</h3>
             <div>
@@ -371,11 +446,11 @@
           </div>
 
           <div>
-            <label class="block font-semibold text-zinc-300 mb-1">Badge Superior</label>
-            <input type="text" id="editBadge" value="🎵 PRESS KIT — MATHEUS FELIPE" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white">
+            <label class="block font-semibold text-zinc-300 mb-1">Nome do Artista (Badge Superior)</label>
+            <input type="text" id="editArtistMainName" value="MATHEUS FELIPE" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white">
           </div>
           <div>
-            <label class="block font-semibold text-zinc-300 mb-1">Título de Impacto (H1)</label>
+            <label class="block font-semibold text-zinc-300 mb-1">Título de Impacto / Frase CTA (H1)</label>
             <input type="text" id="editTitle" value="A TRILHA SONORA PERFEITA PARA O SEU MOMENTO." class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white">
           </div>
           <div>
@@ -395,14 +470,21 @@
         </div>
       </div>
 
-      <!-- Tab 2: Mídias & Streaming (Sem redes sociais) -->
+      <!-- Tab 2: Mídias & Streaming -->
       <div id="tabMedia" class="dashboard-tab max-w-3xl space-y-6 hidden">
         <div>
           <h2 class="text-xl font-bold text-white">Mídias & Streaming</h2>
-          <p class="text-xs text-zinc-400 mt-1">Configure os players e links de plataformas de streaming (Spotify, Deezer, Apple Music, YouTube Music, Outro).</p>
+          <p class="text-xs text-zinc-400 mt-1">Configure fotos oficiais, vídeos e plataformas de streaming (sem redes sociais aqui).</p>
         </div>
 
         <div class="bg-brand-cardBg border border-brand-border p-6 rounded-2xl space-y-4 text-xs">
+          <div class="space-y-2 pb-4 border-b border-zinc-800">
+            <label class="block font-semibold text-zinc-300">Fotos Oficiais (Galeria do Press Kit)</label>
+            <input type="text" id="editPhoto1" placeholder="URL Foto 1" value="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=800&q=80" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-2.5 text-white">
+            <input type="text" id="editPhoto2" placeholder="URL Foto 2" value="https://images.unsplash.com/photo-1465847899084-d164df4dedc6?auto=format&fit=crop&w=800&q=80" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-2.5 text-white">
+            <input type="text" id="editPhoto3" placeholder="URL Foto 3" value="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=800&q=80" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-2.5 text-white">
+          </div>
+
           <div>
             <label class="block font-semibold text-zinc-300 mb-1">Anexar Vídeo MP4 (Seção "Na Prática")</label>
             <input type="file" id="mp4UploadInput" accept="video/mp4" class="w-full text-zinc-400 file:mr-2 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:bg-amber-500 file:text-black">
@@ -687,15 +769,38 @@
     let projects = [];
     let eventsList = [];
 
-    // Inicialização
     document.addEventListener("DOMContentLoaded", function() {
-      const currentUrl = window.location.href.split('#')[0];
-      document.getElementById('pressKitLinkInput').value = currentUrl + (currentUrl.endsWith('/') ? '' : '/') + '#presskit';
-      
+      updateCustomLinkPreview();
       if(window.location.hash === '#presskit') {
         showPublicPressKitForContractor();
       }
     });
+
+    function updateCustomLinkPreview() {
+      const slug = document.getElementById('customSlugInput').value.trim() || 'artista';
+      const fullUrl = `https://stagekitcasa6.vercel.app/${slug}`;
+      document.getElementById('fullSlugPreview').innerText = fullUrl;
+    }
+
+    function copyCustomPressKitLink() {
+      const slug = document.getElementById('customSlugInput').value.trim() || 'artista';
+      const fullUrl = `https://stagekitcasa6.vercel.app/${slug}`;
+      navigator.clipboard.writeText(fullUrl);
+      alert("Link personalizado copiado com sucesso! Pode enviar para o contratante.");
+    }
+
+    function toggleTheme() {
+      const body = document.body;
+      const isLight = body.classList.toggle('light');
+      document.getElementById('themeToggleText').innerText = isLight ? "Modo Escuro" : "Modo Claro";
+      const icon = document.getElementById('themeToggleBtn').querySelector('i');
+      if(isLight) {
+        icon.setAttribute('data-lucide', 'moon');
+      } else {
+        icon.setAttribute('data-lucide', 'sun');
+      }
+      lucide.createIcons();
+    }
 
     function openRegisterModal() { document.getElementById('registerModal').classList.remove('hidden'); document.getElementById('registerModal').classList.add('flex'); }
     function closeRegisterModal() { document.getElementById('registerModal').classList.add('hidden'); document.getElementById('registerModal').classList.remove('flex'); }
@@ -724,12 +829,12 @@
       document.getElementById('contractorView').classList.add('hidden');
       document.getElementById('artistDashboard').classList.remove('hidden');
       document.getElementById('panelHeaderActions').classList.remove('hidden');
-      document.getElementById('btnBackToDashboard').classList.add('hidden'); // Esconde o botão voltar no painel
-      document.getElementById('viewModeText').innerText = "Ver meu Press Kit";
+      document.getElementById('btnBackToDashboard').classList.add('hidden');
+      
+      switchTabDirect('tabDashboard');
       window.location.hash = 'dashboard';
     }
 
-    // Visão do Press Kit acionada pelo Artista (com botão de voltar para o painel)
     function showPublicPressKit() {
       document.getElementById('landingPage').classList.add('hidden');
       document.getElementById('landingHeaderActions').classList.add('hidden');
@@ -737,63 +842,57 @@
       document.getElementById('contractorView').classList.remove('hidden');
       document.getElementById('panelHeaderActions').classList.remove('hidden');
       
-      // Mostra o botão "Voltar ao Painel" apenas para o Artista
       document.getElementById('btnBackToDashboard').classList.remove('hidden');
-      document.getElementById('viewModeText').innerText = "Ir para Dashboard";
       window.location.hash = 'presskit';
     }
 
-    // Visão do Press Kit acionada pelo Contratante (via link direto compartilhado - SEM botão de voltar)
     function showPublicPressKitForContractor() {
       document.getElementById('landingPage').classList.add('hidden');
       document.getElementById('landingHeaderActions').classList.add('hidden');
       document.getElementById('artistDashboard').classList.add('hidden');
       document.getElementById('contractorView').classList.remove('hidden');
-      document.getElementById('panelHeaderActions').classList.add('hidden'); // Sem header de admin para o contratante
-    }
-
-    function toggleViewMode() {
-      const isDashboardHidden = document.getElementById('artistDashboard').classList.contains('hidden');
-      if(isDashboardHidden) {
-        showArtistDashboard();
-      } else {
-        showPublicPressKit();
-      }
+      document.getElementById('panelHeaderActions').classList.add('hidden');
     }
 
     function previewSampleKit() {
       showPublicPressKitForContractor();
     }
 
-    function copyPressKitLink() {
-      const copyText = document.getElementById("pressKitLinkInput");
-      copyText.select();
-      copyText.setSelectionRange(0, 99999);
-      navigator.clipboard.writeText(copyText.value);
-      alert("Link do Press Kit copiado com sucesso! Pode enviar para o contratante.");
-    }
-
     function switchTab(tabId) {
-      document.querySelectorAll('.dashboard-tab').forEach(el => el.classList.add('hidden'));
-      document.getElementById(tabId).classList.remove('hidden');
-
+      switchTabDirect(tabId);
+      const activeBtn = event ? event.currentTarget : document.getElementById('btnTabDashboard');
       document.querySelectorAll('aside nav button').forEach(btn => {
         btn.classList.remove('bg-amber-500/10', 'text-amber-400', 'border', 'border-amber-500/30');
         btn.classList.add('text-zinc-400');
       });
-      const activeBtn = event.currentTarget;
-      activeBtn.classList.add('bg-amber-500/10', 'text-amber-400', 'border', 'border-amber-500/30');
-      activeBtn.classList.remove('text-zinc-400');
+      if(activeBtn) {
+        activeBtn.classList.add('bg-amber-500/10', 'text-amber-400', 'border', 'border-amber-500/30');
+        activeBtn.classList.remove('text-zinc-400');
+      }
+    }
+
+    function switchTabDirect(tabId) {
+      document.querySelectorAll('.dashboard-tab').forEach(el => el.classList.add('hidden'));
+      const targetTab = document.getElementById(tabId);
+      if(targetTab) targetTab.classList.remove('hidden');
     }
 
     function saveArtistEdits() {
-      document.getElementById('displayBadge').innerText = document.getElementById('editBadge').value;
+      const mainName = document.getElementById('editArtistMainName').value;
+      document.getElementById('displayArtistMainName').innerText = mainName;
       document.getElementById('displayTitle').innerText = document.getElementById('editTitle').value;
       document.getElementById('displaySubtitle1').innerText = document.getElementById('editSubtitle1').value;
       document.getElementById('displaySubtitle2').innerText = document.getElementById('editSubtitle2').value;
       document.getElementById('displayBio').innerText = document.getElementById('editBio').value;
 
-      // Atualizar ícones sociais no cabeçalho dinamicamente
+      // Fotos da galeria
+      const p1 = document.getElementById('editPhoto1').value;
+      const p2 = document.getElementById('editPhoto2').value;
+      const p3 = document.getElementById('editPhoto3').value;
+      if(p1) document.getElementById('displayPhoto1').src = p1;
+      if(p2) document.getElementById('displayPhoto2').src = p2;
+      if(p3) document.getElementById('displayPhoto3').src = p3;
+
       const instaVal = document.getElementById('editInstagram').value;
       const tiktokVal = document.getElementById('editTiktok').value;
       const fbVal = document.getElementById('editFacebook').value;
@@ -812,7 +911,6 @@
       
       document.getElementById('headerSocialIcons').innerHTML = socialHtml;
 
-      // Atualizar links de streaming
       const spotLink = document.getElementById('editSpotifyLink').value;
       const deezLink = document.getElementById('editDeezerLink').value;
       const appleLink = document.getElementById('editAppleLink').value;
@@ -825,12 +923,9 @@
 
       lucide.createIcons();
       alert('Alterações salvas com sucesso! Redirecionando para o Press Kit.');
-      
-      // Atualiza e vai direto para a página do press kit com o botão de voltar ativo para o artista
       showPublicPressKit();
     }
 
-    // Músicos, Projetos e Eventos
     function addMusician() {
       const name = document.getElementById('musicianName').value;
       const instrument = document.getElementById('musicianInstrument').value;
@@ -968,6 +1063,7 @@
     }
 
     function closeFormatModal() {
+      document.getElementById('modalFormat_id')?.classList.add('hidden');
       document.getElementById('formatModal').classList.add('hidden');
       document.getElementById('formatModal').classList.remove('flex');
     }
