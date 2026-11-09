@@ -867,13 +867,14 @@
       const sound = document.getElementById('fieldSound').value;
 
       const text = `Olá, Matheus! Gostaria de um orçamento para o formato *${currentSelectedFormat}*. Seguem os detalhes:\n\n` +
-        `1️⃣ *Data/Horário:* ${date}\n` +
-        `2️⃣ *Tipo:* ${type}\n` +
-        `3️⃣ *Público:* ${publicEst}\n` +
-        `4️⃣ *Local:* ${location}\n` +
-        `5️⃣ *Estilo:* ${style}\n` +
-        `6️⃣ *Repertório:* ${repertoire}\n` +
-        `7️⃣ *Som:* ${sound}\n\n` +
+        `1. *Nome Completo:* ${Name}\n` +
+        `2. *Data/Horário:* ${date}\n` +
+        `3. *Tipo:* ${type}\n` +
+        `4. *Público:* ${publicEst}\n` +
+        `5. *Local:* ${location}\n` +
+        `6. *Estilo:* ${style}\n` +
+        `7. *Repertório:* ${repertoire}\n` +
+        `8. *Som:* ${sound}\n\n` +
         `Aguardo retorno!`;
 
       window.open(`https://wa.me/${phone}?text=${encodeURIComponent(text)}`, '_blank');
