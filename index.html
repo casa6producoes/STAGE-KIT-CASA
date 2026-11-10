@@ -29,7 +29,7 @@
   <script src="https://unpkg.com/lucide@latest"></script>
 
   <style>
-    body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: var(--bg-color, #09090B); color: var(--text-color, #FAFAFA); transition: background-color 0.3s, color 0.3s; }
+    body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: var(--bg-color, #09090B); color: var(--text-color, #FAFAFA); transition: background-color 0.3s, color 0.3s; scroll-behavior: smooth; }
     .backdrop-blur-header { backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
     .no-scrollbar::-webkit-scrollbar { display: none; }
     .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
@@ -71,7 +71,6 @@
   <header class="fixed top-0 left-0 w-full z-50 bg-[#09090B]/90 backdrop-blur-header border-b border-brand-border">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
       
-      <!-- Logo + Botão Ver Meu Presskit (Alinhado lado a lado) -->
       <div class="flex items-center gap-4">
         <a href="#" onclick="goHome()" class="flex items-center gap-3 group cursor-pointer">
           <div class="w-10 h-10 rounded-xl bg-white overflow-hidden flex items-center justify-center p-0.5 shadow-md group-hover:scale-105 transition-transform duration-300">
@@ -99,16 +98,14 @@
         </button>
       </div>
 
-      <!-- Ações do Painel / PressKit Público (Aparecem apenas na visão do contratante) -->
+      <!-- Ações do Painel / PressKit Público -->
       <div id="panelHeaderActions" class="hidden items-center gap-3">
         <div class="flex items-center gap-2" id="headerSocialIcons">
-          <!-- Ícone do Instagram adaptado ao tema claro/escuro -->
           <a id="headerInsta" href="#" target="_blank" class="p-2.5 rounded-xl bg-zinc-900 border border-zinc-800 text-zinc-300 hover:text-amber-500 transition-colors hidden" title="Instagram">
             <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
           </a>
           <a id="headerEmail" href="mailto:casa6producoes@gmail.com" class="p-2.5 rounded-xl bg-zinc-900 border border-zinc-800 text-zinc-300 hover:text-amber-500 transition-colors" title="E-mail"><i data-lucide="mail" class="w-4 h-4"></i></a>
           
-          <!-- Botão Tema -->
           <button onclick="toggleTheme()" id="headerThemeBtn" class="p-2.5 rounded-xl bg-zinc-900 border border-zinc-800 text-amber-400 hover:bg-zinc-800 transition-colors" title="Alternar Tema">
             <i data-lucide="sun" id="headerThemeIcon" class="w-4 h-4"></i>
           </button>
@@ -166,7 +163,7 @@
       </div>
     </section>
 
-    <!-- PRÉVIA DA PLATAFORMA & 3 CARDS MOSTRANDO OS ITENS DA ÁREA DO CLIENTE -->
+    <!-- 3 CARDS DA ÁREA DO CLIENTE COM NAVEGAÇÃO DIRETA ÀS SEÇÕES -->
     <section class="py-20 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto space-y-16">
       <div class="text-center space-y-3">
         <span class="text-amber-500 font-bold text-xs uppercase tracking-widest">Área do Cliente em Ação</span>
@@ -174,8 +171,8 @@
       </div>
 
       <div class="grid md:grid-cols-3 gap-8">
-        <!-- Card 1: Vídeos Reais das Apresentações -->
-        <div onclick="previewSampleKit()" class="bg-brand-cardBg border border-brand-border p-6 rounded-3xl space-y-4 shadow-xl cursor-pointer hover:border-amber-500/50 transition-all group">
+        <!-- Card 1: Vídeos Reais (Vai direto pra seção de vídeos reais) -->
+        <div onclick="previewSampleSection('videos')" class="bg-brand-cardBg border border-brand-border p-6 rounded-3xl space-y-4 shadow-xl cursor-pointer hover:border-amber-500/50 transition-all group">
           <div class="w-12 h-12 rounded-2xl bg-amber-500/10 text-amber-500 flex items-center justify-center group-hover:scale-110 transition-transform">
             <i data-lucide="video" class="w-6 h-6"></i>
           </div>
@@ -183,11 +180,11 @@
           <p class="text-xs text-zinc-400 leading-relaxed">
             Trechos de apresentações ao vivo direto no topo do press kit para o contratante comprovar a qualidade musical e a energia do show.
           </p>
-          <span class="text-amber-400 text-xs font-bold inline-flex items-center gap-1">Ver amostra <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i></span>
+          <span class="text-amber-400 text-xs font-bold inline-flex items-center gap-1">Ver seção de vídeos <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i></span>
         </div>
 
-        <!-- Card 2: Formatos de Show -->
-        <div onclick="previewSampleKit()" class="bg-brand-cardBg border border-brand-border p-6 rounded-3xl space-y-4 shadow-xl cursor-pointer hover:border-amber-500/50 transition-all group">
+        <!-- Card 2: Formatos de Show (Vai direto pra seção formatos de show) -->
+        <div onclick="previewSampleSection('formatos')" class="bg-brand-cardBg border border-brand-border p-6 rounded-3xl space-y-4 shadow-xl cursor-pointer hover:border-amber-500/50 transition-all group">
           <div class="w-12 h-12 rounded-2xl bg-amber-500/10 text-amber-500 flex items-center justify-center group-hover:scale-110 transition-transform">
             <i data-lucide="sliders-horizontal" class="w-6 h-6"></i>
           </div>
@@ -195,11 +192,11 @@
           <p class="text-xs text-zinc-400 leading-relaxed">
             Estruturas customizadas (Acústico, Banda, Cerimônias) com fotos e descrições detalhadas para o contratante escolher a atração ideal.
           </p>
-          <span class="text-amber-400 text-xs font-bold inline-flex items-center gap-1">Ver amostra <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i></span>
+          <span class="text-amber-400 text-xs font-bold inline-flex items-center gap-1">Ver formatos de show <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i></span>
         </div>
 
-        <!-- Card 3: Orçamento Direto no WhatsApp -->
-        <div onclick="previewSampleKit()" class="bg-brand-cardBg border border-brand-border p-6 rounded-3xl space-y-4 shadow-xl cursor-pointer hover:border-amber-500/50 transition-all group">
+        <!-- Card 3: Orçamento via WhatsApp (Vai direto pro questionário) -->
+        <div onclick="previewSampleSection('orcamento')" class="bg-brand-cardBg border border-brand-border p-6 rounded-3xl space-y-4 shadow-xl cursor-pointer hover:border-amber-500/50 transition-all group">
           <div class="w-12 h-12 rounded-2xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center group-hover:scale-110 transition-transform">
             <i data-lucide="message-square" class="w-6 h-6"></i>
           </div>
@@ -207,12 +204,12 @@
           <p class="text-xs text-zinc-400 leading-relaxed">
             Questionário prático onde o contratante informa data, local e estilo do evento, gerando uma proposta pronta direto para o seu WhatsApp.
           </p>
-          <span class="text-amber-400 text-xs font-bold inline-flex items-center gap-1">Ver amostra <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i></span>
+          <span class="text-amber-400 text-xs font-bold inline-flex items-center gap-1">Abrir questionário <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i></span>
         </div>
       </div>
     </section>
 
-    <!-- AVISO DE SEGURANÇA E LGPD (Último card) -->
+    <!-- AVISO DE SEGURANÇA E LGPD -->
     <section class="py-12 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
       <div class="bg-brand-cardBg border border-brand-border p-6 sm:p-8 rounded-3xl space-y-4 shadow-lg text-center">
         <div class="w-12 h-12 rounded-xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center mx-auto">
@@ -249,7 +246,7 @@
     <section id="hero" class="relative py-16 md:py-24 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto text-center space-y-6">
       
       <div id="displayBadge" class="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-amber-500/20 border border-amber-500/40 text-amber-400 text-2xl sm:text-4xl font-extrabold uppercase tracking-widest shadow-lg">
-        <span>🎵</span> <span id="displayArtistMainName">NOME DO ARTISTA</span>
+        <span>🎵</span> <span id="displayArtistMainName">SEU NOME</span>
       </div>
       
       <h1 id="displayTitle" class="text-xl sm:text-3xl font-extrabold text-amber-400 tracking-tight leading-snug max-w-3xl mx-auto uppercase">
@@ -271,7 +268,7 @@
           </div>
           <div class="md:col-span-8 space-y-3">
             <span class="text-amber-500 font-bold text-xs uppercase tracking-widest">Sobre o Artista</span>
-            <h2 id="displayArtistName" class="text-2xl sm:text-3xl font-bold text-white">Nome do Artista</h2>
+            <h2 id="displayArtistName" class="text-2xl sm:text-3xl font-bold text-white">Seu Nome</h2>
             <p id="displayBio" class="text-zinc-300 leading-relaxed text-sm sm:text-base">
               Músico profissional, multi-instrumentista e arranjador com vasta experiência em palcos de eventos corporativos, casamentos e casas noturnas de destaque.
             </p>
@@ -307,12 +304,19 @@
         </div>
       </div>
 
-      <div id="displayHeroVideoContainer" class="w-full max-w-4xl mx-auto rounded-2xl overflow-hidden border border-brand-border shadow-2xl bg-brand-cardBg aspect-video flex items-center justify-center mt-10">
-        <iframe id="displayHeroVideo" class="w-full h-full" src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allowfullscreen></iframe>
+      <!-- SEÇÃO DE VÍDEOS REAIS -->
+      <div id="secaoVideosReais" class="space-y-4 pt-4">
+        <div class="text-center">
+          <span class="text-amber-500 font-bold text-xs uppercase tracking-widest">Vídeos Reais</span>
+          <h3 class="text-2xl font-bold text-white mt-1">Assista às Performances</h3>
+        </div>
+        <div id="displayHeroVideoContainer" class="w-full max-w-4xl mx-auto rounded-2xl overflow-hidden border border-brand-border shadow-2xl bg-brand-cardBg aspect-video flex items-center justify-center">
+          <iframe id="displayHeroVideo" class="w-full h-full" src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allowfullscreen></iframe>
+        </div>
       </div>
     </section>
 
-    <!-- Formatos de Show -->
+    <!-- SEÇÃO DE FORMATOS DE SHOW -->
     <section id="formatos" class="py-16 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto border-t border-brand-border">
       <div class="text-center mb-12">
         <span class="text-amber-500 font-bold text-xs uppercase tracking-widest">Estruturas Disponíveis</span>
@@ -355,19 +359,6 @@
             <p class="text-xs text-zinc-400 leading-relaxed">Show marcante para celebrações corporativas e recepções de alto nível.</p>
           </div>
           <button onclick="openFormatModal('Eventos & Formaturas')" class="w-full bg-amber-500 hover:bg-amber-600 text-black font-bold py-3 rounded-xl text-sm flex items-center justify-center gap-2">Quero este formato <i data-lucide="arrow-right" class="w-4 h-4"></i></button>
-        </div>
-      </div>
-    </section>
-
-    <!-- Na Prática -->
-    <section class="py-16 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto border-t border-brand-border">
-      <div class="text-center mb-10">
-        <span class="text-amber-500 font-bold text-xs uppercase tracking-widest">Na Prática</span>
-        <h2 class="text-2xl sm:text-3xl font-bold text-white mt-1">Assista trechos reais das apresentações</h2>
-      </div>
-      <div id="displayNaPraticaContainer" class="grid sm:grid-cols-2 gap-6">
-        <div class="aspect-video bg-zinc-900 rounded-2xl overflow-hidden border border-brand-border flex items-center justify-center">
-          <iframe class="w-full h-full" src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allowfullscreen></iframe>
         </div>
       </div>
     </section>
@@ -418,8 +409,8 @@
       </div>
     </section>
 
-    <!-- CTA Final -->
-    <section class="py-20 bg-brand-cardBg/40 border-t border-brand-border px-4 sm:px-6 lg:px-8 text-center space-y-6">
+    <!-- CTA Final / Orçamento -->
+    <section id="secaoOrcamentoWpp" class="py-20 bg-brand-cardBg/40 border-t border-brand-border px-4 sm:px-6 lg:px-8 text-center space-y-6">
       <h2 class="text-3xl font-extrabold text-white">Pronto para garantir a trilha sonora perfeita?</h2>
       <button onclick="openFormatModal('Formato Geral')" class="bg-amber-500 hover:bg-amber-600 text-black font-extrabold px-8 py-4 rounded-2xl shadow-xl transition-all">
         Conferir Formatos & Orçar Show
@@ -511,7 +502,6 @@
           </div>
         </div>
 
-        <!-- Quadro Detalhado de Cachês -->
         <div class="bg-brand-cardBg border border-brand-border p-6 rounded-2xl space-y-4">
           <h3 class="text-sm font-bold text-amber-400 uppercase tracking-wider">Distribuição Detalhada de Cachês</h3>
           <div class="grid sm:grid-cols-3 gap-4 text-xs">
@@ -803,13 +793,13 @@
         </div>
 
         <div class="grid grid-cols-3 gap-2">
-          <button onclick="submitSocialRegister('Gmail')" class="bg-zinc-900 hover:bg-zinc-800 text-white border border-zinc-700 font-bold py-2.5 rounded-xl flex items-center justify-center gap-1.5 text-[11px]">
+          <button onclick="startSocialAuth('Gmail')" class="bg-zinc-900 hover:bg-zinc-800 text-white border border-zinc-700 font-bold py-2.5 rounded-xl flex items-center justify-center gap-1.5 text-[11px]">
             <i data-lucide="mail" class="w-3.5 h-3.5 text-amber-500"></i> Gmail
           </button>
-          <button onclick="submitSocialRegister('iCloud')" class="bg-zinc-900 hover:bg-zinc-800 text-white border border-zinc-700 font-bold py-2.5 rounded-xl flex items-center justify-center gap-1.5 text-[11px]">
+          <button onclick="startSocialAuth('iCloud')" class="bg-zinc-900 hover:bg-zinc-800 text-white border border-zinc-700 font-bold py-2.5 rounded-xl flex items-center justify-center gap-1.5 text-[11px]">
             <i data-lucide="apple" class="w-3.5 h-3.5 text-zinc-300"></i> iCloud
           </button>
-          <button onclick="submitSocialRegister('Hotmail')" class="bg-zinc-900 hover:bg-zinc-800 text-white border border-zinc-700 font-bold py-2.5 rounded-xl flex items-center justify-center gap-1.5 text-[11px]">
+          <button onclick="startSocialAuth('Hotmail')" class="bg-zinc-900 hover:bg-zinc-800 text-white border border-zinc-700 font-bold py-2.5 rounded-xl flex items-center justify-center gap-1.5 text-[11px]">
             <i data-lucide="globe" class="w-3.5 h-3.5 text-blue-400"></i> Hotmail
           </button>
         </div>
@@ -827,13 +817,13 @@
       </div>
       
       <div class="grid grid-cols-3 gap-2">
-        <button onclick="submitSocialRegister('Gmail')" class="bg-zinc-900 hover:bg-zinc-800 text-white border border-zinc-700 font-bold py-2 rounded-xl flex items-center justify-center gap-1 text-[11px]">
+        <button onclick="startSocialAuth('Gmail')" class="bg-zinc-900 hover:bg-zinc-800 text-white border border-zinc-700 font-bold py-2 rounded-xl flex items-center justify-center gap-1 text-[11px]">
           <i data-lucide="mail" class="w-3.5 h-3.5 text-amber-500"></i> Gmail
         </button>
-        <button onclick="submitSocialRegister('iCloud')" class="bg-zinc-900 hover:bg-zinc-800 text-white border border-zinc-700 font-bold py-2 rounded-xl flex items-center justify-center gap-1 text-[11px]">
+        <button onclick="startSocialAuth('iCloud')" class="bg-zinc-900 hover:bg-zinc-800 text-white border border-zinc-700 font-bold py-2 rounded-xl flex items-center justify-center gap-1 text-[11px]">
           <i data-lucide="apple" class="w-3.5 h-3.5 text-zinc-300"></i> iCloud
         </button>
-        <button onclick="submitSocialRegister('Hotmail')" class="bg-zinc-900 hover:bg-zinc-800 text-white border border-zinc-700 font-bold py-2 rounded-xl flex items-center justify-center gap-1 text-[11px]">
+        <button onclick="startSocialAuth('Hotmail')" class="bg-zinc-900 hover:bg-zinc-800 text-white border border-zinc-700 font-bold py-2 rounded-xl flex items-center justify-center gap-1 text-[11px]">
           <i data-lucide="globe" class="w-3.5 h-3.5 text-blue-400"></i> Hotmail
         </button>
       </div>
@@ -856,6 +846,51 @@
         <button onclick="submitLogin()" class="w-full bg-amber-500 hover:bg-amber-600 text-black font-extrabold py-3 rounded-xl text-sm shadow-md">
           Entrar no Painel
         </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL DE AUTENTICAÇÃO SOCIAL COM CONFIRMAÇÃO DE CÓDIGO ==================== -->
+  <div id="socialAuthModal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="bg-brand-cardBg border border-brand-border rounded-3xl max-w-md w-full p-6 sm:p-8 space-y-6 shadow-2xl relative text-center">
+      <button onclick="closeSocialAuthModal()" class="absolute top-6 right-6 text-zinc-400 hover:text-white"><i data-lucide="x" class="w-5 h-5"></i></button>
+      
+      <div id="socialAuthStep1" class="space-y-4">
+        <div id="socialAuthIconContainer" class="w-16 h-16 rounded-2xl bg-amber-500/10 text-amber-500 flex items-center justify-center mx-auto text-2xl font-bold">
+          🌐
+        </div>
+        <div>
+          <h3 id="socialAuthTitle" class="text-xl font-bold text-white">Autenticação</h3>
+          <p id="socialAuthSubtitle" class="text-xs text-zinc-400 mt-1">Informe seu e-mail para receber o código de verificação de autenticidade.</p>
+        </div>
+        <div class="text-left space-y-3 text-xs">
+          <div>
+            <label class="block font-semibold text-zinc-300 mb-1">E-mail de Acesso *</label>
+            <input type="email" id="socialAuthEmailInput" placeholder="seu@email.com" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white">
+          </div>
+          <button onclick="sendVerificationCode()" class="w-full bg-amber-500 hover:bg-amber-600 text-black font-extrabold py-3 rounded-xl shadow-md transition-all">
+            Enviar Código de Verificação
+          </button>
+        </div>
+      </div>
+
+      <div id="socialAuthStep2" class="space-y-4 hidden">
+        <div class="w-16 h-16 rounded-2xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center mx-auto">
+          <i data-lucide="shield-check" class="w-8 h-8"></i>
+        </div>
+        <div>
+          <h3 class="text-xl font-bold text-white">Confirme sua Identidade</h3>
+          <p class="text-xs text-zinc-400 mt-1">Enviamos um código de 6 dígitos para o seu e-mail. Digite-o abaixo para autenticar:</p>
+        </div>
+        <div class="text-left space-y-3 text-xs">
+          <div>
+            <label class="block font-semibold text-zinc-300 mb-1">Código de Verificação (Ex: 123456)</label>
+            <input type="text" id="socialAuthCodeInput" placeholder="123456" maxlength="6" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white text-center text-lg font-mono tracking-widest">
+          </div>
+          <button onclick="verifySocialCode()" class="w-full bg-emerald-500 hover:bg-emerald-600 text-black font-extrabold py-3 rounded-xl shadow-md transition-all">
+            Validar & Acessar Painel
+          </button>
+        </div>
       </div>
     </div>
   </div>
@@ -933,13 +968,13 @@
   <script>
     lucide.createIcons();
 
-    // Estado padrão robusto (nunca dá 404, exibe estados em construção se não houver dados)
+    // Estado padrão genérico "SEU NOME" para amostras
     let artistData = JSON.parse(localStorage.getItem('stagekit_artist')) || {
       whatsapp: "(21)98936-8930",
-      artistMainName: "NOME DO ARTISTA",
+      artistMainName: "SEU NOME",
       title: "A TRILHA SONORA PERFEITA PARA O SEU MOMENTO",
-      bio: "Biografia em construção. O artista está preparando o conteúdo exclusivo para este press kit.",
-      slug: "artista",
+      bio: "Biografia de exemplo. Insira sua biografia profissional e destaque sua trajetória nos palcos para impressionar os contratantes.",
+      slug: "seu-nome",
       instagram: "seunomeaqui",
       tiktok: "",
       facebook: "",
@@ -958,6 +993,7 @@
     let eventsList = JSON.parse(localStorage.getItem('stagekit_events')) || [];
     let musiciansList = JSON.parse(localStorage.getItem('stagekit_musicians')) || [];
     let selectedFormatForModal = "";
+    let currentAuthType = "";
 
     function saveData() {
       localStorage.setItem('stagekit_artist', JSON.stringify(artistData));
@@ -1049,7 +1085,8 @@
       document.getElementById('headerVerPressKitBtn').classList.add('hidden');
     }
 
-    function previewSampleKit() {
+    // Navegação direta aos cards com rolagem exata para a seção desejada
+    function previewSampleSection(sectionKey) {
       window.history.pushState({}, '', `/${artistData.slug}`);
       document.getElementById('landingPage').classList.add('hidden');
       document.getElementById('contractorView').classList.remove('hidden');
@@ -1058,10 +1095,24 @@
       document.getElementById('panelHeaderActions').classList.remove('hidden');
       document.getElementById('headerVerPressKitBtn').classList.add('hidden');
       applyPublicData();
+
+      setTimeout(() => {
+        if(sectionKey === 'videos') {
+          document.getElementById('secaoVideosReais').scrollIntoView({ behavior: 'smooth' });
+        } else if(sectionKey === 'formatos') {
+          document.getElementById('formatos').scrollIntoView({ behavior: 'smooth' });
+        } else if(sectionKey === 'orcamento') {
+          openFormatModal('Orçamento Geral');
+        }
+      }, 100);
+    }
+
+    function previewSampleKit() {
+      previewSampleSection('videos');
     }
 
     function showPublicPressKit() {
-      previewSampleKit();
+      previewSampleSection('videos');
     }
 
     function showArtistDashboard() {
@@ -1070,7 +1121,7 @@
       document.getElementById('contractorView').classList.add('hidden');
       document.getElementById('artistDashboard').classList.remove('hidden');
       document.getElementById('landingHeaderActions').classList.add('hidden');
-      document.getElementById('panelHeaderActions').classList.add('hidden'); // Ícones somem na área do artista
+      document.getElementById('panelHeaderActions').classList.add('hidden');
       document.getElementById('headerVerPressKitBtn').classList.remove('hidden');
       switchTab('tabDashboard');
     }
@@ -1133,23 +1184,61 @@
       showArtistDashboard();
     }
 
-    function submitSocialRegister(provider) {
-      const name = prompt(`Conectando via ${provider}...\nDigite seu nome artístico para finalizar o acesso instantâneo:`);
-      const email = prompt(`Digite seu e-mail de acesso para o ${provider}:`);
-      if(name && email) {
-        artistData.artistMainName = name.toUpperCase();
-        artistData.slug = name.toLowerCase().replace(/\s+/g, '');
-        artistData.registeredEmail = email;
-        artistData.registeredPassword = "123";
-        saveData();
-        loadInputsFromState();
-        closeRegisterModal();
-        closeLoginModal();
-        showArtistDashboard();
+    // Fluxo de Autenticação Social com Confirmação por Código de E-mail
+    function startSocialAuth(provider) {
+      currentAuthType = provider;
+      closeLoginModal();
+      closeRegisterModal();
+
+      document.getElementById('socialAuthTitle').innerText = `Autenticar com ${provider}`;
+      if(provider === 'iCloud') {
+        document.getElementById('socialAuthSubtitle').innerText = 'Insira seu ID Apple e e-mail para receber o código de verificação de autenticidade.';
+      } else {
+        document.getElementById('socialAuthSubtitle').innerText = `Redirecionando para o portal ${provider}... Informe seu e-mail para receber o código de confirmação.`;
       }
+
+      document.getElementById('socialAuthStep1').classList.remove('hidden');
+      document.getElementById('socialAuthStep2').classList.add('hidden');
+      document.getElementById('socialAuthEmailInput').value = '';
+      document.getElementById('socialAuthModal').classList.remove('hidden');
     }
 
-    // Correção: Encerra a sessão e retorna à home limpa
+    function closeSocialAuthModal() {
+      document.getElementById('socialAuthModal').classList.add('hidden');
+    }
+
+    function sendVerificationCode() {
+      const email = document.getElementById('socialAuthEmailInput').value.trim();
+      if(!email || !email.includes('@')) {
+        alert('Por favor, informe um e-mail válido.');
+        return;
+      }
+      
+      alert(`Código de confirmação enviado com sucesso para ${email} (${currentAuthType}). Simulação: digite qualquer código de 6 dígitos para autenticar.`);
+      document.getElementById('socialAuthStep1').classList.add('hidden');
+      document.getElementById('socialAuthStep2').classList.remove('hidden');
+      document.getElementById('socialAuthCodeInput').value = '';
+    }
+
+    function verifySocialCode() {
+      const code = document.getElementById('socialAuthCodeInput').value.trim();
+      if(code.length < 4) {
+        alert('Insira o código de verificação completo enviado ao seu e-mail.');
+        return;
+      }
+
+      const email = document.getElementById('socialAuthEmailInput').value.trim();
+      artistData.registeredEmail = email;
+      artistData.artistMainName = "MEU NOME ARTÍSTICO";
+      artistData.slug = "meunome";
+      saveData();
+      loadInputsFromState();
+
+      closeSocialAuthModal();
+      alert(`Autenticação via ${currentAuthType} validada com sucesso! Bem-vindo ao painel.`);
+      showArtistDashboard();
+    }
+
     function logoutToHome() {
       goHome();
     }
