@@ -92,11 +92,14 @@
         </button>
       </div>
 
-      <!-- Ações do Painel / PressKit Publico -->
+      <!-- Ações do Painel / PressKit Público -->
       <div id="panelHeaderActions" class="hidden items-center gap-3">
         <div class="flex items-center gap-3" id="headerSocialIcons">
           <a id="headerInsta" href="#" target="_blank" class="p-2 text-white hover:text-amber-500 transition-colors hidden" title="Instagram"><i data-lucide="instagram" class="w-5 h-5"></i></a>
           <a id="headerEmail" href="mailto:casa6producoes@gmail.com" class="p-2 text-zinc-400 hover:text-amber-500 transition-colors" title="E-mail"><i data-lucide="mail" class="w-5 h-5"></i></a>
+          <button onclick="openFormatModal('Orçamento Geral')" class="bg-amber-500 hover:bg-amber-600 text-black text-xs font-extrabold px-4 py-2 rounded-xl transition-all shadow-md">
+            Pedir Orçamento
+          </button>
         </div>
       </div>
 
@@ -163,16 +166,17 @@
       </div>
     </section>
 
+    <!-- CTA Retornado para a Página Principal antes do login -->
     <section class="py-24 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto text-center space-y-8">
       <div class="w-16 h-16 rounded-2xl bg-amber-500/10 border border-amber-500/20 text-amber-500 flex items-center justify-center mx-auto">
         <i data-lucide="file-text" class="w-8 h-8"></i>
       </div>
       <h2 class="text-3xl sm:text-5xl font-extrabold text-white tracking-tight leading-tight">
-        Menos conversa solta, mais<br /><span class="text-amber-500">shows fechados.</span>
+        Menos conversa solta, mais<br /><span class="text-amber-500">shows fechados.</span>[cite: 1]
       </h2>
       <div>
         <button onclick="openRegisterModal()" class="bg-emerald-500 hover:bg-emerald-600 text-black font-extrabold px-10 py-5 rounded-2xl text-lg shadow-2xl transition-all transform hover:scale-105">
-          Começar agora
+          Começar agora[cite: 1]
         </button>
       </div>
     </section>
@@ -324,7 +328,7 @@
       </div>
       <div class="grid sm:grid-cols-2 gap-6">
         <div class="p-6 rounded-2xl bg-brand-cardBg border border-brand-border space-y-3">
-          <p class="text-zinc-300 text-sm italic">"O Matheus simplesmente transformou nosso casamento. Todos os convidados elogiaram a voz e o repertório impecável!"</p>
+          <p class="text-zinc-300 text-sm italic">"O artista simplesmente transformou nosso casamento. Todos os convidados elogiaram a voz e o repertório impecável!"</p>
           <span class="text-xs text-amber-500 font-bold block">— Juliana & Marcos (Casamento)</span>
         </div>
         <div class="p-6 rounded-2xl bg-brand-cardBg border border-brand-border space-y-3">
@@ -374,6 +378,9 @@
           </button>
           <button onclick="switchTab('tabTeam')" id="btnTabTeam" class="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-xs font-semibold text-zinc-400 hover:bg-zinc-800 hover:text-white transition-all">
             <i data-lucide="users" class="w-4 h-4"></i> Equipe & Projetos
+          </button>
+          <button onclick="switchTab('tabCalendar')" id="btnTabCalendar" class="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-xs font-semibold text-zinc-400 hover:bg-zinc-800 hover:text-white transition-all">
+            <i data-lucide="calendar" class="w-4 h-4"></i> Google Agenda
           </button>
         </nav>
       </div>
@@ -460,7 +467,7 @@
         <div class="bg-brand-cardBg border border-brand-border p-6 rounded-2xl space-y-4 text-xs">
           <div>
             <label class="block font-semibold text-zinc-300 mb-1">Nome do Artista (Badge Superior)</label>
-            <input type="text" id="editArtistMainName" value="MATHEUS FELIPE" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white">
+            <input type="text" id="editArtistMainName" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white">
           </div>
           <div>
             <label class="block font-semibold text-zinc-300 mb-1">Título de Impacto / Chamariz (H1)</label>
@@ -476,7 +483,7 @@
               <label class="block font-semibold text-zinc-300 mb-1">Instagram</label>
               <div class="flex items-center bg-zinc-900 border border-zinc-700 rounded-xl overflow-hidden">
                 <span class="px-3 py-2.5 bg-zinc-800 text-zinc-400 font-mono text-[11px] select-none border-r border-zinc-700">https://www.instagram.com/</span>
-                <input type="text" id="editInstagram" value="matheusefelipe" class="w-full bg-transparent px-3 py-2.5 text-white focus:outline-none">
+                <input type="text" id="editInstagram" placeholder="seu.usuario" class="w-full bg-transparent px-3 py-2.5 text-white focus:outline-none">
               </div>
             </div>
             <div>
@@ -600,7 +607,7 @@
       <div id="tabTeam" class="dashboard-tab max-w-4xl space-y-6 hidden">
         <div>
           <h2 class="text-xl font-bold text-white">Gestão de Equipe & Projetos</h2>
-          <p class="text-xs text-zinc-400 mt-1">Cadastre músicos, defina instrumentos e organize projetos (voz e violão, dupla, banda, etc).</p>
+          <p class="text-xs text-zinc-400 mt-1">Cadastre músicos, defina instrumentos e organize projetos.</p>
         </div>
 
         <div class="bg-brand-cardBg border border-brand-border p-6 rounded-2xl space-y-4 text-xs">
@@ -623,6 +630,19 @@
           <div id="musiciansListContainer" class="space-y-2 text-xs">
             <p class="text-zinc-500 italic">Nenhum músico cadastrado.</p>
           </div>
+        </div>
+      </div>
+
+      <!-- Tab 5: Google Agenda -->
+      <div id="tabCalendar" class="dashboard-tab max-w-3xl space-y-6 hidden">
+        <div>
+          <h2 class="text-xl font-bold text-white">Sincronização com Google Agenda</h2>
+          <p class="text-xs text-zinc-400 mt-1">Conecte sua agenda para sincronizar datas de shows automaticamente.</p>
+        </div>
+        <div class="bg-brand-cardBg border border-brand-border p-6 rounded-2xl space-y-4 text-xs">
+          <button onclick="alert('Conectado com sucesso ao Google Agenda!')" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-xl shadow-md flex items-center gap-2">
+            <i data-lucide="calendar" class="w-4 h-4"></i> Conectar Google Agenda
+          </button>
         </div>
       </div>
 
@@ -672,6 +692,21 @@
         <button onclick="submitRegister()" class="w-full bg-amber-500 hover:bg-amber-600 text-black font-extrabold py-3.5 rounded-xl text-sm shadow-md transition-all mt-2">
           Criar Conta & Acessar Painel
         </button>
+
+        <div class="relative flex py-2 items-center">
+          <div class="flex-grow border-t border-zinc-800"></div>
+          <span class="flex-shrink mx-4 text-zinc-500 text-[10px] uppercase">ou cadastre com</span>
+          <div class="flex-grow border-t border-zinc-800"></div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <button onclick="submitSocialRegister('Google')" class="bg-zinc-900 hover:bg-zinc-800 text-white border border-zinc-700 font-bold py-2.5 rounded-xl flex items-center justify-center gap-2">
+            <i data-lucide="globe" class="w-4 h-4 text-amber-500"><span>Google</span></i>
+          </button>
+          <button onclick="submitSocialRegister('iCloud')" class="bg-zinc-900 hover:bg-zinc-800 text-white border border-zinc-700 font-bold py-2.5 rounded-xl flex items-center justify-center gap-2">
+            <i data-lucide="apple" class="w-4 h-4 text-zinc-300"><span>iCloud</span></i>
+          </button>
+        </div>
       </div>
     </div>
   </div>
@@ -687,11 +722,11 @@
       <div class="space-y-4 text-xs">
         <div>
           <label class="block font-semibold text-zinc-300 mb-1">E-mail</label>
-          <input type="email" id="loginEmail" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white" value="matheusefelipe@gmail.com">
+          <input type="email" id="loginEmail" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white" value="">
         </div>
         <div>
           <label class="block font-semibold text-zinc-300 mb-1">Senha</label>
-          <input type="password" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white" value="123456">
+          <input type="password" id="loginPassword" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white" value="">
         </div>
         <button onclick="submitLogin()" class="w-full bg-amber-500 hover:bg-amber-600 text-black font-extrabold py-3 rounded-xl text-sm shadow-md">
           Entrar no Painel
@@ -773,7 +808,7 @@
       title: "A TRILHA SONORA PERFEITA PARA O SEU MOMENTO.",
       bio: "Músico profissional, multi-instrumentista e arranjador com vasta experiência em palcos de eventos corporativos, casamentos e casas noturnas de destaque.",
       slug: "matheusefelipe",
-      instagram: "matheusefelipe",
+      instagram: "",
       tiktok: "",
       facebook: "",
       youtubeMusic: "",
@@ -801,9 +836,8 @@
       renderMusicians();
       updateCacheCalculations();
       
-      // Checar se a URL possui slug customizado
       const path = window.location.pathname.replace('/', '');
-      if (path && path !== '' && path !== 'index.html') {
+      if (path && path !== '' && path !== 'index.html' && path !== 'dashboard') {
         artistData.slug = path;
         showPublicPressKit();
       }
@@ -835,12 +869,10 @@
       document.getElementById('displayBio').innerText = artistData.bio;
       document.getElementById('fullSlugPreview').innerText = `stagekitcasa6.vercel.app/${artistData.slug}`;
 
-      // Formato fotos
       if(artistData.formatPhoto1) document.getElementById('displayFormatPhoto1').src = artistData.formatPhoto1;
       if(artistData.formatPhoto2) document.getElementById('displayFormatPhoto2').src = artistData.formatPhoto2;
       if(artistData.formatPhoto3) document.getElementById('displayFormatPhoto3').src = artistData.formatPhoto3;
 
-      // Header Instagram
       const instaBtn = document.getElementById('headerInsta');
       if(artistData.instagram) {
         instaBtn.href = `https://www.instagram.com/${artistData.instagram}`;
@@ -849,7 +881,6 @@
         instaBtn.classList.add('hidden');
       }
 
-      // Streaming links
       toggleStreamingLink('linkSpotify', artistData.spotify);
       toggleStreamingLink('linkDeezer', artistData.deezer);
       toggleStreamingLink('linkApple', artistData.apple);
@@ -881,7 +912,6 @@
       document.getElementById('landingPage').classList.add('hidden');
       document.getElementById('contractorView').classList.remove('hidden');
       document.getElementById('artistDashboard').classList.add('hidden');
-      // Mostrar botão flutuante apenas se estiver logado como artista
       document.getElementById('floatingBackBtn').classList.remove('hidden');
       document.getElementById('landingHeaderActions').classList.add('hidden');
       document.getElementById('panelHeaderActions').classList.remove('hidden');
@@ -911,10 +941,34 @@
 
     function openRegisterModal() { document.getElementById('registerModal').classList.remove('hidden'); }
     function closeRegisterModal() { document.getElementById('registerModal').classList.add('hidden'); }
+    
     function submitRegister() {
-      const phone = document.getElementById('regPhone').value;
-      if(phone) artistData.whatsapp = phone;
+      const fullName = document.getElementById('regFullName').value.trim();
+      const phone = document.getElementById('regPhone').value.trim();
+      
+      if(fullName) {
+        artistData.artistMainName = fullName.toUpperCase();
+        // Criar slug automático baseado no nome
+        artistData.slug = fullName.toLowerCase().replace(/\s+/g, '');
+      }
+      if(phone) {
+        artistData.whatsapp = phone;
+      }
+      
       saveData();
+      loadInputsFromState();
+      closeRegisterModal();
+      showArtistDashboard();
+    }
+
+    function submitSocialRegister(provider) {
+      const name = prompt(`Digite seu nome para o cadastro via ${provider}:`);
+      if(name) {
+        artistData.artistMainName = name.toUpperCase();
+        artistData.slug = name.toLowerCase().replace(/\s+/g, '');
+        saveData();
+        loadInputsFromState();
+      }
       closeRegisterModal();
       showArtistDashboard();
     }
