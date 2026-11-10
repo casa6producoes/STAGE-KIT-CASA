@@ -165,7 +165,7 @@
       </div>
 
       <div class="grid md:grid-cols-3 gap-8">
-        <!-- Card 1: Vídeos Reais (Abre Modal com Vídeo Demonstração do YouTube) -->
+        <!-- Card 1: Vídeos Reais (Abre Modal com a Imagem 1 customizada) -->
         <div onclick="openDemoModal('videos')" class="bg-brand-cardBg border border-brand-border p-6 rounded-3xl space-y-4 shadow-xl cursor-pointer hover:border-amber-500/50 transition-all group flex flex-col justify-between">
           <div class="space-y-3">
             <div class="w-12 h-12 rounded-2xl bg-amber-500/10 text-amber-500 flex items-center justify-center group-hover:scale-110 transition-transform">
@@ -927,7 +927,7 @@
       instagram: "seunomeaqui",
       tiktok: "",
       facebook: "",
-      youtubeMusic: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+      youtubeMusic: "",
       spotify: "",
       deezer: "",
       apple: "",
@@ -1092,7 +1092,7 @@
       applyPublicData();
     }
 
-    // Modal de Demonstração (Para os cards 1 e 2 da página inicial)
+    // Modal de Demonstração (Utilizando a imagem exata do show acústico fornecida)
     function openDemoModal(type) {
       const modal = document.getElementById('demoModal');
       const title = document.getElementById('demoModalTitle');
@@ -1105,10 +1105,13 @@
         content.innerHTML = `
           <div class="space-y-4">
             <p class="text-zinc-300 text-xs leading-relaxed">Veja como o contratante visualiza o vídeo de performance ao vivo do artista logo no topo do Press Kit:</p>
-            <div class="w-full rounded-2xl overflow-hidden border border-brand-border shadow-2xl bg-zinc-900 aspect-video flex items-center justify-center">
-              <iframe class="w-full h-full" src="https://www.youtube.com/embed/jfKfPfyJRdk" frameborder="0" allowfullscreen></iframe>
+            <div class="w-full rounded-2xl overflow-hidden border border-brand-border shadow-2xl bg-zinc-900 aspect-video flex items-center justify-center relative">
+              <img src="Matheus Felipe em um show acústico aconchegante.png" alt="Vídeo Acústico Ao Vivo" class="w-full h-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=800&q=80'">
+              <div class="absolute inset-0 bg-black/30 flex items-center justify-center">
+                <div class="w-14 h-14 rounded-full bg-amber-500 text-black flex items-center justify-center shadow-lg font-bold text-xl pl-1">▶</div>
+              </div>
             </div>
-            <p class="text-[11px] text-amber-500 italic text-center">💡 O artista pode inserir qualquer link do YouTube no painel para exibir seus próprios shows.</p>
+            <p class="text-[11px] text-amber-500 italic text-center">💡 O artista insere o link do YouTube no painel e o press kit já exibe a performance com destaque profissional.</p>
           </div>
         `;
       } else if(type === 'formatos') {
@@ -1119,18 +1122,18 @@
             <p class="text-zinc-300 text-xs leading-relaxed">O contratante visualiza os formatos customizados com fotos reais e descrições das estruturas:</p>
             <div class="grid sm:grid-cols-3 gap-4">
               <div class="p-4 rounded-xl bg-zinc-900 border border-zinc-800 space-y-2">
-                <div class="rounded-lg overflow-hiden h-24 bg-zinc-800"><img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=400&q=80" class="w-full h-full object-cover"></div>
+                <div class="rounded-lg overflow-hidden h-24 bg-zinc-800"><img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=400&q=80" class="w-full h-full object-cover"></div>
                 <h4 class="font-bold text-white text-xs">Barzinhos & Aniversários</h4>
                 <p class="text-[10px] text-zinc-400">Repertório versátil acústico.</p>
               </div>
               <div class="p-4 rounded-xl bg-zinc-900 border border-amber-500/40 space-y-2 relative">
                 <div class="absolute -top-2 left-1/2 -translate-x-1/2 bg-amber-500 text-black font-extrabold text-[8px] uppercase px-2 py-0.5 rounded-full">Mais Pedido</div>
-                <div class="rounded-lg overflow-hiden h-24 bg-zinc-800 mt-1"><img src="https://images.unsplash.com/photo-1465847899084-d164df4dedc6?auto=format&fit=crop&w=400&q=80" class="w-full h-full object-cover"></div>
+                <div class="rounded-lg overflow-hidden h-24 bg-zinc-800 mt-1"><img src="https://images.unsplash.com/photo-1465847899084-d164df4dedc6?auto=format&fit=crop&w=400&q=80" class="w-full h-full object-cover"></div>
                 <h4 class="font-bold text-white text-xs">Casamentos & Cerimônias</h4>
                 <p class="text-[10px] text-zinc-400">Trilha sonora inesquecível.</p>
               </div>
               <div class="p-4 rounded-xl bg-zinc-900 border border-zinc-800 space-y-2">
-                <div class="rounded-lg overflow-hiden h-24 bg-zinc-800"><img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=400&q=80" class="w-full h-full object-cover"></div>
+                <div class="rounded-lg overflow-hidden h-24 bg-zinc-800"><img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=400&q=80" class="w-full h-full object-cover"></div>
                 <h4 class="font-bold text-white text-xs">Eventos & Formaturas</h4>
                 <p class="text-[10px] text-zinc-400">Show marcante e dinâmico.</p>
               </div>
@@ -1246,7 +1249,7 @@
       showArtistDashboard();
     }
 
-    // Fluxo de Autenticação com Envio Real de Código via EmailJS (Credenciais Oficiais)
+    // Fluxo de Autenticação com Envio Real de Código via EmailJS (Credenciais Oficiais Corretas)
     function startSocialAuth(provider) {
       currentAuthType = provider;
       closeLoginModal();
@@ -1288,7 +1291,7 @@
 
       generatedVerificationCode = Math.floor(100000 + Math.random() * 900000).toString();
 
-      // Configuração Real com as suas credenciais do EmailJS
+      // Parâmetros oficiais conectados ao EmailJS
       const templateParams = {
         to_email: email,
         pass_code: generatedVerificationCode,
@@ -1296,7 +1299,7 @@
       };
 
       try {
-        emailjs.init("LylxGmkZwZeQPvhMt"); // Sua Public Key real
+        emailjs.init("LylxGmkZwZeQPvhMt"); // Sua Public Key correta
         emailjs.send("service_2926auh", "template_vrl1qan", templateParams)
           .then(() => {
             alert(`Código de verificação enviado com sucesso para ${email}! Verifique sua caixa de entrada.`);
@@ -1307,11 +1310,11 @@
             const sac = document.getElementById('socialAuthCodeInput');
             if(sac) sac.value = '';
           }, (err) => {
-            console.error('Erro EmailJS:', err);
-            alert('Erro ao enviar e-mail. Verifique o Service ID ou Template ID no painel do EmailJS.');
+            console.error('Erro detalhado EmailJS:', err);
+            alert('Erro ao enviar e-mail. Verifique no painel do EmailJS se o domínio da Vercel está permitido e se o Template ID possui a variável {{pass_code}}.');
           });
       } catch(e) {
-        console.error(e);
+        console.error('Exceção EmailJS:', e);
         alert('Erro na inicialização do serviço de e-mail.');
       }
     }
