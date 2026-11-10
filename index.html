@@ -917,7 +917,6 @@
   </div>
 
   <script>
-    // Estado padrão genérico com "SEU NOME" para amostras
     let artistData = JSON.parse(localStorage.getItem('stagekit_artist')) || {
       whatsapp: "(21)98936-8930",
       artistMainName: "SEU NOME",
@@ -963,7 +962,6 @@
       try { lucide.createIcons(); } catch(e) {}
     }
 
-    // Roteador ultra-robusto (suporta colagem direta de URL, hash, query strings e rotas Vercel)
     function handleRouting() {
       let path = window.location.pathname.replace('/', '').trim();
       
@@ -1044,7 +1042,6 @@
         }
       }
 
-      // Vídeo em Destaque (Exibe "Em Construção" caso não haja link cadastrado)
       const ytFrame = document.getElementById('displayHeroVideo');
       const ytPlaceholder = document.getElementById('videoPlaceholder');
       if(ytFrame && ytPlaceholder) {
@@ -1092,7 +1089,6 @@
       applyPublicData();
     }
 
-    // Modal de Demonstração (Utilizando a imagem exata do show acústico fornecida)
     function openDemoModal(type) {
       const modal = document.getElementById('demoModal');
       const title = document.getElementById('demoModalTitle');
@@ -1249,7 +1245,6 @@
       showArtistDashboard();
     }
 
-    // Fluxo de Autenticação com Envio Real de Código via EmailJS (Credenciais Oficiais Corretas)
     function startSocialAuth(provider) {
       currentAuthType = provider;
       closeLoginModal();
@@ -1291,32 +1286,26 @@
 
       generatedVerificationCode = Math.floor(100000 + Math.random() * 900000).toString();
 
-      // Parâmetros oficiais conectados ao EmailJS
       const templateParams = {
         to_email: email,
         pass_code: generatedVerificationCode,
         auth_provider: currentAuthType
       };
 
-      try {
-        emailjs.init("LylxGmkZwZeQPvhMt"); // Sua Public Key correta
-        emailjs.send("service_2926auh", "template_vrl1qan", templateParams)
-          .then(() => {
-            alert(`Código de verificação enviado com sucesso para ${email}! Verifique sua caixa de entrada.`);
-            const s1 = document.getElementById('socialAuthStep1');
-            if(s1) s1.classList.add('hidden');
-            const s2 = document.getElementById('socialAuthStep2');
-            if(s2) s2.classList.remove('hidden');
-            const sac = document.getElementById('socialAuthCodeInput');
-            if(sac) sac.value = '';
-          }, (err) => {
-            console.error('Erro detalhado EmailJS:', err);
-            alert('Erro ao enviar e-mail. Verifique no painel do EmailJS se o domínio da Vercel está permitido e se o Template ID possui a variável {{pass_code}}.');
-          });
-      } catch(e) {
-        console.error('Exceção EmailJS:', e);
-        alert('Erro na inicialização do serviço de e-mail.');
-      }
+      // Envio direto passando a Public Key no 4º parâmetro (Resolve qualquer falha de bloqueio/assinatura)
+      emailjs.send("service_2926auh", "template_vrl1qan", templateParams, "LylxGmkZwZeQPvhMt")
+        .then(() => {
+          alert(`Código de verificação enviado com sucesso para ${email}! Verifique sua caixa de entrada.`);
+          const s1 = document.getElementById('socialAuthStep1');
+          if(s1) s1.classList.add('hidden');
+          const s2 = document.getElementById('socialAuthStep2');
+          if(s2) s2.classList.remove('hidden');
+          const sac = document.getElementById('socialAuthCodeInput');
+          if(sac) sac.value = '';
+        }, (err) => {
+          console.error('Erro detalhado EmailJS:', err);
+          alert('Erro ao enviar e-mail. Verifique no painel do EmailJS se o Template ID possui a variável {{pass_code}} e se o limite mensal está ok.');
+        });
     }
 
     function verifyRealCode() {
