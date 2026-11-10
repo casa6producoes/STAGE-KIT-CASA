@@ -27,8 +27,6 @@
   
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/lucide@latest"></script>
-  <!-- EmailJS SDK para envio real de códigos de verificação -->
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 
   <style>
     body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: var(--bg-color, #09090B); color: var(--text-color, #FAFAFA); transition: background-color 0.3s, color 0.3s; scroll-behavior: smooth; }
@@ -88,25 +86,29 @@
       <!-- Ações da Landing Page (Antes do Login) -->
       <div id="landingHeaderActions" class="flex items-center gap-3">
         <button onclick="openLoginModal()" class="text-zinc-300 hover:text-white text-xs font-bold px-4 py-2 transition-colors cursor-pointer">
-          Abrir meu painel
+          Entrar no meu painel
         </button>
         <button onclick="openRegisterModal()" class="bg-amber-500 hover:bg-amber-600 text-black text-xs font-extrabold px-4.5 py-2.5 rounded-xl transition-all shadow-md cursor-pointer">
           Criar meu kit
         </button>
       </div>
 
-      <!-- Ações do Painel / PressKit (Contratante) -->
+      <!-- Ações do Painel / PressKit -->
       <div id="panelHeaderActions" class="hidden items-center gap-3">
         <div class="flex items-center gap-2" id="headerSocialIcons">
-          <!-- Ícone do Instagram visível na página do contratante -->
+          <!-- Status de usuário logado -->
+          <div class="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-xl bg-zinc-900 border border-zinc-800 text-xs text-zinc-300">
+            <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+            <span id="headerLoggedUser">Sessão Ativa</span>
+          </div>
+
           <a id="headerInsta" href="#" target="_blank" class="p-2.5 rounded-xl bg-zinc-900 border border-zinc-800 text-zinc-300 hover:text-amber-500 transition-colors hidden" title="Instagram">
             <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
           </a>
-          <a id="headerEmail" href="mailto:casa6producoes@gmail.com" class="p-2.5 rounded-xl bg-zinc-900 border border-zinc-800 text-zinc-300 hover:text-amber-500 transition-colors" title="E-mail"><i data-lucide="mail" class="w-4 h-4"></i></a>
           
           <!-- Botão Sair da Conta -->
-          <button onclick="logoutToHome()" class="p-2.5 rounded-xl bg-zinc-900 border border-zinc-800 text-red-400 hover:bg-zinc-800 transition-colors cursor-pointer" title="Sair da Conta">
-            <i data-lucide="log-out" class="w-4 h-4"></i>
+          <button onclick="logoutToHome()" class="p-2.5 rounded-xl bg-zinc-900 border border-zinc-800 text-red-400 hover:bg-zinc-800 transition-colors cursor-pointer flex items-center gap-2 text-xs font-semibold" title="Sair da Conta">
+            <i data-lucide="log-out" class="w-4 h-4"></i> <span class="hidden sm:inline">Sair</span>
           </button>
         </div>
       </div>
@@ -157,7 +159,7 @@
       </div>
     </section>
 
-    <!-- 3 CARDS DA ÁREA DO CLIENTE COM DEMONSTRAÇÃO VISUAL (MODAL PREVIEW) -->
+    <!-- 3 CARDS DA ÁREA DO CLIENTE COM DEMONSTRAÇÃO VISUAL -->
     <section class="py-20 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto space-y-16">
       <div class="text-center space-y-3">
         <span class="text-amber-500 font-bold text-xs uppercase tracking-widest">Área do Cliente em Ação</span>
@@ -165,7 +167,7 @@
       </div>
 
       <div class="grid md:grid-cols-3 gap-8">
-        <!-- Card 1: Vídeos Reais (Abre Modal com a Imagem 1 customizada) -->
+        <!-- Card 1: Vídeos Reais -->
         <div onclick="openDemoModal('videos')" class="bg-brand-cardBg border border-brand-border p-6 rounded-3xl space-y-4 shadow-xl cursor-pointer hover:border-amber-500/50 transition-all group flex flex-col justify-between">
           <div class="space-y-3">
             <div class="w-12 h-12 rounded-2xl bg-amber-500/10 text-amber-500 flex items-center justify-center group-hover:scale-110 transition-transform">
@@ -179,7 +181,7 @@
           <span class="text-amber-400 text-xs font-bold inline-flex items-center gap-1 pt-2">Ver demonstração em vídeo <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i></span>
         </div>
 
-        <!-- Card 2: Formatos de Show (Abre Modal com Print/Demonstração dos Formatos) -->
+        <!-- Card 2: Formatos de Show -->
         <div onclick="openDemoModal('formatos')" class="bg-brand-cardBg border border-brand-border p-6 rounded-3xl space-y-4 shadow-xl cursor-pointer hover:border-amber-500/50 transition-all group flex flex-col justify-between">
           <div class="space-y-3">
             <div class="w-12 h-12 rounded-2xl bg-amber-500/10 text-amber-500 flex items-center justify-center group-hover:scale-110 transition-transform">
@@ -193,7 +195,7 @@
           <span class="text-amber-400 text-xs font-bold inline-flex items-center gap-1 pt-2">Ver demonstração dos formatos <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i></span>
         </div>
 
-        <!-- Card 3: Orçamento via WhatsApp (Abre Questionário Estático de Orçamento) -->
+        <!-- Card 3: Orçamento via WhatsApp -->
         <div onclick="openFormatModal('Orçamento Geral', true)" class="bg-brand-cardBg border border-brand-border p-6 rounded-3xl space-y-4 shadow-xl cursor-pointer hover:border-amber-500/50 transition-all group flex flex-col justify-between">
           <div class="space-y-3">
             <div class="w-12 h-12 rounded-2xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center group-hover:scale-110 transition-transform">
@@ -245,7 +247,6 @@
   <div id="contractorView" class="flex-1 pt-20 hidden">
     <section id="hero" class="relative py-16 md:py-24 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto text-center space-y-6">
       
-      <!-- Nome com super destaque (maior que a frase CTA) -->
       <div id="displayBadge" class="inline-flex items-center gap-3 px-8 py-4 rounded-full bg-amber-500/20 border border-amber-500/40 text-amber-400 text-3xl sm:text-5xl font-extrabold uppercase tracking-wider shadow-2xl my-2">
         <span>🎵</span> <span id="displayArtistMainName">SEU NOME</span>
       </div>
@@ -277,7 +278,7 @@
         </div>
       </div>
 
-      <!-- SEÇÃO DE VÍDEOS REAIS (Em Construção se vazio) -->
+      <!-- SEÇÃO DE VÍDEOS REAIS -->
       <div id="secaoVideosReais" class="space-y-4 pt-4">
         <div class="text-center">
           <span class="text-amber-500 font-bold text-xs uppercase tracking-widest">Vídeos Reais</span>
@@ -503,7 +504,7 @@
       <div id="tabMedia" class="dashboard-tab max-w-3xl space-y-6 hidden">
         <div>
           <h2 class="text-xl font-bold text-white">Mídias, Streaming & Formatos</h2>
-          <p class="text-xs text-zinc-400 mt-1">Insira links de streaming e anexe fotos (JPEG até 4Gb) para os formatos de show.</p>
+          <p class="text-xs text-zinc-400 mt-1">Insira links de streaming e anexe fotos para os formatos de show.</p>
         </div>
         <div class="bg-brand-cardBg border border-brand-border p-6 rounded-2xl space-y-4 text-xs">
           <div class="space-y-3">
@@ -528,19 +529,18 @@
 
           <div class="space-y-3 pt-4 border-t border-zinc-800">
             <h3 class="font-bold text-amber-400 text-sm">Fotos dos Formatos de Show</h3>
-            <p class="text-[11px] text-amber-500 bg-amber-500/10 p-2.5 rounded-lg border border-amber-500/20">⚠️ <strong>Aviso:</strong> Permitido o envio de arquivos JPEG de até 4Gb por arquivo.</p>
             
             <div class="space-y-2">
               <label class="block font-semibold text-zinc-300">Foto Formato 1 (Barzinhos & Aniversários)</label>
-              <input type="file" id="fileFormat1" accept="image/jpeg" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-2 text-zinc-300 text-xs">
+              <input type="file" id="fileFormat1" accept="image/*" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-2 text-zinc-300 text-xs">
             </div>
             <div class="space-y-2">
               <label class="block font-semibold text-zinc-300">Foto Formato 2 (Casamentos & Cerimônias)</label>
-              <input type="file" id="fileFormat2" accept="image/jpeg" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-2 text-zinc-300 text-xs">
+              <input type="file" id="fileFormat2" accept="image/*" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-2 text-zinc-300 text-xs">
             </div>
             <div class="space-y-2">
               <label class="block font-semibold text-zinc-300">Foto Formato 3 (Eventos & Formaturas)</label>
-              <input type="file" id="fileFormat3" accept="image/jpeg" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-2 text-zinc-300 text-xs">
+              <input type="file" id="fileFormat3" accept="image/*" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-2 text-zinc-300 text-xs">
             </div>
           </div>
           <button onclick="saveArtistEdits()" class="bg-amber-500 hover:bg-amber-600 text-black font-extrabold py-3 px-6 rounded-xl shadow-md cursor-pointer">Salvar Mídias & Formatos</button>
@@ -636,11 +636,11 @@
         </div>
       </div>
 
-      <!-- Tab 5: Google Agenda -->
+      <!-- Tab 5: Google Agenda (Ferramenta de Integração) -->
       <div id="tabCalendar" class="dashboard-tab max-w-3xl space-y-6 hidden">
         <div>
-          <h2 class="text-xl font-bold text-white">Google Agenda & Sincronização</h2>
-          <p class="text-xs text-zinc-400 mt-1">Conecte sua agenda para sincronizar datas de shows automaticamente na plataforma.</p>
+          <h2 class="text-xl font-bold text-white">Google Agenda (Ferramenta)</h2>
+          <p class="text-xs text-zinc-400 mt-1">Conecte sua conta do Google exclusivamente para sincronizar a agenda dos seus shows. Isso é uma ferramenta do painel e não interfere no seu login no StageKit.</p>
         </div>
         <div class="bg-brand-cardBg border border-brand-border p-6 rounded-2xl space-y-4 text-xs">
           <div class="flex items-center justify-between bg-zinc-900 p-4 rounded-xl border border-zinc-800">
@@ -648,7 +648,7 @@
               <i data-lucide="calendar" class="w-6 h-6 text-amber-500"></i>
               <div>
                 <p class="font-bold text-white text-sm">Status: <span id="googleCalendarStatusText" class="text-zinc-400 font-normal">Não conectado</span></p>
-                <p class="text-[11px] text-zinc-500">Sincronize seus shows diretamente com o Google Calendar.</p>
+                <p class="text-[11px] text-zinc-500">Sincronize seus shows cadastrados com o seu Google Calendar pessoal.</p>
               </div>
             </div>
             <button onclick="connectGoogleCalendar()" id="connectCalendarBtn" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2.5 px-5 rounded-xl shadow-md transition-all cursor-pointer">
@@ -668,7 +668,7 @@
     </main>
   </div>
 
-  <!-- ==================== MODAL DE CADASTRO (ONBOARDING) ==================== -->
+  <!-- ==================== MODAL DE CADASTRO INTERNO (BASE DE DADOS NATIVA) ==================== -->
   <div id="registerModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-4 overflow-y-auto">
     <div class="bg-brand-cardBg border border-brand-border rounded-3xl max-w-lg w-full p-6 sm:p-8 space-y-6 shadow-2xl relative my-8">
       <button onclick="closeRegisterModal()" class="absolute top-6 right-6 text-zinc-400 hover:text-white cursor-pointer"><i data-lucide="x" class="w-5 h-5"></i></button>
@@ -676,11 +676,12 @@
       <div>
         <span class="text-xs font-bold text-amber-500 uppercase">Crie seu StageKit</span>
         <h3 class="text-2xl font-bold text-white mt-1">Cadastro de Artista</h3>
+        <p class="text-xs text-zinc-400 mt-1">Cadastre-se usando seu e-mail de qualquer provedor (Gmail, Hotmail, Outlook, Yahoo, etc.).</p>
       </div>
 
       <div class="space-y-3 text-xs">
         <div>
-          <label class="block font-semibold text-zinc-300 mb-1">Nome Completo *</label>
+          <label class="block font-semibold text-zinc-300 mb-1">Nome Completo / Nome Artístico *</label>
           <input type="text" id="regFullName" required class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white" placeholder="Seu nome completo">
         </div>
         <div class="grid sm:grid-cols-2 gap-3">
@@ -694,12 +695,12 @@
           </div>
         </div>
         <div>
-          <label class="block font-semibold text-zinc-300 mb-1">E-mail *</label>
-          <input type="email" id="regEmail" required class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white" placeholder="seu@email.com">
+          <label class="block font-semibold text-zinc-300 mb-1">E-mail (Qualquer Provedor) *</label>
+          <input type="email" id="regEmail" required class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white" placeholder="seuemail@qualquerdominio.com">
         </div>
         <div>
-          <label class="block font-semibold text-zinc-300 mb-1">Senha *</label>
-          <input type="password" id="regPassword" required class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white" placeholder="Crie uma senha segura">
+          <label class="block font-semibold text-zinc-300 mb-1">Crie uma Senha *</label>
+          <input type="password" id="regPassword" required class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white" placeholder="Digite uma senha">
         </div>
         <div class="grid sm:grid-cols-2 gap-3">
           <div>
@@ -713,119 +714,42 @@
         </div>
 
         <button onclick="submitRegister()" class="w-full bg-amber-500 hover:bg-amber-600 text-black font-extrabold py-3.5 rounded-xl text-sm shadow-md transition-all mt-2 cursor-pointer">
-          Criar Conta & Acessar Painel
+          Concluir Cadastro & Acessar Painel
         </button>
-
-        <div class="relative flex py-2 items-center">
-          <div class="flex-grow border-t border-zinc-800"></div>
-          <span class="flex-shrink mx-4 text-zinc-500 text-[10px] uppercase">ou cadastre com</span>
-          <div class="flex-grow border-t border-zinc-800"></div>
-        </div>
-
-        <div class="grid grid-cols-3 gap-2">
-          <button onclick="startSocialAuth('Gmail')" class="bg-zinc-900 hover:bg-zinc-800 text-white border border-zinc-700 font-bold py-2.5 rounded-xl flex items-center justify-center gap-1.5 text-[11px] cursor-pointer">
-            <i data-lucide="mail" class="w-3.5 h-3.5 text-amber-500"></i> Gmail
-          </button>
-          <button onclick="startSocialAuth('iCloud')" class="bg-zinc-900 hover:bg-zinc-800 text-white border border-zinc-700 font-bold py-2.5 rounded-xl flex items-center justify-center gap-1.5 text-[11px] cursor-pointer">
-            <i data-lucide="apple" class="w-3.5 h-3.5 text-zinc-300"></i> iCloud
-          </button>
-          <button onclick="startSocialAuth('Hotmail')" class="bg-zinc-900 hover:bg-zinc-800 text-white border border-zinc-700 font-bold py-2.5 rounded-xl flex items-center justify-center gap-1.5 text-[11px] cursor-pointer">
-            <i data-lucide="globe" class="w-3.5 h-3.5 text-blue-400"></i> Hotmail
-          </button>
-        </div>
       </div>
     </div>
   </div>
 
-  <!-- ==================== MODAL DE LOGIN ==================== -->
+  <!-- ==================== MODAL DE LOGIN INTERNO ==================== -->
   <div id="loginModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
     <div class="bg-brand-cardBg border border-brand-border rounded-3xl max-w-md w-full p-6 sm:p-8 space-y-6 shadow-2xl relative">
       <button onclick="closeLoginModal()" class="absolute top-6 right-6 text-zinc-400 hover:text-white cursor-pointer"><i data-lucide="x" class="w-5 h-5"></i></button>
       <div>
         <span class="text-xs font-bold text-amber-500 uppercase">Área do Artista</span>
         <h3 class="text-2xl font-bold text-white mt-1">Entrar no Painel</h3>
-      </div>
-      
-      <div class="grid grid-cols-3 gap-2">
-        <button onclick="startSocialAuth('Gmail')" class="bg-zinc-900 hover:bg-zinc-800 text-white border border-zinc-700 font-bold py-2 rounded-xl flex items-center justify-center gap-1 text-[11px] cursor-pointer">
-          <i data-lucide="mail" class="w-3.5 h-3.5 text-amber-500"></i> Gmail
-        </button>
-        <button onclick="startSocialAuth('iCloud')" class="bg-zinc-900 hover:bg-zinc-800 text-white border border-zinc-700 font-bold py-2 rounded-xl flex items-center justify-center gap-1 text-[11px] cursor-pointer">
-          <i data-lucide="apple" class="w-3.5 h-3.5 text-zinc-300"></i> iCloud
-        </button>
-        <button onclick="startSocialAuth('Hotmail')" class="bg-zinc-900 hover:bg-zinc-800 text-white border border-zinc-700 font-bold py-2 rounded-xl flex items-center justify-center gap-1 text-[11px] cursor-pointer">
-          <i data-lucide="globe" class="w-3.5 h-3.5 text-blue-400"></i> Hotmail
-        </button>
-      </div>
-
-      <div class="relative flex py-1 items-center">
-        <div class="flex-grow border-t border-zinc-800"></div>
-        <span class="flex-shrink mx-3 text-zinc-500 text-[10px] uppercase">ou com e-mail</span>
-        <div class="flex-grow border-t border-zinc-800"></div>
+        <p class="text-xs text-zinc-400 mt-1">Acesse com o e-mail e senha cadastrados no StageKit.</p>
       </div>
 
       <div class="space-y-4 text-xs">
         <div>
           <label class="block font-semibold text-zinc-300 mb-1">E-mail</label>
-          <input type="email" id="loginEmail" onkeypress="handleLoginKey(event)" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white" value="">
+          <input type="email" id="loginEmail" onkeypress="handleLoginKey(event)" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white" placeholder="seuemail@exemplo.com">
         </div>
         <div>
           <label class="block font-semibold text-zinc-300 mb-1">Senha</label>
-          <input type="password" id="loginPassword" onkeypress="handleLoginKey(event)" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white" value="">
+          <input type="password" id="loginPassword" onkeypress="handleLoginKey(event)" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white" placeholder="Sua senha">
         </div>
         <button onclick="submitLogin()" class="w-full bg-amber-500 hover:bg-amber-600 text-black font-extrabold py-3 rounded-xl text-sm shadow-md cursor-pointer">
           Entrar no Painel
         </button>
+        <p class="text-center text-zinc-400 text-[11px]">
+          Ainda não tem conta? <a href="#" onclick="closeLoginModal(); openRegisterModal(); return false;" class="text-amber-400 font-bold hover:underline">Cadastre-se aqui</a>
+        </p>
       </div>
     </div>
   </div>
 
-  <!-- ==================== MODAL DE AUTENTICAÇÃO SOCIAL (EMAILJS) ==================== -->
-  <div id="socialAuthModal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-sm hidden flex items-center justify-center p-4">
-    <div class="bg-brand-cardBg border border-brand-border rounded-3xl max-w-md w-full p-6 sm:p-8 space-y-6 shadow-2xl relative text-center">
-      <button onclick="closeSocialAuthModal()" class="absolute top-6 right-6 text-zinc-400 hover:text-white cursor-pointer"><i data-lucide="x" class="w-5 h-5"></i></button>
-      
-      <div id="socialAuthStep1" class="space-y-4">
-        <div id="socialAuthIconContainer" class="w-16 h-16 rounded-2xl bg-amber-500/10 text-amber-500 flex items-center justify-center mx-auto text-2xl font-bold">
-          🌐
-        </div>
-        <div>
-          <h3 id="socialAuthTitle" class="text-xl font-bold text-white">Autenticação</h3>
-          <p id="socialAuthSubtitle" class="text-xs text-zinc-400 mt-1">Informe seu e-mail para receber o código de verificação enviado pela plataforma.</p>
-        </div>
-        <div class="text-left space-y-3 text-xs">
-          <div>
-            <label class="block font-semibold text-zinc-300 mb-1">E-mail de Acesso *</label>
-            <input type="email" id="socialAuthEmailInput" placeholder="seu@email.com" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white">
-          </div>
-          <button onclick="sendRealVerificationCode()" class="w-full bg-amber-500 hover:bg-amber-600 text-black font-extrabold py-3 rounded-xl shadow-md transition-all cursor-pointer">
-            Enviar Código por E-mail
-          </button>
-        </div>
-      </div>
-
-      <div id="socialAuthStep2" class="space-y-4 hidden">
-        <div class="w-16 h-16 rounded-2xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center mx-auto">
-          <i data-lucide="shield-check" class="w-8 h-8"></i>
-        </div>
-        <div>
-          <h3 class="text-xl font-bold text-white">Confirme sua Identidade</h3>
-          <p class="text-xs text-zinc-400 mt-1">Enviamos o código de 6 dígitos para o seu e-mail. Digite-o abaixo:</p>
-        </div>
-        <div class="text-left space-y-3 text-xs">
-          <div>
-            <label class="block font-semibold text-zinc-300 mb-1">Código de 6 Dígitos</label>
-            <input type="text" id="socialAuthCodeInput" placeholder="123456" maxlength="6" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white text-center text-lg font-mono tracking-widest">
-          </div>
-          <button onclick="verifyRealCode()" class="w-full bg-emerald-500 hover:bg-emerald-600 text-black font-extrabold py-3 rounded-xl shadow-md transition-all cursor-pointer">
-            Validar & Acessar Painel
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ==================== MODAL DE DEMONSTRAÇÃO (VÍDEOS REAIS / FORMATOS DE SHOW) ==================== -->
+  <!-- ==================== MODAL DE DEMONSTRAÇÃO ==================== -->
   <div id="demoModal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-sm hidden flex items-center justify-center p-4">
     <div class="bg-brand-cardBg border border-brand-border rounded-3xl max-w-3xl w-full max-h-[90vh] flex flex-col p-6 sm:p-8 space-y-4 shadow-2xl relative">
       <button onclick="closeDemoModal()" class="absolute top-6 right-6 text-zinc-400 hover:text-white z-20 bg-zinc-900/80 p-1.5 rounded-full border border-zinc-700 cursor-pointer"><i data-lucide="x" class="w-5 h-5"></i></button>
@@ -836,7 +760,6 @@
       </div>
 
       <div class="overflow-y-auto space-y-4 text-xs pr-1 no-scrollbar flex-1" id="demoModalContent">
-        <!-- Injetado dinamicamente via JS -->
       </div>
     </div>
   </div>
@@ -897,7 +820,7 @@
         </div>
         <div>
           <label class="block font-semibold text-zinc-300 mb-1">7. Gêneros para priorizar ou evitar</label>
-          <input type="text" id="qGenre" placeholder="Ex: Priorizar MPB, evitar sertanejo universitário" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-2.5 text-white">
+          <input type="text" id="qGenre" placeholder="Ex: Priorizar MPB, evitar sertanejo" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-2.5 text-white">
         </div>
         <div>
           <label class="block font-semibold text-zinc-300 mb-1">8. Estrutura de som</label>
@@ -917,7 +840,13 @@
   </div>
 
   <script>
-    let artistData = JSON.parse(localStorage.getItem('stagekit_artist')) || {
+    // Base de dados local simulada no navegador
+    let usersDatabase = JSON.parse(localStorage.getItem('stagekit_users_db')) || [];
+
+    // Sessão ativa do usuário logado
+    let sessionUser = JSON.parse(localStorage.getItem('stagekit_session')) || null;
+
+    let artistData = sessionUser || {
       whatsapp: "(21)98936-8930",
       artistMainName: "SEU NOME",
       title: "A TRILHA SONORA PERFEITA PARA O SEU MOMENTO",
@@ -941,11 +870,21 @@
     let eventsList = JSON.parse(localStorage.getItem('stagekit_events')) || [];
     let musiciansList = JSON.parse(localStorage.getItem('stagekit_musicians')) || [];
     let selectedFormatForModal = "";
-    let currentAuthType = "";
-    let generatedVerificationCode = "";
 
     function saveData() {
-      localStorage.setItem('stagekit_artist', JSON.stringify(artistData));
+      if(sessionUser) {
+        sessionUser = { ...sessionUser, ...artistData };
+        localStorage.setItem('stagekit_session', JSON.stringify(sessionUser));
+        
+        // Atualiza a base de dados
+        const userIndex = usersDatabase.findIndex(u => u.registeredEmail === sessionUser.registeredEmail);
+        if(userIndex !== -1) {
+          usersDatabase[userIndex] = sessionUser;
+        } else {
+          usersDatabase.push(sessionUser);
+        }
+        localStorage.setItem('stagekit_users_db', JSON.stringify(usersDatabase));
+      }
       localStorage.setItem('stagekit_events', JSON.stringify(eventsList));
       localStorage.setItem('stagekit_musicians', JSON.stringify(musiciansList));
     }
@@ -957,6 +896,12 @@
       updateCacheCalculations();
       renderCalendarEvents();
       
+      // Verifica se o usuário já possui sessão aberta
+      if(sessionUser) {
+        const hlu = document.getElementById('headerLoggedUser');
+        if(hlu) hlu.innerText = sessionUser.artistMainName || sessionUser.registeredEmail;
+      }
+
       handleRouting();
       window.addEventListener('popstate', handleRouting);
       try { lucide.createIcons(); } catch(e) {}
@@ -970,13 +915,21 @@
         if(hash) path = hash;
       }
 
-      if (path && path !== '' && path !== 'index.html' && path !== 'dashboard') {
+      if (path === 'dashboard') {
+        if(sessionUser) {
+          showArtistDashboard();
+        } else {
+          openLoginModal();
+        }
+      } else if (path && path !== '' && path !== 'index.html') {
         artistData.slug = path;
         showPublicPressKit();
-      } else if (path === 'dashboard') {
-        showArtistDashboard();
       } else {
-        goHome();
+        if(sessionUser) {
+          showArtistDashboard();
+        } else {
+          goHome();
+        }
       }
     }
 
@@ -1068,10 +1021,18 @@
       if(cv) cv.classList.add('hidden');
       const ad = document.getElementById('artistDashboard');
       if(ad) ad.classList.add('hidden');
-      const lha = document.getElementById('landingHeaderActions');
-      if(lha) lha.classList.remove('hidden');
-      const pha = document.getElementById('panelHeaderActions');
-      if(pha) pha.classList.add('hidden');
+      
+      if(sessionUser) {
+        const lha = document.getElementById('landingHeaderActions');
+        if(lha) lha.classList.add('hidden');
+        const pha = document.getElementById('panelHeaderActions');
+        if(pha) pha.classList.remove('hidden');
+      } else {
+        const lha = document.getElementById('landingHeaderActions');
+        if(lha) lha.classList.remove('hidden');
+        const pha = document.getElementById('panelHeaderActions');
+        if(pha) pha.classList.add('hidden');
+      }
     }
 
     function showPublicPressKit() {
@@ -1087,6 +1048,191 @@
       const pha = document.getElementById('panelHeaderActions');
       if(pha) pha.classList.remove('hidden');
       applyPublicData();
+    }
+
+    function showArtistDashboard() {
+      try { window.history.pushState({}, '', '/dashboard'); } catch(e) {}
+      const lp = document.getElementById('landingPage');
+      if(lp) lp.classList.add('hidden');
+      const cv = document.getElementById('contractorView');
+      if(cv) cv.classList.add('hidden');
+      const ad = document.getElementById('artistDashboard');
+      if(ad) ad.classList.remove('hidden');
+      const lha = document.getElementById('landingHeaderActions');
+      if(lha) lha.classList.add('hidden');
+      const pha = document.getElementById('panelHeaderActions');
+      if(pha) pha.classList.remove('hidden');
+      switchTab('tabDashboard');
+    }
+
+    function openLoginModal() { 
+      const le = document.getElementById('loginEmail');
+      if(le) le.value = '';
+      const lp = document.getElementById('loginPassword');
+      if(lp) lp.value = '';
+      const lm = document.getElementById('loginModal');
+      if(lm) lm.classList.remove('hidden'); 
+    }
+
+    function closeLoginModal() {
+      const lm = document.getElementById('loginModal');
+      if(lm) lm.classList.add('hidden');
+    }
+    
+    function handleLoginKey(e) {
+      if(e.key === 'Enter') submitLogin();
+    }
+
+    // Login Interno consultando a Base de Dados
+    function submitLogin() {
+      const le = document.getElementById('loginEmail');
+      const lp = document.getElementById('loginPassword');
+      const email = le ? le.value.trim().toLowerCase() : '';
+      const pass = lp ? lp.value.trim() : '';
+
+      if(!email || !pass) {
+        alert('Por favor, digite seu e-mail e senha.');
+        return;
+      }
+
+      const userFound = usersDatabase.find(u => u.registeredEmail.toLowerCase() === email && u.registeredPassword === pass);
+
+      if(userFound) {
+        sessionUser = userFound;
+        artistData = userFound;
+        localStorage.setItem('stagekit_session', JSON.stringify(sessionUser));
+        
+        const hlu = document.getElementById('headerLoggedUser');
+        if(hlu) hlu.innerText = sessionUser.artistMainName || sessionUser.registeredEmail;
+
+        loadInputsFromState();
+        closeLoginModal();
+        showArtistDashboard();
+      } else {
+        alert('E-mail ou senha incorretos! Se ainda não possui uma conta, clique em "Cadastre-se aqui".');
+      }
+    }
+
+    function openRegisterModal() { 
+      const rf = document.getElementById('regFullName');
+      if(rf) rf.value = '';
+      const rb = document.getElementById('regBirthDate');
+      if(rb) rb.value = '';
+      const rp = document.getElementById('regPhone');
+      if(rp) rp.value = '';
+      const re = document.getElementById('regEmail');
+      if(re) re.value = '';
+      const rpass = document.getElementById('regPassword');
+      if(rpass) rpass.value = '';
+      const rcpf = document.getElementById('regCpf');
+      if(rcpf) rcpf.value = '';
+      const rmid = document.getElementById('regMusicianId');
+      if(rmid) rmid.value = '';
+      const rm = document.getElementById('registerModal');
+      if(rm) rm.classList.remove('hidden'); 
+    }
+
+    function closeRegisterModal() {
+      const rm = document.getElementById('registerModal');
+      if(rm) rm.classList.add('hidden');
+    }
+    
+    // Cadastro Interno na Base de Dados
+    function submitRegister() {
+      const rf = document.getElementById('regFullName');
+      const rp = document.getElementById('regPhone');
+      const re = document.getElementById('regEmail');
+      const rpass = document.getElementById('regPassword');
+
+      const fullName = rf ? rf.value.trim() : '';
+      const phone = rp ? rp.value.trim() : '';
+      const email = re ? re.value.trim().toLowerCase() : '';
+      const pass = rpass ? rpass.value.trim() : '';
+      
+      if(!fullName || !email || !pass) { 
+        alert('Preencha os campos obrigatórios (Nome, E-mail e Senha).'); 
+        return; 
+      }
+
+      // Verifica se o e-mail já existe na base de dados
+      const existingUser = usersDatabase.find(u => u.registeredEmail.toLowerCase() === email);
+      if(existingUser) {
+        alert('Este e-mail já está cadastrado. Faça login ou use outro e-mail.');
+        closeRegisterModal();
+        openLoginModal();
+        return;
+      }
+
+      const newUser = {
+        whatsapp: phone || "(21)98936-8930",
+        artistMainName: fullName.toUpperCase(),
+        title: "A TRILHA SONORA PERFEITA PARA O SEU MOMENTO",
+        bio: "Músico profissional, multi-instrumentista e arranjador...",
+        slug: fullName.toLowerCase().replace(/\s+/g, ''),
+        instagram: "",
+        tiktok: "",
+        facebook: "",
+        youtubeMusic: "",
+        spotify: "",
+        deezer: "",
+        apple: "",
+        formatPhoto1: "",
+        formatPhoto2: "",
+        formatPhoto3: "",
+        registeredEmail: email,
+        registeredPassword: pass,
+        googleCalendarConnected: false
+      };
+
+      usersDatabase.push(newUser);
+      localStorage.setItem('stagekit_users_db', JSON.stringify(usersDatabase));
+
+      sessionUser = newUser;
+      artistData = newUser;
+      localStorage.setItem('stagekit_session', JSON.stringify(sessionUser));
+
+      const hlu = document.getElementById('headerLoggedUser');
+      if(hlu) hlu.innerText = sessionUser.artistMainName;
+
+      loadInputsFromState();
+      closeRegisterModal();
+      alert('Cadastro realizado com sucesso! Bem-vindo ao seu painel.');
+      showArtistDashboard();
+    }
+
+    function logoutToHome() {
+      sessionUser = null;
+      localStorage.removeItem('stagekit_session');
+      goHome();
+    }
+
+    function switchTab(tabId) {
+      document.querySelectorAll('.dashboard-tab').forEach(t => t.classList.add('hidden'));
+      const activeTab = document.getElementById(tabId);
+      if(activeTab) activeTab.classList.remove('hidden');
+
+      document.querySelectorAll('.tab-menu-btn').forEach(btn => {
+        btn.classList.remove('bg-amber-500/10', 'text-amber-400', 'border', 'border-amber-500/35');
+        btn.classList.add('text-zinc-400');
+      });
+
+      const activeBtnMap = {
+        'tabDashboard': 'btnTabDashboard',
+        'tabBio': 'btnTabBio',
+        'tabMedia': 'btnTabMedia',
+        'tabEvents': 'btnTabEvents',
+        'tabTeam': 'btnTabTeam',
+        'tabCalendar': 'btnTabCalendar'
+      };
+
+      const activeBtnId = activeBtnMap[tabId];
+      if(activeBtnId) {
+        const btn = document.getElementById(activeBtnId);
+        if(btn) {
+          btn.classList.remove('text-zinc-400');
+          btn.classList.add('bg-amber-500/10', 'text-amber-400', 'border', 'border-amber-500/35');
+        }
+      }
     }
 
     function openDemoModal(type) {
@@ -1146,220 +1292,6 @@
     function closeDemoModal() {
       const modal = document.getElementById('demoModal');
       if(modal) modal.classList.add('hidden');
-    }
-
-    function showArtistDashboard() {
-      try { window.history.pushState({}, '', '/dashboard'); } catch(e) {}
-      const lp = document.getElementById('landingPage');
-      if(lp) lp.classList.add('hidden');
-      const cv = document.getElementById('contractorView');
-      if(cv) cv.classList.add('hidden');
-      const ad = document.getElementById('artistDashboard');
-      if(ad) ad.classList.remove('hidden');
-      const lha = document.getElementById('landingHeaderActions');
-      if(lha) lha.classList.add('hidden');
-      const pha = document.getElementById('panelHeaderActions');
-      if(pha) pha.classList.add('hidden');
-      switchTab('tabDashboard');
-    }
-
-    function openLoginModal() { 
-      const le = document.getElementById('loginEmail');
-      if(le) le.value = '';
-      const lp = document.getElementById('loginPassword');
-      if(lp) lp.value = '';
-      const lm = document.getElementById('loginModal');
-      if(lm) lm.classList.remove('hidden'); 
-    }
-    function closeLoginModal() {
-      const lm = document.getElementById('loginModal');
-      if(lm) lm.classList.add('hidden');
-    }
-    
-    function handleLoginKey(e) {
-      if(e.key === 'Enter') submitLogin();
-    }
-
-    function submitLogin() {
-      const le = document.getElementById('loginEmail');
-      const lp = document.getElementById('loginPassword');
-      const email = le ? le.value.trim() : '';
-      const pass = lp ? lp.value.trim() : '';
-
-      if(email === artistData.registeredEmail && pass === artistData.registeredPassword) {
-        closeLoginModal();
-        showArtistDashboard();
-      } else {
-        alert('E-mail ou senha incorretos! Utilize os dados cadastrados na plataforma ou entre via conta social.');
-      }
-    }
-
-    function openRegisterModal() { 
-      const rf = document.getElementById('regFullName');
-      if(rf) rf.value = '';
-      const rb = document.getElementById('regBirthDate');
-      if(rb) rb.value = '';
-      const rp = document.getElementById('regPhone');
-      if(rp) rp.value = '(21)';
-      const re = document.getElementById('regEmail');
-      if(re) re.value = '';
-      const rpass = document.getElementById('regPassword');
-      if(rpass) rpass.value = '';
-      const rcpf = document.getElementById('regCpf');
-      if(rcpf) rcpf.value = '';
-      const rmid = document.getElementById('regMusicianId');
-      if(rmid) rmid.value = '';
-      const rm = document.getElementById('registerModal');
-      if(rm) rm.classList.remove('hidden'); 
-    }
-    function closeRegisterModal() {
-      const rm = document.getElementById('registerModal');
-      if(rm) rm.classList.add('hidden');
-    }
-    
-    function submitRegister() {
-      const rf = document.getElementById('regFullName');
-      const rp = document.getElementById('regPhone');
-      const re = document.getElementById('regEmail');
-      const rpass = document.getElementById('regPassword');
-
-      const fullName = rf ? rf.value.trim() : '';
-      const phone = rp ? rp.value.trim() : '';
-      const email = re ? re.value.trim() : '';
-      const pass = rpass ? rpass.value.trim() : '';
-      
-      if(!fullName || !email || !pass) { 
-        alert('Preencha os campos obrigatórios (Nome, E-mail e Senha).'); 
-        return; 
-      }
-
-      artistData.artistMainName = fullName.toUpperCase();
-      artistData.slug = fullName.toLowerCase().replace(/\s+/g, '');
-      if(phone) artistData.whatsapp = phone;
-      artistData.registeredEmail = email;
-      artistData.registeredPassword = pass;
-      
-      saveData();
-      loadInputsFromState();
-      closeRegisterModal();
-      showArtistDashboard();
-    }
-
-    function startSocialAuth(provider) {
-      currentAuthType = provider;
-      closeLoginModal();
-      closeRegisterModal();
-
-      const sat = document.getElementById('socialAuthTitle');
-      if(sat) sat.innerText = `Autenticar com ${provider}`;
-      const sas = document.getElementById('socialAuthSubtitle');
-      if(sas) {
-        if(provider === 'iCloud') {
-          sas.innerText = 'Insira seu ID Apple e e-mail para receber o código de verificação.';
-        } else {
-          sas.innerText = `Informe seu e-mail para receber o código de verificação via ${provider}.`;
-        }
-      }
-
-      const s1 = document.getElementById('socialAuthStep1');
-      if(s1) s1.classList.remove('hidden');
-      const s2 = document.getElementById('socialAuthStep2');
-      if(s2) s2.classList.add('hidden');
-      const sae = document.getElementById('socialAuthEmailInput');
-      if(sae) sae.value = '';
-      const sam = document.getElementById('socialAuthModal');
-      if(sam) sam.classList.remove('hidden');
-    }
-
-    function closeSocialAuthModal() {
-      const sam = document.getElementById('socialAuthModal');
-      if(sam) sam.classList.add('hidden');
-    }
-
-    function sendRealVerificationCode() {
-      const sae = document.getElementById('socialAuthEmailInput');
-      const email = sae ? sae.value.trim() : '';
-      if(!email || !email.includes('@')) {
-        alert('Por favor, informe um e-mail válido.');
-        return;
-      }
-
-      generatedVerificationCode = Math.floor(100000 + Math.random() * 900000).toString();
-
-      const templateParams = {
-        to_email: email,
-        pass_code: generatedVerificationCode,
-        auth_provider: currentAuthType
-      };
-
-      // Envio direto passando a Public Key no 4º parâmetro (Resolve qualquer falha de bloqueio/assinatura)
-      emailjs.send("service_2926auh", "template_vrl1qan", templateParams, "LylxGmkZwZeQPvhMt")
-        .then(() => {
-          alert(`Código de verificação enviado com sucesso para ${email}! Verifique sua caixa de entrada.`);
-          const s1 = document.getElementById('socialAuthStep1');
-          if(s1) s1.classList.add('hidden');
-          const s2 = document.getElementById('socialAuthStep2');
-          if(s2) s2.classList.remove('hidden');
-          const sac = document.getElementById('socialAuthCodeInput');
-          if(sac) sac.value = '';
-        }, (err) => {
-          console.error('Erro detalhado EmailJS:', err);
-          alert('Erro ao enviar e-mail. Verifique no painel do EmailJS se o Template ID possui a variável {{pass_code}} e se o limite mensal está ok.');
-        });
-    }
-
-    function verifyRealCode() {
-      const sac = document.getElementById('socialAuthCodeInput');
-      const enteredCode = sac ? sac.value.trim() : '';
-      if(enteredCode !== generatedVerificationCode) {
-        alert('Código incorreto! Digite o código de 6 dígitos enviado para o seu e-mail.');
-        return;
-      }
-
-      const sae = document.getElementById('socialAuthEmailInput');
-      const email = sae ? sae.value.trim() : '';
-      artistData.registeredEmail = email;
-      artistData.artistMainName = "MEU NOME ARTÍSTICO";
-      artistData.slug = "meunome";
-      saveData();
-      loadInputsFromState();
-
-      closeSocialAuthModal();
-      alert(`Autenticação via ${currentAuthType} validada com sucesso! Bem-vindo ao painel.`);
-      showArtistDashboard();
-    }
-
-    function logoutToHome() {
-      goHome();
-    }
-
-    function switchTab(tabId) {
-      document.querySelectorAll('.dashboard-tab').forEach(t => t.classList.add('hidden'));
-      const activeTab = document.getElementById(tabId);
-      if(activeTab) activeTab.classList.remove('hidden');
-
-      document.querySelectorAll('.tab-menu-btn').forEach(btn => {
-        btn.classList.remove('bg-amber-500/10', 'text-amber-400', 'border', 'border-amber-500/35');
-        btn.classList.add('text-zinc-400');
-      });
-
-      const activeBtnMap = {
-        'tabDashboard': 'btnTabDashboard',
-        'tabBio': 'btnTabBio',
-        'tabMedia': 'btnTabMedia',
-        'tabEvents': 'btnTabEvents',
-        'tabTeam': 'btnTabTeam',
-        'tabCalendar': 'btnTabCalendar'
-      };
-
-      const activeBtnId = activeBtnMap[tabId];
-      if(activeBtnId) {
-        const btn = document.getElementById(activeBtnId);
-        if(btn) {
-          btn.classList.remove('text-zinc-400');
-          btn.classList.add('bg-amber-500/10', 'text-amber-400', 'border', 'border-amber-500/35');
-        }
-      }
     }
 
     function openFormatModal(formatName, isStaticSample = false) {
