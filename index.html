@@ -105,7 +105,6 @@
             <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
           </a>
           
-          <!-- Botão Sair da Conta -->
           <button onclick="logoutToHome()" class="p-2.5 rounded-xl bg-zinc-900 border border-zinc-800 text-red-400 hover:bg-zinc-800 transition-colors cursor-pointer flex items-center gap-2 text-xs font-semibold" title="Sair da Conta">
             <i data-lucide="log-out" class="w-4 h-4"></i> <span class="hidden sm:inline">Sair</span>
           </button>
@@ -115,7 +114,7 @@
     </div>
   </header>
 
-  <!-- ==================== LANDING PAGE (HOME DO SAAS) ==================== -->
+  <!-- ==================== LANDING PAGE ==================== -->
   <div id="landingPage" class="flex-1 pt-20 flex flex-col">
     <section class="relative py-20 md:py-32 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto text-center space-y-8">
       <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-500 text-xs font-bold uppercase tracking-wider">
@@ -140,7 +139,7 @@
       </div>
     </section>
 
-    <!-- CARD EM DESTAQUE: TENHA SEU LINK PERSONALIZADO -->
+    <!-- CARD EM DESTAQUE -->
     <section class="py-12 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto w-full">
       <div class="bg-gradient-to-r from-amber-500/20 via-brand-cardBg to-brand-cardBg border border-amber-500/50 p-8 sm:p-10 rounded-3xl shadow-2xl flex flex-col md:flex-row items-center justify-between gap-6">
         <div class="space-y-3 text-left">
@@ -158,7 +157,7 @@
       </div>
     </section>
 
-    <!-- 3 CARDS DA ÁREA DO CLIENTE COM DEMONSTRAÇÃO VISUAL -->
+    <!-- 3 CARDS DA ÁREA DO CLIENTE -->
     <section class="py-20 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto space-y-16">
       <div class="text-center space-y-3">
         <span class="text-amber-500 font-bold text-xs uppercase tracking-widest">Área do Cliente em Ação</span>
@@ -166,7 +165,6 @@
       </div>
 
       <div class="grid md:grid-cols-3 gap-8">
-        <!-- Card 1: Vídeos Reais -->
         <div onclick="openDemoModal('videos')" class="bg-brand-cardBg border border-brand-border p-6 rounded-3xl space-y-4 shadow-xl cursor-pointer hover:border-amber-500/50 transition-all group flex flex-col justify-between">
           <div class="space-y-3">
             <div class="w-12 h-12 rounded-2xl bg-amber-500/10 text-amber-500 flex items-center justify-center group-hover:scale-110 transition-transform">
@@ -180,7 +178,6 @@
           <span class="text-amber-400 text-xs font-bold inline-flex items-center gap-1 pt-2">Ver demonstração em vídeo <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i></span>
         </div>
 
-        <!-- Card 2: Formatos de Show -->
         <div onclick="openDemoModal('formatos')" class="bg-brand-cardBg border border-brand-border p-6 rounded-3xl space-y-4 shadow-xl cursor-pointer hover:border-amber-500/50 transition-all group flex flex-col justify-between">
           <div class="space-y-3">
             <div class="w-12 h-12 rounded-2xl bg-amber-500/10 text-amber-500 flex items-center justify-center group-hover:scale-110 transition-transform">
@@ -194,7 +191,6 @@
           <span class="text-amber-400 text-xs font-bold inline-flex items-center gap-1 pt-2">Ver demonstração dos formatos <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i></span>
         </div>
 
-        <!-- Card 3: Orçamento via WhatsApp -->
         <div onclick="openFormatModal('Orçamento Geral', true)" class="bg-brand-cardBg border border-brand-border p-6 rounded-3xl space-y-4 shadow-xl cursor-pointer hover:border-amber-500/50 transition-all group flex flex-col justify-between">
           <div class="space-y-3">
             <div class="w-12 h-12 rounded-2xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center group-hover:scale-110 transition-transform">
@@ -210,7 +206,7 @@
       </div>
     </section>
 
-    <!-- AVISO DE SEGURANÇA E LGPD -->
+    <!-- AVISO LGPD -->
     <section class="py-12 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
       <div class="bg-brand-cardBg border border-brand-border p-6 sm:p-8 rounded-3xl space-y-4 shadow-lg text-center">
         <div class="w-12 h-12 rounded-xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center mx-auto">
@@ -242,7 +238,7 @@
     </footer>
   </div>
 
-  <!-- ==================== PRESS KIT PÚBLICO (FRONTEND DO CONTRATANTE) ==================== -->
+  <!-- ==================== PRESS KIT PÚBLICO ==================== -->
   <div id="contractorView" class="flex-1 pt-20 hidden">
     <section id="hero" class="relative py-16 md:py-24 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto text-center space-y-6">
       
@@ -259,7 +255,6 @@
         <p id="displaySubtitle2" class="text-base sm:text-lg text-zinc-300">Do clima intimista de um acústico à energia de uma apresentação completa: repertório refinado, som de alta qualidade e o profissionalismo que o seu momento exige.</p>
       </div>
 
-      <!-- SEÇÃO "SOBRE O ARTISTA" -->
       <div class="pt-6 max-w-4xl mx-auto">
         <div class="bg-brand-cardBg border border-brand-border p-6 sm:p-8 rounded-3xl shadow-xl grid md:grid-cols-12 gap-6 items-center text-left">
           <div class="md:col-span-4">
@@ -277,7 +272,6 @@
         </div>
       </div>
 
-      <!-- SEÇÃO DE VÍDEOS REAIS -->
       <div id="secaoVideosReais" class="space-y-4 pt-4">
         <div class="text-center">
           <span class="text-amber-500 font-bold text-xs uppercase tracking-widest">Vídeos Reais</span>
@@ -294,7 +288,6 @@
       </div>
     </section>
 
-    <!-- SEÇÃO DE FORMATOS DE SHOW -->
     <section id="formatos" class="py-16 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto border-t border-brand-border">
       <div class="text-center mb-12">
         <span class="text-amber-500 font-bold text-xs uppercase tracking-widest">Estruturas Disponíveis</span>
@@ -341,17 +334,14 @@
       </div>
     </section>
 
-    <!-- Footer Contratante -->
     <footer class="py-8 text-center text-xs text-zinc-500 border-t border-brand-border">
       <p>© 2026 StageKit — Desenvolvido por Casa 6 Produções</p>
     </footer>
   </div>
 
-
   <!-- ==================== ÁREA DO ARTISTA (PAINEL ADMIN) ==================== -->
   <div id="artistDashboard" class="flex-1 pt-20 bg-zinc-950 hidden flex flex-col md:flex-row min-h-[calc(100vh-5rem)]">
     
-    <!-- Menu Lateral Esquerdo -->
     <aside class="w-full md:w-64 bg-brand-cardBg border-r border-brand-border p-6 flex flex-col justify-between shrink-0">
       <div class="space-y-6">
         <div>
@@ -381,7 +371,6 @@
         </nav>
       </div>
 
-      <!-- Rodapé do menu com botão de alternar tema claro/escuro -->
       <div class="pt-6 border-t border-zinc-800 space-y-3">
         <button onclick="toggleTheme()" class="w-full flex items-center justify-center gap-2 p-3 rounded-xl bg-zinc-900 border border-zinc-800 text-amber-400 hover:bg-zinc-800 transition-colors text-xs font-bold cursor-pointer">
           <i data-lucide="sun" id="dashThemeIcon" class="w-4 h-4"></i> Alternar Tema
@@ -390,10 +379,7 @@
       </div>
     </aside>
 
-    <!-- Conteúdo Principal do Painel -->
     <main class="flex-1 p-6 sm:p-10 overflow-y-auto">
-      
-      <!-- Tab 0: Dashboard -->
       <div id="tabDashboard" class="dashboard-tab max-w-4xl space-y-6">
         <div>
           <h2 class="text-xl font-bold text-white">Dashboard Geral</h2>
@@ -450,7 +436,6 @@
         </div>
       </div>
 
-      <!-- Tab 1: Perfil, Bio & Redes -->
       <div id="tabBio" class="dashboard-tab max-w-3xl space-y-6 hidden">
         <div>
           <h2 class="text-xl font-bold text-white">Perfil, Bio e Redes Sociais</h2>
@@ -498,7 +483,6 @@
         </div>
       </div>
 
-      <!-- Tab 2: Mídias & Streaming & Formatos -->
       <div id="tabMedia" class="dashboard-tab max-w-3xl space-y-6 hidden">
         <div>
           <h2 class="text-xl font-bold text-white">Mídias, Streaming & Formatos</h2>
@@ -508,7 +492,7 @@
           <div class="space-y-3">
             <h3 class="font-bold text-amber-400 text-sm">Plataformas de Streaming & Vídeo Destaque</h3>
             <div>
-              <label class="block font-semibold text-zinc-300">Vídeo Destaque (YouTube URL - exibe "Em Construção" se vazio)</label>
+              <label class="block font-semibold text-zinc-300">Vídeo Destaque (YouTube URL)</label>
               <input type="text" id="editYoutubeMusic" placeholder="https://www.youtube.com/watch?v=..." class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white">
             </div>
             <div>
@@ -527,17 +511,16 @@
 
           <div class="space-y-3 pt-4 border-t border-zinc-800">
             <h3 class="font-bold text-amber-400 text-sm">Fotos dos Formatos de Show</h3>
-            
             <div class="space-y-2">
-              <label class="block font-semibold text-zinc-300">Foto Formato 1 (Barzinhos & Aniversários)</label>
+              <label class="block font-semibold text-zinc-300">Foto Formato 1</label>
               <input type="file" id="fileFormat1" accept="image/*" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-2 text-zinc-300 text-xs">
             </div>
             <div class="space-y-2">
-              <label class="block font-semibold text-zinc-300">Foto Formato 2 (Casamentos & Cerimônias)</label>
+              <label class="block font-semibold text-zinc-300">Foto Formato 2</label>
               <input type="file" id="fileFormat2" accept="image/*" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-2 text-zinc-300 text-xs">
             </div>
             <div class="space-y-2">
-              <label class="block font-semibold text-zinc-300">Foto Formato 3 (Eventos & Formaturas)</label>
+              <label class="block font-semibold text-zinc-300">Foto Formato 3</label>
               <input type="file" id="fileFormat3" accept="image/*" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-2 text-zinc-300 text-xs">
             </div>
           </div>
@@ -545,11 +528,10 @@
         </div>
       </div>
 
-      <!-- Tab 3: Eventos -->
       <div id="tabEvents" class="dashboard-tab max-w-4xl space-y-6 hidden">
         <div>
           <h2 class="text-xl font-bold text-white">Gestão de Eventos & Shows Fechados</h2>
-          <p class="text-xs text-zinc-400 mt-1">Cadastre os shows fechados para gerar valores e compartilhar automaticamente com todos os músicos e equipe via WhatsApp.</p>
+          <p class="text-xs text-zinc-400 mt-1">Cadastre os shows fechados para gerar valores e compartilhar automaticamente.</p>
         </div>
 
         <div class="bg-brand-cardBg border border-brand-border p-6 rounded-2xl space-y-4 text-xs">
@@ -600,11 +582,10 @@
         </div>
       </div>
 
-      <!-- Tab 4: Gestão de Equipe -->
       <div id="tabTeam" class="dashboard-tab max-w-4xl space-y-6 hidden">
         <div>
           <h2 class="text-xl font-bold text-white">Gestão de Equipe & Projetos</h2>
-          <p class="text-xs text-zinc-400 mt-1">Cadastre músicos com WhatsApp para recebimento automático de escalas e valores.</p>
+          <p class="text-xs text-zinc-400 mt-1">Cadastre músicos com WhatsApp para recebimento automático de escalas.</p>
         </div>
 
         <div class="bg-brand-cardBg border border-brand-border p-6 rounded-2xl space-y-4 text-xs">
@@ -634,7 +615,6 @@
         </div>
       </div>
 
-      <!-- Tab 5: Google Agenda (Ferramenta de Integração) -->
       <div id="tabCalendar" class="dashboard-tab max-w-3xl space-y-6 hidden">
         <div>
           <h2 class="text-xl font-bold text-white">Google Agenda (Ferramenta)</h2>
@@ -666,7 +646,7 @@
     </main>
   </div>
 
-  <!-- ==================== MODAL DE CADASTRO INTERNO (COM VALIDAÇÃO RIGOROSA) ==================== -->
+  <!-- ==================== MODAL DE CADASTRO RIGOROSO ==================== -->
   <div id="registerModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-4 overflow-y-auto">
     <div class="bg-brand-cardBg border border-brand-border rounded-3xl max-w-lg w-full p-6 sm:p-8 space-y-6 shadow-2xl relative my-8">
       <button onclick="closeRegisterModal()" class="absolute top-6 right-6 text-zinc-400 hover:text-white cursor-pointer"><i data-lucide="x" class="w-5 h-5"></i></button>
@@ -674,7 +654,7 @@
       <div>
         <span class="text-xs font-bold text-amber-500 uppercase">Crie seu StageKit</span>
         <h3 class="text-2xl font-bold text-white mt-1">Cadastro de Artista</h3>
-        <p class="text-xs text-zinc-400 mt-1">Informe um e-mail válido (ex: @gmail, @outlook, etc.) e um CPF real.</p>
+        <p class="text-xs text-zinc-400 mt-1">Insira um e-mail real e válido, senha segura e CPF legítimo.</p>
       </div>
 
       <div class="space-y-3 text-xs">
@@ -693,12 +673,12 @@
           </div>
         </div>
         <div>
-          <label class="block font-semibold text-zinc-300 mb-1">E-mail Válido (Qualquer Provedor) *</label>
-          <input type="email" id="regEmail" required class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white" placeholder="seuemail@dominio.com">
+          <label class="block font-semibold text-zinc-300 mb-1">E-mail Real e Válido *</label>
+          <input type="email" id="regEmail" required class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white" placeholder="exemplo@gmail.com ou outlook.com">
         </div>
         <div>
-          <label class="block font-semibold text-zinc-300 mb-1">Crie uma Senha (Mínimo 6 caracteres) *</label>
-          <input type="password" id="regPassword" required class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white" placeholder="Mínimo 6 dígitos">
+          <label class="block font-semibold text-zinc-300 mb-1">Senha (Mínimo 8 caracteres, com letra e número) *</label>
+          <input type="password" id="regPassword" required class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white" placeholder="Mínimo 8 dígitos (ex: senha123)">
         </div>
         <div class="grid sm:grid-cols-2 gap-3">
           <div>
@@ -718,7 +698,7 @@
     </div>
   </div>
 
-  <!-- ==================== MODAL DE LOGIN INTERNO ==================== -->
+  <!-- ==================== MODAL DE LOGIN ==================== -->
   <div id="loginModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
     <div class="bg-brand-cardBg border border-brand-border rounded-3xl max-w-md w-full p-6 sm:p-8 space-y-6 shadow-2xl relative">
       <button onclick="closeLoginModal()" class="absolute top-6 right-6 text-zinc-400 hover:text-white cursor-pointer"><i data-lucide="x" class="w-5 h-5"></i></button>
@@ -747,27 +727,22 @@
     </div>
   </div>
 
-  <!-- ==================== MODAL DE DEMONSTRAÇÃO ==================== -->
+  <!-- ==================== DEMO MODAL ==================== -->
   <div id="demoModal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-sm hidden flex items-center justify-center p-4">
     <div class="bg-brand-cardBg border border-brand-border rounded-3xl max-w-3xl w-full max-h-[90vh] flex flex-col p-6 sm:p-8 space-y-4 shadow-2xl relative">
       <button onclick="closeDemoModal()" class="absolute top-6 right-6 text-zinc-400 hover:text-white z-20 bg-zinc-900/80 p-1.5 rounded-full border border-zinc-700 cursor-pointer"><i data-lucide="x" class="w-5 h-5"></i></button>
-      
       <div class="shrink-0 pr-10">
         <span class="text-xs font-bold text-amber-500 uppercase" id="demoModalSubtitle">Demonstração</span>
-        <h3 class="text-xl sm:text-2xl font-bold text-white mt-1" id="demoModalTitle">Visualização da Seção</h3>
+        <h3 class="text-xl sm:text-2xl font-bold text-white mt-1" id="demoModalTitle">Visualização</h3>
       </div>
-
-      <div class="overflow-y-auto space-y-4 text-xs pr-1 no-scrollbar flex-1" id="demoModalContent">
-      </div>
+      <div class="overflow-y-auto space-y-4 text-xs pr-1 no-scrollbar flex-1" id="demoModalContent"></div>
     </div>
   </div>
 
-  <!-- ==================== MODAL DE FORMATO & QUESTIONÁRIO WHATSAPP ==================== -->
+  <!-- ==================== FORMAT MODAL ==================== -->
   <div id="formatModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
     <div class="bg-brand-cardBg border border-brand-border rounded-3xl max-w-lg w-full max-h-[90vh] flex flex-col p-6 sm:p-8 space-y-4 shadow-2xl relative">
-      
       <button onclick="closeFormatModal()" class="absolute top-6 right-6 text-zinc-400 hover:text-white z-20 bg-zinc-900/80 p-1.5 rounded-full border border-zinc-700 cursor-pointer"><i data-lucide="x" class="w-5 h-5"></i></button>
-      
       <div class="shrink-0 pr-10">
         <span class="text-xs font-bold text-amber-500 uppercase" id="modalFormatSubtitle">ORÇAMENTO DE SHOW</span>
         <h3 class="text-xl sm:text-2xl font-bold text-white mt-1" id="modalFormatTitle">Solicitar Proposta</h3>
@@ -805,7 +780,7 @@
           </select>
         </div>
         <div>
-          <label class="block font-semibold text-zinc-300 mb-1">5. Local (Bairro e/ou nome da casa de festa)</label>
+          <label class="block font-semibold text-zinc-300 mb-1">5. Local</label>
           <input type="text" id="qLocation" placeholder="Ex: Copacabana, Rio de Janeiro" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-2.5 text-white">
         </div>
         <div>
@@ -838,10 +813,7 @@
   </div>
 
   <script>
-    // Base de dados local simulada no navegador
     let usersDatabase = JSON.parse(localStorage.getItem('stagekit_users_db')) || [];
-
-    // Sessão ativa do usuário logado
     let sessionUser = JSON.parse(localStorage.getItem('stagekit_session')) || null;
 
     let artistData = sessionUser || {
@@ -861,7 +833,7 @@
       formatPhoto2: "",
       formatPhoto3: "",
       registeredEmail: "artista@stagekit.com",
-      registeredPassword: "123",
+      registeredPassword: "Senha123",
       googleCalendarConnected: false
     };
 
@@ -869,19 +841,31 @@
     let musiciansList = JSON.parse(localStorage.getItem('stagekit_musicians')) || [];
     let selectedFormatForModal = "";
 
-    // Função de Validação Real de E-mail (Verifica domínio e estrutura exata)
+    // Validação Avançada e Real de E-mail (Rejeita lixo e lógicas genéricas)
     function isValidEmail(email) {
-      const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+      email = email.trim().toLowerCase();
+      const emailRegex = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/;
       if (!emailRegex.test(email)) return false;
-      // Rejeita domínios claramente falsos/incompletos
-      const parts = email.split('@');
-      if (parts.length !== 2) return false;
-      const domainParts = parts[1].split('.');
-      if (domainParts.length < 2 || domainParts[domainParts.length - 1].length < 2) return false;
+
+      // Lista de termos falsos/fictícios bloqueados na parte inicial do e-mail
+      const blockedPrefixes = ['qlq', 'qualquer', 'teste', 'abc', '123', 'asdf', 'fulano', 'exemplo', 'email', 'nao', 'sem', 'nada'];
+      const userPart = email.split('@')[0];
+      
+      if (blockedPrefixes.includes(userPart) || userPart.length < 3) {
+        return false;
+      }
       return true;
     }
 
-    // Função de Validação Matemática de CPF Real
+    // Validação de Senha Forte (Mínimo 8 caracteres, com ao menos 1 letra e 1 número)
+    function isValidPassword(password) {
+      if (password.length < 8) return false;
+      const hasLetter = /[a-zA-Z]/.test(password);
+      const hasNumber = /[0-9]/.test(password);
+      return hasLetter && hasNumber;
+    }
+
+    // Validação Matemática de CPF Real
     function isValidCPF(cpf) {
       cpf = cpf.replace(/[^\d]+/g, '');
       if (cpf.length !== 11 || /^(\d)\1+$/.test(cpf)) return false;
@@ -1120,11 +1104,6 @@
         return;
       }
 
-      if(!isValidEmail(email)) {
-        alert('O e-mail digitado não possui um formato válido.');
-        return;
-      }
-
       const userFound = usersDatabase.find(u => u.registeredEmail.toLowerCase() === email && u.registeredPassword === pass);
 
       if(userFound) {
@@ -1139,7 +1118,7 @@
         closeLoginModal();
         showArtistDashboard();
       } else {
-        alert('E-mail ou senha incorretos! Verifique se os dados estão corretos ou cadastre-se.');
+        alert('E-mail ou senha incorretos! Verifique os dados digitados.');
       }
     }
 
@@ -1167,7 +1146,6 @@
       if(rm) rm.classList.add('hidden');
     }
     
-    // Cadastro com Validação Autêntica de E-mail, Senha e CPF
     function submitRegister() {
       const rf = document.getElementById('regFullName');
       const rp = document.getElementById('regPhone');
@@ -1186,25 +1164,24 @@
         return; 
       }
 
-      // Validação de E-mail real
+      // Validação restrita de e-mail autêntico
       if(!isValidEmail(email)) {
-        alert('Por favor, informe um endereço de e-mail autêntico e válido (ex: seu.nome@gmail.com ou @outlook.com).');
+        alert('E-mail inválido ou fictício. Informe um e-mail real e legítimo (ex: seu.nome@gmail.com ou @outlook.com).');
         return;
       }
 
-      // Validação de Senha forte
-      if(pass.length < 6) {
-        alert('A senha precisa ter no mínimo 6 caracteres.');
+      // Validação de senha forte
+      if(!isValidPassword(pass)) {
+        alert('A senha é muito fraca. Ela deve conter no mínimo 8 caracteres, incluindo letras e números.');
         return;
       }
 
       // Validação de CPF real
       if(!isValidCPF(cpf)) {
-        alert('O CPF informado é inválido ou falso. Por favor, insira um CPF real para continuar.');
+        alert('O CPF informado é inválido ou falso. Insira um CPF real para prosseguir.');
         return;
       }
 
-      // Verifica se o e-mail já existe na base de dados
       const existingUser = usersDatabase.find(u => u.registeredEmail.toLowerCase() === email);
       if(existingUser) {
         alert('Este e-mail já está cadastrado. Faça login na sua conta.');
@@ -1246,7 +1223,7 @@
 
       loadInputsFromState();
       closeRegisterModal();
-      alert('Cadastro autenticado com sucesso! Bem-vindo ao seu painel.');
+      alert('Cadastro validado com sucesso! Bem-vindo ao seu painel.');
       showArtistDashboard();
     }
 
@@ -1407,7 +1384,7 @@
                    `👥 *Público Estimado:* ${aud}\n` +
                    `📍 *Local:* ${loc}\n` +
                    `🎸 *Estilo do Show:* ${st}\n` +
-                   `🎼 *Gêneros (Priorizar/Evitar):* ${genre}\n` +
+                   `🎼 *Gêneros:* ${genre}\n` +
                    `🔊 *Estrutura de Som:* ${snd}`;
 
       const phoneNum = artistData.whatsapp.replace(/\D/g,'') || '21989368930';
