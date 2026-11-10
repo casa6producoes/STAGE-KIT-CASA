@@ -92,22 +92,23 @@
         </button>
       </div>
 
-      <!-- Ações do Painel / PressKit -->
+      <!-- Ações do Painel / PressKit Publico -->
       <div id="panelHeaderActions" class="hidden items-center gap-3">
-        <div class="hidden sm:flex items-center gap-2 pr-3" id="headerSocialIcons">
-          <a href="mailto:casa6producoes@gmail.com" class="p-2 text-zinc-400 hover:text-amber-500 transition-colors" title="E-mail"><i data-lucide="mail" class="w-5 h-5"></i></a>
+        <div class="flex items-center gap-3" id="headerSocialIcons">
+          <a id="headerInsta" href="#" target="_blank" class="p-2 text-white hover:text-amber-500 transition-colors hidden" title="Instagram"><i data-lucide="instagram" class="w-5 h-5"></i></a>
+          <a id="headerEmail" href="mailto:casa6producoes@gmail.com" class="p-2 text-zinc-400 hover:text-amber-500 transition-colors" title="E-mail"><i data-lucide="mail" class="w-5 h-5"></i></a>
         </div>
       </div>
 
     </div>
   </header>
 
-  <!-- ==================== BOTÃO FLUTUANTE VOLTAR AO PAINEL ==================== -->
+  <!-- ==================== BOTÃO FLUTUANTE VOLTAR AO PAINEL (Exclusivo para o Artista) ==================== -->
   <button id="floatingBackBtn" onclick="showArtistDashboard()" class="hidden fixed bottom-6 right-6 bg-amber-500 hover:bg-amber-600 text-black font-extrabold px-6 py-3.5 rounded-full shadow-2xl z-50 flex items-center gap-2 transition-transform hover:scale-105">
-    <i data-lucide="arrow-left" class="w-5 h-5"></i> Voltar ao Painel
+    <i data-lucide="arrow-left" class="w-5 h-5"></i> Voltar à Área do Artista
   </button>
 
-  <!-- ==================== LANDING PAGE (HOME) ==================== -->
+  <!-- ==================== LANDING PAGE (HOME DO SAAS) ==================== -->
   <div id="landingPage" class="flex-1 pt-20 flex flex-col">
     <section class="relative py-20 md:py-32 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto text-center space-y-8">
       <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-500 text-xs font-bold uppercase tracking-wider">
@@ -161,30 +162,44 @@
         </div>
       </div>
     </section>
+
+    <section class="py-24 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto text-center space-y-8">
+      <div class="w-16 h-16 rounded-2xl bg-amber-500/10 border border-amber-500/20 text-amber-500 flex items-center justify-center mx-auto">
+        <i data-lucide="file-text" class="w-8 h-8"></i>
+      </div>
+      <h2 class="text-3xl sm:text-5xl font-extrabold text-white tracking-tight leading-tight">
+        Menos conversa solta, mais<br /><span class="text-amber-500">shows fechados.</span>
+      </h2>
+      <div>
+        <button onclick="openRegisterModal()" class="bg-emerald-500 hover:bg-emerald-600 text-black font-extrabold px-10 py-5 rounded-2xl text-lg shadow-2xl transition-all transform hover:scale-105">
+          Começar agora
+        </button>
+      </div>
+    </section>
   </div>
 
-  <!-- ==================== PRESS KIT PÚBLICO (FRONTEND) ==================== -->
+  <!-- ==================== PRESS KIT PÚBLICO (FRONTEND DO CONTRATANTE) ==================== -->
   <div id="contractorView" class="flex-1 pt-20 hidden">
     <section id="hero" class="relative py-16 md:py-24 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto text-center space-y-6">
       
-      <!-- Nome do Artista Destacado -->
-      <div id="displayBadge" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-amber-500/20 border border-amber-500/40 text-amber-400 text-xl sm:text-2xl font-extrabold uppercase tracking-widest shadow-lg">
-        <span>🎵</span> PRESS KIT — <span id="displayArtistMainName">MATHEUS FELIPE</span>
+      <!-- Nome do Artista Destacado (maior destaque) -->
+      <div id="displayBadge" class="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-amber-500/20 border border-amber-500/40 text-amber-400 text-2xl sm:text-4xl font-extrabold uppercase tracking-widest shadow-lg">
+        <span>🎵</span> <span id="displayArtistMainName">MATHEUS FELIPE</span>
       </div>
       
       <!-- Título CTA -->
-      <h1 id="displayTitle" class="text-xl sm:text-2xl font-semibold text-zinc-400 tracking-tight leading-snug max-w-3xl mx-auto">
+      <h1 id="displayTitle" class="text-lg sm:text-2xl font-semibold text-zinc-300 tracking-tight leading-snug max-w-3xl mx-auto">
         A TRILHA SONORA PERFEITA PARA O SEU MOMENTO.
       </h1>
 
-      <!-- Frases Abaixo do CTA -->
+      <!-- Frases Abaixo do CTA (mesmo tamanho) -->
       <div class="max-w-3xl mx-auto leading-relaxed space-y-4 text-left sm:text-center">
         <p id="displaySubtitle1" class="text-base sm:text-lg text-zinc-300">Já pensou em transformar o seu evento em uma experiência inesquecível, com uma trilha sonora executada sob medida e zero dor de cabeça com a produção?</p>
         <p id="displaySubtitle2" class="text-base sm:text-lg text-zinc-300">Do clima intimista de um acústico à energia de uma apresentação completa: repertório refinado, som de alta qualidade e o profissionalismo que o seu momento exige.</p>
       </div>
 
-      <!-- SEÇÃO "SOBRE O ARTISTA" -->
-      <div class="pt-10 max-w-4xl mx-auto">
+      <!-- SEÇÃO "SOBRE O ARTISTA" (Logo após o CTA1) -->
+      <div class="pt-6 max-w-4xl mx-auto">
         <div class="bg-brand-cardBg border border-brand-border p-6 sm:p-8 rounded-3xl shadow-xl grid md:grid-cols-12 gap-6 items-center text-left">
           <div class="md:col-span-4">
             <div class="relative rounded-2xl overflow-hidden border border-brand-border shadow-md aspect-square bg-zinc-800">
@@ -201,31 +216,19 @@
         </div>
       </div>
 
+      <!-- Bloco Problema & Solução -->
+      <div class="my-10 p-6 sm:p-8 rounded-3xl bg-brand-cardBg border border-brand-border text-left space-y-4 text-zinc-300 text-sm sm:text-base leading-relaxed">
+        <p class="font-semibold text-amber-400">Na hora de escolher a atração do evento, você com certeza pensa...</p>
+        <p class="italic text-zinc-400">“Será que ele vai animar e agradar todos os convidados? Como será o som ao vivo? Será que o som vai ficar muito alto? Posso confiar que ele vai chegar no horário e entregar um show impecável?”</p>
+        <p>A sua única preocupação deve ser aproveitar o seu evento. Aqui você encontra toda a estrutura do show organizada de forma clara e transparente. Assista aos vídeos das apresentações reais, confira os formatos disponíveis para a sua ocasião e veja exatamente como cada detalhe é planejado para entregar sonoridade impecável, pontualidade e uma experiência inesquecível para os seus convidados. Tudo pronto e direto ao ponto para você decidir com total segurança.</p>
+      </div>
+
       <div id="displayHeroVideoContainer" class="w-full max-w-4xl mx-auto rounded-2xl overflow-hidden border border-brand-border shadow-2xl bg-brand-cardBg aspect-video flex items-center justify-center mt-10">
         <iframe id="displayHeroVideo" class="w-full h-full" src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allowfullscreen></iframe>
       </div>
     </section>
 
-    <!-- SEÇÃO FOTOS -->
-    <section id="photosSection" class="py-16 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto border-t border-brand-border">
-      <div class="text-center mb-10">
-        <span class="text-amber-500 font-bold text-xs uppercase tracking-widest">Galeria</span>
-        <h2 class="text-2xl sm:text-3xl font-bold text-white mt-1">Fotos Oficiais</h2>
-      </div>
-      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        <div class="rounded-2xl overflow-hidden border border-brand-border aspect-square bg-zinc-800 shadow-lg">
-          <img id="displayPhoto1" src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=800&q=80" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500">
-        </div>
-        <div class="rounded-2xl overflow-hidden border border-brand-border aspect-square bg-zinc-800 shadow-lg">
-          <img id="displayPhoto2" src="https://images.unsplash.com/photo-1465847899084-d164df4dedc6?auto=format&fit=crop&w=800&q=80" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500">
-        </div>
-        <div class="rounded-2xl overflow-hidden border border-brand-border aspect-square bg-zinc-800 shadow-lg">
-          <img id="displayPhoto3" src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=800&q=80" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500">
-        </div>
-      </div>
-    </section>
-
-    <!-- Formatos de Show com Foto Personalizada -->
+    <!-- Formatos de Show -->
     <section id="formatos" class="py-16 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto border-t border-brand-border">
       <div class="text-center mb-12">
         <span class="text-amber-500 font-bold text-xs uppercase tracking-widest">Estruturas Disponíveis</span>
@@ -272,6 +275,32 @@
       </div>
     </section>
 
+    <!-- Na Prática -->
+    <section class="py-16 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto border-t border-brand-border">
+      <div class="text-center mb-10">
+        <span class="text-amber-500 font-bold text-xs uppercase tracking-widest">Na Prática</span>
+        <h2 class="text-2xl sm:text-3xl font-bold text-white mt-1">Assista trechos reais das apresentações</h2>
+      </div>
+      <div id="displayNaPraticaContainer" class="grid sm:grid-cols-2 gap-6">
+        <div class="aspect-video bg-zinc-900 rounded-2xl overflow-hidden border border-brand-border flex items-center justify-center">
+          <iframe class="w-full h-full" src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allowfullscreen></iframe>
+        </div>
+      </div>
+    </section>
+
+    <!-- Galeria de Fotos -->
+    <section class="py-16 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto border-t border-brand-border">
+      <div class="text-center mb-10">
+        <span class="text-amber-500 font-bold text-xs uppercase tracking-widest">Galeria de Fotos</span>
+        <h2 class="text-2xl sm:text-3xl font-bold text-white mt-1">Momentos Marcantes</h2>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4" id="displayPhotoGallery">
+        <div class="rounded-2xl overflow-hidden border border-brand-border aspect-square bg-zinc-800 shadow-lg">
+          <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=800&q=80" class="w-full h-full object-cover">
+        </div>
+      </div>
+    </section>
+
     <!-- Vamos Ouvir (Streamings) -->
     <section class="py-16 bg-brand-cardBg/40 border-y border-brand-border px-4 sm:px-6 lg:px-8">
       <div class="max-w-4xl mx-auto text-center">
@@ -279,12 +308,38 @@
         <h2 class="text-2xl sm:text-3xl font-bold text-white mb-8">Vamos Ouvir</h2>
         
         <div id="streamingLinksContainer" class="flex flex-wrap items-center justify-center gap-4 text-xs font-semibold">
-          <a id="linkSpotify" href="#" target="_blank" class="px-5 py-3 rounded-xl bg-emerald-950/40 border border-emerald-900/50 text-emerald-400 flex items-center gap-2 hover:bg-emerald-900/40"><i data-lucide="music" class="w-4 h-4"></i> Spotify</a>
-          <a id="linkDeezer" href="#" target="_blank" class="px-5 py-3 rounded-xl bg-zinc-900 border border-zinc-700 text-white flex items-center gap-2 hover:bg-zinc-800"><i data-lucide="disc" class="w-4 h-4"></i> Deezer</a>
-          <a id="linkApple" href="#" target="_blank" class="px-5 py-3 rounded-xl bg-zinc-900 border border-zinc-700 text-pink-400 flex items-center gap-2 hover:bg-zinc-800"><i data-lucide="music-2" class="w-4 h-4"></i> Apple Music</a>
-          <a id="linkYoutubeMusic" href="#" target="_blank" class="px-5 py-3 rounded-xl bg-red-950/40 border border-red-900/50 text-red-400 flex items-center gap-2 hover:bg-red-900/40"><i data-lucide="youtube" class="w-4 h-4"></i> YouTube Music</a>
+          <a id="linkSpotify" href="#" target="_blank" class="px-5 py-3 rounded-xl bg-emerald-950/40 border border-emerald-900/50 text-emerald-400 flex items-center gap-2 hover:bg-emerald-900/40 hidden"><i data-lucide="music" class="w-4 h-4"></i> Spotify</a>
+          <a id="linkDeezer" href="#" target="_blank" class="px-5 py-3 rounded-xl bg-zinc-900 border border-zinc-700 text-white flex items-center gap-2 hover:bg-zinc-800 hidden"><i data-lucide="disc" class="w-4 h-4"></i> Deezer</a>
+          <a id="linkApple" href="#" target="_blank" class="px-5 py-3 rounded-xl bg-zinc-900 border border-zinc-700 text-pink-400 flex items-center gap-2 hover:bg-zinc-800 hidden"><i data-lucide="music-2" class="w-4 h-4"></i> Apple Music</a>
+          <a id="linkYoutubeMusic" href="#" target="_blank" class="px-5 py-3 rounded-xl bg-red-950/40 border border-red-900/50 text-red-400 flex items-center gap-2 hover:bg-red-900/40 hidden"><i data-lucide="youtube" class="w-4 h-4"></i> YouTube Music</a>
         </div>
       </div>
+    </section>
+
+    <!-- Quem Contratou Recomenda (Feedbacks) -->
+    <section class="py-16 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto border-t border-brand-border">
+      <div class="text-center mb-10">
+        <span class="text-amber-500 font-bold text-xs uppercase tracking-widest">Prova Social</span>
+        <h2 class="text-2xl sm:text-3xl font-bold text-white mt-1">Quem Contratou, Recomenda</h2>
+      </div>
+      <div class="grid sm:grid-cols-2 gap-6">
+        <div class="p-6 rounded-2xl bg-brand-cardBg border border-brand-border space-y-3">
+          <p class="text-zinc-300 text-sm italic">"O Matheus simplesmente transformou nosso casamento. Todos os convidados elogiaram a voz e o repertório impecável!"</p>
+          <span class="text-xs text-amber-500 font-bold block">— Juliana & Marcos (Casamento)</span>
+        </div>
+        <div class="p-6 rounded-2xl bg-brand-cardBg border border-brand-border space-y-3">
+          <p class="text-zinc-300 text-sm italic">"Pontual, profissional e com uma energia incrível no palco. Já estamos contratando de novo para o próximo evento da empresa."</p>
+          <span class="text-xs text-amber-500 font-bold block">— Carlos Alberto (Evento Corporativo)</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Final -->
+    <section class="py-20 bg-brand-cardBg/40 border-t border-brand-border px-4 sm:px-6 lg:px-8 text-center space-y-6">
+      <h2 class="text-3xl font-extrabold text-white">Pronto para garantir a trilha sonora perfeita?</h2>
+      <button onclick="openFormatModal('Formato Geral')" class="bg-amber-500 hover:bg-amber-600 text-black font-extrabold px-8 py-4 rounded-2xl shadow-xl transition-all">
+        Conferir Formatos & Orçar Show
+      </button>
     </section>
 
     <footer class="py-8 text-center text-xs text-zinc-500">
@@ -296,6 +351,7 @@
   <!-- ==================== ÁREA DO ARTISTA (PAINEL ADMIN) ==================== -->
   <div id="artistDashboard" class="flex-1 pt-20 bg-zinc-950 hidden flex flex-col md:flex-row min-h-[calc(100vh-5rem)]">
     
+    <!-- Menu Lateral Esquerdo -->
     <aside class="w-full md:w-64 bg-brand-cardBg border-r border-brand-border p-6 flex flex-col justify-between shrink-0">
       <div class="space-y-6">
         <div>
@@ -304,23 +360,20 @@
         </div>
 
         <nav class="space-y-1">
-          <button onclick="switchTab('tabDashboard')" id="btnTabDashboard" class="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-xs font-semibold bg-amber-500/10 text-amber-400 border border-amber-500/30 transition-all">
+          <button onclick="switchTab('tabDashboard')" id="btnTabDashboard" class="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-xs font-semibold bg-amber-500/10 text-amber-400 border border-amber-500/35 transition-all">
             <i data-lucide="layout-dashboard" class="w-4 h-4"></i> Dashboard
           </button>
           <button onclick="switchTab('tabBio')" id="btnTabBio" class="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-xs font-semibold text-zinc-400 hover:bg-zinc-800 hover:text-white transition-all">
             <i data-lucide="user" class="w-4 h-4"></i> Perfil, Bio & Redes
           </button>
           <button onclick="switchTab('tabMedia')" id="btnTabMedia" class="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-xs font-semibold text-zinc-400 hover:bg-zinc-800 hover:text-white transition-all">
-            <i data-lucide="video" class="w-4 h-4"></i> Mídias & Formatos
+            <i data-lucide="video" class="w-4 h-4"></i> Mídias & Streaming
           </button>
           <button onclick="switchTab('tabEvents')" id="btnTabEvents" class="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-xs font-semibold text-zinc-400 hover:bg-zinc-800 hover:text-white transition-all">
             <i data-lucide="calendar-check" class="w-4 h-4"></i> Eventos
           </button>
           <button onclick="switchTab('tabTeam')" id="btnTabTeam" class="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-xs font-semibold text-zinc-400 hover:bg-zinc-800 hover:text-white transition-all">
             <i data-lucide="users" class="w-4 h-4"></i> Equipe & Projetos
-          </button>
-          <button onclick="switchTab('tabCalendar')" id="btnTabCalendar" class="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-xs font-semibold text-zinc-400 hover:bg-zinc-800 hover:text-white transition-all">
-            <i data-lucide="calendar" class="w-4 h-4"></i> Google Agenda
           </button>
         </nav>
       </div>
@@ -336,32 +389,30 @@
       </div>
     </aside>
 
+    <!-- Conteúdo Principal do Painel -->
     <main class="flex-1 p-6 sm:p-10 overflow-y-auto">
       
       <!-- Tab 0: Dashboard -->
       <div id="tabDashboard" class="dashboard-tab max-w-4xl space-y-6">
         <div>
           <h2 class="text-xl font-bold text-white">Dashboard Geral</h2>
-          <p class="text-xs text-zinc-400 mt-1">Acesse seu link personalizado de Press Kit, edite o nome na URL para enviar aos contratantes e gerencie seus dados.</p>
+          <p class="text-xs text-zinc-400 mt-1">Acesse seu link personalizado de Press Kit e gerencie seus dados.</p>
         </div>
 
         <div class="bg-gradient-to-r from-amber-500/10 via-brand-cardBg to-brand-cardBg border border-amber-500/40 p-6 rounded-2xl space-y-3 shadow-xl">
           <div class="flex items-center gap-2 text-amber-500 font-bold text-sm">
             <i data-lucide="link" class="w-5 h-5"></i> <span>Seu Link Personalizado do Press Kit</span>
           </div>
-          <p class="text-xs text-zinc-300">Personalize abaixo o final do seu link (slug) e envie para o cliente:</p>
-          
           <div class="flex flex-col sm:flex-row items-center gap-2 pt-1">
-            <span class="text-xs text-zinc-400 font-mono select-none bg-zinc-900 px-3 py-2.5 rounded-xl border border-zinc-700">url_site/#/</span>
+            <span class="text-xs text-zinc-400 font-mono select-none bg-zinc-900 px-3 py-2.5 rounded-xl border border-zinc-700">stagekitcasa6.vercel.app/</span>
             <input type="text" id="customSlugInput" value="matheusefelipe" oninput="updateCustomLinkPreview()" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl px-4 py-2.5 text-xs text-amber-400 font-mono">
             <button onclick="copyCustomPressKitLink()" class="bg-amber-500 hover:bg-amber-600 text-black font-bold px-5 py-2.5 rounded-xl text-xs shrink-0 flex items-center justify-center gap-2">
               <i data-lucide="copy" class="w-4 h-4"></i> Copiar Link
             </button>
           </div>
-          <p class="text-[11px] text-zinc-400 italic">Link completo: <span id="fullSlugPreview" class="text-amber-400 font-mono">url_site/#/matheusefelipe</span></p>
+          <p class="text-[11px] text-zinc-400 italic">Link completo: <span id="fullSlugPreview" class="text-amber-400 font-mono">stagekitcasa6.vercel.app/matheusefelipe</span></p>
         </div>
 
-        <!-- Botão Único para Ver o Press Kit -->
         <div class="flex justify-start">
           <button onclick="showPublicPressKit()" class="bg-amber-500 hover:bg-amber-600 text-black font-extrabold py-3 px-6 rounded-xl text-xs flex items-center gap-2 shadow-md transition-all">
             <i data-lucide="eye" class="w-4 h-4"></i> Ver meu Press Kit
@@ -372,12 +423,29 @@
           <div class="bg-brand-cardBg border border-brand-border p-6 rounded-2xl space-y-2">
             <span class="text-xs text-zinc-400 uppercase font-semibold">Shows Agendados</span>
             <p id="dashEventCount" class="text-2xl font-bold text-white">0</p>
-            <p class="text-[11px] text-emerald-400">Próximos eventos cadastrados.</p>
           </div>
           <div class="bg-brand-cardBg border border-brand-border p-6 rounded-2xl space-y-2">
-            <span class="text-xs text-zinc-400 uppercase font-semibold">Pagamentos & Cachês</span>
-            <p class="text-2xl font-bold text-amber-500">R$ 0,00</p>
-            <p class="text-[11px] text-zinc-500">Histórico financeiro em breve.</p>
+            <span class="text-xs text-zinc-400 uppercase font-semibold">Cachê Total dos Eventos</span>
+            <p id="dashTotalCache" class="text-2xl font-bold text-amber-500">R$ 0,00</p>
+          </div>
+        </div>
+
+        <!-- Quadro Detalhado de Cachês -->
+        <div class="bg-brand-cardBg border border-brand-border p-6 rounded-2xl space-y-4">
+          <h3 class="text-sm font-bold text-amber-400 uppercase tracking-wider">Distribuição Detalhada de Cachês</h3>
+          <div class="grid sm:grid-cols-3 gap-4 text-xs">
+            <div class="bg-zinc-900 p-4 rounded-xl border border-zinc-800">
+              <span class="text-zinc-400">Total para Músicos</span>
+              <p id="cacheMusicians" class="text-lg font-bold text-white mt-1">R$ 0,00</p>
+            </div>
+            <div class="bg-zinc-900 p-4 rounded-xl border border-zinc-800">
+              <span class="text-zinc-400">Combustível & Despesas</span>
+              <p id="cacheFuel" class="text-lg font-bold text-white mt-1">R$ 0,00</p>
+            </div>
+            <div class="bg-zinc-900 p-4 rounded-xl border border-zinc-800">
+              <span class="text-zinc-400">Meu Pagamento (Líquido)</span>
+              <p id="cacheMine" class="text-lg font-bold text-amber-500 mt-1">R$ 0,00</p>
+            </div>
           </div>
         </div>
       </div>
@@ -386,19 +454,23 @@
       <div id="tabBio" class="dashboard-tab max-w-3xl space-y-6 hidden">
         <div>
           <h2 class="text-xl font-bold text-white">Perfil, Bio e Redes Sociais</h2>
-          <p class="text-xs text-zinc-400 mt-1">Configure suas informações pessoais, WhatsApp oficial para orçamentos e redes sociais.</p>
+          <p class="text-xs text-zinc-400 mt-1">Configure o título da Hero, redes sociais e biografia.</p>
         </div>
 
         <div class="bg-brand-cardBg border border-brand-border p-6 rounded-2xl space-y-4 text-xs">
-          <div class="space-y-3 pb-4 border-b border-zinc-800">
-            <h3 class="font-bold text-amber-400 text-sm">Dados de Contato</h3>
-            <div>
-              <label class="block font-semibold text-zinc-300 mb-1">WhatsApp Oficial (para receber pedidos de orçamento) *</label>
-              <input type="text" id="editWhatsApp" value="21989368930" placeholder="Ex: 21989368930 (apenas números com DDD)" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white">
-            </div>
+          <div>
+            <label class="block font-semibold text-zinc-300 mb-1">Nome do Artista (Badge Superior)</label>
+            <input type="text" id="editArtistMainName" value="MATHEUS FELIPE" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white">
           </div>
-
-          <div class="space-y-3 pb-4 border-b border-zinc-800">
+          <div>
+            <label class="block font-semibold text-zinc-300 mb-1">Título de Impacto / Chamariz (H1)</label>
+            <input type="text" id="editTitle" value="A TRILHA SONORA PERFEITA PARA O SEU MOMENTO." class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white">
+          </div>
+          <div>
+            <label class="block font-semibold text-zinc-300 mb-1">Biografia do Artista</label>
+            <textarea id="editBio" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white h-24">Músico profissional, multi-instrumentista e arranjador...</textarea>
+          </div>
+          <div class="space-y-3 pt-2">
             <h3 class="font-bold text-amber-400 text-sm">Redes Sociais</h3>
             <div>
               <label class="block font-semibold text-zinc-300 mb-1">Instagram</label>
@@ -411,306 +483,282 @@
               <label class="block font-semibold text-zinc-300 mb-1">TikTok</label>
               <div class="flex items-center bg-zinc-900 border border-zinc-700 rounded-xl overflow-hidden">
                 <span class="px-3 py-2.5 bg-zinc-800 text-zinc-400 font-mono text-[11px] select-none border-r border-zinc-700">https://www.tiktok.com/@</span>
-                <input type="text" id="editTiktok" value="" placeholder="seu.usuario" class="w-full bg-transparent px-3 py-2.5 text-white focus:outline-none">
+                <input type="text" id="editTiktok" placeholder="seu.usuario" class="w-full bg-transparent px-3 py-2.5 text-white focus:outline-none">
               </div>
             </div>
             <div>
               <label class="block font-semibold text-zinc-300 mb-1">Facebook</label>
               <div class="flex items-center bg-zinc-900 border border-zinc-700 rounded-xl overflow-hidden">
                 <span class="px-3 py-2.5 bg-zinc-800 text-zinc-400 font-mono text-[11px] select-none border-r border-zinc-700">https://www.facebook.com/</span>
-                <input type="text" id="editFacebook" value="" placeholder="suapagina" class="w-full bg-transparent px-3 py-2.5 text-white focus:outline-none">
+                <input type="text" id="editFacebook" placeholder="suapagina" class="w-full bg-transparent px-3 py-2.5 text-white focus:outline-none">
               </div>
             </div>
           </div>
-
-          <div>
-            <label class="block font-semibold text-zinc-300 mb-1">Nome do Artista (Badge Superior)</label>
-            <input type="text" id="editArtistMainName" value="MATHEUS FELIPE" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white">
-          </div>
-          <div>
-            <label class="block font-semibold text-zinc-300 mb-1">Título de Impacto / Frase CTA (H1)</label>
-            <input type="text" id="editTitle" value="A TRILHA SONORA PERFEITA PARA O SEU MOMENTO." class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white">
-          </div>
-          <div>
-            <label class="block font-semibold text-zinc-300 mb-1">Primeiro Parágrafo (Subtítulo)</label>
-            <textarea id="editSubtitle1" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white h-20">Já pensou em transformar o seu evento em uma experiência inesquecível, com uma trilha sonora executada sob medida e zero dor de cabeça com a produção?</textarea>
-          </div>
-          <div>
-            <label class="block font-semibold text-zinc-300 mb-1">Segundo Parágrafo (Descrição de Apoio)</label>
-            <textarea id="editSubtitle2" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white h-20">Do clima intimista de um acústico à energia de uma apresentação completa: repertório refinado, som de alta qualidade e o profissionalismo que o seu momento exige.</textarea>
-          </div>
-          <div>
-            <label class="block font-semibold text-zinc-300 mb-1">Biografia do Artista</label>
-            <textarea id="editBio" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white h-24">Músico profissional, multi-instrumentista e arranjador...</textarea>
-          </div>
-
           <button onclick="saveArtistEdits()" class="bg-amber-500 hover:bg-amber-600 text-black font-extrabold py-3 px-6 rounded-xl shadow-md">Salvar & Atualizar Press Kit</button>
         </div>
       </div>
 
-      <!-- Tab 2: Mídias & Streaming -->
+      <!-- Tab 2: Mídias & Streaming & Formatos -->
       <div id="tabMedia" class="dashboard-tab max-w-3xl space-y-6 hidden">
         <div>
-          <h2 class="text-xl font-bold text-white">Mídias & Formatos</h2>
-          <p class="text-xs text-zinc-400 mt-1">Configure fotos oficiais, fotos dos formatos de show e plataformas de streaming.</p>
+          <h2 class="text-xl font-bold text-white">Mídias, Streaming & Formatos</h2>
+          <p class="text-xs text-zinc-400 mt-1">Insira links de streaming, fotos e fotos personalizadas para os formatos de show.</p>
         </div>
-
         <div class="bg-brand-cardBg border border-brand-border p-6 rounded-2xl space-y-4 text-xs">
-          <div class="space-y-2 pb-4 border-b border-zinc-800">
-            <label class="block font-semibold text-zinc-300">Fotos Oficiais (Galeria do Press Kit)</label>
-            <input type="text" id="editPhoto1" placeholder="URL Foto 1" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-2.5 text-white">
-            <input type="text" id="editPhoto2" placeholder="URL Foto 2" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-2.5 text-white">
-            <input type="text" id="editPhoto3" placeholder="URL Foto 3" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-2.5 text-white">
+          <div class="space-y-3">
+            <h3 class="font-bold text-amber-400 text-sm">Plataformas de Streaming</h3>
+            <div>
+              <label class="block font-semibold text-zinc-300">YouTube Music</label>
+              <input type="text" id="editYoutubeMusic" placeholder="https://music.youtube.com/..." class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white">
+            </div>
+            <div>
+              <label class="block font-semibold text-zinc-300">Spotify</label>
+              <input type="text" id="editSpotify" placeholder="https://spotify.com/..." class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white">
+            </div>
+            <div>
+              <label class="block font-semibold text-zinc-300">Deezer</label>
+              <input type="text" id="editDeezer" placeholder="https://deezer.com/..." class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white">
+            </div>
+            <div>
+              <label class="block font-semibold text-zinc-300">Apple Music</label>
+              <input type="text" id="editApple" placeholder="https://music.apple.com/..." class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white">
+            </div>
           </div>
 
-          <div class="space-y-2 pb-4 border-b border-zinc-800">
-            <label class="block font-semibold text-zinc-300">Fotos dos Formatos de Show</label>
-            <input type="text" id="editFormatPhoto1" placeholder="URL Foto Formato 1" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-2.5 text-white">
-            <input type="text" id="editFormatPhoto2" placeholder="URL Foto Formato 2" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-2.5 text-white">
-            <input type="text" id="editFormatPhoto3" placeholder="URL Foto Formato 3" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-2.5 text-white">
+          <div class="space-y-3 pt-4 border-t border-zinc-800">
+            <h3 class="font-bold text-amber-400 text-sm">Fotos dos Formatos de Show</h3>
+            <p class="text-[11px] text-amber-500 bg-amber-500/10 p-2.5 rounded-lg border border-amber-500/20">⚠️ <strong>Aviso:</strong> Não é permitido o envio de arquivos pesados. Cole URLs de imagens otimizadas.</p>
+            <div>
+              <label class="block font-semibold text-zinc-300">Foto Formato 1 (Barzinhos & Aniversários)</label>
+              <input type="text" id="editFormatPhoto1" placeholder="URL da foto..." class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white">
+            </div>
+            <div>
+              <label class="block font-semibold text-zinc-300">Foto Formato 2 (Casamentos & Cerimônias)</label>
+              <input type="text" id="editFormatPhoto2" placeholder="URL da foto..." class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white">
+            </div>
+            <div>
+              <label class="block font-semibold text-zinc-300">Foto Formato 3 (Eventos & Formaturas)</label>
+              <input type="text" id="editFormatPhoto3" placeholder="URL da foto..." class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white">
+            </div>
           </div>
-
-          <div class="space-y-2 pt-2 border-t border-zinc-800">
-            <label class="block font-semibold text-zinc-300">Links de Streaming ("Vamos Ouvir")</label>
-            <input type="text" id="editSpotifyLink" placeholder="URL do Perfil no Spotify" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-2.5 text-white">
-            <input type="text" id="editDeezerLink" placeholder="URL do Perfil no Deezer" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-2.5 text-white">
-            <input type="text" id="editAppleLink" placeholder="URL do Apple Music" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-2.5 text-white">
-            <input type="text" id="editYoutubeMusicLink" placeholder="URL do YouTube Music" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-2.5 text-white">
-          </div>
-          <button onclick="saveArtistEdits()" class="bg-amber-500 hover:bg-amber-600 text-black font-extrabold py-3 px-6 rounded-xl shadow-md">Atualizar Mídias</button>
+          <button onclick="saveArtistEdits()" class="bg-amber-500 hover:bg-amber-600 text-black font-extrabold py-3 px-6 rounded-xl shadow-md">Salvar Mídias & Formatos</button>
         </div>
       </div>
 
-      <!-- Tab 3: Eventos Fechados -->
-      <div id="tabEvents" class="dashboard-tab max-w-3xl space-y-6 hidden">
+      <!-- Tab 3: Eventos -->
+      <div id="tabEvents" class="dashboard-tab max-w-4xl space-y-6 hidden">
         <div>
-          <h2 class="text-xl font-bold text-white">Gerenciamento de Eventos Fechados</h2>
-          <p class="text-xs text-zinc-400 mt-1">Cadastre os eventos fechados e envie os dados diretamente para o WhatsApp e Google Agenda da equipe/projeto selecionado.</p>
+          <h2 class="text-xl font-bold text-white">Gestão de Eventos & Shows Fechados</h2>
+          <p class="text-xs text-zinc-400 mt-1">Cadastre os shows fechados para gerar valores de cachê e disparar no WhatsApp.</p>
         </div>
 
         <div class="bg-brand-cardBg border border-brand-border p-6 rounded-2xl space-y-4 text-xs">
-          <input type="text" id="eventName" placeholder="Nome do Evento / Contratante (Ex: Casamento Ana & Carlos)" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white">
-          <input type="text" id="eventDate" placeholder="Data e Horário (Ex: 2026-12-20T19:00:00)" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white">
-          <input type="text" id="eventLocation" placeholder="Local / Casa de Festa" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white">
-          <input type="text" id="eventFormat" placeholder="Formato do Show (Ex: Casamentos & Cerimônias)" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white">
-          
-          <div>
-            <label class="block font-semibold text-zinc-300 mb-1">Projeto Responsável</label>
-            <select id="eventProjectSelect" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white">
-              <option value="">Selecione um projeto...</option>
-            </select>
+          <div class="grid sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block font-semibold text-zinc-300 mb-1">Nome do Evento / Cliente</label>
+              <input type="text" id="newEventName" placeholder="Ex: Casamento Ana e Bruno" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white">
+            </div>
+            <div>
+              <label class="block font-semibold text-zinc-300 mb-1">Data e Horário</label>
+              <input type="datetime-local" id="newEventDate" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white">
+            </div>
+            <div>
+              <label class="block font-semibold text-zinc-300 mb-1">Projeto / Formato</label>
+              <select id="newEventProject" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white">
+                <option>Voz e Violão</option>
+                <option>Dupla</option>
+                <option>Trio</option>
+                <option>Banda Completa</option>
+              </select>
+            </div>
+            <div>
+              <label class="block font-semibold text-zinc-300 mb-1">Valor Total do Cachê (R$)</label>
+              <input type="number" id="newEventCache" placeholder="2500" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white">
+            </div>
+            <div>
+              <label class="block font-semibold text-zinc-300 mb-1">Valor para Músicos (R$)</label>
+              <input type="number" id="newEventMusicians" placeholder="800" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white">
+            </div>
+            <div>
+              <label class="block font-semibold text-zinc-300 mb-1">Combustível / Despesas (R$)</label>
+              <input type="number" id="newEventFuel" placeholder="200" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white">
+            </div>
           </div>
+          <button onclick="addNewEvent()" class="bg-amber-500 hover:bg-amber-600 text-black font-extrabold py-3 px-6 rounded-xl shadow-md">Adicionar Evento</button>
+        </div>
 
-          <button onclick="addEvent()" class="bg-amber-500 hover:bg-amber-600 text-black font-extrabold py-2.5 px-4 rounded-xl">Salvar & Disparar Evento</button>
-          
-          <div class="pt-2 border-t border-zinc-800">
-            <span class="block text-zinc-300 font-semibold mb-2">Eventos Cadastrados (volátil na memória):</span>
-            <div id="eventListContainer" class="bg-zinc-900 p-3 rounded-xl border border-zinc-800 text-zinc-400 min-h-[60px] space-y-2">Nenhum evento cadastrado ainda.</div>
+        <!-- Lista de Eventos -->
+        <div class="bg-brand-cardBg border border-brand-border p-6 rounded-2xl space-y-4">
+          <h3 class="text-sm font-bold text-white">Eventos Cadastrados</h3>
+          <div id="eventsListContainer" class="space-y-3 text-xs">
+            <p class="text-zinc-500 italic">Nenhum evento cadastrado no momento.</p>
           </div>
         </div>
       </div>
 
       <!-- Tab 4: Equipe & Projetos -->
-      <div id="tabTeam" class="dashboard-tab max-w-3xl space-y-6 hidden">
+      <div id="tabTeam" class="dashboard-tab max-w-4xl space-y-6 hidden">
         <div>
           <h2 class="text-xl font-bold text-white">Gestão de Equipe & Projetos</h2>
-          <p class="text-xs text-zinc-400 mt-1">Cadastre músicos individualmente e crie projetos associando-os (Dados voláteis).</p>
+          <p class="text-xs text-zinc-400 mt-1">Cadastre músicos, defina instrumentos e organize projetos (voz e violão, dupla, banda, etc).</p>
         </div>
 
         <div class="bg-brand-cardBg border border-brand-border p-6 rounded-2xl space-y-4 text-xs">
-          <h3 class="font-bold text-white text-sm">1. Cadastrar Músicos</h3>
-          <input type="text" id="musicianName" placeholder="Nome do Músico (Ex: João Silva)" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white">
-          <input type="text" id="musicianInstrument" placeholder="Instrumento (Ex: Violão / Voz)" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white">
-          <input type="text" id="musicianPhone" placeholder="WhatsApp / Telefone (Ex: 21999999999)" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white">
-          <button onclick="addMusician()" class="bg-zinc-800 hover:bg-zinc-700 text-white font-bold py-2.5 px-4 rounded-xl">Adicionar Músico</button>
-          
-          <div id="musicianList" class="bg-zinc-900 p-3 rounded-xl border border-zinc-800 text-zinc-400 min-h-[40px]">Nenhum músico cadastrado.</div>
-        </div>
-
-        <div class="bg-brand-cardBg border border-brand-border p-6 rounded-2xl space-y-4 text-xs">
-          <h3 class="font-bold text-white text-sm">2. Criar Projetos (Voz e Violão, Dupla, Banda...)</h3>
-          <input type="text" id="projectName" placeholder="Nome do Projeto (Ex: Banda Completa / Duo Acústico)" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white">
-          <div>
-            <label class="block font-semibold text-zinc-300 mb-1">Selecione os Músicos para este Projeto:</label>
-            <div id="projectMusiciansCheckboxes" class="space-y-1.5 bg-zinc-900 p-3 rounded-xl border border-zinc-800 max-h-40 overflow-y-auto">
-              <span class="text-zinc-500">Cadastre músicos acima primeiro.</span>
+          <h3 class="font-bold text-amber-400 text-sm">Cadastrar Músico</h3>
+          <div class="grid sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block font-semibold text-zinc-300 mb-1">Nome do Músico</label>
+              <input type="text" id="newMusicianName" placeholder="Ex: João Silva" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white">
+            </div>
+            <div>
+              <label class="block font-semibold text-zinc-300 mb-1">Instrumento</label>
+              <input type="text" id="newMusicianInstrument" placeholder="Ex: Bateria / Teclado" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white">
             </div>
           </div>
-          <button onclick="addProject()" class="bg-amber-500 hover:bg-amber-600 text-black font-extrabold py-2.5 px-4 rounded-xl">Salvar Projeto</button>
-          
-          <div class="pt-2 border-t border-zinc-800">
-            <span class="block text-zinc-300 font-semibold mb-2">Projetos Cadastrados:</span>
-            <div id="projectListContainer" class="bg-zinc-900 p-3 rounded-xl border border-zinc-800 text-zinc-400 min-h-[50px] space-y-2">Nenhum projeto cadastrado.</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Tab 5: Google Agenda -->
-      <div id="tabCalendar" class="dashboard-tab max-w-3xl space-y-6 hidden">
-        <div>
-          <h2 class="text-xl font-bold text-white">Sincronização com Google Agenda</h2>
-          <p class="text-xs text-zinc-400 mt-1">Conecte sua conta para bloquear datas automaticamente quando um show for fechado.</p>
+          <button onclick="addNewMusician()" class="bg-amber-500 hover:bg-amber-600 text-black font-extrabold py-3 px-6 rounded-xl shadow-md">Adicionar Músico</button>
         </div>
 
-        <div class="bg-brand-cardBg border border-brand-border p-6 rounded-2xl space-y-4 text-center">
-          <div class="w-12 h-12 rounded-full bg-blue-500/10 text-blue-400 flex items-center justify-center mx-auto">
-            <i data-lucide="calendar" class="w-6 h-6"></i>
+        <div class="bg-brand-cardBg border border-brand-border p-6 rounded-2xl space-y-4">
+          <h3 class="text-sm font-bold text-white">Músicos Cadastrados</h3>
+          <div id="musiciansListContainer" class="space-y-2 text-xs">
+            <p class="text-zinc-500 italic">Nenhum músico cadastrado.</p>
           </div>
-          <h3 class="text-base font-bold text-white">Conectar Google Calendar</h3>
-          <p class="text-xs text-zinc-400 max-w-md mx-auto">Sincronize os eventos do StageKit diretamente com a sua agenda pessoal ou da produtora.</p>
-          <button onclick="alert('Redirecionando para autenticação do Google Calendar...')" class="bg-blue-600 hover:bg-blue-500 text-white font-bold py-3 px-6 rounded-xl text-xs inline-flex items-center gap-2 shadow-lg">
-            Conectar Conta Google
-          </button>
         </div>
       </div>
 
     </main>
   </div>
 
-
-  <!-- ==================== MODAL DE CADASTRO ==================== -->
-  <div id="registerModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden items-center justify-center p-4 overflow-y-auto">
-    <div class="bg-brand-cardBg border border-brand-border w-full max-w-md rounded-2xl p-6 sm:p-8 relative my-8 shadow-2xl max-h-[90vh] flex flex-col">
-      <button onclick="closeRegisterModal()" class="absolute top-4 right-4 text-zinc-400 hover:text-white p-2 z-10"><i data-lucide="x" class="w-6 h-6"></i></button>
-
-      <div class="mb-4 shrink-0 text-center">
-        <span class="text-amber-500 font-bold text-xs uppercase tracking-widest">Etapa de Adesão</span>
-        <h3 class="text-xl font-bold text-white mt-1">Criar meu Press Kit</h3>
+  <!-- ==================== MODAL DE CADASTRO (ONBOARDING) ==================== -->
+  <div id="registerModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-4 overflow-y-auto">
+    <div class="bg-brand-cardBg border border-brand-border rounded-3xl max-w-lg w-full p-6 sm:p-8 space-y-6 shadow-2xl relative my-8">
+      <button onclick="closeRegisterModal()" class="absolute top-6 right-6 text-zinc-400 hover:text-white"><i data-lucide="x" class="w-5 h-5"></i></button>
+      
+      <div>
+        <span class="text-xs font-bold text-amber-500 uppercase">Crie seu StageKit</span>
+        <h3 class="text-2xl font-bold text-white mt-1">Cadastro de Artista</h3>
       </div>
 
-      <div class="overflow-y-auto pr-1 no-scrollbar flex-1 space-y-4">
-        <div class="grid grid-cols-2 gap-2">
-          <button onclick="handleSocialRegister('Gmail')" class="bg-zinc-900 hover:bg-zinc-800 text-white font-semibold py-2.5 px-3 rounded-xl border border-zinc-700 text-xs flex items-center justify-center gap-2 transition-colors">
-            <i data-lucide="mail" class="w-4 h-4 text-red-400"></i> Gmail
-          </button>
-          <button onclick="handleSocialRegister('Apple')" class="bg-zinc-900 hover:bg-zinc-800 text-white font-semibold py-2.5 px-3 rounded-xl border border-zinc-700 text-xs flex items-center justify-center gap-2 transition-colors">
-            <i data-lucide="smartphone" class="w-4 h-4 text-zinc-300"></i> iCloud
-          </button>
+      <div class="space-y-3 text-xs">
+        <div>
+          <label class="block font-semibold text-zinc-300 mb-1">Nome Completo *</label>
+          <input type="text" id="regFullName" required class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white" placeholder="Seu nome completo">
+        </div>
+        <div class="grid sm:grid-cols-2 gap-3">
+          <div>
+            <label class="block font-semibold text-zinc-300 mb-1">Data de Nascimento *</label>
+            <input type="date" id="regBirthDate" required class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white">
+          </div>
+          <div>
+            <label class="block font-semibold text-zinc-300 mb-1">Telefone / WhatsApp *</label>
+            <input type="text" id="regPhone" required class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white" placeholder="21989368930">
+          </div>
+        </div>
+        <div>
+          <label class="block font-semibold text-zinc-300 mb-1">E-mail *</label>
+          <input type="email" id="regEmail" required class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white" placeholder="seu@email.com">
+        </div>
+        <div class="grid sm:grid-cols-2 gap-3">
+          <div>
+            <label class="block font-semibold text-zinc-300 mb-1">CPF *</label>
+            <input type="text" id="regCpf" required class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white" placeholder="000.000.000-00">
+          </div>
+          <div>
+            <label class="block font-semibold text-zinc-300 mb-1">Carteira de Músico (Opcional)</label>
+            <input type="text" id="regMusicianId" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white" placeholder="OMS / OMB">
+          </div>
         </div>
 
-        <div class="flex items-center gap-3 text-zinc-600 text-xs">
-          <div class="flex-1 border-t border-zinc-800"></div>
-          <span>ou preencha os dados</span>
-          <div class="flex-1 border-t border-zinc-800"></div>
-        </div>
-
-        <form id="registerForm" onsubmit="handleRegisterSubmit(event)" class="space-y-3 text-xs text-left">
-          <div>
-            <label class="block font-semibold text-zinc-300 mb-1">Nome Completo *</label>
-            <input type="text" id="regName" required placeholder="Ex: Novo Artista" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl px-3.5 py-2.5 text-white">
-          </div>
-          <div>
-            <label class="block font-semibold text-zinc-300 mb-1">Telefone (WhatsApp) *</label>
-            <input type="text" id="regPhone" required placeholder="Ex: 21900000000" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl px-3.5 py-2.5 text-white">
-          </div>
-          <div>
-            <label class="block font-semibold text-zinc-300 mb-1">E-mail *</label>
-            <input type="email" id="regEmail" required placeholder="exemplo@email.com" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl px-3.5 py-2.5 text-white">
-          </div>
-          <div>
-            <label class="block font-semibold text-zinc-300 mb-1">Senha de Acesso *</label>
-            <input type="password" id="regPassword" required placeholder="••••••••" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl px-3.5 py-2.5 text-white">
-          </div>
-
-          <button type="submit" class="w-full bg-amber-500 hover:bg-amber-600 text-black font-extrabold py-3.5 rounded-xl text-sm flex items-center justify-center gap-2 mt-4 shadow-lg">
-            Finalizar Cadastro & Acessar Painel <i data-lucide="arrow-right" class="w-4 h-4"></i>
-          </button>
-        </form>
+        <button onclick="submitRegister()" class="w-full bg-amber-500 hover:bg-amber-600 text-black font-extrabold py-3.5 rounded-xl text-sm shadow-md transition-all mt-2">
+          Criar Conta & Acessar Painel
+        </button>
       </div>
     </div>
   </div>
 
-
   <!-- ==================== MODAL DE LOGIN ==================== -->
-  <div id="loginModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden items-center justify-center p-4">
-    <div class="bg-brand-cardBg border border-brand-border w-full max-w-sm rounded-2xl p-6 sm:p-8 relative shadow-2xl">
-      <button onclick="closeLoginModal()" class="absolute top-4 right-4 text-zinc-400 hover:text-white p-2"><i data-lucide="x" class="w-6 h-6"></i></button>
+  <div id="loginModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="bg-brand-cardBg border border-brand-border rounded-3xl max-w-md w-full p-6 sm:p-8 space-y-6 shadow-2xl relative">
+      <button onclick="closeLoginModal()" class="absolute top-6 right-6 text-zinc-400 hover:text-white"><i data-lucide="x" class="w-5 h-5"></i></button>
+      <div>
+        <span class="text-xs font-bold text-amber-500 uppercase">Área do Artista</span>
+        <h3 class="text-2xl font-bold text-white mt-1">Entrar no Painel</h3>
+      </div>
+      <div class="space-y-4 text-xs">
+        <div>
+          <label class="block font-semibold text-zinc-300 mb-1">E-mail</label>
+          <input type="email" id="loginEmail" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white" value="matheusefelipe@gmail.com">
+        </div>
+        <div>
+          <label class="block font-semibold text-zinc-300 mb-1">Senha</label>
+          <input type="password" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white" value="123456">
+        </div>
+        <button onclick="submitLogin()" class="w-full bg-amber-500 hover:bg-amber-600 text-black font-extrabold py-3 rounded-xl text-sm shadow-md">
+          Entrar no Painel
+        </button>
+      </div>
+    </div>
+  </div>
 
-      <div class="mb-6 text-center">
-        <span class="text-amber-500 font-bold text-xs uppercase tracking-widest">Acesso Restrito</span>
-        <h3 class="text-xl font-bold text-white mt-1">Abrir meu Painel</h3>
+  <!-- ==================== MODAL DE FORMATO & QUESTIONÁRIO WHATSAPP ==================== -->
+  <div id="formatModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-4 overflow-y-auto">
+    <div class="bg-brand-cardBg border border-brand-border rounded-3xl max-w-xl w-full p-6 sm:p-8 space-y-6 shadow-2xl relative my-8">
+      <button onclick="closeFormatModal()" class="absolute top-6 right-6 text-zinc-400 hover:text-white"><i data-lucide="x" class="w-5 h-5"></i></button>
+      
+      <div>
+        <span class="text-xs font-bold text-amber-500 uppercase" id="modalFormatSubtitle">ORÇAMENTO DE SHOW</span>
+        <h3 class="text-2xl font-bold text-white mt-1" id="modalFormatTitle">Solicitar Proposta</h3>
+        <p class="text-xs text-zinc-300 mt-2 bg-amber-500/10 border border-amber-500/20 p-3 rounded-xl leading-relaxed">
+          Preencha os detalhes abaixo para verificar a disponibilidade e gerar sua proposta via WhatsApp!
+        </p>
       </div>
 
       <div class="space-y-4 text-xs">
-        <div class="grid grid-cols-2 gap-2">
-          <button onclick="handleSocialLogin('Gmail')" class="bg-zinc-900 hover:bg-zinc-800 text-white font-semibold py-2.5 px-3 rounded-xl border border-zinc-700 flex items-center justify-center gap-2">
-            <i data-lucide="mail" class="w-4 h-4 text-red-400"></i> Gmail
-          </button>
-          <button onclick="handleSocialLogin('iCloud')" class="bg-zinc-900 hover:bg-zinc-800 text-white font-semibold py-2.5 px-3 rounded-xl border border-zinc-700 flex items-center justify-center gap-2">
-            <i data-lucide="smartphone" class="w-4 h-4 text-zinc-300"></i> iCloud
-          </button>
+        <div>
+          <label class="block font-semibold text-zinc-300 mb-1">1. Data e horário do evento (Verificação de Disponibilidade)</label>
+          <input type="datetime-local" id="qDateTime" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white">
+        </div>
+        <div>
+          <label class="block font-semibold text-zinc-300 mb-1">2. Tipo de evento</label>
+          <select id="qEventType" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white">
+            <option>Aniversário</option>
+            <option>Casamento</option>
+            <option>Confraternização</option>
+            <option>Bar / Restaurante</option>
+            <option>Outro</option>
+          </select>
+        </div>
+        <div>
+          <label class="block font-semibold text-zinc-300 mb-1">3. Público estimado</label>
+          <select id="qAudience" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white">
+            <option>Até 50 pessoas</option>
+            <option>50 a 150 pessoas</option>
+            <option>150+ pessoas</option>
+          </select>
+        </div>
+        <div>
+          <label class="block font-semibold text-zinc-300 mb-1">4. Local (Bairro e/ou nome da casa de festa)</label>
+          <input type="text" id="qLocation" placeholder="Ex: Copacabana, Rio de Janeiro" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white">
+        </div>
+        <div>
+          <label class="block font-semibold text-zinc-300 mb-1">5. Estilo do show</label>
+          <select id="qStyle" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white">
+            <option>Mais animado</option>
+            <option>Mais intimista</option>
+            <option>Transição / Misturado</option>
+          </select>
+        </div>
+        <div>
+          <label class="block font-semibold text-zinc-300 mb-1">6. Estrutura de som</label>
+          <select id="qSound" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white">
+            <option>Local possui som próprio</option>
+            <option>Músico deve levar estrutura completa</option>
+          </select>
         </div>
 
-        <div class="flex items-center gap-3 text-zinc-600 text-xs">
-          <div class="flex-1 border-t border-zinc-800"></div>
-          <span>ou com e-mail</span>
-          <div class="flex-1 border-t border-zinc-800"></div>
-        </div>
-
-        <form onsubmit="handleLoginSubmit(event)" class="space-y-3">
-          <div>
-            <label class="block font-semibold text-zinc-300 mb-1">E-mail</label>
-            <input type="email" id="loginEmail" required placeholder="seu@email.com" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl px-3.5 py-2.5 text-white">
-          </div>
-          <div>
-            <label class="block font-semibold text-zinc-300 mb-1">Senha (Qualquer uma entra)</label>
-            <input type="password" id="loginPassword" required placeholder="••••••••" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl px-3.5 py-2.5 text-white">
-          </div>
-          <button type="submit" class="w-full bg-amber-500 hover:bg-amber-600 text-black font-extrabold py-3 rounded-xl text-sm mt-2 shadow-lg">
-            Entrar no Painel
-          </button>
-        </form>
-      </div>
-    </div>
-  </div>
-
-
-  <!-- ==================== MODAL DE ORÇAMENTO ==================== -->
-  <div id="formatModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden items-center justify-center p-4 overflow-y-auto">
-    <div class="bg-brand-cardBg border border-brand-border w-full max-w-xl rounded-2xl p-6 sm:p-8 relative my-8 shadow-2xl max-h-[90vh] flex flex-col">
-      <button onclick="closeFormatModal()" class="absolute top-4 right-4 text-zinc-400 hover:text-white p-2 z-10"><i data-lucide="x" class="w-6 h-6"></i></button>
-
-      <div class="mb-4 shrink-0">
-        <span class="text-amber-500 font-bold text-xs uppercase tracking-widest">Solicitar Proposta</span>
-        <h3 id="modalFormatTitle" class="text-xl sm:text-2xl font-bold text-white mt-1">Formato de Show</h3>
-        <p class="text-[11px] text-zinc-500 mt-2 italic"><i data-lucide="info" class="w-3 h-3 inline"></i> O repertório e o contrato detalhado serão alinhados via WhatsApp após o envio das informações abaixo.</p>
-      </div>
-
-      <div class="overflow-y-auto pr-2 no-scrollbar flex-1 border-t border-zinc-800 pt-4 mt-2">
-        <form id="quoteForm" onsubmit="handleFormSubmit(event)" class="space-y-4 text-left text-xs">
-          <div>
-            <label class="block font-semibold text-zinc-300 mb-1.5">1. Data e horário do evento</label>
-            <input type="text" id="fieldDate" placeholder="Ex: 15/12 às 20h" required class="w-full bg-zinc-900 border border-zinc-700 rounded-xl px-4 py-2.5 text-white">
-          </div>
-          <div>
-            <label class="block font-semibold text-zinc-300 mb-1.5">2. Tipo de evento</label>
-            <input type="text" id="fieldType" placeholder="Ex: Aniversário de 40 anos" required class="w-full bg-zinc-900 border border-zinc-700 rounded-xl px-4 py-2.5 text-white">
-          </div>
-          <div>
-            <label class="block font-semibold text-zinc-300 mb-1.5">3. Público estimado</label>
-            <input type="text" id="fieldPublic" placeholder="Ex: Aprox. 80 pessoas" required class="w-full bg-zinc-900 border border-zinc-700 rounded-xl px-4 py-2.5 text-white">
-          </div>
-          <div>
-            <label class="block font-semibold text-zinc-300 mb-1.5">4. Local (Bairro / Espaço)</label>
-            <input type="text" id="fieldLocation" placeholder="Ex: Campo Grande, RJ" required class="w-full bg-zinc-900 border border-zinc-700 rounded-xl px-4 py-2.5 text-white">
-          </div>
-          <div>
-            <label class="block font-semibold text-zinc-300 mb-1.5">5. Estilo do show (Animado ou Intimista?)</label>
-            <input type="text" id="fieldStyle" placeholder="Ex: Começar intimista e animar depois" required class="w-full bg-zinc-900 border border-zinc-700 rounded-xl px-4 py-2.5 text-white">
-          </div>
-          <div>
-            <label class="block font-semibold text-zinc-300 mb-1.5">6. Algum gênero para priorizar ou evitar?</label>
-            <input type="text" id="fieldRepertoire" placeholder="Ex: Priorizar MPB e Pop Rock" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl px-4 py-2.5 text-white">
-          </div>
-          <div>
-            <label class="block font-semibold text-zinc-300 mb-1.5">7. Sobre o Som (O local possui ou devemos levar?)</label>
-            <input type="text" id="fieldSound" placeholder="Ex: Preciso que leve a estrutura de som" required class="w-full bg-zinc-900 border border-zinc-700 rounded-xl px-4 py-2.5 text-white">
-          </div>
-
-          <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-500 text-black font-extrabold py-3.5 px-4 rounded-xl text-sm flex items-center justify-center gap-2 mt-6 shadow-lg">
-            <i data-lucide="message-square" class="w-5 h-5"></i> Enviar Proposta via WhatsApp
-          </button>
-        </form>
+        <button onclick="sendWhatsAppBudget()" class="w-full bg-emerald-500 hover:bg-emerald-600 text-black font-extrabold py-3.5 rounded-xl text-sm flex items-center justify-center gap-2 shadow-lg mt-4">
+          <i data-lucide="message-square" class="w-4 h-4"></i> Verificar Disponibilidade & Enviar WhatsApp
+        </button>
       </div>
     </div>
   </div>
@@ -718,518 +766,334 @@
   <script>
     lucide.createIcons();
 
-    // DADOS PADRÃO DO CRIADOR DO PROJETO (MATHEUS)
-    const creatorData = {
-      slug: 'matheusefelipe',
-      whatsapp: '21989368930',
-      instagram: 'matheusefelipe',
-      tiktok: '',
-      facebook: '',
-      badgeName: 'MATHEUS FELIPE',
-      title: 'A TRILHA SONORA PERFEITA PARA O SEU MOMENTO.',
-      subtitle1: 'Já pensou em transformar o seu evento em uma experiência inesquecível, com uma trilha sonora executada sob medida e zero dor de cabeça com a produção?',
-      subtitle2: 'Do clima intimista de um acústico à energia de uma apresentação completa: repertório refinado, som de alta qualidade e o profissionalismo que o seu momento exige.',
-      bio: 'Músico profissional, multi-instrumentista e arranjador com vasta experiência em palcos de eventos corporativos, casamentos e casas noturnas de destaque.',
-      photo1: 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=800&q=80',
-      photo2: 'https://images.unsplash.com/photo-1465847899084-d164df4dedc6?auto=format&fit=crop&w=800&q=80',
-      photo3: 'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=800&q=80',
-      formatPhoto1: 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=600&q=80',
-      formatPhoto2: 'https://images.unsplash.com/photo-1465847899084-d164df4dedc6?auto=format&fit=crop&w=600&q=80',
-      formatPhoto3: 'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=600&q=80',
-      spotifyLink: '',
-      deezerLink: '',
-      appleLink: '',
-      youtubeMusicLink: ''
+    // Estado persistente via localStorage
+    let artistData = JSON.parse(localStorage.getItem('stagekit_artist')) || {
+      whatsapp: "21989368930",
+      artistMainName: "MATHEUS FELIPE",
+      title: "A TRILHA SONORA PERFEITA PARA O SEU MOMENTO.",
+      bio: "Músico profissional, multi-instrumentista e arranjador com vasta experiência em palcos de eventos corporativos, casamentos e casas noturnas de destaque.",
+      slug: "matheusefelipe",
+      instagram: "matheusefelipe",
+      tiktok: "",
+      facebook: "",
+      youtubeMusic: "",
+      spotify: "",
+      deezer: "",
+      apple: "",
+      formatPhoto1: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=600&q=80",
+      formatPhoto2: "https://images.unsplash.com/photo-1465847899084-d164df4dedc6?auto=format&fit=crop&w=600&q=80",
+      formatPhoto3: "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=600&q=80"
     };
 
-    // DADOS VAZIOS PARA QUALQUER NOVO ARTISTA QUE SE CADASTRAR OU LOGAR
-    const emptyData = {
-      slug: 'novoartista',
-      whatsapp: '',
-      instagram: '',
-      tiktok: '',
-      facebook: '',
-      badgeName: 'NOME DO ARTISTA',
-      title: 'Escreva um título de impacto para o seu show.',
-      subtitle1: 'Descreva em uma ou duas linhas por que o seu show é a melhor escolha para o evento do cliente.',
-      subtitle2: 'Complete com mais detalhes sobre a sua apresentação, energia ou repertório.',
-      bio: 'Escreva aqui a sua biografia, tempo de carreira e principais estilos musicais.',
-      photo1: '', photo2: '', photo3: '',
-      formatPhoto1: '', formatPhoto2: '', formatPhoto3: '',
-      spotifyLink: '', deezerLink: '', appleLink: '', youtubeMusicLink: ''
-    };
+    let eventsList = JSON.parse(localStorage.getItem('stagekit_events')) || [];
+    let musiciansList = JSON.parse(localStorage.getItem('stagekit_musicians')) || [];
+    let selectedFormatForModal = "";
 
-    // Memória volátil
-    let appState = {
-      currentUser: null,
-      artistData: { ...creatorData }, // Inicializa com o do Matheus para a Preview
-      musicians: [],
-      projects: [],
-      eventsList: []
-    };
-
-    document.addEventListener("DOMContentLoaded", function() {
-      loadStateToUI();
-      handleRouter();
-      window.addEventListener('hashchange', handleRouter);
-    });
-
-    function handleRouter() {
-      const hash = window.location.hash;
-      if (hash === '#dashboard' && appState.currentUser) {
-        showArtistDashboard();
-      } else if (hash.startsWith('#/')) {
-        const slug = hash.replace('#/', '');
-        if(slug) {
-          appState.artistData.slug = slug;
-          showPublicPressKitForContractor();
-        }
-      } else {
-        if(appState.currentUser) {
-          showArtistDashboard();
-        } else {
-          goHome();
-        }
-      }
+    function saveData() {
+      localStorage.setItem('stagekit_artist', JSON.stringify(artistData));
+      localStorage.setItem('stagekit_events', JSON.stringify(eventsList));
+      localStorage.setItem('stagekit_musicians', JSON.stringify(musiciansList));
     }
 
-    function updateCustomLinkPreview() {
-      const slug = document.getElementById('customSlugInput').value.trim() || 'artista';
-      const fullUrl = `${window.location.origin}${window.location.pathname}#/${slug}`;
-      document.getElementById('fullSlugPreview').innerText = fullUrl;
-    }
-
-    function copyCustomPressKitLink() {
-      const slug = document.getElementById('customSlugInput').value.trim() || 'artista';
-      const fullUrl = `${window.location.origin}${window.location.pathname}#/${slug}`;
-      navigator.clipboard.writeText(fullUrl);
-      alert("Link copiado com sucesso! Pode enviar para o contratante.");
-    }
-
-    function toggleTheme() {
-      const body = document.body;
-      const isLight = body.classList.toggle('light');
-      document.getElementById('themeToggleText').innerText = isLight ? "Modo Escuro" : "Modo Claro";
-      const icon = document.getElementById('themeToggleBtn').querySelector('i');
-      if(isLight) {
-        icon.setAttribute('data-lucide', 'moon');
-      } else {
-        icon.setAttribute('data-lucide', 'sun');
-      }
-      lucide.createIcons();
-    }
-
-    function openRegisterModal() { document.getElementById('registerModal').classList.remove('hidden'); document.getElementById('registerModal').classList.add('flex'); }
-    function closeRegisterModal() { document.getElementById('registerModal').classList.add('hidden'); document.getElementById('registerModal').classList.remove('flex'); }
-    function openLoginModal() { document.getElementById('loginModal').classList.remove('hidden'); document.getElementById('loginModal').classList.add('flex'); }
-    function closeLoginModal() { document.getElementById('loginModal').classList.add('hidden'); document.getElementById('loginModal').classList.remove('flex'); }
-
-    // ====== LÓGICA CORRIGIDA DE CONTAS (CRIADOR VS NOVOS USUÁRIOS) ======
-    function setupUserSession(email, name, phone) {
-      appState.currentUser = { email, name, phone };
+    function initApp() {
+      loadInputsFromState();
+      renderEvents();
+      renderMusicians();
+      updateCacheCalculations();
       
-      // Se o e-mail logado tiver "matheus" ou "casa6", carrega o projeto do criador.
-      if(email.toLowerCase().includes('matheus') || email.toLowerCase().includes('casa6')) {
-        appState.artistData = { ...creatorData };
-        appState.artistData.whatsapp = phone !== '00000000000' ? phone : creatorData.whatsapp;
-      } else {
-        // Se for qualquer outro e-mail (um novo artista), limpa os dados para ele começar do zero
-        appState.artistData = { ...emptyData };
-        appState.artistData.whatsapp = phone;
-        appState.artistData.badgeName = name.toUpperCase();
-        appState.artistData.slug = name.toLowerCase().replace(/\s+/g, '');
+      // Checar se a URL possui slug customizado
+      const path = window.location.pathname.replace('/', '');
+      if (path && path !== '' && path !== 'index.html') {
+        artistData.slug = path;
+        showPublicPressKit();
       }
     }
 
-    function handleRegisterSubmit(e) { 
-      e.preventDefault(); 
-      const name = document.getElementById('regName').value;
-      const email = document.getElementById('regEmail').value;
-      const phone = document.getElementById('regPhone').value.replace(/\D/g, '');
-
-      setupUserSession(email, name, phone);
+    function loadInputsFromState() {
+      document.getElementById('editArtistMainName').value = artistData.artistMainName;
+      document.getElementById('editTitle').value = artistData.title;
+      document.getElementById('editBio').value = artistData.bio;
+      document.getElementById('editInstagram').value = artistData.instagram;
+      document.getElementById('editTiktok').value = artistData.tiktok;
+      document.getElementById('editFacebook').value = artistData.facebook;
+      document.getElementById('editSpotify').value = artistData.spotify;
+      document.getElementById('editDeezer').value = artistData.deezer;
+      document.getElementById('editApple').value = artistData.apple;
+      document.getElementById('editYoutubeMusic').value = artistData.youtubeMusic;
+      document.getElementById('editFormatPhoto1').value = artistData.formatPhoto1;
+      document.getElementById('editFormatPhoto2').value = artistData.formatPhoto2;
+      document.getElementById('editFormatPhoto3').value = artistData.formatPhoto3;
+      document.getElementById('customSlugInput').value = artistData.slug;
       
-      closeRegisterModal();
-      loadStateToUI();
-      showArtistDashboard(); 
+      applyPublicData();
     }
 
-    function handleSocialRegister(prov) { 
-      const email = prov.toLowerCase()+'@novoartista.com';
-      setupUserSession(email, 'Artista ' + prov, '21900000000');
-      closeRegisterModal(); 
-      loadStateToUI();
-      showArtistDashboard(); 
+    function applyPublicData() {
+      document.getElementById('displayArtistMainName').innerText = artistData.artistMainName;
+      document.getElementById('displayArtistName').innerText = artistData.artistMainName;
+      document.getElementById('displayTitle').innerText = artistData.title;
+      document.getElementById('displayBio').innerText = artistData.bio;
+      document.getElementById('fullSlugPreview').innerText = `stagekitcasa6.vercel.app/${artistData.slug}`;
+
+      // Formato fotos
+      if(artistData.formatPhoto1) document.getElementById('displayFormatPhoto1').src = artistData.formatPhoto1;
+      if(artistData.formatPhoto2) document.getElementById('displayFormatPhoto2').src = artistData.formatPhoto2;
+      if(artistData.formatPhoto3) document.getElementById('displayFormatPhoto3').src = artistData.formatPhoto3;
+
+      // Header Instagram
+      const instaBtn = document.getElementById('headerInsta');
+      if(artistData.instagram) {
+        instaBtn.href = `https://www.instagram.com/${artistData.instagram}`;
+        instaBtn.classList.remove('hidden');
+      } else {
+        instaBtn.classList.add('hidden');
+      }
+
+      // Streaming links
+      toggleStreamingLink('linkSpotify', artistData.spotify);
+      toggleStreamingLink('linkDeezer', artistData.deezer);
+      toggleStreamingLink('linkApple', artistData.apple);
+      toggleStreamingLink('linkYoutubeMusic', artistData.youtubeMusic);
     }
 
-    function handleLoginSubmit(e) { 
-      e.preventDefault(); 
-      const email = document.getElementById('loginEmail').value;
-      setupUserSession(email, 'Artista Logado', '00000000000');
-      closeLoginModal(); 
-      loadStateToUI();
-      showArtistDashboard(); 
-    }
-
-    function handleSocialLogin(prov) { 
-      const email = prov.toLowerCase()+'@novoartista.com';
-      setupUserSession(email, 'Artista ' + prov, '21900000000');
-      closeLoginModal(); 
-      loadStateToUI();
-      showArtistDashboard(); 
-    }
-    // ====================================================================
-
-    function logoutToHome() { 
-      appState.currentUser = null;
-      document.getElementById('floatingBackBtn').classList.add('hidden');
-      goHome(); 
+    function toggleStreamingLink(elementId, url) {
+      const el = document.getElementById(elementId);
+      if(url) {
+        el.href = url;
+        el.classList.remove('hidden');
+      } else {
+        el.classList.add('hidden');
+      }
     }
 
     function goHome() {
-      window.location.hash = '';
+      window.history.pushState({}, '', '/');
       document.getElementById('landingPage').classList.remove('hidden');
+      document.getElementById('contractorView').classList.add('hidden');
+      document.getElementById('artistDashboard').classList.add('hidden');
+      document.getElementById('floatingBackBtn').classList.add('hidden');
       document.getElementById('landingHeaderActions').classList.remove('hidden');
-      document.getElementById('contractorView').classList.add('hidden');
-      document.getElementById('artistDashboard').classList.add('hidden');
       document.getElementById('panelHeaderActions').classList.add('hidden');
-      document.getElementById('floatingBackBtn').classList.add('hidden');
-    }
-
-    function showArtistDashboard() {
-      document.getElementById('landingPage').classList.add('hidden');
-      document.getElementById('landingHeaderActions').classList.add('hidden');
-      document.getElementById('contractorView').classList.add('hidden');
-      document.getElementById('artistDashboard').classList.remove('hidden');
-      document.getElementById('panelHeaderActions').classList.remove('hidden');
-      
-      // Esconde o botão de voltar ao painel pq já estamos no painel
-      document.getElementById('floatingBackBtn').classList.add('hidden');
-      
-      switchTab('tabDashboard');
-      window.location.hash = 'dashboard';
-    }
-
-    function showPublicPressKit() {
-      document.getElementById('landingPage').classList.add('hidden');
-      document.getElementById('landingHeaderActions').classList.add('hidden');
-      document.getElementById('artistDashboard').classList.add('hidden');
-      document.getElementById('contractorView').classList.remove('hidden');
-      document.getElementById('panelHeaderActions').classList.remove('hidden');
-      
-      // Exibe o botão flutuante para o Artista Logado conseguir voltar ao painel
-      document.getElementById('floatingBackBtn').classList.remove('hidden');
-      
-      window.location.hash = '#/' + appState.artistData.slug;
-      renderPublicPressKit();
-    }
-
-    function showPublicPressKitForContractor() {
-      document.getElementById('landingPage').classList.add('hidden');
-      document.getElementById('landingHeaderActions').classList.add('hidden');
-      document.getElementById('artistDashboard').classList.add('hidden');
-      document.getElementById('contractorView').classList.remove('hidden');
-      document.getElementById('panelHeaderActions').classList.add('hidden');
-      
-      // Se for o contratante olhando o link direto da URL, não tem botão de voltar ao painel
-      document.getElementById('floatingBackBtn').classList.add('hidden');
-      
-      renderPublicPressKit();
     }
 
     function previewSampleKit() {
-      appState.artistData = { ...creatorData }; // Garante que a Preview puxe o do Matheus
-      window.location.hash = '#/matheusefelipe';
+      window.history.pushState({}, '', `/${artistData.slug}`);
+      document.getElementById('landingPage').classList.add('hidden');
+      document.getElementById('contractorView').classList.remove('hidden');
+      document.getElementById('artistDashboard').classList.add('hidden');
+      // Mostrar botão flutuante apenas se estiver logado como artista
+      document.getElementById('floatingBackBtn').classList.remove('hidden');
+      document.getElementById('landingHeaderActions').classList.add('hidden');
+      document.getElementById('panelHeaderActions').classList.remove('hidden');
+      applyPublicData();
     }
+
+    function showPublicPressKit() {
+      previewSampleKit();
+    }
+
+    function showArtistDashboard() {
+      window.history.pushState({}, '', '/dashboard');
+      document.getElementById('landingPage').classList.add('hidden');
+      document.getElementById('contractorView').classList.add('hidden');
+      document.getElementById('artistDashboard').classList.remove('hidden');
+      document.getElementById('floatingBackBtn').classList.add('hidden');
+      document.getElementById('landingHeaderActions').classList.add('hidden');
+      document.getElementById('panelHeaderActions').classList.remove('hidden');
+    }
+
+    function openLoginModal() { document.getElementById('loginModal').classList.remove('hidden'); }
+    function closeLoginModal() { document.getElementById('loginModal').classList.add('hidden'); }
+    function submitLogin() {
+      closeLoginModal();
+      showArtistDashboard();
+    }
+
+    function openRegisterModal() { document.getElementById('registerModal').classList.remove('hidden'); }
+    function closeRegisterModal() { document.getElementById('registerModal').classList.add('hidden'); }
+    function submitRegister() {
+      const phone = document.getElementById('regPhone').value;
+      if(phone) artistData.whatsapp = phone;
+      saveData();
+      closeRegisterModal();
+      showArtistDashboard();
+    }
+
+    function logoutToHome() { goHome(); }
 
     function switchTab(tabId) {
-      document.querySelectorAll('.dashboard-tab').forEach(el => el.classList.add('hidden'));
-      const targetTab = document.getElementById(tabId);
-      if(targetTab) targetTab.classList.remove('hidden');
-
-      const btnMap = {
-        'tabDashboard': 'btnTabDashboard',
-        'tabBio': 'btnTabBio',
-        'tabMedia': 'btnTabMedia',
-        'tabEvents': 'btnTabEvents',
-        'tabTeam': 'btnTabTeam',
-        'tabCalendar': 'btnTabCalendar'
-      };
-      
-      const activeBtnId = btnMap[tabId];
-      document.querySelectorAll('aside nav button').forEach(btn => {
-        btn.classList.remove('bg-amber-500/10', 'text-amber-400', 'border', 'border-amber-500/30');
-        btn.classList.add('text-zinc-400');
-      });
-      
-      if(activeBtnId) {
-        const activeBtn = document.getElementById(activeBtnId);
-        if(activeBtn) {
-          activeBtn.classList.add('bg-amber-500/10', 'text-amber-400', 'border', 'border-amber-500/30');
-          activeBtn.classList.remove('text-zinc-400');
-        }
-      }
-    }
-
-    function loadStateToUI() {
-      const d = appState.artistData;
-      document.getElementById('customSlugInput').value = d.slug || '';
-      document.getElementById('editWhatsApp').value = d.whatsapp || '';
-      document.getElementById('editInstagram').value = d.instagram || '';
-      document.getElementById('editTiktok').value = d.tiktok || '';
-      document.getElementById('editFacebook').value = d.facebook || '';
-      document.getElementById('editArtistMainName').value = d.badgeName || '';
-      document.getElementById('editTitle').value = d.title || '';
-      document.getElementById('editSubtitle1').value = d.subtitle1 || '';
-      document.getElementById('editSubtitle2').value = d.subtitle2 || '';
-      document.getElementById('editBio').value = d.bio || '';
-      
-      document.getElementById('editPhoto1').value = d.photo1 || '';
-      document.getElementById('editPhoto2').value = d.photo2 || '';
-      document.getElementById('editPhoto3').value = d.photo3 || '';
-      document.getElementById('editFormatPhoto1').value = d.formatPhoto1 || '';
-      document.getElementById('editFormatPhoto2').value = d.formatPhoto2 || '';
-      document.getElementById('editFormatPhoto3').value = d.formatPhoto3 || '';
-      
-      document.getElementById('editSpotifyLink').value = d.spotifyLink || '';
-      document.getElementById('editDeezerLink').value = d.deezerLink || '';
-      document.getElementById('editAppleLink').value = d.appleLink || '';
-      document.getElementById('editYoutubeMusicLink').value = d.youtubeMusicLink || '';
-
-      updateCustomLinkPreview();
-      updateMusiciansUI();
-      updateProjectsUI();
-      updateEventsUI();
-    }
-
-    function saveArtistEdits() {
-      appState.artistData = {
-        slug: document.getElementById('customSlugInput').value.trim() || 'artista',
-        whatsapp: document.getElementById('editWhatsApp').value.trim(),
-        instagram: document.getElementById('editInstagram').value.trim(),
-        tiktok: document.getElementById('editTiktok').value.trim(),
-        facebook: document.getElementById('editFacebook').value.trim(),
-        badgeName: document.getElementById('editArtistMainName').value,
-        title: document.getElementById('editTitle').value,
-        subtitle1: document.getElementById('editSubtitle1').value,
-        subtitle2: document.getElementById('editSubtitle2').value,
-        bio: document.getElementById('editBio').value,
-        photo1: document.getElementById('editPhoto1').value,
-        photo2: document.getElementById('editPhoto2').value,
-        photo3: document.getElementById('editPhoto3').value,
-        formatPhoto1: document.getElementById('editFormatPhoto1').value,
-        formatPhoto2: document.getElementById('editFormatPhoto2').value,
-        formatPhoto3: document.getElementById('editFormatPhoto3').value,
-        spotifyLink: document.getElementById('editSpotifyLink').value,
-        deezerLink: document.getElementById('editDeezerLink').value,
-        appleLink: document.getElementById('editAppleLink').value,
-        youtubeMusicLink: document.getElementById('editYoutubeMusicLink').value
-      };
-
-      alert('Dados gravados na memória. Como não há banco, se recarregar a página as edições serão perdidas.');
-      showPublicPressKit();
-    }
-
-    function renderPublicPressKit() {
-      const d = appState.artistData;
-      document.getElementById('displayArtistMainName').innerText = d.badgeName || 'NOME DO ARTISTA';
-      document.getElementById('displayArtistName').innerText = d.badgeName || 'NOME DO ARTISTA';
-      document.getElementById('displayTitle').innerText = d.title || 'Título do Show';
-      document.getElementById('displaySubtitle1').innerText = d.subtitle1 || '';
-      document.getElementById('displaySubtitle2').innerText = d.subtitle2 || '';
-      document.getElementById('displayBio').innerText = d.bio || '';
-
-      const fallBackImg = "https://via.placeholder.com/800x800?text=Sem+Foto";
-      
-      document.getElementById('displayPhoto1').src = d.photo1 || fallBackImg;
-      document.getElementById('displayPhoto2').src = d.photo2 || fallBackImg;
-      document.getElementById('displayPhoto3').src = d.photo3 || fallBackImg;
-      document.getElementById('displayArtistPhoto').src = d.photo1 || fallBackImg;
-
-      const formatFallback = "https://via.placeholder.com/600x400?text=Formato";
-      document.getElementById('displayFormatPhoto1').src = d.formatPhoto1 || formatFallback;
-      document.getElementById('displayFormatPhoto2').src = d.formatPhoto2 || formatFallback;
-      document.getElementById('displayFormatPhoto3').src = d.formatPhoto3 || formatFallback;
-
-      let socialHtml = `<a href="mailto:casa6producoes@gmail.com" class="p-2 text-zinc-400 hover:text-amber-500 transition-colors" title="E-mail"><i data-lucide="mail" class="w-5 h-5"></i></a>`;
-      
-      if(d.instagram) {
-        socialHtml += `<a href="https://www.instagram.com/${d.instagram}" target="_blank" class="p-2 text-white hover:text-pink-400 transition-colors" title="Instagram"><i data-lucide="instagram" class="w-5 h-5"></i></a>`;
-      }
-      if(d.tiktok) {
-        socialHtml += `<a href="https://www.tiktok.com/@${d.tiktok}" target="_blank" class="p-2 text-white hover:text-zinc-300 transition-colors" title="TikTok"><i data-lucide="video" class="w-5 h-5"></i></a>`;
-      }
-      if(d.facebook) {
-        socialHtml += `<a href="https://www.facebook.com/${d.facebook}" target="_blank" class="p-2 text-white hover:text-blue-400 transition-colors" title="Facebook"><i data-lucide="facebook" class="w-5 h-5"></i></a>`;
-      }
-      
-      document.getElementById('headerSocialIcons').innerHTML = socialHtml;
-
-      if(d.spotifyLink) { document.getElementById('linkSpotify').href = d.spotifyLink; document.getElementById('linkSpotify').style.display = 'flex'; } else { document.getElementById('linkSpotify').style.display = 'none'; }
-      if(d.deezerLink) { document.getElementById('linkDeezer').href = d.deezerLink; document.getElementById('linkDeezer').style.display = 'flex'; } else { document.getElementById('linkDeezer').style.display = 'none'; }
-      if(d.appleLink) { document.getElementById('linkApple').href = d.appleLink; document.getElementById('linkApple').style.display = 'flex'; } else { document.getElementById('linkApple').style.display = 'none'; }
-      if(d.youtubeMusicLink) { document.getElementById('linkYoutubeMusic').href = d.youtubeMusicLink; document.getElementById('linkYoutubeMusic').style.display = 'flex'; } else { document.getElementById('linkYoutubeMusic').style.display = 'none'; }
-
-      lucide.createIcons();
-    }
-
-    function addMusician() {
-      const name = document.getElementById('musicianName').value;
-      const instrument = document.getElementById('musicianInstrument').value;
-      const phone = document.getElementById('musicianPhone').value;
-      if(!name || !phone) { alert('Preencha o nome e o telefone do músico.'); return; }
-      
-      appState.musicians.push({ id: Date.now(), name, instrument, phone });
-      
-      document.getElementById('musicianName').value = '';
-      document.getElementById('musicianInstrument').value = '';
-      document.getElementById('musicianPhone').value = '';
-      updateMusiciansUI();
-    }
-
-    function updateMusiciansUI() {
-      const listContainer = document.getElementById('musicianList');
-      const checkboxesContainer = document.getElementById('projectMusiciansCheckboxes');
-
-      if(appState.musicians.length === 0) {
-        listContainer.innerHTML = 'Nenhum músico cadastrado.';
-        checkboxesContainer.innerHTML = '<span class="text-zinc-500">Cadastre músicos acima primeiro.</span>';
-        return;
-      }
-
-      listContainer.innerHTML = appState.musicians.map(m => `• ${m.name} (${m.instrument || 'Músico'}) - ${m.phone}`).join('<br>');
-      checkboxesContainer.innerHTML = appState.musicians.map(m => `
-        <label class="flex items-center gap-2 text-zinc-300">
-          <input type="checkbox" value="${m.id}" class="project-musician-checkbox rounded bg-zinc-950 border-zinc-700">
-          ${m.name} (${m.instrument || 'Músico'})
-        </label>
-      `).join('');
-    }
-
-    function addProject() {
-      const name = document.getElementById('projectName').value;
-      const checkboxes = document.querySelectorAll('.project-musician-checkbox:checked');
-      const selectedIds = Array.from(checkboxes).map(cb => Number(cb.value));
-
-      if(!name || selectedIds.length === 0) {
-        alert('Preencha o nome do projeto e selecione pelo menos um músico.');
-        return;
-      }
-
-      const assignedMusicians = appState.musicians.filter(m => selectedIds.includes(m.id));
-      appState.projects.push({ id: Date.now(), name, musicians: assignedMusicians });
-
-      document.getElementById('projectName').value = '';
-      document.querySelectorAll('.project-musician-checkbox').forEach(cb => cb.checked = false);
-      updateProjectsUI();
-    }
-
-    function updateProjectsUI() {
-      const listContainer = document.getElementById('projectListContainer');
-      const selectContainer = document.getElementById('eventProjectSelect');
-
-      if(appState.projects.length === 0) {
-        listContainer.innerHTML = 'Nenhum projeto cadastrado.';
-        selectContainer.innerHTML = '<option value="">Selecione um projeto...</option>';
-        return;
-      }
-
-      listContainer.innerHTML = appState.projects.map(p => `
-        <div class="p-2.5 bg-zinc-950 rounded-lg border border-zinc-800 text-xs mb-1">
-          <strong class="text-white">${p.name}</strong><br>
-          <span class="text-zinc-400">Integrantes: ${p.musicians.map(m => `${m.name} (${m.instrument || 'Músico'})`).join(', ')}</span>
-        </div>
-      `).join('');
-
-      selectContainer.innerHTML = '<option value="">Selecione um projeto...</option>' + appState.projects.map(p => `
-        <option value="${p.id}">${p.name}</option>
-      `).join('');
-    }
-
-    function addEvent() {
-      const name = document.getElementById('eventName').value;
-      const date = document.getElementById('eventDate').value;
-      const location = document.getElementById('eventLocation').value;
-      const format = document.getElementById('eventFormat').value;
-      const projectId = document.getElementById('eventProjectSelect').value;
-
-      if(!name || !date || !projectId) {
-        alert('Preencha nome, data do evento e selecione o projeto responsável.');
-        return;
-      }
-
-      const project = appState.projects.find(p => p.id == projectId);
-      const newEvent = { name, date, location, format, project };
-      appState.eventsList.push(newEvent);
-      
-      document.getElementById('eventName').value = '';
-      document.getElementById('eventDate').value = '';
-      document.getElementById('eventLocation').value = '';
-      document.getElementById('eventFormat').value = '';
-      document.getElementById('eventProjectSelect').value = '';
-      
-      updateEventsUI();
-      alert('Evento cadastrado e disparado com sucesso!');
-    }
-
-    function updateEventsUI() {
-      const listContainer = document.getElementById('eventListContainer');
-      const dashEventCount = document.getElementById('dashEventCount');
-      
-      if(dashEventCount) {
-        dashEventCount.innerText = appState.eventsList.length;
-      }
-
-      if(appState.eventsList.length === 0) {
-        if(listContainer) listContainer.innerHTML = 'Nenhum evento cadastrado ainda.';
-        return;
-      }
-
-      if(listContainer) {
-        listContainer.innerHTML = appState.eventsList.map(e => `
-          <div class="p-2.5 bg-zinc-950 rounded-lg border border-zinc-800 text-xs mb-1">
-            <strong class="text-white">${e.name}</strong> - ${e.date}<br>
-            <span class="text-zinc-400">Local: ${e.location} | Formato: ${e.format}</span><br>
-            <span class="text-amber-500 font-semibold">Projeto: ${e.project ? e.project.name : 'N/A'}</span>
-          </div>
-        `).join('');
-      }
+      document.querySelectorAll('.dashboard-tab').forEach(t => t.classList.add('hidden'));
+      document.getElementById(tabId).classList.remove('hidden');
     }
 
     function openFormatModal(formatName) {
-      const title = document.getElementById('modalFormatTitle');
-      if (title && formatName) title.innerText = formatName;
+      selectedFormatForModal = formatName;
+      document.getElementById('modalFormatTitle').innerText = formatName;
       document.getElementById('formatModal').classList.remove('hidden');
-      document.getElementById('formatModal').classList.add('flex');
     }
+    function closeFormatModal() { document.getElementById('formatModal').classList.add('hidden'); }
 
-    function closeFormatModal() {
-      document.getElementById('formatModal').classList.add('hidden');
-      document.getElementById('formatModal').classList.remove('flex');
-    }
+    function sendWhatsAppBudget() {
+      const dt = document.getElementById('qDateTime').value || 'A combinar';
+      const ev = document.getElementById('qEventType').value;
+      const aud = document.getElementById('qAudience').value;
+      const loc = document.getElementById('qLocation').value || 'A combinar';
+      const st = document.getElementById('qStyle').value;
+      const snd = document.getElementById('qSound').value;
 
-    // Formulário capturando o número real cadastrado e abrindo o link via WhatsApp
-    function handleFormSubmit(e) {
-      e.preventDefault();
-      
-      const whatsappNumber = appState.artistData.whatsapp || "21989368930";
-      const format = document.getElementById('modalFormatTitle').innerText;
-      
-      const date = document.getElementById('fieldDate').value;
-      const type = document.getElementById('fieldType').value;
-      const publicCount = document.getElementById('fieldPublic').value;
-      const location = document.getElementById('fieldLocation').value;
-      const style = document.getElementById('fieldStyle').value;
-      const rep = document.getElementById('fieldRepertoire').value;
-      const sound = document.getElementById('fieldSound').value;
+      const text = `*Olá! Gostaria de verificar disponibilidade e solicitar orçamento.*\n\n` +
+                   `🎵 *Formato:* ${selectedFormatForModal}\n` +
+                   `📅 *Data e Horário:* ${dt}\n` +
+                   `🎉 *Tipo de Evento:* ${ev}\n` +
+                   `👥 *Público Estimado:* ${aud}\n` +
+                   `📍 *Local:* ${loc}\n` +
+                   `🎸 *Estilo do Show:* ${st}\n` +
+                   `🔊 *Estrutura de Som:* ${snd}`;
 
-      const message = `Olá! Gostaria de um orçamento para o formato *${format}*.\n\n📅 Data: ${date}\n🎉 Tipo de evento: ${type}\n👥 Público: ${publicCount}\n📍 Local: ${location}\n🎵 Estilo: ${style}\n🎶 Gênero Musical: ${rep}\n🔊 Som: ${sound}`;
-      
-      const whatsappLink = `https://wa.me/55${whatsappNumber}?text=${encodeURIComponent(message)}`;
-      
-      window.open(whatsappLink, '_blank');
+      const url = `https://wa.me/${artistData.whatsapp}?text=${encodeURIComponent(text)}`;
+      window.open(url, '_blank');
       closeFormatModal();
     }
+
+    function saveArtistEdits() {
+      artistData.artistMainName = document.getElementById('editArtistMainName').value;
+      artistData.title = document.getElementById('editTitle').value;
+      artistData.bio = document.getElementById('editBio').value;
+      artistData.instagram = document.getElementById('editInstagram').value;
+      artistData.tiktok = document.getElementById('editTiktok').value;
+      artistData.facebook = document.getElementById('editFacebook').value;
+      artistData.spotify = document.getElementById('editSpotify').value;
+      artistData.deezer = document.getElementById('editDeezer').value;
+      artistData.apple = document.getElementById('editApple').value;
+      artistData.youtubeMusic = document.getElementById('editYoutubeMusic').value;
+      artistData.formatPhoto1 = document.getElementById('editFormatPhoto1').value;
+      artistData.formatPhoto2 = document.getElementById('editFormatPhoto2').value;
+      artistData.formatPhoto3 = document.getElementById('editFormatPhoto3').value;
+      artistData.slug = document.getElementById('customSlugInput').value;
+
+      saveData();
+      alert('Alterações salvas com sucesso!');
+      showArtistDashboard();
+    }
+
+    function updateCustomLinkPreview() {
+      const slug = document.getElementById('customSlugInput').value;
+      document.getElementById('fullSlugPreview').innerText = `stagekitcasa6.vercel.app/${slug}`;
+    }
+
+    function copyCustomPressKitLink() {
+      const slug = document.getElementById('customSlugInput').value;
+      navigator.clipboard.writeText(`https://stagekitcasa6.vercel.app/${slug}`);
+      alert('Link copiado para a área de transferência!');
+    }
+
+    function addNewEvent() {
+      const name = document.getElementById('newEventName').value;
+      const date = document.getElementById('newEventDate').value;
+      const project = document.getElementById('newEventProject').value;
+      const cache = parseFloat(document.getElementById('newEventCache').value) || 0;
+      const musicians = parseFloat(document.getElementById('newEventMusicians').value) || 0;
+      const fuel = parseFloat(document.getElementById('newEventFuel').value) || 0;
+
+      if(!name) { alert('Insira o nome do evento'); return; }
+
+      eventsList.push({ name, date, project, cache, musicians, fuel });
+      saveData();
+      renderEvents();
+      updateCacheCalculations();
+
+      document.getElementById('newEventName').value = '';
+      document.getElementById('newEventCache').value = '';
+      document.getElementById('newEventMusicians').value = '';
+      document.getElementById('newEventFuel').value = '';
+      alert('Evento cadastrado com sucesso!');
+    }
+
+    function renderEvents() {
+      const container = document.getElementById('eventsListContainer');
+      document.getElementById('dashEventCount').innerText = eventsList.length;
+      if(eventsList.length === 0) {
+        container.innerHTML = '<p class="text-zinc-500 italic">Nenhum evento cadastrado no momento.</p>';
+        return;
+      }
+      container.innerHTML = eventsList.map((ev, idx) => `
+        <div class="bg-zinc-900 p-4 rounded-xl border border-zinc-800 flex justify-between items-center">
+          <div>
+            <p class="font-bold text-white text-sm">${ev.name} (${ev.project})</p>
+            <p class="text-zinc-400">Data: ${ev.date || 'A combinar'} | Cachê: R$ ${ev.cache.toFixed(2)}</p>
+          </div>
+          <button onclick="removeEvent(${idx})" class="text-red-400 hover:text-red-300 text-xs font-bold">Remover</button>
+        </div>
+      `).join('');
+    }
+
+    function removeEvent(idx) {
+      eventsList.splice(idx, 1);
+      saveData();
+      renderEvents();
+      updateCacheCalculations();
+    }
+
+    function updateCacheCalculations() {
+      let totalCache = 0;
+      let totalMusicians = 0;
+      let totalFuel = 0;
+
+      eventsList.forEach(ev => {
+        totalCache += ev.cache;
+        totalMusicians += ev.musicians;
+        totalFuel += ev.fuel;
+      });
+
+      const mine = totalCache - (totalMusicians + totalFuel);
+
+      document.getElementById('dashTotalCache').innerText = `R$ ${totalCache.toFixed(2)}`;
+      document.getElementById('cacheMusicians').innerText = `R$ ${totalMusicians.toFixed(2)}`;
+      document.getElementById('cacheFuel').innerText = `R$ ${totalFuel.toFixed(2)}`;
+      document.getElementById('cacheMine').innerText = `R$ ${mine >= 0 ? mine.toFixed(2) : '0,00'}`;
+    }
+
+    function addNewMusician() {
+      const name = document.getElementById('newMusicianName').value;
+      const instrument = document.getElementById('newMusicianInstrument').value;
+      if(!name) { alert('Insira o nome do músico'); return; }
+
+      musiciansList.push({ name, instrument });
+      saveData();
+      renderMusicians();
+
+      document.getElementById('newMusicianName').value = '';
+      document.getElementById('newMusicianInstrument').value = '';
+      alert('Músico adicionado com sucesso!');
+    }
+
+    function renderMusicians() {
+      const container = document.getElementById('musiciansListContainer');
+      if(musiciansList.length === 0) {
+        container.innerHTML = '<p class="text-zinc-500 italic">Nenhum músico cadastrado.</p>';
+        return;
+      }
+      container.innerHTML = musiciansList.map((m, idx) => `
+        <div class="bg-zinc-900 p-3 rounded-xl border border-zinc-800 flex justify-between items-center">
+          <p class="text-white font-semibold">${m.name} <span class="text-amber-400 font-normal">(${m.instrument})</span></p>
+          <button onclick="removeMusician(${idx})" class="text-red-400 hover:text-red-300 text-xs">Excluir</button>
+        </div>
+      `).join('');
+    }
+
+    function removeMusician(idx) {
+      musiciansList.splice(idx, 1);
+      saveData();
+      renderMusicians();
+    }
+
+    function toggleTheme() {
+      document.body.classList.toggle('light');
+      const isLight = document.body.classList.contains('light');
+      document.getElementById('themeToggleText').innerText = isLight ? 'Modo Escuro' : 'Modo Claro';
+    }
+
+    window.onload = initApp;
   </script>
 </body>
 </html>
