@@ -157,7 +157,7 @@
       </div>
     </section>
 
-    <!-- 3 CARDS DA ÁREA DO CLIENTE COM NAVEGAÇÃO DIRETA ÀS SEÇÕES -->
+    <!-- 3 CARDS DA ÁREA DO CLIENTE COM DEMONSTRAÇÃO VISUAL (MODAL PREVIEW) -->
     <section class="py-20 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto space-y-16">
       <div class="text-center space-y-3">
         <span class="text-amber-500 font-bold text-xs uppercase tracking-widest">Área do Cliente em Ação</span>
@@ -165,8 +165,8 @@
       </div>
 
       <div class="grid md:grid-cols-3 gap-8">
-        <!-- Card 1: Vídeos Reais -->
-        <div onclick="previewSampleSection('videos')" class="bg-brand-cardBg border border-brand-border p-6 rounded-3xl space-y-4 shadow-xl cursor-pointer hover:border-amber-500/50 transition-all group flex flex-col justify-between">
+        <!-- Card 1: Vídeos Reais (Abre Modal com Vídeo Demonstração do YouTube) -->
+        <div onclick="openDemoModal('videos')" class="bg-brand-cardBg border border-brand-border p-6 rounded-3xl space-y-4 shadow-xl cursor-pointer hover:border-amber-500/50 transition-all group flex flex-col justify-between">
           <div class="space-y-3">
             <div class="w-12 h-12 rounded-2xl bg-amber-500/10 text-amber-500 flex items-center justify-center group-hover:scale-110 transition-transform">
               <i data-lucide="video" class="w-6 h-6"></i>
@@ -176,11 +176,11 @@
               Trechos de apresentações ao vivo direto no topo do press kit para o contratante comprovar a qualidade musical e a energia do show.
             </p>
           </div>
-          <span class="text-amber-400 text-xs font-bold inline-flex items-center gap-1 pt-2">Ver seção de vídeos <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i></span>
+          <span class="text-amber-400 text-xs font-bold inline-flex items-center gap-1 pt-2">Ver demonstração em vídeo <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i></span>
         </div>
 
-        <!-- Card 2: Formatos de Show -->
-        <div onclick="previewSampleSection('formatos')" class="bg-brand-cardBg border border-brand-border p-6 rounded-3xl space-y-4 shadow-xl cursor-pointer hover:border-amber-500/50 transition-all group flex flex-col justify-between">
+        <!-- Card 2: Formatos de Show (Abre Modal com Print/Demonstração dos Formatos) -->
+        <div onclick="openDemoModal('formatos')" class="bg-brand-cardBg border border-brand-border p-6 rounded-3xl space-y-4 shadow-xl cursor-pointer hover:border-amber-500/50 transition-all group flex flex-col justify-between">
           <div class="space-y-3">
             <div class="w-12 h-12 rounded-2xl bg-amber-500/10 text-amber-500 flex items-center justify-center group-hover:scale-110 transition-transform">
               <i data-lucide="sliders-horizontal" class="w-6 h-6"></i>
@@ -190,11 +190,11 @@
               Estruturas customizadas (Acústico, Banda, Cerimônias) com fotos e descrições detalhadas para o contratante escolher a atração ideal.
             </p>
           </div>
-          <span class="text-amber-400 text-xs font-bold inline-flex items-center gap-1 pt-2">Ver formatos de show <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i></span>
+          <span class="text-amber-400 text-xs font-bold inline-flex items-center gap-1 pt-2">Ver demonstração dos formatos <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i></span>
         </div>
 
-        <!-- Card 3: Orçamento via WhatsApp (Com clique que abre em modo estático/exibição) -->
-        <div onclick="previewSampleSection('orcamento')" class="bg-brand-cardBg border border-brand-border p-6 rounded-3xl space-y-4 shadow-xl cursor-pointer hover:border-amber-500/50 transition-all group flex flex-col justify-between">
+        <!-- Card 3: Orçamento via WhatsApp (Abre Questionário Estático de Orçamento) -->
+        <div onclick="openFormatModal('Orçamento Geral', true)" class="bg-brand-cardBg border border-brand-border p-6 rounded-3xl space-y-4 shadow-xl cursor-pointer hover:border-amber-500/50 transition-all group flex flex-col justify-between">
           <div class="space-y-3">
             <div class="w-12 h-12 rounded-2xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center group-hover:scale-110 transition-transform">
               <i data-lucide="message-square" class="w-6 h-6"></i>
@@ -245,7 +245,7 @@
   <div id="contractorView" class="flex-1 pt-20 hidden">
     <section id="hero" class="relative py-16 md:py-24 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto text-center space-y-6">
       
-      <!-- Nome com super destaque -->
+      <!-- Nome com super destaque (maior que a frase CTA) -->
       <div id="displayBadge" class="inline-flex items-center gap-3 px-8 py-4 rounded-full bg-amber-500/20 border border-amber-500/40 text-amber-400 text-3xl sm:text-5xl font-extrabold uppercase tracking-wider shadow-2xl my-2">
         <span>🎵</span> <span id="displayArtistMainName">SEU NOME</span>
       </div>
@@ -273,34 +273,6 @@
             <p id="displayBio" class="text-zinc-300 leading-relaxed text-sm sm:text-base">
               Músico profissional, multi-instrumentista e arranjador com vasta experiência em palcos de eventos corporativos, casamentos e casas noturnas de destaque.
             </p>
-          </div>
-        </div>
-      </div>
-
-      <!-- Bloco Problema & Solução -->
-      <div class="my-12 p-6 sm:p-10 rounded-3xl bg-brand-cardBg border border-brand-border text-left space-y-8">
-        <div class="text-center space-y-2">
-          <span class="text-amber-500 font-bold text-xs uppercase tracking-widest">Decisão com Segurança</span>
-          <h3 class="text-2xl sm:text-3xl font-extrabold text-white">Na hora de escolher a atração do evento, você com certeza pensa...</h3>
-        </div>
-
-        <div class="grid md:grid-cols-3 gap-6">
-          <div class="bg-zinc-900 border border-zinc-800 p-6 rounded-2xl space-y-3">
-            <div class="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-500 flex items-center justify-center font-bold">1</div>
-            <h4 class="font-bold text-white text-base">Animação & Público</h4>
-            <p class="text-xs text-zinc-400 leading-relaxed">“Será que ele vai animar e agradar todos os convidados?” → Repertório versátil, adaptado em tempo real ao clima da festa.</p>
-          </div>
-
-          <div class="bg-zinc-900 border border-zinc-800 p-6 rounded-2xl space-y-3">
-            <div class="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-500 flex items-center justify-center font-bold">2</div>
-            <h4 class="font-bold text-white text-base">Qualidade do Som</h4>
-            <p class="text-xs text-zinc-400 leading-relaxed">“Como será o som ao vivo? O volume vai ficar muito alto?” → Sonoridade profissional regulada e ideal para qualquer ambiente.</p>
-          </div>
-
-          <div class="bg-zinc-900 border border-zinc-800 p-6 rounded-2xl space-y-3">
-            <div class="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-500 flex items-center justify-center font-bold">3</div>
-            <h4 class="font-bold text-white text-base">Pontualidade & Confiança</h4>
-            <p class="text-xs text-zinc-400 leading-relaxed">“Posso confiar na pontualidade e entrega impecável?” → Compromisso total com horários e organização prévia em contrato.</p>
           </div>
         </div>
       </div>
@@ -369,60 +341,7 @@
       </div>
     </section>
 
-    <!-- Galeria de Fotos -->
-    <section class="py-16 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto border-t border-brand-border">
-      <div class="text-center mb-10">
-        <span class="text-amber-500 font-bold text-xs uppercase tracking-widest">Galeria de Fotos</span>
-        <h2 class="text-2xl sm:text-3xl font-bold text-white mt-1">Momentos Marcantes</h2>
-      </div>
-      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4" id="displayPhotoGallery">
-        <div class="rounded-2xl overflow-hidden border border-brand-border aspect-square bg-zinc-800 shadow-lg">
-          <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=800&q=80" class="w-full h-full object-cover">
-        </div>
-      </div>
-    </section>
-
-    <!-- Vamos Ouvir (Streamings) -->
-    <section class="py-16 bg-brand-cardBg/40 border-y border-brand-border px-4 sm:px-6 lg:px-8">
-      <div class="max-w-4xl mx-auto text-center">
-        <span class="text-amber-500 font-bold text-xs uppercase tracking-widest">Streaming</span>
-        <h2 class="text-2xl sm:text-3xl font-bold text-white mb-8">Vamos Ouvir</h2>
-        
-        <div id="streamingLinksContainer" class="flex flex-wrap items-center justify-center gap-4 text-xs font-semibold">
-          <a id="linkSpotify" href="#" target="_blank" class="px-5 py-3 rounded-xl bg-emerald-950/40 border border-emerald-900/50 text-emerald-400 flex items-center gap-2 hover:bg-emerald-900/40 hidden"><i data-lucide="music" class="w-4 h-4"></i> Spotify</a>
-          <a id="linkDeezer" href="#" target="_blank" class="px-5 py-3 rounded-xl bg-zinc-900 border border-zinc-700 text-white flex items-center gap-2 hover:bg-zinc-800 hidden"><i data-lucide="disc" class="w-4 h-4"></i> Deezer</a>
-          <a id="linkApple" href="#" target="_blank" class="px-5 py-3 rounded-xl bg-zinc-900 border border-zinc-700 text-pink-400 flex items-center gap-2 hover:bg-zinc-800 hidden"><i data-lucide="music-2" class="w-4 h-4"></i> Apple Music</a>
-          <a id="linkYoutubeMusic" href="#" target="_blank" class="px-5 py-3 rounded-xl bg-red-950/40 border border-red-900/50 text-red-400 flex items-center gap-2 hover:bg-red-900/40 hidden"><i data-lucide="youtube" class="w-4 h-4"></i> YouTube Music</a>
-        </div>
-      </div>
-    </section>
-
-    <!-- Quem Contratou Recomenda -->
-    <section class="py-16 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto border-t border-brand-border">
-      <div class="text-center mb-10">
-        <span class="text-amber-500 font-bold text-xs uppercase tracking-widest">Prova Social</span>
-        <h2 class="text-2xl sm:text-3xl font-bold text-white mt-1">Quem Contratou, Recomenda</h2>
-      </div>
-      <div class="grid sm:grid-cols-2 gap-6">
-        <div class="p-6 rounded-2xl bg-brand-cardBg border border-brand-border space-y-3">
-          <p class="text-zinc-300 text-sm italic">"O artista simplesmente transformou nosso casamento. Todos os convidados elogiaram a voz e o repertório impecável!"</p>
-          <span class="text-xs text-amber-500 font-bold block">— Juliana & Marcos (Casamento)</span>
-        </div>
-        <div class="p-6 rounded-2xl bg-brand-cardBg border border-brand-border space-y-3">
-          <p class="text-zinc-300 text-sm italic">"Pontual, profissional e com uma energia incrível no palco. Já estamos contratando de novo para o próximo evento da empresa."</p>
-          <span class="text-xs text-amber-500 font-bold block">— Carlos Alberto (Evento Corporativo)</span>
-        </div>
-      </div>
-    </section>
-
-    <!-- CTA Final / Orçamento -->
-    <section id="secaoOrcamentoWpp" class="py-20 bg-brand-cardBg/40 border-t border-brand-border px-4 sm:px-6 lg:px-8 text-center space-y-6">
-      <h2 class="text-3xl font-extrabold text-white">Pronto para garantir a trilha sonora perfeita?</h2>
-      <button onclick="openFormatModal('Formato Geral')" class="bg-amber-500 hover:bg-amber-600 text-black font-extrabold px-8 py-4 rounded-2xl shadow-xl transition-all cursor-pointer">
-        Conferir Formatos & Orçar Show
-      </button>
-    </section>
-
+    <!-- Footer Contratante -->
     <footer class="py-8 text-center text-xs text-zinc-500 border-t border-brand-border">
       <p>© 2026 StageKit — Desenvolvido por Casa 6 Produções</p>
     </footer>
@@ -861,7 +780,7 @@
     </div>
   </div>
 
-  <!-- ==================== MODAL DE AUTENTICAÇÃO SOCIAL (COM CREDENCIAIS REAIS EMAILJS) ==================== -->
+  <!-- ==================== MODAL DE AUTENTICAÇÃO SOCIAL (EMAILJS) ==================== -->
   <div id="socialAuthModal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-sm hidden flex items-center justify-center p-4">
     <div class="bg-brand-cardBg border border-brand-border rounded-3xl max-w-md w-full p-6 sm:p-8 space-y-6 shadow-2xl relative text-center">
       <button onclick="closeSocialAuthModal()" class="absolute top-6 right-6 text-zinc-400 hover:text-white cursor-pointer"><i data-lucide="x" class="w-5 h-5"></i></button>
@@ -902,6 +821,22 @@
             Validar & Acessar Painel
           </button>
         </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL DE DEMONSTRAÇÃO (VÍDEOS REAIS / FORMATOS DE SHOW) ==================== -->
+  <div id="demoModal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="bg-brand-cardBg border border-brand-border rounded-3xl max-w-3xl w-full max-h-[90vh] flex flex-col p-6 sm:p-8 space-y-4 shadow-2xl relative">
+      <button onclick="closeDemoModal()" class="absolute top-6 right-6 text-zinc-400 hover:text-white z-20 bg-zinc-900/80 p-1.5 rounded-full border border-zinc-700 cursor-pointer"><i data-lucide="x" class="w-5 h-5"></i></button>
+      
+      <div class="shrink-0 pr-10">
+        <span class="text-xs font-bold text-amber-500 uppercase" id="demoModalSubtitle">Demonstração</span>
+        <h3 class="text-xl sm:text-2xl font-bold text-white mt-1" id="demoModalTitle">Visualização da Seção</h3>
+      </div>
+
+      <div class="overflow-y-auto space-y-4 text-xs pr-1 no-scrollbar flex-1" id="demoModalContent">
+        <!-- Injetado dinamicamente via JS -->
       </div>
     </div>
   </div>
@@ -992,7 +927,7 @@
       instagram: "seunomeaqui",
       tiktok: "",
       facebook: "",
-      youtubeMusic: "",
+      youtubeMusic: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
       spotify: "",
       deezer: "",
       apple: "",
@@ -1028,7 +963,7 @@
       try { lucide.createIcons(); } catch(e) {}
     }
 
-    // Roteador SPA robusto
+    // Roteador ultra-robusto (suporta colagem direta de URL, hash, query strings e rotas Vercel)
     function handleRouting() {
       let path = window.location.pathname.replace('/', '').trim();
       
@@ -1109,7 +1044,7 @@
         }
       }
 
-      // Vídeo em Destaque
+      // Vídeo em Destaque (Exibe "Em Construção" caso não haja link cadastrado)
       const ytFrame = document.getElementById('displayHeroVideo');
       const ytPlaceholder = document.getElementById('videoPlaceholder');
       if(ytFrame && ytPlaceholder) {
@@ -1125,22 +1060,6 @@
           ytFrame.classList.add('hidden');
           ytPlaceholder.classList.remove('hidden');
         }
-      }
-
-      toggleStreamingLink('linkSpotify', artistData.spotify);
-      toggleStreamingLink('linkDeezer', artistData.deezer);
-      toggleStreamingLink('linkApple', artistData.apple);
-      toggleStreamingLink('linkYoutubeMusic', artistData.youtubeMusic);
-    }
-
-    function toggleStreamingLink(elementId, url) {
-      const el = document.getElementById(elementId);
-      if(!el) return;
-      if(url) {
-        el.href = url;
-        el.classList.remove('hidden');
-      } else {
-        el.classList.add('hidden');
       }
     }
 
@@ -1158,7 +1077,7 @@
       if(pha) pha.classList.add('hidden');
     }
 
-    function previewSampleSection(sectionKey) {
+    function showPublicPressKit() {
       try { window.history.pushState({}, '', `/${artistData.slug}`); } catch(e) {}
       const lp = document.getElementById('landingPage');
       if(lp) lp.classList.add('hidden');
@@ -1171,22 +1090,63 @@
       const pha = document.getElementById('panelHeaderActions');
       if(pha) pha.classList.remove('hidden');
       applyPublicData();
-
-      setTimeout(() => {
-        if(sectionKey === 'videos') {
-          const sec = document.getElementById('secaoVideosReais');
-          if(sec) sec.scrollIntoView({ behavior: 'smooth' });
-        } else if(sectionKey === 'formatos') {
-          const fmt = document.getElementById('formatos');
-          if(fmt) fmt.scrollIntoView({ behavior: 'smooth' });
-        } else if(sectionKey === 'orcamento') {
-          openFormatModal('Orçamento Geral', true);
-        }
-      }, 100);
     }
 
-    function showPublicPressKit() {
-      previewSampleSection('videos');
+    // Modal de Demonstração (Para os cards 1 e 2 da página inicial)
+    function openDemoModal(type) {
+      const modal = document.getElementById('demoModal');
+      const title = document.getElementById('demoModalTitle');
+      const subtitle = document.getElementById('demoModalSubtitle');
+      const content = document.getElementById('demoModalContent');
+
+      if(type === 'videos') {
+        subtitle.innerText = "Demonstração da Seção";
+        title.innerText = "1. Vídeos Reais no Topo";
+        content.innerHTML = `
+          <div class="space-y-4">
+            <p class="text-zinc-300 text-xs leading-relaxed">Veja como o contratante visualiza o vídeo de performance ao vivo do artista logo no topo do Press Kit:</p>
+            <div class="w-full rounded-2xl overflow-hidden border border-brand-border shadow-2xl bg-zinc-900 aspect-video flex items-center justify-center">
+              <iframe class="w-full h-full" src="https://www.youtube.com/embed/jfKfPfyJRdk" frameborder="0" allowfullscreen></iframe>
+            </div>
+            <p class="text-[11px] text-amber-500 italic text-center">💡 O artista pode inserir qualquer link do YouTube no painel para exibir seus próprios shows.</p>
+          </div>
+        `;
+      } else if(type === 'formatos') {
+        subtitle.innerText = "Demonstração da Seção";
+        title.innerText = "2. Formatos de Show Disponíveis";
+        content.innerHTML = `
+          <div class="space-y-4">
+            <p class="text-zinc-300 text-xs leading-relaxed">O contratante visualiza os formatos customizados com fotos reais e descrições das estruturas:</p>
+            <div class="grid sm:grid-cols-3 gap-4">
+              <div class="p-4 rounded-xl bg-zinc-900 border border-zinc-800 space-y-2">
+                <div class="rounded-lg overflow-hiden h-24 bg-zinc-800"><img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=400&q=80" class="w-full h-full object-cover"></div>
+                <h4 class="font-bold text-white text-xs">Barzinhos & Aniversários</h4>
+                <p class="text-[10px] text-zinc-400">Repertório versátil acústico.</p>
+              </div>
+              <div class="p-4 rounded-xl bg-zinc-900 border border-amber-500/40 space-y-2 relative">
+                <div class="absolute -top-2 left-1/2 -translate-x-1/2 bg-amber-500 text-black font-extrabold text-[8px] uppercase px-2 py-0.5 rounded-full">Mais Pedido</div>
+                <div class="rounded-lg overflow-hiden h-24 bg-zinc-800 mt-1"><img src="https://images.unsplash.com/photo-1465847899084-d164df4dedc6?auto=format&fit=crop&w=400&q=80" class="w-full h-full object-cover"></div>
+                <h4 class="font-bold text-white text-xs">Casamentos & Cerimônias</h4>
+                <p class="text-[10px] text-zinc-400">Trilha sonora inesquecível.</p>
+              </div>
+              <div class="p-4 rounded-xl bg-zinc-900 border border-zinc-800 space-y-2">
+                <div class="rounded-lg overflow-hiden h-24 bg-zinc-800"><img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=400&q=80" class="w-full h-full object-cover"></div>
+                <h4 class="font-bold text-white text-xs">Eventos & Formaturas</h4>
+                <p class="text-[10px] text-zinc-400">Show marcante e dinâmico.</p>
+              </div>
+            </div>
+            <p class="text-[11px] text-amber-500 italic text-center">💡 Cada formato possui um botão direto para o contratante solicitar orçamento.</p>
+          </div>
+        `;
+      }
+
+      modal.classList.remove('hidden');
+      try { lucide.createIcons(); } catch(e) {}
+    }
+
+    function closeDemoModal() {
+      const modal = document.getElementById('demoModal');
+      if(modal) modal.classList.add('hidden');
     }
 
     function showArtistDashboard() {
@@ -1286,7 +1246,7 @@
       showArtistDashboard();
     }
 
-    // Fluxo de Autenticação Social com EmailJS Atualizado (Credenciais 100% Reais)
+    // Fluxo de Autenticação com Envio Real de Código via EmailJS (Credenciais Oficiais)
     function startSocialAuth(provider) {
       currentAuthType = provider;
       closeLoginModal();
@@ -1328,7 +1288,7 @@
 
       generatedVerificationCode = Math.floor(100000 + Math.random() * 900000).toString();
 
-      // Credenciais Exatas Atualizadas do EmailJS
+      // Configuração Real com as suas credenciais do EmailJS
       const templateParams = {
         to_email: email,
         pass_code: generatedVerificationCode,
@@ -1336,8 +1296,8 @@
       };
 
       try {
-        emailjs.init("LylxGmkZwZeQPvhMt"); // Public Key
-        emailjs.send("service_2926auh", "template_vrl1qan", templateParams) // Service ID atualizado
+        emailjs.init("LylxGmkZwZeQPvhMt"); // Sua Public Key real
+        emailjs.send("service_2926auh", "template_vrl1qan", templateParams)
           .then(() => {
             alert(`Código de verificação enviado com sucesso para ${email}! Verifique sua caixa de entrada.`);
             const s1 = document.getElementById('socialAuthStep1');
@@ -1735,6 +1695,3 @@
   </script>
 </body>
 </html>
-```
-
-O código foi atualizado com o `service_2926auh` e suas credenciais oficiais do EmailJS. Basta substituir o conteúdo do arquivo `index.html` e fazer a atualização no GitHub/Vercel.
