@@ -245,7 +245,7 @@
   <div id="contractorView" class="flex-1 pt-20 hidden">
     <section id="hero" class="relative py-16 md:py-24 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto text-center space-y-6">
       
-      <!-- Nome com super destaque (maior que a frase CTA) -->
+      <!-- Nome com super destaque -->
       <div id="displayBadge" class="inline-flex items-center gap-3 px-8 py-4 rounded-full bg-amber-500/20 border border-amber-500/40 text-amber-400 text-3xl sm:text-5xl font-extrabold uppercase tracking-wider shadow-2xl my-2">
         <span>🎵</span> <span id="displayArtistMainName">SEU NOME</span>
       </div>
@@ -1028,7 +1028,7 @@
       try { lucide.createIcons(); } catch(e) {}
     }
 
-    // Roteador ultra-robusto (suporta colagem direta de URL, hash, query strings e rotas Vercel)
+    // Roteador SPA robusto
     function handleRouting() {
       let path = window.location.pathname.replace('/', '').trim();
       
@@ -1109,7 +1109,7 @@
         }
       }
 
-      // Vídeo em Destaque (Exibe "Em Construção" caso não haja link cadastrado)
+      // Vídeo em Destaque
       const ytFrame = document.getElementById('displayHeroVideo');
       const ytPlaceholder = document.getElementById('videoPlaceholder');
       if(ytFrame && ytPlaceholder) {
@@ -1158,7 +1158,6 @@
       if(pha) pha.classList.add('hidden');
     }
 
-    // Navegação por âncoras na prévia
     function previewSampleSection(sectionKey) {
       try { window.history.pushState({}, '', `/${artistData.slug}`); } catch(e) {}
       const lp = document.getElementById('landingPage');
@@ -1181,7 +1180,7 @@
           const fmt = document.getElementById('formatos');
           if(fmt) fmt.scrollIntoView({ behavior: 'smooth' });
         } else if(sectionKey === 'orcamento') {
-          openFormatModal('Orçamento Geral', true); // Modo amostra estática
+          openFormatModal('Orçamento Geral', true);
         }
       }, 100);
     }
@@ -1287,7 +1286,7 @@
       showArtistDashboard();
     }
 
-    // Fluxo de Autenticação com Envio Real de Código via EmailJS (Credenciais Inseridas)
+    // Fluxo de Autenticação Social com EmailJS Atualizado (Credenciais 100% Reais)
     function startSocialAuth(provider) {
       currentAuthType = provider;
       closeLoginModal();
@@ -1329,7 +1328,7 @@
 
       generatedVerificationCode = Math.floor(100000 + Math.random() * 900000).toString();
 
-      // Configuração Real com as suas credenciais do EmailJS
+      // Credenciais Exatas Atualizadas do EmailJS
       const templateParams = {
         to_email: email,
         pass_code: generatedVerificationCode,
@@ -1337,8 +1336,8 @@
       };
 
       try {
-        emailjs.init("LylxGmkZwZeQPvhMt"); // Sua Public Key real
-        emailjs.send("service_stagekit", "template_vrl1qan", templateParams)
+        emailjs.init("LylxGmkZwZeQPvhMt"); // Public Key
+        emailjs.send("service_2926auh", "template_vrl1qan", templateParams) // Service ID atualizado
           .then(() => {
             alert(`Código de verificação enviado com sucesso para ${email}! Verifique sua caixa de entrada.`);
             const s1 = document.getElementById('socialAuthStep1');
@@ -1736,3 +1735,6 @@
   </script>
 </body>
 </html>
+```
+
+O código foi atualizado com o `service_2926auh` e suas credenciais oficiais do EmailJS. Basta substituir o conteúdo do arquivo `index.html` e fazer a atualização no GitHub/Vercel.
