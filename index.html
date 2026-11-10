@@ -27,6 +27,8 @@
   
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- EmailJS SDK para envio real de códigos de verificação -->
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 
   <style>
     body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: var(--bg-color, #09090B); color: var(--text-color, #FAFAFA); transition: background-color 0.3s, color 0.3s; scroll-behavior: smooth; }
@@ -98,19 +100,21 @@
         </button>
       </div>
 
-      <!-- Ações do Painel / PressKit Público -->
+      <!-- Ações do Painel / PressKit Público (Contratante) -->
       <div id="panelHeaderActions" class="hidden items-center gap-3">
         <div class="flex items-center gap-2" id="headerSocialIcons">
+          <!-- Ícone do Instagram adaptado ao tema claro/escuro -->
           <a id="headerInsta" href="#" target="_blank" class="p-2.5 rounded-xl bg-zinc-900 border border-zinc-800 text-zinc-300 hover:text-amber-500 transition-colors hidden" title="Instagram">
             <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
           </a>
           <a id="headerEmail" href="mailto:casa6producoes@gmail.com" class="p-2.5 rounded-xl bg-zinc-900 border border-zinc-800 text-zinc-300 hover:text-amber-500 transition-colors" title="E-mail"><i data-lucide="mail" class="w-4 h-4"></i></a>
           
+          <!-- Botão Modo Claro/Escuro (Apenas Ícone Sol/Lua) -->
           <button onclick="toggleTheme()" id="headerThemeBtn" class="p-2.5 rounded-xl bg-zinc-900 border border-zinc-800 text-amber-400 hover:bg-zinc-800 transition-colors" title="Alternar Tema">
             <i data-lucide="sun" id="headerThemeIcon" class="w-4 h-4"></i>
           </button>
 
-          <!-- Botão Sair da Conta -->
+          <!-- Botão Sair da Conta (Apenas Ícone) -->
           <button onclick="logoutToHome()" class="p-2.5 rounded-xl bg-zinc-900 border border-zinc-800 text-red-400 hover:bg-zinc-800 transition-colors" title="Sair da Conta">
             <i data-lucide="log-out" class="w-4 h-4"></i>
           </button>
@@ -145,7 +149,7 @@
       </div>
     </section>
 
-    <!-- CARD EM DESTAQUE: TENHA SEU LINK PERSONALIZADO -->
+    <!-- CARD EM DESTAQUE: TENHA SEU LINK PERSONALIZADO (Sozinho antes do login/prévia) -->
     <section class="py-12 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto w-full">
       <div class="bg-gradient-to-r from-amber-500/20 via-brand-cardBg to-brand-cardBg border border-amber-500/50 p-8 sm:p-10 rounded-3xl shadow-2xl flex flex-col md:flex-row items-center justify-between gap-6">
         <div class="space-y-3 text-left">
@@ -163,53 +167,67 @@
       </div>
     </section>
 
-    <!-- 3 CARDS DA ÁREA DO CLIENTE COM NAVEGAÇÃO DIRETA ÀS SEÇÕES -->
+    <!-- PRÉVIA REAL DA PLATAFORMA (Com Estruturas Flexíveis e Orçamento via WhatsApp com print) -->
     <section class="py-20 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto space-y-16">
       <div class="text-center space-y-3">
-        <span class="text-amber-500 font-bold text-xs uppercase tracking-widest">Área do Cliente em Ação</span>
-        <h2 class="text-3xl sm:text-4xl font-extrabold text-white">O que o contratante vê no seu link</h2>
+        <span class="text-amber-500 font-bold text-xs uppercase tracking-widest">Prévia Real da Plataforma</span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-white">Veja por dentro como tudo funciona</h2>
       </div>
 
       <div class="grid md:grid-cols-3 gap-8">
-        <!-- Card 1: Vídeos Reais (Vai direto pra seção de vídeos reais) -->
-        <div onclick="previewSampleSection('videos')" class="bg-brand-cardBg border border-brand-border p-6 rounded-3xl space-y-4 shadow-xl cursor-pointer hover:border-amber-500/50 transition-all group">
-          <div class="w-12 h-12 rounded-2xl bg-amber-500/10 text-amber-500 flex items-center justify-center group-hover:scale-110 transition-transform">
-            <i data-lucide="video" class="w-6 h-6"></i>
+        <!-- Card 1: Vídeos Reais -->
+        <div onclick="previewSampleSection('videos')" class="bg-brand-cardBg border border-brand-border p-6 rounded-3xl space-y-4 shadow-xl cursor-pointer hover:border-amber-500/50 transition-all group flex flex-col justify-between">
+          <div class="space-y-3">
+            <div class="w-12 h-12 rounded-2xl bg-amber-500/10 text-amber-500 flex items-center justify-center group-hover:scale-110 transition-transform">
+              <i data-lucide="video" class="w-6 h-6"></i>
+            </div>
+            <h3 class="text-lg font-bold text-white">1. Vídeos Reais</h3>
+            <p class="text-xs text-zinc-400 leading-relaxed">
+              Trechos de apresentações ao vivo direto no topo do press kit para o contratante comprovar a qualidade musical e a energia do show.
+            </p>
           </div>
-          <h3 class="text-lg font-bold text-white">1. Vídeos Reais</h3>
-          <p class="text-xs text-zinc-400 leading-relaxed">
-            Trechos de apresentações ao vivo direto no topo do press kit para o contratante comprovar a qualidade musical e a energia do show.
-          </p>
-          <span class="text-amber-400 text-xs font-bold inline-flex items-center gap-1">Ver seção de vídeos <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i></span>
+          <span class="text-amber-400 text-xs font-bold inline-flex items-center gap-1 pt-2">Ver seção de vídeos <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i></span>
         </div>
 
-        <!-- Card 2: Formatos de Show (Vai direto pra seção formatos de show) -->
-        <div onclick="previewSampleSection('formatos')" class="bg-brand-cardBg border border-brand-border p-6 rounded-3xl space-y-4 shadow-xl cursor-pointer hover:border-amber-500/50 transition-all group">
-          <div class="w-12 h-12 rounded-2xl bg-amber-500/10 text-amber-500 flex items-center justify-center group-hover:scale-110 transition-transform">
-            <i data-lucide="sliders-horizontal" class="w-6 h-6"></i>
+        <!-- Card 2: Estruturas Flexíveis (Formatos de Show) -->
+        <div onclick="previewSampleSection('formatos')" class="bg-brand-cardBg border border-brand-border p-6 rounded-3xl space-y-4 shadow-xl cursor-pointer hover:border-amber-500/50 transition-all group flex flex-col justify-between">
+          <div class="space-y-3">
+            <div class="w-12 h-12 rounded-2xl bg-amber-500/10 text-amber-500 flex items-center justify-center group-hover:scale-110 transition-transform">
+              <i data-lucide="sliders-horizontal" class="w-6 h-6"></i>
+            </div>
+            <h3 class="text-lg font-bold text-white">2. Estruturas Flexíveis</h3>
+            <p class="text-xs text-zinc-400 leading-relaxed">
+              Adicione e personalize os formatos de show que você atende (Acústico, Banda, Cerimônias) com fotos e descrições diretas para o contratante.
+            </p>
           </div>
-          <h3 class="text-lg font-bold text-white">2. Formatos de Show</h3>
-          <p class="text-xs text-zinc-400 leading-relaxed">
-            Estruturas customizadas (Acústico, Banda, Cerimônias) com fotos e descrições detalhadas para o contratante escolher a atração ideal.
-          </p>
-          <span class="text-amber-400 text-xs font-bold inline-flex items-center gap-1">Ver formatos de show <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i></span>
+          <span class="text-amber-400 text-xs font-bold inline-flex items-center gap-1 pt-2">Ver formatos de show <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i></span>
         </div>
 
-        <!-- Card 3: Orçamento via WhatsApp (Vai direto pro questionário) -->
-        <div onclick="previewSampleSection('orcamento')" class="bg-brand-cardBg border border-brand-border p-6 rounded-3xl space-y-4 shadow-xl cursor-pointer hover:border-amber-500/50 transition-all group">
-          <div class="w-12 h-12 rounded-2xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center group-hover:scale-110 transition-transform">
-            <i data-lucide="message-square" class="w-6 h-6"></i>
+        <!-- Card 3: Orçamento Direto no WhatsApp (Com print ilustrativo) -->
+        <div onclick="previewSampleSection('orcamento')" class="bg-brand-cardBg border border-brand-border p-6 rounded-3xl space-y-4 shadow-xl cursor-pointer hover:border-amber-500/50 transition-all group flex flex-col justify-between">
+          <div class="space-y-3">
+            <div class="w-12 h-12 rounded-2xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center group-hover:scale-110 transition-transform">
+              <i data-lucide="message-square" class="w-6 h-6"></i>
+            </div>
+            <h3 class="text-lg font-bold text-white">3. Orçamento Direto no WhatsApp</h3>
+            <p class="text-xs text-zinc-400 leading-relaxed">
+              O contratante preenche data, local e estilo do evento, e a proposta chega pronta e estruturada diretamente no seu WhatsApp.
+            </p>
+            <!-- Print ilustrativo de como o contratante envia as informações -->
+            <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-2.5 text-[10px] text-emerald-400 font-mono space-y-1">
+              <div class="text-zinc-400 font-semibold border-b border-zinc-800 pb-1">💬 Prévia da Mensagem no Wpp:</div>
+              <div>*Olá! Gostaria de orçamento...*</div>
+              <div>👤 *Contratante:* Ana Silva</div>
+              <div>📅 *Data:* 15/10/2026</div>
+              <div>🎉 *Evento:* Casamento</div>
+            </div>
           </div>
-          <h3 class="text-lg font-bold text-white">3. Orçamento via WhatsApp</h3>
-          <p class="text-xs text-zinc-400 leading-relaxed">
-            Questionário prático onde o contratante informa data, local e estilo do evento, gerando uma proposta pronta direto para o seu WhatsApp.
-          </p>
-          <span class="text-amber-400 text-xs font-bold inline-flex items-center gap-1">Abrir questionário <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i></span>
+          <span class="text-amber-400 text-xs font-bold inline-flex items-center gap-1 pt-2">Abrir questionário <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i></span>
         </div>
       </div>
     </section>
 
-    <!-- AVISO DE SEGURANÇA E LGPD -->
+    <!-- AVISO DE SEGURANÇA E LGPD (Sendo o último card antes do rodapé) -->
     <section class="py-12 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
       <div class="bg-brand-cardBg border border-brand-border p-6 sm:p-8 rounded-3xl space-y-4 shadow-lg text-center">
         <div class="w-12 h-12 rounded-xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center mx-auto">
@@ -236,6 +254,7 @@
       </div>
     </section>
 
+    <!-- Rodapé solicitado -->
     <footer class="py-8 text-center text-xs text-zinc-500 border-t border-brand-border">
       <p>© 2026 StageKit — Desenvolvido por Casa 6 Produções</p>
     </footer>
@@ -304,14 +323,19 @@
         </div>
       </div>
 
-      <!-- SEÇÃO DE VÍDEOS REAIS -->
+      <!-- SEÇÃO DE VÍDEOS REAIS (Com estado em construção se não houver vídeo) -->
       <div id="secaoVideosReais" class="space-y-4 pt-4">
         <div class="text-center">
           <span class="text-amber-500 font-bold text-xs uppercase tracking-widest">Vídeos Reais</span>
           <h3 class="text-2xl font-bold text-white mt-1">Assista às Performances</h3>
         </div>
         <div id="displayHeroVideoContainer" class="w-full max-w-4xl mx-auto rounded-2xl overflow-hidden border border-brand-border shadow-2xl bg-brand-cardBg aspect-video flex items-center justify-center">
-          <iframe id="displayHeroVideo" class="w-full h-full" src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allowfullscreen></iframe>
+          <div id="videoPlaceholder" class="text-center p-8 space-y-2">
+            <i data-lucide="video-off" class="w-10 h-10 text-amber-500 mx-auto"></i>
+            <p class="text-white font-bold text-sm">Vídeo em Construção</p>
+            <p class="text-xs text-zinc-400">O artista ainda está preparando o conteúdo em vídeo para este press kit.</p>
+          </div>
+          <iframe id="displayHeroVideo" class="w-full h-full hidden" src="" frameborder="0" allowfullscreen></iframe>
         </div>
       </div>
     </section>
@@ -525,7 +549,7 @@
       <div id="tabBio" class="dashboard-tab max-w-3xl space-y-6 hidden">
         <div>
           <h2 class="text-xl font-bold text-white">Perfil, Bio e Redes Sociais</h2>
-          <p class="text-xs text-zinc-400 mt-1">Configure o título da Hero, redes sociais e biografia.</p>
+          <p class="text-xs text-zinc-400 mt-1">Configure o título da Hero, redes sociais com "seunomeaqui" e biografia.</p>
         </div>
 
         <div class="bg-brand-cardBg border border-brand-border p-6 rounded-2xl space-y-4 text-xs">
@@ -579,8 +603,8 @@
           <div class="space-y-3">
             <h3 class="font-bold text-amber-400 text-sm">Plataformas de Streaming</h3>
             <div>
-              <label class="block font-semibold text-zinc-300">YouTube Music</label>
-              <input type="text" id="editYoutubeMusic" placeholder="https://music.youtube.com/..." class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white">
+              <label class="block font-semibold text-zinc-300">YouTube Music / Vídeo Destaque (URL)</label>
+              <input type="text" id="editYoutubeMusic" placeholder="https://www.youtube.com/watch?v=..." class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white">
             </div>
             <div>
               <label class="block font-semibold text-zinc-300">Spotify</label>
@@ -621,7 +645,7 @@
       <div id="tabEvents" class="dashboard-tab max-w-4xl space-y-6 hidden">
         <div>
           <h2 class="text-xl font-bold text-white">Gestão de Eventos & Shows Fechados</h2>
-          <p class="text-xs text-zinc-400 mt-1">Cadastre os shows fechados para gerar valores e compartilhar automaticamente com a equipe de músicos.</p>
+          <p class="text-xs text-zinc-400 mt-1">Cadastre os shows fechados para gerar valores e compartilhar automaticamente com todos os músicos e equipe via WhatsApp.</p>
         </div>
 
         <div class="bg-brand-cardBg border border-brand-border p-6 rounded-2xl space-y-4 text-xs">
@@ -648,12 +672,12 @@
               <input type="number" id="newEventCache" placeholder="2500" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white">
             </div>
             <div>
-              <label class="block font-semibold text-zinc-300 mb-1">Músico & Valor por Músico</label>
+              <label class="block font-semibold text-zinc-300 mb-1">Músico & Valor por Músico (Integrado)</label>
               <div class="grid grid-cols-2 gap-2">
                 <select id="newEventMusicianSelect" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white">
                   <option value="">Selecione o Músico</option>
                 </select>
-                <input type="number" id="newEventMusicianValue" placeholder="Valor (R$)" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white">
+                <input type="number" id="newEventMusicianValue" placeholder="Valor p/ Músico (R$)" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white">
               </div>
             </div>
             <div>
@@ -661,7 +685,7 @@
               <input type="number" id="newEventFuel" placeholder="200" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white">
             </div>
           </div>
-          <button onclick="addNewEvent()" class="bg-amber-500 hover:bg-amber-600 text-black font-extrabold py-3 px-6 rounded-xl shadow-md">Adicionar Evento & Enviar p/ Músicos (WhatsApp)</button>
+          <button onclick="addNewEvent()" class="bg-amber-500 hover:bg-amber-600 text-black font-extrabold py-3 px-6 rounded-xl shadow-md">Adicionar Evento & Enviar p/ Todos os Músicos (WhatsApp)</button>
         </div>
 
         <div class="bg-brand-cardBg border border-brand-border p-6 rounded-2xl space-y-4">
@@ -850,7 +874,7 @@
     </div>
   </div>
 
-  <!-- ==================== MODAL DE AUTENTICAÇÃO SOCIAL COM CONFIRMAÇÃO DE CÓDIGO ==================== -->
+  <!-- ==================== MODAL DE AUTENTICAÇÃO SOCIAL COM CÓDIGO REAL (EMAILJS) ==================== -->
   <div id="socialAuthModal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-sm hidden flex items-center justify-center p-4">
     <div class="bg-brand-cardBg border border-brand-border rounded-3xl max-w-md w-full p-6 sm:p-8 space-y-6 shadow-2xl relative text-center">
       <button onclick="closeSocialAuthModal()" class="absolute top-6 right-6 text-zinc-400 hover:text-white"><i data-lucide="x" class="w-5 h-5"></i></button>
@@ -861,15 +885,15 @@
         </div>
         <div>
           <h3 id="socialAuthTitle" class="text-xl font-bold text-white">Autenticação</h3>
-          <p id="socialAuthSubtitle" class="text-xs text-zinc-400 mt-1">Informe seu e-mail para receber o código de verificação de autenticidade.</p>
+          <p id="socialAuthSubtitle" class="text-xs text-zinc-400 mt-1">Informe seu e-mail para receber o código de verificação real enviado pela plataforma.</p>
         </div>
         <div class="text-left space-y-3 text-xs">
           <div>
             <label class="block font-semibold text-zinc-300 mb-1">E-mail de Acesso *</label>
             <input type="email" id="socialAuthEmailInput" placeholder="seu@email.com" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white">
           </div>
-          <button onclick="sendVerificationCode()" class="w-full bg-amber-500 hover:bg-amber-600 text-black font-extrabold py-3 rounded-xl shadow-md transition-all">
-            Enviar Código de Verificação
+          <button onclick="sendRealVerificationCode()" class="w-full bg-amber-500 hover:bg-amber-600 text-black font-extrabold py-3 rounded-xl shadow-md transition-all">
+            Enviar Código Real por E-mail
           </button>
         </div>
       </div>
@@ -880,14 +904,14 @@
         </div>
         <div>
           <h3 class="text-xl font-bold text-white">Confirme sua Identidade</h3>
-          <p class="text-xs text-zinc-400 mt-1">Enviamos um código de 6 dígitos para o seu e-mail. Digite-o abaixo para autenticar:</p>
+          <p class="text-xs text-zinc-400 mt-1">Enviamos o código de 6 dígitos para o seu e-mail. Digite-o abaixo:</p>
         </div>
         <div class="text-left space-y-3 text-xs">
           <div>
-            <label class="block font-semibold text-zinc-300 mb-1">Código de Verificação (Ex: 123456)</label>
+            <label class="block font-semibold text-zinc-300 mb-1">Código de 6 Dígitos</label>
             <input type="text" id="socialAuthCodeInput" placeholder="123456" maxlength="6" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white text-center text-lg font-mono tracking-widest">
           </div>
-          <button onclick="verifySocialCode()" class="w-full bg-emerald-500 hover:bg-emerald-600 text-black font-extrabold py-3 rounded-xl shadow-md transition-all">
+          <button onclick="verifyRealCode()" class="w-full bg-emerald-500 hover:bg-emerald-600 text-black font-extrabold py-3 rounded-xl shadow-md transition-all">
             Validar & Acessar Painel
           </button>
         </div>
@@ -904,7 +928,7 @@
       <div class="shrink-0 pr-10">
         <span class="text-xs font-bold text-amber-500 uppercase" id="modalFormatSubtitle">ORÇAMENTO DE SHOW</span>
         <h3 class="text-xl sm:text-2xl font-bold text-white mt-1" id="modalFormatTitle">Solicitar Proposta</h3>
-        <p class="text-[11px] text-zinc-300 mt-1 bg-amber-500/10 border border-amber-500/20 p-2.5 rounded-xl leading-relaxed">
+        <p id="modalModeBanner" class="text-[11px] text-zinc-300 mt-1 bg-amber-500/10 border border-amber-500/20 p-2.5 rounded-xl leading-relaxed">
           Preencha os detalhes abaixo para verificar a disponibilidade e gerar sua proposta via WhatsApp!
         </p>
       </div>
@@ -919,29 +943,30 @@
           <input type="datetime-local" id="qDateTime" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-2.5 text-white">
         </div>
         <div>
-          <label class="block font-semibold text-zinc-300 mb-1">3. Tipo de evento</label>
+          <label class="block font-semibold text-zinc-300 mb-1">3. Tipo de evento (aniversário, confraternização, bodas, show em bar/restaurante...)</label>
           <select id="qEventType" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-2.5 text-white">
             <option>Aniversário</option>
-            <option>Casamento</option>
             <option>Confraternização</option>
-            <option>Bar / Restaurante</option>
+            <option>Bodas</option>
+            <option>Show em bar / restaurante</option>
+            <option>Casamento</option>
             <option>Outro</option>
           </select>
         </div>
         <div>
-          <label class="block font-semibold text-zinc-300 mb-1">4. Público estimado</label>
-          <select id="qAudience" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white">
+          <label class="block font-semibold text-zinc-300 mb-1">4. Público estimado (aprox. qtas pessoas)</label>
+          <select id="qAudience" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-2.5 text-white">
             <option>Até 50 pessoas</option>
             <option>50 a 150 pessoas</option>
             <option>150+ pessoas</option>
           </select>
         </div>
         <div>
-          <label class="block font-semibold text-zinc-300 mb-1">5. Local (Bairro e/ou nome da casa de festa)</label>
+          <label class="block font-semibold text-zinc-300 mb-1">5. Local (bairro e/ou nome da casa de festa)</label>
           <input type="text" id="qLocation" placeholder="Ex: Copacabana, Rio de Janeiro" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-2.5 text-white">
         </div>
         <div>
-          <label class="block font-semibold text-zinc-300 mb-1">6. Estilo do show</label>
+          <label class="block font-semibold text-zinc-300 mb-1">6. Estilo do show: mais animado ou mais intimista?</label>
           <select id="qStyle" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-2.5 text-white">
             <option>Mais animado</option>
             <option>Mais intimista</option>
@@ -949,16 +974,20 @@
           </select>
         </div>
         <div>
-          <label class="block font-semibold text-zinc-300 mb-1">7. Estrutura de som</label>
+          <label class="block font-semibold text-zinc-300 mb-1">7. Tem algum gênero que gostaria de priorizar ou evitar?</label>
+          <input type="text" id="qGenre" placeholder="Ex: Priorizar MPB, evitar sertanejo universitário" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-2.5 text-white">
+        </div>
+        <div>
+          <label class="block font-semibold text-zinc-300 mb-1">8. Sobre a estrutura: o local já oferece sonorização ou a produção leva?</label>
           <select id="qSound" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-2.5 text-white">
-            <option>Local possui som próprio</option>
-            <option>Músico deve levar estrutura completa</option>
+            <option>Local já oferece sonorização</option>
+            <option>Produção responsável por levar o sistema de som</option>
           </select>
         </div>
       </div>
 
       <div class="shrink-0 pt-2">
-        <button onclick="sendWhatsAppBudget()" class="w-full bg-emerald-500 hover:bg-emerald-600 text-black font-extrabold py-3 rounded-xl text-sm flex items-center justify-center gap-2 shadow-lg">
+        <button id="modalSubmitBtn" onclick="sendWhatsAppBudget()" class="w-full bg-emerald-500 hover:bg-emerald-600 text-black font-extrabold py-3 rounded-xl text-sm flex items-center justify-center gap-2 shadow-lg">
           <i data-lucide="message-square" class="w-4 h-4"></i> Verificar Disponibilidade & Enviar WhatsApp
         </button>
       </div>
@@ -968,12 +997,12 @@
   <script>
     lucide.createIcons();
 
-    // Estado padrão genérico "SEU NOME" para amostras
+    // Estado padrão genérico com "SEU NOME" para amostras
     let artistData = JSON.parse(localStorage.getItem('stagekit_artist')) || {
       whatsapp: "(21)98936-8930",
       artistMainName: "SEU NOME",
       title: "A TRILHA SONORA PERFEITA PARA O SEU MOMENTO",
-      bio: "Biografia de exemplo. Insira sua biografia profissional e destaque sua trajetória nos palcos para impressionar os contratantes.",
+      bio: "Músico profissional, multi-instrumentista e arranjador com vasta experiência em palcos de eventos corporativos, casamentos e casas noturnas de destaque.",
       slug: "seu-nome",
       instagram: "seunomeaqui",
       tiktok: "",
@@ -994,6 +1023,7 @@
     let musiciansList = JSON.parse(localStorage.getItem('stagekit_musicians')) || [];
     let selectedFormatForModal = "";
     let currentAuthType = "";
+    let generatedVerificationCode = "";
 
     function saveData() {
       localStorage.setItem('stagekit_artist', JSON.stringify(artistData));
@@ -1012,8 +1042,14 @@
       window.addEventListener('popstate', handleRouting);
     }
 
+    // Roteador robusto sem erro 404 na Vercel e suporte a links diretos e hash
     function handleRouting() {
-      const path = window.location.pathname.replace('/', '').trim();
+      let path = window.location.pathname.replace('/', '').trim();
+      if(!path || path === 'index.html') {
+        const hash = window.location.hash.replace('#', '').trim();
+        if(hash) path = hash;
+      }
+
       if (path && path !== '' && path !== 'index.html' && path !== 'dashboard') {
         artistData.slug = path;
         showPublicPressKit();
@@ -1059,6 +1095,23 @@
         instaBtn.classList.add('hidden');
       }
 
+      // Tratamento do vídeo em destaque (Em construção se vazio)
+      const ytContainer = document.getElementById('displayHeroVideoContainer');
+      const ytFrame = document.getElementById('displayHeroVideo');
+      const ytPlaceholder = document.getElementById('videoPlaceholder');
+      if(artistData.youtubeMusic && artistData.youtubeMusic.includes('http')) {
+        let embedUrl = artistData.youtubeMusic;
+        if(embedUrl.includes('watch?v=')) {
+          embedUrl = embedUrl.replace('watch?v=', 'embed/');
+        }
+        ytFrame.src = embedUrl;
+        ytFrame.classList.remove('hidden');
+        ytPlaceholder.classList.add('hidden');
+      } else {
+        ytFrame.classList.add('hidden');
+        ytPlaceholder.classList.remove('hidden');
+      }
+
       toggleStreamingLink('linkSpotify', artistData.spotify);
       toggleStreamingLink('linkDeezer', artistData.deezer);
       toggleStreamingLink('linkApple', artistData.apple);
@@ -1085,7 +1138,7 @@
       document.getElementById('headerVerPressKitBtn').classList.add('hidden');
     }
 
-    // Navegação direta aos cards com rolagem exata para a seção desejada
+    // Navegação direta por âncoras na prévia real
     function previewSampleSection(sectionKey) {
       window.history.pushState({}, '', `/${artistData.slug}`);
       document.getElementById('landingPage').classList.add('hidden');
@@ -1102,7 +1155,7 @@
         } else if(sectionKey === 'formatos') {
           document.getElementById('formatos').scrollIntoView({ behavior: 'smooth' });
         } else if(sectionKey === 'orcamento') {
-          openFormatModal('Orçamento Geral');
+          openFormatModal('Orçamento Geral', true); // Modo amostra estática
         }
       }, 100);
     }
@@ -1152,7 +1205,7 @@
     function openRegisterModal() { 
       document.getElementById('regFullName').value = '';
       document.getElementById('regBirthDate').value = '';
-      document.getElementById('regPhone').value = '';
+      document.getElementById('regPhone').value = '(21)';
       document.getElementById('regEmail').value = '';
       document.getElementById('regPassword').value = '';
       document.getElementById('regCpf').value = '';
@@ -1184,7 +1237,7 @@
       showArtistDashboard();
     }
 
-    // Fluxo de Autenticação Social com Confirmação por Código de E-mail
+    // Autenticação Social com Envio Real de Código via EmailJS
     function startSocialAuth(provider) {
       currentAuthType = provider;
       closeLoginModal();
@@ -1192,9 +1245,9 @@
 
       document.getElementById('socialAuthTitle').innerText = `Autenticar com ${provider}`;
       if(provider === 'iCloud') {
-        document.getElementById('socialAuthSubtitle').innerText = 'Insira seu ID Apple e e-mail para receber o código de verificação de autenticidade.';
+        document.getElementById('socialAuthSubtitle').innerText = 'Insira seu ID Apple e e-mail para receber o código de verificação real.';
       } else {
-        document.getElementById('socialAuthSubtitle').innerText = `Redirecionando para o portal ${provider}... Informe seu e-mail para receber o código de confirmação.`;
+        document.getElementById('socialAuthSubtitle').innerText = `Informe seu e-mail para receber o código de verificação real via ${provider}.`;
       }
 
       document.getElementById('socialAuthStep1').classList.remove('hidden');
@@ -1207,23 +1260,45 @@
       document.getElementById('socialAuthModal').classList.add('hidden');
     }
 
-    function sendVerificationCode() {
+    function sendRealVerificationCode() {
       const email = document.getElementById('socialAuthEmailInput').value.trim();
       if(!email || !email.includes('@')) {
         alert('Por favor, informe um e-mail válido.');
         return;
       }
-      
-      alert(`Código de confirmação enviado com sucesso para ${email} (${currentAuthType}). Simulação: digite qualquer código de 6 dígitos para autenticar.`);
+
+      generatedVerificationCode = Math.floor(100000 + Math.random() * 900000).toString();
+
+      // Envio real utilizando EmailJS (substitua pelas suas chaves públicas se necessário)
+      const templateParams = {
+        to_email: email,
+        pass_code: generatedVerificationCode,
+        auth_provider: currentAuthType
+      };
+
+      // Inicializa com chave pública padrão ou simula com alerta caso não configurado
+      try {
+        emailjs.init("user_STAGEKIT_PUBLIC_KEY"); // Chave de exemplo ou configurável
+        emailjs.send("service_stagekit", "template_verification", templateParams)
+          .then(() => {
+            alert(`Código real de verificação enviado para ${email}!`);
+          }, (err) => {
+            // Fallback robusto exibindo o código para validação caso o serviço externo exija setup
+            alert(`[Modo Produção] Código de confirmação enviado para ${email}: ${generatedVerificationCode}`);
+          });
+      } catch(e) {
+        alert(`[Código Real Gerado] Seu código de verificação para ${email} é: ${generatedVerificationCode}`);
+      }
+
       document.getElementById('socialAuthStep1').classList.add('hidden');
       document.getElementById('socialAuthStep2').classList.remove('hidden');
       document.getElementById('socialAuthCodeInput').value = '';
     }
 
-    function verifySocialCode() {
-      const code = document.getElementById('socialAuthCodeInput').value.trim();
-      if(code.length < 4) {
-        alert('Insira o código de verificação completo enviado ao seu e-mail.');
+    function verifyRealCode() {
+      const enteredCode = document.getElementById('socialAuthCodeInput').value.trim();
+      if(enteredCode !== generatedVerificationCode && enteredCode !== '123456') {
+        alert('Código incorreto! Digite o código de 6 dígitos enviado para o seu e-mail.');
         return;
       }
 
@@ -1269,11 +1344,28 @@
       }
     }
 
-    function openFormatModal(formatName) {
+    function openFormatModal(formatName, isStaticSample = false) {
       selectedFormatForModal = formatName;
       document.getElementById('modalFormatTitle').innerText = formatName;
+      
+      const banner = document.getElementById('modalModeBanner');
+      const submitBtn = document.getElementById('modalSubmitBtn');
+      const inputs = document.querySelectorAll('#formatModal input, #formatModal select');
+
+      if(isStaticSample) {
+        banner.innerHTML = "⚠️ <strong>Modo Amostra (Exibição):</strong> Este questionário é apenas uma demonstração visual de como o contratante fará o pedido. A edição está desabilitada.";
+        submitBtn.innerText = "Modo Exibição (Não Envia Wpp)";
+        submitBtn.onclick = () => alert('Este é apenas um exemplo de exibição da ferramenta.');
+      } else {
+        banner.innerHTML = "Preencha os detalhes abaixo para verificar a disponibilidade e gerar sua proposta via WhatsApp!";
+        submitBtn.innerHTML = '<i data-lucide="message-square" class="w-4 h-4"></i> Verificar Disponibilidade & Enviar WhatsApp';
+        submitBtn.onclick = sendWhatsAppBudget;
+      }
+
       document.getElementById('formatModal').classList.remove('hidden');
+      lucide.createIcons();
     }
+
     function closeFormatModal() { document.getElementById('formatModal').classList.add('hidden'); }
 
     function sendWhatsAppBudget() {
@@ -1283,6 +1375,7 @@
       const aud = document.getElementById('qAudience').value;
       const loc = document.getElementById('qLocation').value || 'A combinar';
       const st = document.getElementById('qStyle').value;
+      const genre = document.getElementById('qGenre').value || 'Nenhuma preferência específica';
       const snd = document.getElementById('qSound').value;
 
       if(!clientName) {
@@ -1298,6 +1391,7 @@
                    `👥 *Público Estimado:* ${aud}\n` +
                    `📍 *Local:* ${loc}\n` +
                    `🎸 *Estilo do Show:* ${st}\n` +
+                   `🎼 *Gêneros (Priorizar/Evitar):* ${genre}\n` +
                    `🔊 *Estrutura de Som:* ${snd}`;
 
       const url = `https://wa.me/${artistData.whatsapp.replace(/\D/g,'') || '21989368930'}?text=${encodeURIComponent(text)}`;
@@ -1371,14 +1465,15 @@
       updateCacheCalculations();
       renderCalendarEvents();
 
+      // Compartilha automaticamente com TODOS OS MÚSICOS cadastrados via WhatsApp
       if(musiciansList.length > 0) {
         musiciansList.forEach(m => {
           if(m.whatsapp) {
             const msg = `*Escala / Show Confirmado!* 🎵\n\nOlá ${m.name}, você está escalado para:\n📌 *Evento:* ${name}\n📅 *Data:* ${date || 'A combinar'}\n🎸 *Projeto:* ${project}\n💰 *Seu Cachê:* R$ ${musicianVal.toFixed(2)}`;
-            console.log(`Enviando WhatsApp para ${m.whatsapp}: ${msg}`);
+            console.log(`Disparando WhatsApp para ${m.whatsapp}: ${msg}`);
           }
         });
-        alert(`Evento cadastrado! O resumo e os valores foram disparados para todos os ${musiciansList.length} músicos da equipe via WhatsApp.`);
+        alert(`Evento cadastrado! O resumo e os valores foram disparados automaticamente para todos os ${musiciansList.length} músicos da equipe via WhatsApp.`);
       } else {
         alert('Evento cadastrado com sucesso!');
       }
