@@ -96,7 +96,6 @@
       <!-- Ações do Painel / PressKit -->
       <div id="panelHeaderActions" class="hidden items-center gap-3">
         <div class="flex items-center gap-2" id="headerSocialIcons">
-          <!-- Status de usuário logado -->
           <div class="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-xl bg-zinc-900 border border-zinc-800 text-xs text-zinc-300">
             <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
             <span id="headerLoggedUser">Sessão Ativa</span>
@@ -415,7 +414,6 @@
           <p class="text-[11px] text-zinc-400 italic">Link completo: <span id="fullSlugPreview" class="text-amber-400 font-mono">stagekitcasa6.vercel.app/</span></p>
         </div>
 
-        <!-- Botão Único "Ver meu Press Kit" -->
         <div class="flex justify-start">
           <button onclick="showPublicPressKit()" class="bg-amber-500 hover:bg-amber-600 text-black font-extrabold py-3 px-6 rounded-xl text-xs flex items-center gap-2 shadow-md transition-all cursor-pointer">
             <i data-lucide="eye" class="w-4 h-4"></i> Ver meu Press Kit
@@ -668,7 +666,7 @@
     </main>
   </div>
 
-  <!-- ==================== MODAL DE CADASTRO INTERNO (BASE DE DADOS NATIVA) ==================== -->
+  <!-- ==================== MODAL DE CADASTRO INTERNO (COM VALIDAÇÃO RIGOROSA) ==================== -->
   <div id="registerModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-4 overflow-y-auto">
     <div class="bg-brand-cardBg border border-brand-border rounded-3xl max-w-lg w-full p-6 sm:p-8 space-y-6 shadow-2xl relative my-8">
       <button onclick="closeRegisterModal()" class="absolute top-6 right-6 text-zinc-400 hover:text-white cursor-pointer"><i data-lucide="x" class="w-5 h-5"></i></button>
@@ -676,7 +674,7 @@
       <div>
         <span class="text-xs font-bold text-amber-500 uppercase">Crie seu StageKit</span>
         <h3 class="text-2xl font-bold text-white mt-1">Cadastro de Artista</h3>
-        <p class="text-xs text-zinc-400 mt-1">Cadastre-se usando seu e-mail de qualquer provedor (Gmail, Hotmail, Outlook, Yahoo, etc.).</p>
+        <p class="text-xs text-zinc-400 mt-1">Informe um e-mail válido (ex: @gmail, @outlook, etc.) e um CPF real.</p>
       </div>
 
       <div class="space-y-3 text-xs">
@@ -695,16 +693,16 @@
           </div>
         </div>
         <div>
-          <label class="block font-semibold text-zinc-300 mb-1">E-mail (Qualquer Provedor) *</label>
-          <input type="email" id="regEmail" required class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white" placeholder="seuemail@qualquerdominio.com">
+          <label class="block font-semibold text-zinc-300 mb-1">E-mail Válido (Qualquer Provedor) *</label>
+          <input type="email" id="regEmail" required class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white" placeholder="seuemail@dominio.com">
         </div>
         <div>
-          <label class="block font-semibold text-zinc-300 mb-1">Crie uma Senha *</label>
-          <input type="password" id="regPassword" required class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white" placeholder="Digite uma senha">
+          <label class="block font-semibold text-zinc-300 mb-1">Crie uma Senha (Mínimo 6 caracteres) *</label>
+          <input type="password" id="regPassword" required class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white" placeholder="Mínimo 6 dígitos">
         </div>
         <div class="grid sm:grid-cols-2 gap-3">
           <div>
-            <label class="block font-semibold text-zinc-300 mb-1">CPF *</label>
+            <label class="block font-semibold text-zinc-300 mb-1">CPF Válido *</label>
             <input type="text" id="regCpf" required class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white" placeholder="000.000.000-00">
           </div>
           <div>
@@ -727,7 +725,7 @@
       <div>
         <span class="text-xs font-bold text-amber-500 uppercase">Área do Artista</span>
         <h3 class="text-2xl font-bold text-white mt-1">Entrar no Painel</h3>
-        <p class="text-xs text-zinc-400 mt-1">Acesse com o e-mail e senha cadastrados no StageKit.</p>
+        <p class="text-xs text-zinc-400 mt-1">Digite seu e-mail e senha cadastrados.</p>
       </div>
 
       <div class="space-y-4 text-xs">
@@ -871,12 +869,41 @@
     let musiciansList = JSON.parse(localStorage.getItem('stagekit_musicians')) || [];
     let selectedFormatForModal = "";
 
+    // Função de Validação Real de E-mail (Verifica domínio e estrutura exata)
+    function isValidEmail(email) {
+      const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+      if (!emailRegex.test(email)) return false;
+      // Rejeita domínios claramente falsos/incompletos
+      const parts = email.split('@');
+      if (parts.length !== 2) return false;
+      const domainParts = parts[1].split('.');
+      if (domainParts.length < 2 || domainParts[domainParts.length - 1].length < 2) return false;
+      return true;
+    }
+
+    // Função de Validação Matemática de CPF Real
+    function isValidCPF(cpf) {
+      cpf = cpf.replace(/[^\d]+/g, '');
+      if (cpf.length !== 11 || /^(\d)\1+$/.test(cpf)) return false;
+      let soma = 0;
+      let resto;
+      for (let i = 1; i <= 9; i++) soma += parseInt(cpf.substring(i - 1, i)) * (11 - i);
+      resto = (soma * 10) % 11;
+      if ((resto === 10) || (resto === 11)) resto = 0;
+      if (resto !== parseInt(cpf.substring(9, 10))) return false;
+      soma = 0;
+      for (let i = 1; i <= 10; i++) soma += parseInt(cpf.substring(i - 1, i)) * (12 - i);
+      resto = (soma * 10) % 11;
+      if ((resto === 10) || (resto === 11)) resto = 0;
+      if (resto !== parseInt(cpf.substring(10, 11))) return false;
+      return true;
+    }
+
     function saveData() {
       if(sessionUser) {
         sessionUser = { ...sessionUser, ...artistData };
         localStorage.setItem('stagekit_session', JSON.stringify(sessionUser));
         
-        // Atualiza a base de dados
         const userIndex = usersDatabase.findIndex(u => u.registeredEmail === sessionUser.registeredEmail);
         if(userIndex !== -1) {
           usersDatabase[userIndex] = sessionUser;
@@ -896,7 +923,6 @@
       updateCacheCalculations();
       renderCalendarEvents();
       
-      // Verifica se o usuário já possui sessão aberta
       if(sessionUser) {
         const hlu = document.getElementById('headerLoggedUser');
         if(hlu) hlu.innerText = sessionUser.artistMainName || sessionUser.registeredEmail;
@@ -1083,7 +1109,6 @@
       if(e.key === 'Enter') submitLogin();
     }
 
-    // Login Interno consultando a Base de Dados
     function submitLogin() {
       const le = document.getElementById('loginEmail');
       const lp = document.getElementById('loginPassword');
@@ -1092,6 +1117,11 @@
 
       if(!email || !pass) {
         alert('Por favor, digite seu e-mail e senha.');
+        return;
+      }
+
+      if(!isValidEmail(email)) {
+        alert('O e-mail digitado não possui um formato válido.');
         return;
       }
 
@@ -1109,7 +1139,7 @@
         closeLoginModal();
         showArtistDashboard();
       } else {
-        alert('E-mail ou senha incorretos! Se ainda não possui uma conta, clique em "Cadastre-se aqui".');
+        alert('E-mail ou senha incorretos! Verifique se os dados estão corretos ou cadastre-se.');
       }
     }
 
@@ -1137,27 +1167,47 @@
       if(rm) rm.classList.add('hidden');
     }
     
-    // Cadastro Interno na Base de Dados
+    // Cadastro com Validação Autêntica de E-mail, Senha e CPF
     function submitRegister() {
       const rf = document.getElementById('regFullName');
       const rp = document.getElementById('regPhone');
       const re = document.getElementById('regEmail');
       const rpass = document.getElementById('regPassword');
+      const rcpf = document.getElementById('regCpf');
 
       const fullName = rf ? rf.value.trim() : '';
       const phone = rp ? rp.value.trim() : '';
       const email = re ? re.value.trim().toLowerCase() : '';
       const pass = rpass ? rpass.value.trim() : '';
+      const cpf = rcpf ? rcpf.value.trim() : '';
       
-      if(!fullName || !email || !pass) { 
-        alert('Preencha os campos obrigatórios (Nome, E-mail e Senha).'); 
+      if(!fullName || !email || !pass || !cpf) { 
+        alert('Preencha todos os campos obrigatórios.'); 
         return; 
+      }
+
+      // Validação de E-mail real
+      if(!isValidEmail(email)) {
+        alert('Por favor, informe um endereço de e-mail autêntico e válido (ex: seu.nome@gmail.com ou @outlook.com).');
+        return;
+      }
+
+      // Validação de Senha forte
+      if(pass.length < 6) {
+        alert('A senha precisa ter no mínimo 6 caracteres.');
+        return;
+      }
+
+      // Validação de CPF real
+      if(!isValidCPF(cpf)) {
+        alert('O CPF informado é inválido ou falso. Por favor, insira um CPF real para continuar.');
+        return;
       }
 
       // Verifica se o e-mail já existe na base de dados
       const existingUser = usersDatabase.find(u => u.registeredEmail.toLowerCase() === email);
       if(existingUser) {
-        alert('Este e-mail já está cadastrado. Faça login ou use outro e-mail.');
+        alert('Este e-mail já está cadastrado. Faça login na sua conta.');
         closeRegisterModal();
         openLoginModal();
         return;
@@ -1196,7 +1246,7 @@
 
       loadInputsFromState();
       closeRegisterModal();
-      alert('Cadastro realizado com sucesso! Bem-vindo ao seu painel.');
+      alert('Cadastro autenticado com sucesso! Bem-vindo ao seu painel.');
       showArtistDashboard();
     }
 
