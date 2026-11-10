@@ -74,7 +74,7 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
       
       <div class="flex items-center gap-4">
-        <a href="#" onclick="goHome()" class="flex items-center gap-3 group cursor-pointer">
+        <a href="#" onclick="goHome(); return false;" class="flex items-center gap-3 group cursor-pointer">
           <div class="w-10 h-10 rounded-xl bg-white overflow-hidden flex items-center justify-center p-0.5 shadow-md group-hover:scale-105 transition-transform duration-300">
             <img src="SIMBOLO CASA 6.jpg" alt="Casa 6 Produções" class="w-full h-full object-contain rounded-lg" onerror="this.src='https://via.placeholder.com/40?text=C6'" />
           </div>
@@ -87,10 +87,10 @@
 
       <!-- Ações da Landing Page (Antes do Login) -->
       <div id="landingHeaderActions" class="flex items-center gap-3">
-        <button onclick="openLoginModal()" class="text-zinc-300 hover:text-white text-xs font-bold px-4 py-2 transition-colors">
+        <button onclick="openLoginModal()" class="text-zinc-300 hover:text-white text-xs font-bold px-4 py-2 transition-colors cursor-pointer">
           Abrir meu painel
         </button>
-        <button onclick="openRegisterModal()" class="bg-amber-500 hover:bg-amber-600 text-black text-xs font-extrabold px-4.5 py-2.5 rounded-xl transition-all shadow-md">
+        <button onclick="openRegisterModal()" class="bg-amber-500 hover:bg-amber-600 text-black text-xs font-extrabold px-4.5 py-2.5 rounded-xl transition-all shadow-md cursor-pointer">
           Criar meu kit
         </button>
       </div>
@@ -105,7 +105,7 @@
           <a id="headerEmail" href="mailto:casa6producoes@gmail.com" class="p-2.5 rounded-xl bg-zinc-900 border border-zinc-800 text-zinc-300 hover:text-amber-500 transition-colors" title="E-mail"><i data-lucide="mail" class="w-4 h-4"></i></a>
           
           <!-- Botão Sair da Conta -->
-          <button onclick="logoutToHome()" class="p-2.5 rounded-xl bg-zinc-900 border border-zinc-800 text-red-400 hover:bg-zinc-800 transition-colors" title="Sair da Conta">
+          <button onclick="logoutToHome()" class="p-2.5 rounded-xl bg-zinc-900 border border-zinc-800 text-red-400 hover:bg-zinc-800 transition-colors cursor-pointer" title="Sair da Conta">
             <i data-lucide="log-out" class="w-4 h-4"></i>
           </button>
         </div>
@@ -133,7 +133,7 @@
       </p>
 
       <div class="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
-        <button onclick="openRegisterModal()" class="w-full sm:w-auto bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-500 hover:to-amber-600 text-black font-extrabold px-8 py-4 rounded-2xl shadow-2xl glow-gold transition-all flex items-center justify-center gap-3 text-base">
+        <button onclick="openRegisterModal()" class="w-full sm:w-auto bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-500 hover:to-amber-600 text-black font-extrabold px-8 py-4 rounded-2xl shadow-2xl glow-gold transition-all flex items-center justify-center gap-3 text-base cursor-pointer">
           Criar meu press kit <i data-lucide="arrow-right" class="w-5 h-5"></i>
         </button>
       </div>
@@ -151,7 +151,7 @@
             Divulgue um link limpo e profissional (<code class="text-amber-400 font-mono">stagekitcasa6.vercel.app/seu-nome</code>) diretamente nas suas redes sociais e propostas comerciais.
           </p>
         </div>
-        <button onclick="openRegisterModal()" class="bg-amber-500 hover:bg-amber-600 text-black font-extrabold px-8 py-4 rounded-2xl shrink-0 shadow-lg transition-all transform hover:scale-105">
+        <button onclick="openRegisterModal()" class="bg-amber-500 hover:bg-amber-600 text-black font-extrabold px-8 py-4 rounded-2xl shrink-0 shadow-lg transition-all transform hover:scale-105 cursor-pointer">
           Garantir Meu Link
         </button>
       </div>
@@ -230,7 +230,7 @@
         Menos conversa solta, mais<br /><span class="text-amber-500">shows fechados.</span>
       </h2>
       <div>
-        <button onclick="openRegisterModal()" class="bg-emerald-500 hover:bg-emerald-600 text-black font-extrabold px-10 py-5 rounded-2xl text-lg shadow-2xl transition-all transform hover:scale-105">
+        <button onclick="openRegisterModal()" class="bg-emerald-500 hover:bg-emerald-600 text-black font-extrabold px-10 py-5 rounded-2xl text-lg shadow-2xl transition-all transform hover:scale-105 cursor-pointer">
           Começar agora
         </button>
       </div>
@@ -339,7 +339,7 @@
             <h3 class="text-xl font-bold text-white mt-1 mb-2">Barzinhos & Aniversários</h3>
             <p class="text-xs text-zinc-400 leading-relaxed">Repertório versátil de MPB, pop, rock e sertanejo adaptado ao clima do evento.</p>
           </div>
-          <button onclick="openFormatModal('Barzinhos & Aniversários')" class="w-full bg-amber-500 hover:bg-amber-600 text-black font-bold py-3 rounded-xl text-sm flex items-center justify-center gap-2">Quero este formato <i data-lucide="arrow-right" class="w-4 h-4"></i></button>
+          <button onclick="openFormatModal('Barzinhos & Aniversários')" class="w-full bg-amber-500 hover:bg-amber-600 text-black font-bold py-3 rounded-xl text-sm flex items-center justify-center gap-2 cursor-pointer">Quero este formato <i data-lucide="arrow-right" class="w-4 h-4"></i></button>
         </div>
 
         <div class="p-6 rounded-2xl bg-brand-cardBg border border-amber-500/40 relative flex flex-col justify-between shadow-xl space-y-4">
@@ -352,7 +352,7 @@
             <h3 class="text-xl font-bold text-white mt-1 mb-2">Casamentos & Cerimônias</h3>
             <p class="text-xs text-zinc-400 leading-relaxed">Trilha sonora inesquecível para a entrada dos noivos, com som próprio incluído.</p>
           </div>
-          <button onclick="openFormatModal('Casamentos & Cerimônias')" class="w-full bg-amber-500 hover:bg-amber-600 text-black font-bold py-3 rounded-xl text-sm flex items-center justify-center gap-2">Quero este formato <i data-lucide="arrow-right" class="w-4 h-4"></i></button>
+          <button onclick="openFormatModal('Casamentos & Cerimônias')" class="w-full bg-amber-500 hover:bg-amber-600 text-black font-bold py-3 rounded-xl text-sm flex items-center justify-center gap-2 cursor-pointer">Quero este formato <i data-lucide="arrow-right" class="w-4 h-4"></i></button>
         </div>
 
         <div class="p-6 rounded-2xl bg-brand-cardBg border border-brand-border flex flex-col justify-between space-y-4">
@@ -364,7 +364,7 @@
             <h3 class="text-xl font-bold text-white mt-1 mb-2">Eventos & Formaturas</h3>
             <p class="text-xs text-zinc-400 leading-relaxed">Show marcante para celebrações corporativas e recepções de alto nível.</p>
           </div>
-          <button onclick="openFormatModal('Eventos & Formaturas')" class="w-full bg-amber-500 hover:bg-amber-600 text-black font-bold py-3 rounded-xl text-sm flex items-center justify-center gap-2">Quero este formato <i data-lucide="arrow-right" class="w-4 h-4"></i></button>
+          <button onclick="openFormatModal('Eventos & Formaturas')" class="w-full bg-amber-500 hover:bg-amber-600 text-black font-bold py-3 rounded-xl text-sm flex items-center justify-center gap-2 cursor-pointer">Quero este formato <i data-lucide="arrow-right" class="w-4 h-4"></i></button>
         </div>
       </div>
     </section>
@@ -418,7 +418,7 @@
     <!-- CTA Final / Orçamento -->
     <section id="secaoOrcamentoWpp" class="py-20 bg-brand-cardBg/40 border-t border-brand-border px-4 sm:px-6 lg:px-8 text-center space-y-6">
       <h2 class="text-3xl font-extrabold text-white">Pronto para garantir a trilha sonora perfeita?</h2>
-      <button onclick="openFormatModal('Formato Geral')" class="bg-amber-500 hover:bg-amber-600 text-black font-extrabold px-8 py-4 rounded-2xl shadow-xl transition-all">
+      <button onclick="openFormatModal('Formato Geral')" class="bg-amber-500 hover:bg-amber-600 text-black font-extrabold px-8 py-4 rounded-2xl shadow-xl transition-all cursor-pointer">
         Conferir Formatos & Orçar Show
       </button>
     </section>
@@ -441,22 +441,22 @@
         </div>
 
         <nav class="space-y-1">
-          <button onclick="switchTab('tabDashboard')" id="btnTabDashboard" class="tab-menu-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl text-xs font-semibold bg-amber-500/10 text-amber-400 border border-amber-500/35 transition-all">
+          <button onclick="switchTab('tabDashboard')" id="btnTabDashboard" class="tab-menu-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl text-xs font-semibold bg-amber-500/10 text-amber-400 border border-amber-500/35 transition-all cursor-pointer">
             <i data-lucide="layout-dashboard" class="w-4 h-4"></i> Dashboard
           </button>
-          <button onclick="switchTab('tabBio')" id="btnTabBio" class="tab-menu-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl text-xs font-semibold text-zinc-400 hover:bg-zinc-800 hover:text-white transition-all">
+          <button onclick="switchTab('tabBio')" id="btnTabBio" class="tab-menu-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl text-xs font-semibold text-zinc-400 hover:bg-zinc-800 hover:text-white transition-all cursor-pointer">
             <i data-lucide="user" class="w-4 h-4"></i> Perfil, Bio & Redes
           </button>
-          <button onclick="switchTab('tabMedia')" id="btnTabMedia" class="tab-menu-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl text-xs font-semibold text-zinc-400 hover:bg-zinc-800 hover:text-white transition-all">
+          <button onclick="switchTab('tabMedia')" id="btnTabMedia" class="tab-menu-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl text-xs font-semibold text-zinc-400 hover:bg-zinc-800 hover:text-white transition-all cursor-pointer">
             <i data-lucide="video" class="w-4 h-4"></i> Mídias & Streaming
           </button>
-          <button onclick="switchTab('tabEvents')" id="btnTabEvents" class="tab-menu-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl text-xs font-semibold text-zinc-400 hover:bg-zinc-800 hover:text-white transition-all">
+          <button onclick="switchTab('tabEvents')" id="btnTabEvents" class="tab-menu-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl text-xs font-semibold text-zinc-400 hover:bg-zinc-800 hover:text-white transition-all cursor-pointer">
             <i data-lucide="calendar-check" class="w-4 h-4"></i> Eventos
           </button>
-          <button onclick="switchTab('tabTeam')" id="btnTabTeam" class="tab-menu-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl text-xs font-semibold text-zinc-400 hover:bg-zinc-800 hover:text-white transition-all">
+          <button onclick="switchTab('tabTeam')" id="btnTabTeam" class="tab-menu-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl text-xs font-semibold text-zinc-400 hover:bg-zinc-800 hover:text-white transition-all cursor-pointer">
             <i data-lucide="users" class="w-4 h-4"></i> Gestão de Equipe
           </button>
-          <button onclick="switchTab('tabCalendar')" id="btnTabCalendar" class="tab-menu-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl text-xs font-semibold text-zinc-400 hover:bg-zinc-800 hover:text-white transition-all">
+          <button onclick="switchTab('tabCalendar')" id="btnTabCalendar" class="tab-menu-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl text-xs font-semibold text-zinc-400 hover:bg-zinc-800 hover:text-white transition-all cursor-pointer">
             <i data-lucide="calendar" class="w-4 h-4"></i> Google Agenda
           </button>
         </nav>
@@ -464,7 +464,7 @@
 
       <!-- Rodapé do menu com botão de alternar tema claro/escuro -->
       <div class="pt-6 border-t border-zinc-800 space-y-3">
-        <button onclick="toggleTheme()" class="w-full flex items-center justify-center gap-2 p-3 rounded-xl bg-zinc-900 border border-zinc-800 text-amber-400 hover:bg-zinc-800 transition-colors text-xs font-bold">
+        <button onclick="toggleTheme()" class="w-full flex items-center justify-center gap-2 p-3 rounded-xl bg-zinc-900 border border-zinc-800 text-amber-400 hover:bg-zinc-800 transition-colors text-xs font-bold cursor-pointer">
           <i data-lucide="sun" id="dashThemeIcon" class="w-4 h-4"></i> Alternar Tema
         </button>
         <p class="text-[10px] text-zinc-500 text-center">StageKit v2.6 — Casa 6</p>
@@ -488,7 +488,7 @@
           <div class="flex flex-col sm:flex-row items-center gap-2 pt-1">
             <span class="text-xs text-zinc-400 font-mono select-none bg-zinc-900 px-3 py-2.5 rounded-xl border border-zinc-700">stagekitcasa6.vercel.app/</span>
             <input type="text" id="customSlugInput" value="" oninput="updateCustomLinkPreview()" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl px-4 py-2.5 text-xs text-amber-400 font-mono">
-            <button onclick="copyCustomPressKitLink()" class="bg-amber-500 hover:bg-amber-600 text-black font-bold px-5 py-2.5 rounded-xl text-xs shrink-0 flex items-center justify-center gap-2">
+            <button onclick="copyCustomPressKitLink()" class="bg-amber-500 hover:bg-amber-600 text-black font-bold px-5 py-2.5 rounded-xl text-xs shrink-0 flex items-center justify-center gap-2 cursor-pointer">
               <i data-lucide="copy" class="w-4 h-4"></i> Copiar Link
             </button>
           </div>
@@ -497,7 +497,7 @@
 
         <!-- Botão Único "Ver meu Press Kit" -->
         <div class="flex justify-start">
-          <button onclick="showPublicPressKit()" class="bg-amber-500 hover:bg-amber-600 text-black font-extrabold py-3 px-6 rounded-xl text-xs flex items-center gap-2 shadow-md transition-all">
+          <button onclick="showPublicPressKit()" class="bg-amber-500 hover:bg-amber-600 text-black font-extrabold py-3 px-6 rounded-xl text-xs flex items-center gap-2 shadow-md transition-all cursor-pointer">
             <i data-lucide="eye" class="w-4 h-4"></i> Ver meu Press Kit
           </button>
         </div>
@@ -576,7 +576,7 @@
               </div>
             </div>
           </div>
-          <button onclick="saveArtistEdits()" class="bg-amber-500 hover:bg-amber-600 text-black font-extrabold py-3 px-6 rounded-xl shadow-md">Salvar & Atualizar Press Kit</button>
+          <button onclick="saveArtistEdits()" class="bg-amber-500 hover:bg-amber-600 text-black font-extrabold py-3 px-6 rounded-xl shadow-md cursor-pointer">Salvar & Atualizar Press Kit</button>
         </div>
       </div>
 
@@ -624,7 +624,7 @@
               <input type="file" id="fileFormat3" accept="image/jpeg" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-2 text-zinc-300 text-xs">
             </div>
           </div>
-          <button onclick="saveArtistEdits()" class="bg-amber-500 hover:bg-amber-600 text-black font-extrabold py-3 px-6 rounded-xl shadow-md">Salvar Mídias & Formatos</button>
+          <button onclick="saveArtistEdits()" class="bg-amber-500 hover:bg-amber-600 text-black font-extrabold py-3 px-6 rounded-xl shadow-md cursor-pointer">Salvar Mídias & Formatos</button>
         </div>
       </div>
 
@@ -672,7 +672,7 @@
               <input type="number" id="newEventFuel" placeholder="200" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white">
             </div>
           </div>
-          <button onclick="addNewEvent()" class="bg-amber-500 hover:bg-amber-600 text-black font-extrabold py-3 px-6 rounded-xl shadow-md">Adicionar Evento & Enviar p/ Todos os Músicos (WhatsApp)</button>
+          <button onclick="addNewEvent()" class="bg-amber-500 hover:bg-amber-600 text-black font-extrabold py-3 px-6 rounded-xl shadow-md cursor-pointer">Adicionar Evento & Enviar p/ Todos os Músicos (WhatsApp)</button>
         </div>
 
         <div class="bg-brand-cardBg border border-brand-border p-6 rounded-2xl space-y-4">
@@ -706,7 +706,7 @@
               <input type="text" id="newMusicianWhatsapp" placeholder="21999999999" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white">
             </div>
           </div>
-          <button onclick="addNewMusician()" class="bg-amber-500 hover:bg-amber-600 text-black font-extrabold py-3 px-6 rounded-xl shadow-md">Adicionar Músico</button>
+          <button onclick="addNewMusician()" class="bg-amber-500 hover:bg-amber-600 text-black font-extrabold py-3 px-6 rounded-xl shadow-md cursor-pointer">Adicionar Músico</button>
         </div>
 
         <div class="bg-brand-cardBg border border-brand-border p-6 rounded-2xl space-y-4">
@@ -732,7 +732,7 @@
                 <p class="text-[11px] text-zinc-500">Sincronize seus shows diretamente com o Google Calendar.</p>
               </div>
             </div>
-            <button onclick="connectGoogleCalendar()" id="connectCalendarBtn" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2.5 px-5 rounded-xl shadow-md transition-all">
+            <button onclick="connectGoogleCalendar()" id="connectCalendarBtn" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2.5 px-5 rounded-xl shadow-md transition-all cursor-pointer">
               Conectar Google Agenda
             </button>
           </div>
@@ -752,7 +752,7 @@
   <!-- ==================== MODAL DE CADASTRO (ONBOARDING) ==================== -->
   <div id="registerModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-4 overflow-y-auto">
     <div class="bg-brand-cardBg border border-brand-border rounded-3xl max-w-lg w-full p-6 sm:p-8 space-y-6 shadow-2xl relative my-8">
-      <button onclick="closeRegisterModal()" class="absolute top-6 right-6 text-zinc-400 hover:text-white"><i data-lucide="x" class="w-5 h-5"></i></button>
+      <button onclick="closeRegisterModal()" class="absolute top-6 right-6 text-zinc-400 hover:text-white cursor-pointer"><i data-lucide="x" class="w-5 h-5"></i></button>
       
       <div>
         <span class="text-xs font-bold text-amber-500 uppercase">Crie seu StageKit</span>
@@ -793,7 +793,7 @@
           </div>
         </div>
 
-        <button onclick="submitRegister()" class="w-full bg-amber-500 hover:bg-amber-600 text-black font-extrabold py-3.5 rounded-xl text-sm shadow-md transition-all mt-2">
+        <button onclick="submitRegister()" class="w-full bg-amber-500 hover:bg-amber-600 text-black font-extrabold py-3.5 rounded-xl text-sm shadow-md transition-all mt-2 cursor-pointer">
           Criar Conta & Acessar Painel
         </button>
 
@@ -804,13 +804,13 @@
         </div>
 
         <div class="grid grid-cols-3 gap-2">
-          <button onclick="startSocialAuth('Gmail')" class="bg-zinc-900 hover:bg-zinc-800 text-white border border-zinc-700 font-bold py-2.5 rounded-xl flex items-center justify-center gap-1.5 text-[11px]">
+          <button onclick="startSocialAuth('Gmail')" class="bg-zinc-900 hover:bg-zinc-800 text-white border border-zinc-700 font-bold py-2.5 rounded-xl flex items-center justify-center gap-1.5 text-[11px] cursor-pointer">
             <i data-lucide="mail" class="w-3.5 h-3.5 text-amber-500"></i> Gmail
           </button>
-          <button onclick="startSocialAuth('iCloud')" class="bg-zinc-900 hover:bg-zinc-800 text-white border border-zinc-700 font-bold py-2.5 rounded-xl flex items-center justify-center gap-1.5 text-[11px]">
+          <button onclick="startSocialAuth('iCloud')" class="bg-zinc-900 hover:bg-zinc-800 text-white border border-zinc-700 font-bold py-2.5 rounded-xl flex items-center justify-center gap-1.5 text-[11px] cursor-pointer">
             <i data-lucide="apple" class="w-3.5 h-3.5 text-zinc-300"></i> iCloud
           </button>
-          <button onclick="startSocialAuth('Hotmail')" class="bg-zinc-900 hover:bg-zinc-800 text-white border border-zinc-700 font-bold py-2.5 rounded-xl flex items-center justify-center gap-1.5 text-[11px]">
+          <button onclick="startSocialAuth('Hotmail')" class="bg-zinc-900 hover:bg-zinc-800 text-white border border-zinc-700 font-bold py-2.5 rounded-xl flex items-center justify-center gap-1.5 text-[11px] cursor-pointer">
             <i data-lucide="globe" class="w-3.5 h-3.5 text-blue-400"></i> Hotmail
           </button>
         </div>
@@ -821,20 +821,20 @@
   <!-- ==================== MODAL DE LOGIN ==================== -->
   <div id="loginModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
     <div class="bg-brand-cardBg border border-brand-border rounded-3xl max-w-md w-full p-6 sm:p-8 space-y-6 shadow-2xl relative">
-      <button onclick="closeLoginModal()" class="absolute top-6 right-6 text-zinc-400 hover:text-white"><i data-lucide="x" class="w-5 h-5"></i></button>
+      <button onclick="closeLoginModal()" class="absolute top-6 right-6 text-zinc-400 hover:text-white cursor-pointer"><i data-lucide="x" class="w-5 h-5"></i></button>
       <div>
         <span class="text-xs font-bold text-amber-500 uppercase">Área do Artista</span>
         <h3 class="text-2xl font-bold text-white mt-1">Entrar no Painel</h3>
       </div>
       
       <div class="grid grid-cols-3 gap-2">
-        <button onclick="startSocialAuth('Gmail')" class="bg-zinc-900 hover:bg-zinc-800 text-white border border-zinc-700 font-bold py-2 rounded-xl flex items-center justify-center gap-1 text-[11px]">
+        <button onclick="startSocialAuth('Gmail')" class="bg-zinc-900 hover:bg-zinc-800 text-white border border-zinc-700 font-bold py-2 rounded-xl flex items-center justify-center gap-1 text-[11px] cursor-pointer">
           <i data-lucide="mail" class="w-3.5 h-3.5 text-amber-500"></i> Gmail
         </button>
-        <button onclick="startSocialAuth('iCloud')" class="bg-zinc-900 hover:bg-zinc-800 text-white border border-zinc-700 font-bold py-2 rounded-xl flex items-center justify-center gap-1 text-[11px]">
+        <button onclick="startSocialAuth('iCloud')" class="bg-zinc-900 hover:bg-zinc-800 text-white border border-zinc-700 font-bold py-2 rounded-xl flex items-center justify-center gap-1 text-[11px] cursor-pointer">
           <i data-lucide="apple" class="w-3.5 h-3.5 text-zinc-300"></i> iCloud
         </button>
-        <button onclick="startSocialAuth('Hotmail')" class="bg-zinc-900 hover:bg-zinc-800 text-white border border-zinc-700 font-bold py-2 rounded-xl flex items-center justify-center gap-1 text-[11px]">
+        <button onclick="startSocialAuth('Hotmail')" class="bg-zinc-900 hover:bg-zinc-800 text-white border border-zinc-700 font-bold py-2 rounded-xl flex items-center justify-center gap-1 text-[11px] cursor-pointer">
           <i data-lucide="globe" class="w-3.5 h-3.5 text-blue-400"></i> Hotmail
         </button>
       </div>
@@ -854,7 +854,7 @@
           <label class="block font-semibold text-zinc-300 mb-1">Senha</label>
           <input type="password" id="loginPassword" onkeypress="handleLoginKey(event)" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white" value="">
         </div>
-        <button onclick="submitLogin()" class="w-full bg-amber-500 hover:bg-amber-600 text-black font-extrabold py-3 rounded-xl text-sm shadow-md">
+        <button onclick="submitLogin()" class="w-full bg-amber-500 hover:bg-amber-600 text-black font-extrabold py-3 rounded-xl text-sm shadow-md cursor-pointer">
           Entrar no Painel
         </button>
       </div>
@@ -864,7 +864,7 @@
   <!-- ==================== MODAL DE AUTENTICAÇÃO SOCIAL (COM CREDENCIAIS REAIS EMAILJS) ==================== -->
   <div id="socialAuthModal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-sm hidden flex items-center justify-center p-4">
     <div class="bg-brand-cardBg border border-brand-border rounded-3xl max-w-md w-full p-6 sm:p-8 space-y-6 shadow-2xl relative text-center">
-      <button onclick="closeSocialAuthModal()" class="absolute top-6 right-6 text-zinc-400 hover:text-white"><i data-lucide="x" class="w-5 h-5"></i></button>
+      <button onclick="closeSocialAuthModal()" class="absolute top-6 right-6 text-zinc-400 hover:text-white cursor-pointer"><i data-lucide="x" class="w-5 h-5"></i></button>
       
       <div id="socialAuthStep1" class="space-y-4">
         <div id="socialAuthIconContainer" class="w-16 h-16 rounded-2xl bg-amber-500/10 text-amber-500 flex items-center justify-center mx-auto text-2xl font-bold">
@@ -879,7 +879,7 @@
             <label class="block font-semibold text-zinc-300 mb-1">E-mail de Acesso *</label>
             <input type="email" id="socialAuthEmailInput" placeholder="seu@email.com" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white">
           </div>
-          <button onclick="sendRealVerificationCode()" class="w-full bg-amber-500 hover:bg-amber-600 text-black font-extrabold py-3 rounded-xl shadow-md transition-all">
+          <button onclick="sendRealVerificationCode()" class="w-full bg-amber-500 hover:bg-amber-600 text-black font-extrabold py-3 rounded-xl shadow-md transition-all cursor-pointer">
             Enviar Código por E-mail
           </button>
         </div>
@@ -898,7 +898,7 @@
             <label class="block font-semibold text-zinc-300 mb-1">Código de 6 Dígitos</label>
             <input type="text" id="socialAuthCodeInput" placeholder="123456" maxlength="6" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white text-center text-lg font-mono tracking-widest">
           </div>
-          <button onclick="verifyRealCode()" class="w-full bg-emerald-500 hover:bg-emerald-600 text-black font-extrabold py-3 rounded-xl shadow-md transition-all">
+          <button onclick="verifyRealCode()" class="w-full bg-emerald-500 hover:bg-emerald-600 text-black font-extrabold py-3 rounded-xl shadow-md transition-all cursor-pointer">
             Validar & Acessar Painel
           </button>
         </div>
@@ -910,7 +910,7 @@
   <div id="formatModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
     <div class="bg-brand-cardBg border border-brand-border rounded-3xl max-w-lg w-full max-h-[90vh] flex flex-col p-6 sm:p-8 space-y-4 shadow-2xl relative">
       
-      <button onclick="closeFormatModal()" class="absolute top-6 right-6 text-zinc-400 hover:text-white z-20 bg-zinc-900/80 p-1.5 rounded-full border border-zinc-700"><i data-lucide="x" class="w-5 h-5"></i></button>
+      <button onclick="closeFormatModal()" class="absolute top-6 right-6 text-zinc-400 hover:text-white z-20 bg-zinc-900/80 p-1.5 rounded-full border border-zinc-700 cursor-pointer"><i data-lucide="x" class="w-5 h-5"></i></button>
       
       <div class="shrink-0 pr-10">
         <span class="text-xs font-bold text-amber-500 uppercase" id="modalFormatSubtitle">ORÇAMENTO DE SHOW</span>
@@ -974,7 +974,7 @@
       </div>
 
       <div class="shrink-0 pt-2">
-        <button id="modalSubmitBtn" onclick="sendWhatsAppBudget()" class="w-full bg-emerald-500 hover:bg-emerald-600 text-black font-extrabold py-3 rounded-xl text-sm flex items-center justify-center gap-2 shadow-lg">
+        <button id="modalSubmitBtn" onclick="sendWhatsAppBudget()" class="w-full bg-emerald-500 hover:bg-emerald-600 text-black font-extrabold py-3 rounded-xl text-sm flex items-center justify-center gap-2 shadow-lg cursor-pointer">
           <i data-lucide="message-square" class="w-4 h-4"></i> Verificar Disponibilidade & Enviar WhatsApp
         </button>
       </div>
@@ -982,8 +982,6 @@
   </div>
 
   <script>
-    lucide.createIcons();
-
     // Estado padrão genérico com "SEU NOME" para amostras
     let artistData = JSON.parse(localStorage.getItem('stagekit_artist')) || {
       whatsapp: "(21)98936-8930",
@@ -1027,6 +1025,7 @@
       
       handleRouting();
       window.addEventListener('popstate', handleRouting);
+      try { lucide.createIcons(); } catch(e) {}
     }
 
     // Roteador ultra-robusto (suporta colagem direta de URL, hash, query strings e rotas Vercel)
@@ -1049,54 +1048,83 @@
     }
 
     function loadInputsFromState() {
-      document.getElementById('editArtistMainName').value = artistData.artistMainName;
-      document.getElementById('editTitle').value = artistData.title;
-      document.getElementById('editBio').value = artistData.bio;
-      document.getElementById('editInstagram').value = artistData.instagram;
-      document.getElementById('editTiktok').value = artistData.tiktok;
-      document.getElementById('editFacebook').value = artistData.facebook;
-      document.getElementById('editSpotify').value = artistData.spotify;
-      document.getElementById('editDeezer').value = artistData.deezer;
-      document.getElementById('editApple').value = artistData.apple;
-      document.getElementById('editYoutubeMusic').value = artistData.youtubeMusic;
-      document.getElementById('customSlugInput').value = artistData.slug;
+      const elName = document.getElementById('editArtistMainName');
+      if(elName) elName.value = artistData.artistMainName;
+      const elTitle = document.getElementById('editTitle');
+      if(elTitle) elTitle.value = artistData.title;
+      const elBio = document.getElementById('editBio');
+      if(elBio) elBio.value = artistData.bio;
+      const elInsta = document.getElementById('editInstagram');
+      if(elInsta) elInsta.value = artistData.instagram;
+      const elTk = document.getElementById('editTiktok');
+      if(elTk) elTk.value = artistData.tiktok;
+      const elFb = document.getElementById('editFacebook');
+      if(elFb) elFb.value = artistData.facebook;
+      const elSp = document.getElementById('editSpotify');
+      if(elSp) elSp.value = artistData.spotify;
+      const elDz = document.getElementById('editDeezer');
+      if(elDz) elDz.value = artistData.deezer;
+      const elAp = document.getElementById('editApple');
+      if(elAp) elAp.value = artistData.apple;
+      const elYt = document.getElementById('editYoutubeMusic');
+      if(elYt) elYt.value = artistData.youtubeMusic;
+      const elSlug = document.getElementById('customSlugInput');
+      if(elSlug) elSlug.value = artistData.slug;
       
       applyPublicData();
     }
 
     function applyPublicData() {
-      document.getElementById('displayArtistMainName').innerText = artistData.artistMainName;
-      document.getElementById('displayArtistName').innerText = artistData.artistMainName;
-      document.getElementById('displayTitle').innerText = artistData.title;
-      document.getElementById('displayBio').innerText = artistData.bio;
-      document.getElementById('fullSlugPreview').innerText = `stagekitcasa6.vercel.app/${artistData.slug}`;
+      const e1 = document.getElementById('displayArtistMainName');
+      if(e1) e1.innerText = artistData.artistMainName;
+      const e2 = document.getElementById('displayArtistName');
+      if(e2) e2.innerText = artistData.artistMainName;
+      const e3 = document.getElementById('displayTitle');
+      if(e3) e3.innerText = artistData.title;
+      const e4 = document.getElementById('displayBio');
+      if(e4) e4.innerText = artistData.bio;
+      const e5 = document.getElementById('fullSlugPreview');
+      if(e5) e5.innerText = `stagekitcasa6.vercel.app/${artistData.slug}`;
 
-      if(artistData.formatPhoto1) document.getElementById('displayFormatPhoto1').src = artistData.formatPhoto1;
-      if(artistData.formatPhoto2) document.getElementById('displayFormatPhoto2').src = artistData.formatPhoto2;
-      if(artistData.formatPhoto3) document.getElementById('displayFormatPhoto3').src = artistData.formatPhoto3;
+      if(artistData.formatPhoto1) {
+        const p1 = document.getElementById('displayFormatPhoto1');
+        if(p1) p1.src = artistData.formatPhoto1;
+      }
+      if(artistData.formatPhoto2) {
+        const p2 = document.getElementById('displayFormatPhoto2');
+        if(p2) p2.src = artistData.formatPhoto2;
+      }
+      if(artistData.formatPhoto3) {
+        const p3 = document.getElementById('displayFormatPhoto3');
+        if(p3) p3.src = artistData.formatPhoto3;
+      }
 
       const instaBtn = document.getElementById('headerInsta');
-      if(artistData.instagram && artistData.instagram !== 'seunomeaqui') {
-        instaBtn.href = `https://www.instagram.com/${artistData.instagram}`;
-        instaBtn.classList.remove('hidden');
-      } else {
-        instaBtn.classList.add('hidden');
+      if(instaBtn) {
+        if(artistData.instagram && artistData.instagram !== 'seunomeaqui') {
+          instaBtn.href = `https://www.instagram.com/${artistData.instagram}`;
+          instaBtn.classList.remove('hidden');
+        } else {
+          instaBtn.classList.add('hidden');
+        }
       }
 
       // Vídeo em Destaque (Exibe "Em Construção" caso não haja link cadastrado)
       const ytFrame = document.getElementById('displayHeroVideo');
       const ytPlaceholder = document.getElementById('videoPlaceholder');
-      if(artistData.youtubeMusic && artistData.youtubeMusic.includes('http')) {
-        let embedUrl = artistData.youtubeMusic;
-        if(embedUrl.includes('watch?v=')) {
-          embedUrl = embedUrl.replace('watch?v=', 'embed/');
+      if(ytFrame && ytPlaceholder) {
+        if(artistData.youtubeMusic && artistData.youtubeMusic.includes('http')) {
+          let embedUrl = artistData.youtubeMusic;
+          if(embedUrl.includes('watch?v=')) {
+            embedUrl = embedUrl.replace('watch?v=', 'embed/');
+          }
+          ytFrame.src = embedUrl;
+          ytFrame.classList.remove('hidden');
+          ytPlaceholder.classList.add('hidden');
+        } else {
+          ytFrame.classList.add('hidden');
+          ytPlaceholder.classList.remove('hidden');
         }
-        ytFrame.src = embedUrl;
-        ytFrame.classList.remove('hidden');
-        ytPlaceholder.classList.add('hidden');
-      } else {
-        ytFrame.classList.add('hidden');
-        ytPlaceholder.classList.remove('hidden');
       }
 
       toggleStreamingLink('linkSpotify', artistData.spotify);
@@ -1107,6 +1135,7 @@
 
     function toggleStreamingLink(elementId, url) {
       const el = document.getElementById(elementId);
+      if(!el) return;
       if(url) {
         el.href = url;
         el.classList.remove('hidden');
@@ -1116,29 +1145,41 @@
     }
 
     function goHome() {
-      window.history.pushState({}, '', '/');
-      document.getElementById('landingPage').classList.remove('hidden');
-      document.getElementById('contractorView').classList.add('hidden');
-      document.getElementById('artistDashboard').classList.add('hidden');
-      document.getElementById('landingHeaderActions').classList.remove('hidden');
-      document.getElementById('panelHeaderActions').classList.add('hidden');
+      try { window.history.pushState({}, '', '/'); } catch(e) {}
+      const lp = document.getElementById('landingPage');
+      if(lp) lp.classList.remove('hidden');
+      const cv = document.getElementById('contractorView');
+      if(cv) cv.classList.add('hidden');
+      const ad = document.getElementById('artistDashboard');
+      if(ad) ad.classList.add('hidden');
+      const lha = document.getElementById('landingHeaderActions');
+      if(lha) lha.classList.remove('hidden');
+      const pha = document.getElementById('panelHeaderActions');
+      if(pha) pha.classList.add('hidden');
     }
 
     // Navegação por âncoras na prévia
     function previewSampleSection(sectionKey) {
-      window.history.pushState({}, '', `/${artistData.slug}`);
-      document.getElementById('landingPage').classList.add('hidden');
-      document.getElementById('contractorView').classList.remove('hidden');
-      document.getElementById('artistDashboard').classList.add('hidden');
-      document.getElementById('landingHeaderActions').classList.add('hidden');
-      document.getElementById('panelHeaderActions').classList.remove('hidden');
+      try { window.history.pushState({}, '', `/${artistData.slug}`); } catch(e) {}
+      const lp = document.getElementById('landingPage');
+      if(lp) lp.classList.add('hidden');
+      const cv = document.getElementById('contractorView');
+      if(cv) cv.classList.remove('hidden');
+      const ad = document.getElementById('artistDashboard');
+      if(ad) ad.classList.add('hidden');
+      const lha = document.getElementById('landingHeaderActions');
+      if(lha) lha.classList.add('hidden');
+      const pha = document.getElementById('panelHeaderActions');
+      if(pha) pha.classList.remove('hidden');
       applyPublicData();
 
       setTimeout(() => {
         if(sectionKey === 'videos') {
-          document.getElementById('secaoVideosReais').scrollIntoView({ behavior: 'smooth' });
+          const sec = document.getElementById('secaoVideosReais');
+          if(sec) sec.scrollIntoView({ behavior: 'smooth' });
         } else if(sectionKey === 'formatos') {
-          document.getElementById('formatos').scrollIntoView({ behavior: 'smooth' });
+          const fmt = document.getElementById('formatos');
+          if(fmt) fmt.scrollIntoView({ behavior: 'smooth' });
         } else if(sectionKey === 'orcamento') {
           openFormatModal('Orçamento Geral', true); // Modo amostra estática
         }
@@ -1150,29 +1191,42 @@
     }
 
     function showArtistDashboard() {
-      window.history.pushState({}, '', '/dashboard');
-      document.getElementById('landingPage').classList.add('hidden');
-      document.getElementById('contractorView').classList.add('hidden');
-      document.getElementById('artistDashboard').classList.remove('hidden');
-      document.getElementById('landingHeaderActions').classList.add('hidden');
-      document.getElementById('panelHeaderActions').classList.add('hidden');
+      try { window.history.pushState({}, '', '/dashboard'); } catch(e) {}
+      const lp = document.getElementById('landingPage');
+      if(lp) lp.classList.add('hidden');
+      const cv = document.getElementById('contractorView');
+      if(cv) cv.classList.add('hidden');
+      const ad = document.getElementById('artistDashboard');
+      if(ad) ad.classList.remove('hidden');
+      const lha = document.getElementById('landingHeaderActions');
+      if(lha) lha.classList.add('hidden');
+      const pha = document.getElementById('panelHeaderActions');
+      if(pha) pha.classList.add('hidden');
       switchTab('tabDashboard');
     }
 
     function openLoginModal() { 
-      document.getElementById('loginEmail').value = '';
-      document.getElementById('loginPassword').value = '';
-      document.getElementById('loginModal').classList.remove('hidden'); 
+      const le = document.getElementById('loginEmail');
+      if(le) le.value = '';
+      const lp = document.getElementById('loginPassword');
+      if(lp) lp.value = '';
+      const lm = document.getElementById('loginModal');
+      if(lm) lm.classList.remove('hidden'); 
     }
-    function closeLoginModal() { document.getElementById('loginModal').classList.add('hidden'); }
+    function closeLoginModal() {
+      const lm = document.getElementById('loginModal');
+      if(lm) lm.classList.add('hidden');
+    }
     
     function handleLoginKey(e) {
       if(e.key === 'Enter') submitLogin();
     }
 
     function submitLogin() {
-      const email = document.getElementById('loginEmail').value.trim();
-      const pass = document.getElementById('loginPassword').value.trim();
+      const le = document.getElementById('loginEmail');
+      const lp = document.getElementById('loginPassword');
+      const email = le ? le.value.trim() : '';
+      const pass = lp ? lp.value.trim() : '';
 
       if(email === artistData.registeredEmail && pass === artistData.registeredPassword) {
         closeLoginModal();
@@ -1183,22 +1237,38 @@
     }
 
     function openRegisterModal() { 
-      document.getElementById('regFullName').value = '';
-      document.getElementById('regBirthDate').value = '';
-      document.getElementById('regPhone').value = '(21)';
-      document.getElementById('regEmail').value = '';
-      document.getElementById('regPassword').value = '';
-      document.getElementById('regCpf').value = '';
-      document.getElementById('regMusicianId').value = '';
-      document.getElementById('registerModal').classList.remove('hidden'); 
+      const rf = document.getElementById('regFullName');
+      if(rf) rf.value = '';
+      const rb = document.getElementById('regBirthDate');
+      if(rb) rb.value = '';
+      const rp = document.getElementById('regPhone');
+      if(rp) rp.value = '(21)';
+      const re = document.getElementById('regEmail');
+      if(re) re.value = '';
+      const rpass = document.getElementById('regPassword');
+      if(rpass) rpass.value = '';
+      const rcpf = document.getElementById('regCpf');
+      if(rcpf) rcpf.value = '';
+      const rmid = document.getElementById('regMusicianId');
+      if(rmid) rmid.value = '';
+      const rm = document.getElementById('registerModal');
+      if(rm) rm.classList.remove('hidden'); 
     }
-    function closeRegisterModal() { document.getElementById('registerModal').classList.add('hidden'); }
+    function closeRegisterModal() {
+      const rm = document.getElementById('registerModal');
+      if(rm) rm.classList.add('hidden');
+    }
     
     function submitRegister() {
-      const fullName = document.getElementById('regFullName').value.trim();
-      const phone = document.getElementById('regPhone').value.trim();
-      const email = document.getElementById('regEmail').value.trim();
-      const pass = document.getElementById('regPassword').value.trim();
+      const rf = document.getElementById('regFullName');
+      const rp = document.getElementById('regPhone');
+      const re = document.getElementById('regEmail');
+      const rpass = document.getElementById('regPassword');
+
+      const fullName = rf ? rf.value.trim() : '';
+      const phone = rp ? rp.value.trim() : '';
+      const email = re ? re.value.trim() : '';
+      const pass = rpass ? rpass.value.trim() : '';
       
       if(!fullName || !email || !pass) { 
         alert('Preencha os campos obrigatórios (Nome, E-mail e Senha).'); 
@@ -1223,25 +1293,35 @@
       closeLoginModal();
       closeRegisterModal();
 
-      document.getElementById('socialAuthTitle').innerText = `Autenticar com ${provider}`;
-      if(provider === 'iCloud') {
-        document.getElementById('socialAuthSubtitle').innerText = 'Insira seu ID Apple e e-mail para receber o código de verificação.';
-      } else {
-        document.getElementById('socialAuthSubtitle').innerText = `Informe seu e-mail para receber o código de verificação via ${provider}.`;
+      const sat = document.getElementById('socialAuthTitle');
+      if(sat) sat.innerText = `Autenticar com ${provider}`;
+      const sas = document.getElementById('socialAuthSubtitle');
+      if(sas) {
+        if(provider === 'iCloud') {
+          sas.innerText = 'Insira seu ID Apple e e-mail para receber o código de verificação.';
+        } else {
+          sas.innerText = `Informe seu e-mail para receber o código de verificação via ${provider}.`;
+        }
       }
 
-      document.getElementById('socialAuthStep1').classList.remove('hidden');
-      document.getElementById('socialAuthStep2').classList.add('hidden');
-      document.getElementById('socialAuthEmailInput').value = '';
-      document.getElementById('socialAuthModal').classList.remove('hidden');
+      const s1 = document.getElementById('socialAuthStep1');
+      if(s1) s1.classList.remove('hidden');
+      const s2 = document.getElementById('socialAuthStep2');
+      if(s2) s2.classList.add('hidden');
+      const sae = document.getElementById('socialAuthEmailInput');
+      if(sae) sae.value = '';
+      const sam = document.getElementById('socialAuthModal');
+      if(sam) sam.classList.remove('hidden');
     }
 
     function closeSocialAuthModal() {
-      document.getElementById('socialAuthModal'].classList.add('hidden');
+      const sam = document.getElementById('socialAuthModal');
+      if(sam) sam.classList.add('hidden');
     }
 
     function sendRealVerificationCode() {
-      const email = document.getElementById('socialAuthEmailInput').value.trim();
+      const sae = document.getElementById('socialAuthEmailInput');
+      const email = sae ? sae.value.trim() : '';
       if(!email || !email.includes('@')) {
         alert('Por favor, informe um e-mail válido.');
         return;
@@ -1261,9 +1341,12 @@
         emailjs.send("service_stagekit", "template_vrl1qan", templateParams)
           .then(() => {
             alert(`Código de verificação enviado com sucesso para ${email}! Verifique sua caixa de entrada.`);
-            document.getElementById('socialAuthStep1').classList.add('hidden');
-            document.getElementById('socialAuthStep2').classList.remove('hidden');
-            document.getElementById('socialAuthCodeInput').value = '';
+            const s1 = document.getElementById('socialAuthStep1');
+            if(s1) s1.classList.add('hidden');
+            const s2 = document.getElementById('socialAuthStep2');
+            if(s2) s2.classList.remove('hidden');
+            const sac = document.getElementById('socialAuthCodeInput');
+            if(sac) sac.value = '';
           }, (err) => {
             console.error('Erro EmailJS:', err);
             alert('Erro ao enviar e-mail. Verifique o Service ID ou Template ID no painel do EmailJS.');
@@ -1275,13 +1358,15 @@
     }
 
     function verifyRealCode() {
-      const enteredCode = document.getElementById('socialAuthCodeInput').value.trim();
+      const sac = document.getElementById('socialAuthCodeInput');
+      const enteredCode = sac ? sac.value.trim() : '';
       if(enteredCode !== generatedVerificationCode) {
         alert('Código incorreto! Digite o código de 6 dígitos enviado para o seu e-mail.');
         return;
       }
 
-      const email = document.getElementById('socialAuthEmailInput').value.trim();
+      const sae = document.getElementById('socialAuthEmailInput');
+      const email = sae ? sae.value.trim() : '';
       artistData.registeredEmail = email;
       artistData.artistMainName = "MEU NOME ARTÍSTICO";
       artistData.slug = "meunome";
@@ -1299,7 +1384,8 @@
 
     function switchTab(tabId) {
       document.querySelectorAll('.dashboard-tab').forEach(t => t.classList.add('hidden'));
-      document.getElementById(tabId).classList.remove('hidden');
+      const activeTab = document.getElementById(tabId);
+      if(activeTab) activeTab.classList.remove('hidden');
 
       document.querySelectorAll('.tab-menu-btn').forEach(btn => {
         btn.classList.remove('bg-amber-500/10', 'text-amber-400', 'border', 'border-amber-500/35');
@@ -1318,43 +1404,62 @@
       const activeBtnId = activeBtnMap[tabId];
       if(activeBtnId) {
         const btn = document.getElementById(activeBtnId);
-        btn.classList.remove('text-zinc-400');
-        btn.classList.add('bg-amber-500/10', 'text-amber-400', 'border', 'border-amber-500/35');
+        if(btn) {
+          btn.classList.remove('text-zinc-400');
+          btn.classList.add('bg-amber-500/10', 'text-amber-400', 'border', 'border-amber-500/35');
+        }
       }
     }
 
     function openFormatModal(formatName, isStaticSample = false) {
       selectedFormatForModal = formatName;
-      document.getElementById('modalFormatTitle').innerText = formatName;
+      const mft = document.getElementById('modalFormatTitle');
+      if(mft) mft.innerText = formatName;
       
       const banner = document.getElementById('modalModeBanner');
       const submitBtn = document.getElementById('modalSubmitBtn');
 
       if(isStaticSample) {
-        banner.innerHTML = "⚠️ <strong>Modo Exibição (Amostra):</strong> Este questionário é apenas uma demonstração visual de como o contratante fará o pedido. Os campos estão desabilitados na amostra.";
-        submitBtn.innerText = "Modo Exibição (Não Envia Wpp)";
-        submitBtn.onclick = () => alert('Este é apenas um exemplo de exibição da ferramenta.');
+        if(banner) banner.innerHTML = "⚠️ <strong>Modo Exibição (Amostra):</strong> Este questionário é apenas uma demonstração visual de como o contratante fará o pedido. Os campos estão desabilitados na amostra.";
+        if(submitBtn) {
+          submitBtn.innerText = "Modo Exibição (Não Envia Wpp)";
+          submitBtn.onclick = () => alert('Este é apenas um exemplo de exibição da ferramenta.');
+        }
       } else {
-        banner.innerHTML = "Preencha os detalhes abaixo para verificar a disponibilidade e gerar sua proposta via WhatsApp!";
-        submitBtn.innerHTML = '<i data-lucide="message-square" class="w-4 h-4"></i> Verificar Disponibilidade & Enviar WhatsApp';
-        submitBtn.onclick = sendWhatsAppBudget;
+        if(banner) banner.innerHTML = "Preencha os detalhes abaixo para verificar a disponibilidade e gerar sua proposta via WhatsApp!";
+        if(submitBtn) {
+          submitBtn.innerHTML = '<i data-lucide="message-square" class="w-4 h-4"></i> Verificar Disponibilidade & Enviar WhatsApp';
+          submitBtn.onclick = sendWhatsAppBudget;
+        }
       }
 
-      document.getElementById('formatModal').classList.remove('hidden');
-      lucide.createIcons();
+      const fm = document.getElementById('formatModal');
+      if(fm) fm.classList.remove('hidden');
+      try { lucide.createIcons(); } catch(e) {}
     }
 
-    function closeFormatModal() { document.getElementById('formatModal').classList.add('hidden'); }
+    function closeFormatModal() {
+      const fm = document.getElementById('formatModal');
+      if(fm) fm.classList.add('hidden');
+    }
 
     function sendWhatsAppBudget() {
-      const clientName = document.getElementById('qClientName').value.trim();
-      const dt = document.getElementById('qDateTime').value || 'A combinar';
-      const ev = document.getElementById('qEventType').value;
-      const aud = document.getElementById('qAudience').value;
-      const loc = document.getElementById('qLocation').value || 'A combinar';
-      const st = document.getElementById('qStyle').value;
-      const genre = document.getElementById('qGenre').value || 'Nenhuma preferência específica';
-      const snd = document.getElementById('qSound').value;
+      const qcn = document.getElementById('qClientName');
+      const clientName = qcn ? qcn.value.trim() : '';
+      const qdt = document.getElementById('qDateTime');
+      const dt = qdt ? qdt.value || 'A combinar' : 'A combinar';
+      const qev = document.getElementById('qEventType');
+      const ev = qev ? qev.value : '';
+      const qaud = document.getElementById('qAudience');
+      const aud = qaud ? qaud.value : '';
+      const qloc = document.getElementById('qLocation');
+      const loc = qloc ? qloc.value || 'A combinar' : 'A combinar';
+      const qst = document.getElementById('qStyle');
+      const st = qst ? qst.value : '';
+      const qgen = document.getElementById('qGenre');
+      const genre = qgen ? qgen.value || 'Nenhuma preferência específica' : 'Nenhuma preferência específica';
+      const qsnd = document.getElementById('qSound');
+      const snd = qsnd ? qsnd.value : '';
 
       if(!clientName) {
         alert('Por favor, informe seu Nome Completo.');
@@ -1372,42 +1477,54 @@
                    `🎼 *Gêneros (Priorizar/Evitar):* ${genre}\n` +
                    `🔊 *Estrutura de Som:* ${snd}`;
 
-      const url = `https://wa.me/${artistData.whatsapp.replace(/\D/g,'') || '21989368930'}?text=${encodeURIComponent(text)}`;
+      const phoneNum = artistData.whatsapp.replace(/\D/g,'') || '21989368930';
+      const url = `https://wa.me/${phoneNum}?text=${encodeURIComponent(text)}`;
       window.open(url, '_blank');
       closeFormatModal();
     }
 
     function saveArtistEdits() {
-      artistData.artistMainName = document.getElementById('editArtistMainName').value;
-      artistData.title = document.getElementById('editTitle').value;
-      artistData.bio = document.getElementById('editBio').value;
-      artistData.instagram = document.getElementById('editInstagram').value;
-      artistData.tiktok = document.getElementById('editTiktok').value;
-      artistData.facebook = document.getElementById('editFacebook').value;
-      artistData.spotify = document.getElementById('editSpotify').value;
-      artistData.deezer = document.getElementById('editDeezer').value;
-      artistData.apple = document.getElementById('editApple').value;
-      artistData.youtubeMusic = document.getElementById('editYoutubeMusic').value;
-      artistData.slug = document.getElementById('customSlugInput').value;
+      const ef1 = document.getElementById('editArtistMainName');
+      if(ef1) artistData.artistMainName = ef1.value;
+      const ef2 = document.getElementById('editTitle');
+      if(ef2) artistData.title = ef2.value;
+      const ef3 = document.getElementById('editBio');
+      if(ef3) artistData.bio = ef3.value;
+      const ef4 = document.getElementById('editInstagram');
+      if(ef4) artistData.instagram = ef4.value;
+      const ef5 = document.getElementById('editTiktok');
+      if(ef5) artistData.tiktok = ef5.value;
+      const ef6 = document.getElementById('editFacebook');
+      if(ef6) artistData.facebook = ef6.value;
+      const ef7 = document.getElementById('editSpotify');
+      if(ef7) artistData.spotify = ef7.value;
+      const ef8 = document.getElementById('editDeezer');
+      if(ef8) artistData.deezer = ef8.value;
+      const ef9 = document.getElementById('editApple');
+      if(ef9) artistData.apple = ef9.value;
+      const ef10 = document.getElementById('editYoutubeMusic');
+      if(ef10) artistData.youtubeMusic = ef10.value;
+      const ef11 = document.getElementById('customSlugInput');
+      if(ef11) artistData.slug = ef11.value;
 
-      const file1 = document.getElementById('fileFormat1').files[0];
-      const file2 = document.getElementById('fileFormat2').files[0];
-      const file3 = document.getElementById('fileFormat3').files[0];
+      const f1 = document.getElementById('fileFormat1') ? document.getElementById('fileFormat1').files[0] : null;
+      const f2 = document.getElementById('fileFormat2') ? document.getElementById('fileFormat2').files[0] : null;
+      const f3 = document.getElementById('fileFormat3') ? document.getElementById('fileFormat3').files[0] : null;
 
-      if(file1) {
+      if(f1) {
         const reader = new FileReader();
         reader.onload = e => { artistData.formatPhoto1 = e.target.result; saveData(); applyPublicData(); };
-        reader.readAsDataURL(file1);
+        reader.readAsDataURL(f1);
       }
-      if(file2) {
+      if(f2) {
         const reader = new FileReader();
         reader.onload = e => { artistData.formatPhoto2 = e.target.result; saveData(); applyPublicData(); };
-        reader.readAsDataURL(file2);
+        reader.readAsDataURL(f2);
       }
-      if(file3) {
+      if(f3) {
         const reader = new FileReader();
         reader.onload = e => { artistData.formatPhoto3 = e.target.result; saveData(); applyPublicData(); };
-        reader.readAsDataURL(file3);
+        reader.readAsDataURL(f3);
       }
 
       saveData();
@@ -1416,24 +1533,34 @@
     }
 
     function updateCustomLinkPreview() {
-      const slug = document.getElementById('customSlugInput').value;
-      document.getElementById('fullSlugPreview').innerText = `stagekitcasa6.vercel.app/${slug}`;
+      const csi = document.getElementById('customSlugInput');
+      const slug = csi ? csi.value : '';
+      const fsp = document.getElementById('fullSlugPreview');
+      if(fsp) fsp.innerText = `stagekitcasa6.vercel.app/${slug}`;
     }
 
     function copyCustomPressKitLink() {
-      const slug = document.getElementById('customSlugInput').value;
+      const csi = document.getElementById('customSlugInput');
+      const slug = csi ? csi.value : '';
       navigator.clipboard.writeText(`https://stagekitcasa6.vercel.app/${slug}`);
       alert('Link copiado para a área de transferência!');
     }
 
     function addNewEvent() {
-      const name = document.getElementById('newEventName').value;
-      const date = document.getElementById('newEventDate').value;
-      const project = document.getElementById('newEventProject').value;
-      const cache = parseFloat(document.getElementById('newEventCache').value) || 0;
-      const musicianName = document.getElementById('newEventMusicianSelect').value;
-      const musicianVal = parseFloat(document.getElementById('newEventMusicianValue').value) || 0;
-      const fuel = parseFloat(document.getElementById('newEventFuel').value) || 0;
+      const nen = document.getElementById('newEventName');
+      const name = nen ? nen.value : '';
+      const ned = document.getElementById('newEventDate');
+      const date = ned ? ned.value : '';
+      const nep = document.getElementById('newEventProject');
+      const project = nep ? nep.value : '';
+      const nec = document.getElementById('newEventCache');
+      const cache = nec ? parseFloat(nec.value) || 0 : 0;
+      const nems = document.getElementById('newEventMusicianSelect');
+      const musicianName = nems ? nems.value : '';
+      const nemv = document.getElementById('newEventMusicianValue');
+      const musicianVal = nemv ? parseFloat(nemv.value) || 0 : 0;
+      const nef = document.getElementById('newEventFuel');
+      const fuel = nef ? parseFloat(nef.value) || 0 : 0;
 
       if(!name) { alert('Insira o nome do evento'); return; }
 
@@ -1455,15 +1582,18 @@
         alert('Evento cadastrado com sucesso!');
       }
 
-      document.getElementById('newEventName').value = '';
-      document.getElementById('newEventCache').value = '';
-      document.getElementById('newEventMusicianValue').value = '';
-      document.getElementById('newEventFuel').value = '';
+      if(nen) nen.value = '';
+      if(nec) nec.value = '';
+      if(nemv) nemv.value = '';
+      if(nef) nef.value = '';
     }
 
     function renderEvents() {
       const container = document.getElementById('eventsListContainer');
-      document.getElementById('dashEventCount').innerText = eventsList.length;
+      const dec = document.getElementById('dashEventCount');
+      if(dec) dec.innerText = eventsList.length;
+      if(!container) return;
+
       if(eventsList.length === 0) {
         container.innerHTML = '<p class="text-zinc-500 italic">Nenhum evento cadastrado no momento.</p>';
         return;
@@ -1474,7 +1604,7 @@
             <p class="font-bold text-white text-sm">${ev.name} (${ev.project})</p>
             <p class="text-zinc-400">Data: ${ev.date || 'A combinar'} | Cachê Total: R$ ${ev.cache.toFixed(2)} | Músico (${ev.musicianName || 'Geral'}): R$ ${ev.musicianVal.toFixed(2)}</p>
           </div>
-          <button onclick="removeEvent(${idx})" class="text-red-400 hover:text-red-300 text-xs font-bold">Remover</button>
+          <button onclick="removeEvent(${idx})" class="text-red-400 hover:text-red-300 text-xs font-bold cursor-pointer">Remover</button>
         </div>
       `).join('');
     }
@@ -1500,31 +1630,39 @@
 
       const mine = totalCache - (totalMusicians + totalFuel);
 
-      document.getElementById('dashTotalCache').innerText = `R$ ${totalCache.toFixed(2)}`;
-      document.getElementById('cacheMusicians').innerText = `R$ ${totalMusicians.toFixed(2)}`;
-      document.getElementById('cacheFuel').innerText = `R$ ${totalFuel.toFixed(2)}`;
-      document.getElementById('cacheMine').innerText = `R$ ${mine >= 0 ? mine.toFixed(2) : '0,00'}`;
+      const dtc = document.getElementById('dashTotalCache');
+      if(dtc) dtc.innerText = `R$ ${totalCache.toFixed(2)}`;
+      const cm = document.getElementById('cacheMusicians');
+      if(cm) cm.innerText = `R$ ${totalMusicians.toFixed(2)}`;
+      const cf = document.getElementById('cacheFuel');
+      if(cf) cf.innerText = `R$ ${totalFuel.toFixed(2)}`;
+      const cmin = document.getElementById('cacheMine');
+      if(cmin) cmin.innerText = `R$ ${mine >= 0 ? mine.toFixed(2) : '0,00'}`;
     }
 
     function addNewMusician() {
-      const name = document.getElementById('newMusicianName').value;
-      const instrument = document.getElementById('newMusicianInstrument').value;
-      const whatsapp = document.getElementById('newMusicianWhatsapp').value;
+      const nmn = document.getElementById('newMusicianName');
+      const name = nmn ? nmn.value : '';
+      const nmi = document.getElementById('newMusicianInstrument');
+      const instrument = nmi ? nmi.value : '';
+      const nmw = document.getElementById('newMusicianWhatsapp');
+      const whatsapp = nmw ? nmw.value : '';
       if(!name) { alert('Insira o nome do músico'); return; }
 
       musiciansList.push({ name, instrument, whatsapp });
       saveData();
       renderMusicians();
 
-      document.getElementById('newMusicianName').value = '';
-      document.getElementById('newMusicianInstrument').value = '';
-      document.getElementById('newMusicianWhatsapp').value = '';
+      if(nmn) nmn.value = '';
+      if(nmi) nmi.value = '';
+      if(nmw) nmw.value = '';
       alert('Músico adicionado com sucesso!');
     }
 
     function renderMusicians() {
       const container = document.getElementById('musiciansListContainer');
       const selectContainer = document.getElementById('newEventMusicianSelect');
+      if(!container || !selectContainer) return;
       
       if(musiciansList.length === 0) {
         container.innerHTML = '<p class="text-zinc-500 italic">Nenhum músico cadastrado.</p>';
@@ -1535,7 +1673,7 @@
       container.innerHTML = musiciansList.map((m, idx) => `
         <div class="bg-zinc-900 p-3 rounded-xl border border-zinc-800 flex justify-between items-center">
           <p class="text-white font-semibold">${m.name} <span class="text-amber-400 font-normal">(${m.instrument})</span> — <span class="text-zinc-400 text-[11px]">${m.whatsapp}</span></p>
-          <button onclick="removeMusician(${idx})" class="text-red-400 hover:text-red-300 text-xs">Excluir</button>
+          <button onclick="removeMusician(${idx})" class="text-red-400 hover:text-red-300 text-xs cursor-pointer">Excluir</button>
         </div>
       `).join('');
 
@@ -1551,15 +1689,20 @@
     function connectGoogleCalendar() {
       artistData.googleCalendarConnected = true;
       saveData();
-      document.getElementById('googleCalendarStatusText').innerText = 'Conectado com sucesso';
-      document.getElementById('googleCalendarStatusText').className = 'text-emerald-400 font-bold';
-      document.getElementById('connectCalendarBtn').innerText = 'Reconectar';
+      const st = document.getElementById('googleCalendarStatusText');
+      if(st) {
+        st.innerText = 'Conectado com sucesso';
+        st.className = 'text-emerald-400 font-bold';
+      }
+      const cbtn = document.getElementById('connectCalendarBtn');
+      if(cbtn) cbtn.innerText = 'Reconectar';
       renderCalendarEvents();
       alert('Google Agenda conectado com sucesso! Os eventos cadastrados agora estão sincronizados.');
     }
 
     function renderCalendarEvents() {
       const container = document.getElementById('googleCalendarEventsList');
+      if(!container) return;
       if(!artistData.googleCalendarConnected || eventsList.length === 0) {
         container.innerHTML = '<p class="text-zinc-500 italic">Nenhum evento sincronizado na agenda no momento.</p>';
         return;
@@ -1579,12 +1722,14 @@
       document.body.classList.toggle('light');
       const isLight = document.body.classList.contains('light');
       const icon = document.getElementById('dashThemeIcon');
-      if(isLight) {
-        icon.setAttribute('data-lucide', 'moon');
-      } else {
-        icon.setAttribute('data-lucide', 'sun');
+      if(icon) {
+        if(isLight) {
+          icon.setAttribute('data-lucide', 'moon');
+        } else {
+          icon.setAttribute('data-lucide', 'sun');
+        }
       }
-      lucide.createIcons();
+      try { lucide.createIcons(); } catch(e) {}
     }
 
     window.onload = initApp;
