@@ -71,8 +71,8 @@
   <header class="fixed top-0 left-0 w-full z-50 bg-[#09090B]/90 backdrop-blur-header border-b border-brand-border">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
       
-      <!-- Logo -->
-      <a href="#" onclick="goHome()" class="flex items-center gap-3 group">
+      <!-- Logo (Clica e vai para o Press Kit Público) -->
+      <a href="#" onclick="showPublicPressKit()" class="flex items-center gap-3 group cursor-pointer">
         <div class="w-10 h-10 rounded-xl bg-white overflow-hidden flex items-center justify-center p-0.5 shadow-md group-hover:scale-105 transition-transform duration-300">
           <img src="SIMBOLO CASA 6.jpg" alt="Casa 6 Produções" class="w-full h-full object-contain rounded-lg" onerror="this.src='https://via.placeholder.com/40?text=C6'" />
         </div>
@@ -139,48 +139,36 @@
       </div>
     </section>
 
-    <!-- CARD EM DESTAQUE: TENHA SEU LINK PERSONALIZADO -->
-    <section class="py-12 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto w-full">
-      <div class="bg-gradient-to-r from-amber-500/20 via-brand-cardBg to-brand-cardBg border border-amber-500/50 p-8 sm:p-10 rounded-3xl shadow-2xl flex flex-col md:flex-row items-center justify-between gap-6">
-        <div class="space-y-3 text-left">
+    <!-- CARD EM DESTAQUE: LINK PERSONALIZADO E FORMATOS DE SHOW -->
+    <section class="py-12 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto w-full grid md:grid-cols-2 gap-6">
+      <div class="bg-gradient-to-br from-amber-500/20 via-brand-cardBg to-brand-cardBg border border-amber-500/50 p-8 rounded-3xl shadow-2xl space-y-4 flex flex-col justify-between">
+        <div class="space-y-3">
           <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/20 text-amber-400 text-xs font-bold uppercase tracking-widest">
             <i data-lucide="sparkles" class="w-3.5 h-3.5"></i> Endereço Exclusivo
           </div>
-          <h2 class="text-2xl sm:text-3xl font-extrabold text-white">Tenha o seu link PERSONALIZADO</h2>
-          <p class="text-sm text-zinc-300 max-w-xl">
+          <h2 class="text-2xl font-extrabold text-white">Tenha o seu link PERSONALIZADO</h2>
+          <p class="text-xs text-zinc-300 leading-relaxed">
             Divulgue um link limpo e profissional (<code class="text-amber-400 font-mono">stagekitcasa6.vercel.app/seu-nome</code>) diretamente nas suas redes sociais e propostas comerciais.
           </p>
         </div>
-        <button onclick="openRegisterModal()" class="bg-amber-500 hover:bg-amber-600 text-black font-extrabold px-8 py-4 rounded-2xl shrink-0 shadow-lg transition-all transform hover:scale-105">
+        <button onclick="openRegisterModal()" class="bg-amber-500 hover:bg-amber-600 text-black font-extrabold px-6 py-3 rounded-xl text-xs shadow-md transition-all">
           Garantir Meu Link
         </button>
       </div>
-    </section>
 
-    <section class="py-16 bg-brand-cardBg/40 border-y border-brand-border px-4 sm:px-6 lg:px-8">
-      <div class="max-w-6xl mx-auto space-y-12">
-        <div class="text-left">
-          <span class="text-amber-500 font-bold text-xs uppercase tracking-widest">Processo Simples</span>
-          <h2 class="text-3xl sm:text-4xl font-extrabold text-white mt-1">Como funciona</h2>
+      <div class="bg-gradient-to-br from-brand-cardBg to-zinc-900 border border-brand-border p-8 rounded-3xl shadow-2xl space-y-4 flex flex-col justify-between">
+        <div class="space-y-3">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-400 text-xs font-bold uppercase tracking-widest">
+            <i data-lucide="sliders-horizontal" class="w-3.5 h-3.5"></i> Estruturas Flexíveis
+          </div>
+          <h2 class="text-2xl font-extrabold text-white">Adicione Formatos de Show</h2>
+          <p class="text-xs text-zinc-300 leading-relaxed">
+            Mostre ao contratante exatamente as formações que você atende: Acústico & Banda, Casamentos & Cerimônias ou Eventos & Formaturas, com fotos personalizadas.
+          </p>
         </div>
-
-        <div class="grid md:grid-cols-3 gap-8">
-          <div class="p-8 rounded-2xl bg-brand-cardBg border border-brand-border text-left space-y-4 hover:border-amber-500/40 transition-colors">
-            <div class="w-12 h-12 rounded-xl bg-amber-500/10 text-amber-500 flex items-center justify-center"><i data-lucide="mic" class="w-6 h-6"></i></div>
-            <h3 class="text-xl font-bold text-white">Monte seu press kit</h3>
-            <p class="text-sm text-zinc-400 leading-relaxed">Videos, fotos, formatos e depoimentos em uma página só, com o seu endereço próprio.</p>
-          </div>
-          <div class="p-8 rounded-2xl bg-brand-cardBg border border-brand-border text-left space-y-4 hover:border-amber-500/40 transition-colors">
-            <div class="w-12 h-12 rounded-xl bg-amber-500/10 text-amber-500 flex items-center justify-center"><i data-lucide="sliders-horizontal" class="w-6 h-6"></i></div>
-            <h3 class="text-xl font-bold text-white">O contratante escolhe o formato</h3>
-            <p class="text-sm text-zinc-400 leading-relaxed">Ele assiste, ouve, compara os formatos e preenche o questionário do evento em segundos.</p>
-          </div>
-          <div class="p-8 rounded-2xl bg-brand-cardBg border border-brand-border text-left space-y-4 hover:border-amber-500/40 transition-colors">
-            <div class="w-12 h-12 rounded-xl bg-amber-500/10 text-amber-500 flex items-center justify-center"><i data-lucide="message-square" class="w-6 h-6"></i></div>
-            <h3 class="text-xl font-bold text-white">O pedido cai no seu WhatsApp</h3>
-            <p class="text-sm text-zinc-400 leading-relaxed">A proposta chega pronta na conversa e o orçamento fica salvo no seu painel.</p>
-          </div>
-        </div>
+        <button onclick="openRegisterModal()" class="bg-zinc-800 hover:bg-zinc-700 text-white border border-zinc-700 font-bold px-6 py-3 rounded-xl text-xs transition-all">
+          Configurar Formatos
+        </button>
       </div>
     </section>
 
@@ -192,7 +180,6 @@
       </div>
 
       <div class="grid md:grid-cols-2 gap-8">
-        <!-- Amostra 1: Dashboard do Músico -->
         <div class="bg-brand-cardBg border border-brand-border p-6 sm:p-8 rounded-3xl space-y-4 shadow-xl">
           <div class="flex items-center gap-3 text-amber-500">
             <i data-lucide="layout-dashboard" class="w-6 h-6"></i>
@@ -219,7 +206,6 @@
           </div>
         </div>
 
-        <!-- Amostra 2: Painel do Cliente / Contratante -->
         <div class="bg-brand-cardBg border border-brand-border p-6 sm:p-8 rounded-3xl space-y-4 shadow-xl">
           <div class="flex items-center gap-3 text-emerald-400">
             <i data-lucide="eye" class="w-6 h-6"></i>
@@ -255,7 +241,6 @@
       </div>
     </section>
 
-    <!-- CTA Final antes do login -->
     <section class="py-24 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto text-center space-y-8">
       <div class="w-16 h-16 rounded-2xl bg-amber-500/10 border border-amber-500/20 text-amber-500 flex items-center justify-center mx-auto">
         <i data-lucide="file-text" class="w-8 h-8"></i>
@@ -280,18 +265,18 @@
         <span>🎵</span> <span id="displayArtistMainName">MATHEUS FELIPE</span>
       </div>
       
-      <!-- Título CTA -->
-      <h1 id="displayTitle" class="text-lg sm:text-2xl font-semibold text-zinc-300 tracking-tight leading-snug max-w-3xl mx-auto">
-        A TRILHA SONORA PERFEITA PARA O SEU MOMENTO.
+      <!-- Título CTA Principal em Letras Maiúsculas -->
+      <h1 id="displayTitle" class="text-xl sm:text-3xl font-extrabold text-amber-400 tracking-tight leading-snug max-w-3xl mx-auto uppercase">
+        A TRILHA SONORA PERFEITA PARA O SEU MOMENTO
       </h1>
 
-      <!-- Frases Abaixo do CTA (mesmo tamanho) -->
+      <!-- Frases Abaixo do CTA -->
       <div class="max-w-3xl mx-auto leading-relaxed space-y-4 text-left sm:text-center">
         <p id="displaySubtitle1" class="text-base sm:text-lg text-zinc-300">Já pensou em transformar o seu evento em uma experiência inesquecível, com uma trilha sonora executada sob medida e zero dor de cabeça com a produção?</p>
         <p id="displaySubtitle2" class="text-base sm:text-lg text-zinc-300">Do clima intimista de um acústico à energia de uma apresentação completa: repertório refinado, som de alta qualidade e o profissionalismo que o seu momento exige.</p>
       </div>
 
-      <!-- SEÇÃO "SOBRE O ARTISTA" (Logo após o CTA1) -->
+      <!-- SEÇÃO "SOBRE O ARTISTA" -->
       <div class="pt-6 max-w-4xl mx-auto">
         <div class="bg-brand-cardBg border border-brand-border p-6 sm:p-8 rounded-3xl shadow-xl grid md:grid-cols-12 gap-6 items-center text-left">
           <div class="md:col-span-4">
@@ -309,11 +294,32 @@
         </div>
       </div>
 
-      <!-- Bloco Problema & Solução -->
-      <div class="my-10 p-6 sm:p-8 rounded-3xl bg-brand-cardBg border border-brand-border text-left space-y-4 text-zinc-300 text-sm sm:text-base leading-relaxed">
-        <p class="font-semibold text-amber-400">Na hora de escolher a atração do evento, você com certeza pensa...</p>
-        <p class="italic text-zinc-400">“Será que ele vai animar e agradar todos os convidados? Como será o som ao vivo? Será que o som vai ficar muito alto? Posso confiar que ele vai chegar no horário e entregar um show impecável?”</p>
-        <p>A sua única preocupação deve ser aproveitar o seu evento. Aqui você encontra toda a estrutura do show organizada de forma clara e transparente. Assista aos vídeos das apresentações reais, confira os formatos disponíveis para a sua ocasião e veja exatamente como cada detalhe é planejado para entregar sonoridade impecável, pontualidade e uma experiência inesquecível para os seus convidados. Tudo pronto e direto ao ponto para você decidir com total segurança.</p>
+      <!-- Bloco Problema & Solução (Com CTA em destaque e resolução em 3 cards) -->
+      <div class="my-12 p-6 sm:p-10 rounded-3xl bg-brand-cardBg border border-brand-border text-left space-y-8">
+        <div class="text-center space-y-2">
+          <span class="text-amber-500 font-bold text-xs uppercase tracking-widest">Decisão com Segurança</span>
+          <h3 class="text-2xl sm:text-3xl font-extrabold text-white">Na hora de escolher a atração do evento, você com certeza pensa...</h3>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-6">
+          <div class="bg-zinc-900 border border-zinc-800 p-6 rounded-2xl space-y-3">
+            <div class="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-500 flex items-center justify-center font-bold">1</div>
+            <h4 class="font-bold text-white text-base">Animação & Público</h4>
+            <p class="text-xs text-zinc-400 leading-relaxed">“Será que ele vai animar e agradar todos os convidados?” → Repertório versátil, adaptado em tempo real ao clima da festa.</p>
+          </div>
+
+          <div class="bg-zinc-900 border border-zinc-800 p-6 rounded-2xl space-y-3">
+            <div class="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-500 flex items-center justify-center font-bold">2</div>
+            <h4 class="font-bold text-white text-base">Qualidade do Som</h4>
+            <p class="text-xs text-zinc-400 leading-relaxed">“Como será o som ao vivo? O volume vai ficar muito alto?” → Sonoridade profissional regulada e ideal para qualquer ambiente.</p>
+          </div>
+
+          <div class="bg-zinc-900 border border-zinc-800 p-6 rounded-2xl space-y-3">
+            <div class="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-500 flex items-center justify-center font-bold">3</div>
+            <h4 class="font-bold text-white text-base">Pontualidade & Confiança</h4>
+            <p class="text-xs text-zinc-400 leading-relaxed">“Posso confiar na pontualidade e entrega impecável?” → Compromisso total com horários e organização prévia em contrato.</p>
+          </div>
+        </div>
       </div>
 
       <div id="displayHeroVideoContainer" class="w-full max-w-4xl mx-auto rounded-2xl overflow-hidden border border-brand-border shadow-2xl bg-brand-cardBg aspect-video flex items-center justify-center mt-10">
@@ -560,7 +566,7 @@
           </div>
           <div>
             <label class="block font-semibold text-zinc-300 mb-1">Título de Impacto / Chamariz (H1)</label>
-            <input type="text" id="editTitle" value="A TRILHA SONORA PERFEITA PARA O SEU MOMENTO." class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white">
+            <input type="text" id="editTitle" value="A TRILHA SONORA PERFEITA PARA O SEU MOMENTO" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white">
           </div>
           <div>
             <label class="block font-semibold text-zinc-300 mb-1">Biografia do Artista</label>
@@ -683,7 +689,6 @@
           <button onclick="addNewEvent()" class="bg-amber-500 hover:bg-amber-600 text-black font-extrabold py-3 px-6 rounded-xl shadow-md">Adicionar Evento</button>
         </div>
 
-        <!-- Lista de Eventos -->
         <div class="bg-brand-cardBg border border-brand-border p-6 rounded-2xl space-y-4">
           <h3 class="text-sm font-bold text-white">Eventos Cadastrados</h3>
           <div id="eventsListContainer" class="space-y-3 text-xs">
@@ -766,6 +771,10 @@
         <div>
           <label class="block font-semibold text-zinc-300 mb-1">E-mail *</label>
           <input type="email" id="regEmail" required class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white" placeholder="seu@email.com">
+        </div>
+        <div>
+          <label class="block font-semibold text-zinc-300 mb-1">Senha *</label>
+          <input type="password" id="regPassword" required class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white" placeholder="Crie uma senha segura">
         </div>
         <div class="grid sm:grid-cols-2 gap-3">
           <div>
@@ -894,7 +903,7 @@
     let artistData = JSON.parse(localStorage.getItem('stagekit_artist')) || {
       whatsapp: "21989368930",
       artistMainName: "MATHEUS FELIPE",
-      title: "A TRILHA SONORA PERFEITA PARA O SEU MOMENTO.",
+      title: "A TRILHA SONORA PERFEITA PARA O SEU MOMENTO",
       bio: "Músico profissional, multi-instrumentista e arranjador com vasta experiência em palcos de eventos corporativos, casamentos e casas noturnas de destaque.",
       slug: "matheusefelipe",
       instagram: "",
@@ -906,7 +915,9 @@
       apple: "",
       formatPhoto1: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=600&q=80",
       formatPhoto2: "https://images.unsplash.com/photo-1465847899084-d164df4dedc6?auto=format&fit=crop&w=600&q=80",
-      formatPhoto3: "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=600&q=80"
+      formatPhoto3: "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=600&q=80",
+      registeredEmail: "matheus@casa6.com",
+      registeredPassword: "123"
     };
 
     let eventsList = JSON.parse(localStorage.getItem('stagekit_events')) || [];
@@ -1027,9 +1038,17 @@
       document.getElementById('loginModal').classList.remove('hidden'); 
     }
     function closeLoginModal() { document.getElementById('loginModal').classList.add('hidden'); }
+    
     function submitLogin() {
-      closeLoginModal();
-      showArtistDashboard();
+      const email = document.getElementById('loginEmail').value.trim();
+      const pass = document.getElementById('loginPassword').value.trim();
+
+      if(email === artistData.registeredEmail && pass === artistData.registeredPassword) {
+        closeLoginModal();
+        showArtistDashboard();
+      } else {
+        alert('E-mail ou senha incorretos! Utilize os dados cadastrados na plataforma.');
+      }
     }
 
     function openRegisterModal() { 
@@ -1037,6 +1056,7 @@
       document.getElementById('regBirthDate').value = '';
       document.getElementById('regPhone').value = '';
       document.getElementById('regEmail').value = '';
+      document.getElementById('regPassword').value = '';
       document.getElementById('regCpf').value = '';
       document.getElementById('regMusicianId').value = '';
       document.getElementById('registerModal').classList.remove('hidden'); 
@@ -1046,14 +1066,19 @@
     function submitRegister() {
       const fullName = document.getElementById('regFullName').value.trim();
       const phone = document.getElementById('regPhone').value.trim();
+      const email = document.getElementById('regEmail').value.trim();
+      const pass = document.getElementById('regPassword').value.trim();
       
-      if(fullName) {
-        artistData.artistMainName = fullName.toUpperCase();
-        artistData.slug = fullName.toLowerCase().replace(/\s+/g, '');
+      if(!fullName || !email || !pass) { 
+        alert('Preencha os campos obrigatórios (Nome, E-mail e Senha).'); 
+        return; 
       }
-      if(phone) {
-        artistData.whatsapp = phone;
-      }
+
+      artistData.artistMainName = fullName.toUpperCase();
+      artistData.slug = fullName.toLowerCase().replace(/\s+/g, '');
+      if(phone) artistData.whatsapp = phone;
+      artistData.registeredEmail = email;
+      artistData.registeredPassword = pass;
       
       saveData();
       loadInputsFromState();
@@ -1063,14 +1088,19 @@
 
     function submitSocialRegister(provider) {
       const name = prompt(`Digite seu nome para o cadastro via ${provider}:`);
-      if(name) {
+      const email = prompt(`Digite seu e-mail para acesso via ${provider}:`);
+      if(name && email) {
         artistData.artistMainName = name.toUpperCase();
         artistData.slug = name.toLowerCase().replace(/\s+/g, '');
+        artistData.registeredEmail = email;
+        artistData.registeredPassword = "123"; // Padrão social
         saveData();
         loadInputsFromState();
+        closeRegisterModal();
+        showArtistDashboard();
+      } else {
+        alert('Cadastro cancelado.');
       }
-      closeRegisterModal();
-      showArtistDashboard();
     }
 
     function logoutToHome() { goHome(); }
