@@ -841,7 +841,7 @@
     let musiciansList = JSON.parse(localStorage.getItem('stagekit_musicians')) || [];
     let selectedFormatForModal = "";
 
-    // Validação Avançada e Real de E-mail (Rejeita lixo, testes e termos fictícios)
+    // Validação Avançada e Real de E-mail (Rejeita lixo e termos fictícios)
     function isValidEmail(email) {
       email = email.trim().toLowerCase();
       const emailRegex = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/;
@@ -1163,19 +1163,16 @@
         return; 
       }
 
-      // Validação restrita de e-mail autêntico
       if(!isValidEmail(email)) {
         alert('E-mail inválido ou fictício. Informe um e-mail real e legítimo (ex: seu.nome@gmail.com ou @outlook.com).');
         return;
       }
 
-      // Validação de senha forte
       if(!isValidPassword(pass)) {
         alert('A senha é muito fraca. Ela deve conter no mínimo 8 caracteres, incluindo letras e números.');
         return;
       }
 
-      // Validação de CPF real
       if(!isValidCPF(cpf)) {
         alert('O CPF informado é inválido ou falso. Insira um CPF real para prosseguir.');
         return;
@@ -1274,7 +1271,7 @@
           <div class="space-y-4">
             <p class="text-zinc-300 text-xs leading-relaxed">Veja como o contratante visualiza o vídeo de performance ao vivo do artista logo no topo do Press Kit:</p>
             <div class="w-full rounded-2xl overflow-hidden border border-brand-border shadow-2xl bg-zinc-900 aspect-video flex items-center justify-center relative">
-              <img src="Matheus Felipe em um show acústico aconchegante.png" alt="Vídeo Acústico Ao Vivo" class="w-full h-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=800&q=80'">
+              <img src="Matheus Felipe em um show acústico aconchegante_2.png" alt="Vídeo Acústico Ao Vivo" class="w-full h-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=800&q=80'">
               <div class="absolute inset-0 bg-black/30 flex items-center justify-center">
                 <div class="w-14 h-14 rounded-full bg-amber-500 text-black flex items-center justify-center shadow-lg font-bold text-xl pl-1">▶</div>
               </div>
