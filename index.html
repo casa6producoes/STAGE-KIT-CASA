@@ -841,14 +841,13 @@
     let musiciansList = JSON.parse(localStorage.getItem('stagekit_musicians')) || [];
     let selectedFormatForModal = "";
 
-    // Validação Avançada e Real de E-mail (Rejeita lixo e lógicas genéricas)
+    // Validação Avançada e Real de E-mail (Rejeita lixo, testes e termos fictícios)
     function isValidEmail(email) {
       email = email.trim().toLowerCase();
       const emailRegex = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/;
       if (!emailRegex.test(email)) return false;
 
-      // Lista de termos falsos/fictícios bloqueados na parte inicial do e-mail
-      const blockedPrefixes = ['qlq', 'qualquer', 'teste', 'abc', '123', 'asdf', 'fulano', 'exemplo', 'email', 'nao', 'sem', 'nada'];
+      const blockedPrefixes = ['qlq', 'qualquer', 'teste', 'abc', '123', 'asdf', 'fulano', 'exemplo', 'email', 'nao', 'sem', 'nada', 'qwert'];
       const userPart = email.split('@')[0];
       
       if (blockedPrefixes.includes(userPart) || userPart.length < 3) {
