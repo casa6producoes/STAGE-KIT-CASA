@@ -71,9 +71,9 @@
   <header class="fixed top-0 left-0 w-full z-50 bg-[#09090B]/90 backdrop-blur-header border-b border-brand-border">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
       
-      <!-- Logo + Botão Ver Meu Presskit (Alinhado lado a lado perfeitamente) -->
+      <!-- Logo + Botão Ver Meu Presskit (Alinhado lado a lado) -->
       <div class="flex items-center gap-4">
-        <a href="#" onclick="showPublicPressKit()" class="flex items-center gap-3 group cursor-pointer">
+        <a href="#" onclick="goHome()" class="flex items-center gap-3 group cursor-pointer">
           <div class="w-10 h-10 rounded-xl bg-white overflow-hidden flex items-center justify-center p-0.5 shadow-md group-hover:scale-105 transition-transform duration-300">
             <img src="SIMBOLO CASA 6.jpg" alt="Casa 6 Produções" class="w-full h-full object-contain rounded-lg" onerror="this.src='https://via.placeholder.com/40?text=C6'" />
           </div>
@@ -83,7 +83,6 @@
           </div>
         </a>
 
-        <!-- Botão alinhado perfeitamente (ícone e texto na mesma linha) -->
         <button id="headerVerPressKitBtn" onclick="showPublicPressKit()" class="hidden bg-amber-500/10 hover:bg-amber-500/20 text-amber-400 border border-amber-500/40 text-xs font-bold px-3.5 py-2 rounded-xl transition-all inline-flex items-center gap-2">
           <i data-lucide="eye" class="w-4 h-4 shrink-0"></i>
           <span>Ver meu presskit</span>
@@ -124,11 +123,6 @@
     </div>
   </header>
 
-  <!-- ==================== BOTÃO FLUTUANTE VOLTAR AO PAINEL ==================== -->
-  <button id="floatingBackBtn" onclick="showArtistDashboard()" class="hidden fixed bottom-6 right-6 bg-amber-500 hover:bg-amber-600 text-black font-extrabold px-6 py-3.5 rounded-full shadow-2xl z-50 flex items-center gap-2 transition-transform hover:scale-105">
-    <i data-lucide="arrow-left" class="w-5 h-5"></i> Voltar à Área do Artista
-  </button>
-
   <!-- ==================== LANDING PAGE (HOME DO SAAS) ==================== -->
   <div id="landingPage" class="flex-1 pt-20 flex flex-col">
     <section class="relative py-20 md:py-32 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto text-center space-y-8">
@@ -151,9 +145,6 @@
         <button onclick="openRegisterModal()" class="w-full sm:w-auto bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-500 hover:to-amber-600 text-black font-extrabold px-8 py-4 rounded-2xl shadow-2xl glow-gold transition-all flex items-center justify-center gap-3 text-base">
           Criar meu press kit <i data-lucide="arrow-right" class="w-5 h-5"></i>
         </button>
-        <button onclick="previewSampleKit()" class="w-full sm:w-auto bg-zinc-900 hover:bg-zinc-800 text-white border border-zinc-700 font-bold px-8 py-4 rounded-2xl transition-all flex items-center justify-center gap-3 text-base">
-          Ver um kit de exemplo
-        </button>
       </div>
     </section>
 
@@ -175,58 +166,48 @@
       </div>
     </section>
 
-    <!-- PRÉVIA REAL DA PLATAFORMA -->
+    <!-- PRÉVIA DA PLATAFORMA & 3 CARDS MOSTRANDO OS ITENS DA ÁREA DO CLIENTE -->
     <section class="py-20 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto space-y-16">
       <div class="text-center space-y-3">
-        <span class="text-amber-500 font-bold text-xs uppercase tracking-widest">Prévia Real da Plataforma</span>
-        <h2 class="text-3xl sm:text-4xl font-extrabold text-white">Veja por dentro como tudo funciona</h2>
+        <span class="text-amber-500 font-bold text-xs uppercase tracking-widest">Área do Cliente em Ação</span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-white">O que o contratante vê no seu link</h2>
       </div>
 
       <div class="grid md:grid-cols-3 gap-8">
-        <div class="bg-brand-cardBg border border-brand-border p-6 rounded-3xl space-y-4 shadow-xl flex flex-col justify-between">
-          <div class="space-y-3">
-            <div class="flex items-center gap-3 text-amber-500">
-              <i data-lucide="layout-dashboard" class="w-6 h-6"></i>
-              <h3 class="text-lg font-bold text-white">1. Sua Dashboard</h3>
-            </div>
-            <p class="text-xs text-zinc-400 leading-relaxed">
-              Painel administrativo onde você gerencia links, insere fotos, visualiza cálculo automático de cachês divididos e controla sua agenda.
-            </p>
+        <!-- Card 1: Vídeos Reais das Apresentações -->
+        <div onclick="previewSampleKit()" class="bg-brand-cardBg border border-brand-border p-6 rounded-3xl space-y-4 shadow-xl cursor-pointer hover:border-amber-500/50 transition-all group">
+          <div class="w-12 h-12 rounded-2xl bg-amber-500/10 text-amber-500 flex items-center justify-center group-hover:scale-110 transition-transform">
+            <i data-lucide="video" class="w-6 h-6"></i>
           </div>
-          <div class="bg-zinc-900 border border-zinc-800 p-3 rounded-2xl text-[11px]">
-            <span class="text-zinc-400 block">Link Ativo:</span>
-            <span class="text-amber-400 font-mono">stagekitcasa6.vercel.app/artista</span>
-          </div>
+          <h3 class="text-lg font-bold text-white">1. Vídeos Reais</h3>
+          <p class="text-xs text-zinc-400 leading-relaxed">
+            Trechos de apresentações ao vivo direto no topo do press kit para o contratante comprovar a qualidade musical e a energia do show.
+          </p>
+          <span class="text-amber-400 text-xs font-bold inline-flex items-center gap-1">Ver amostra <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i></span>
         </div>
 
-        <div class="bg-brand-cardBg border border-brand-border p-6 rounded-3xl space-y-4 shadow-xl flex flex-col justify-between">
-          <div class="space-y-3">
-            <div class="flex items-center gap-3 text-emerald-400">
-              <i data-lucide="sliders-horizontal" class="w-6 h-6"></i>
-              <h3 class="text-lg font-bold text-white">2. Estruturas Flexíveis</h3>
-            </div>
-            <p class="text-xs text-zinc-400 leading-relaxed">
-              Adicione e personalize os formatos de show que você atende (Acústico, Banda, Cerimônias) com fotos e descrições diretas para o contratante.
-            </p>
+        <!-- Card 2: Formatos de Show -->
+        <div onclick="previewSampleKit()" class="bg-brand-cardBg border border-brand-border p-6 rounded-3xl space-y-4 shadow-xl cursor-pointer hover:border-amber-500/50 transition-all group">
+          <div class="w-12 h-12 rounded-2xl bg-amber-500/10 text-amber-500 flex items-center justify-center group-hover:scale-110 transition-transform">
+            <i data-lucide="sliders-horizontal" class="w-6 h-6"></i>
           </div>
-          <div class="bg-zinc-900 border border-zinc-800 p-3 rounded-2xl text-[11px] text-emerald-400 font-semibold text-center">
-            ✨ Formatos Customizáveis
-          </div>
+          <h3 class="text-lg font-bold text-white">2. Formatos de Show</h3>
+          <p class="text-xs text-zinc-400 leading-relaxed">
+            Estruturas customizadas (Acústico, Banda, Cerimônias) com fotos e descrições detalhadas para o contratante escolher a atração ideal.
+          </p>
+          <span class="text-amber-400 text-xs font-bold inline-flex items-center gap-1">Ver amostra <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i></span>
         </div>
 
-        <div class="bg-brand-cardBg border border-brand-border p-6 rounded-3xl space-y-4 shadow-xl flex flex-col justify-between">
-          <div class="space-y-3">
-            <div class="flex items-center gap-3 text-amber-400">
-              <i data-lucide="message-square" class="w-6 h-6"></i>
-              <h3 class="text-lg font-bold text-white">3. Orçamento no WhatsApp</h3>
-            </div>
-            <p class="text-xs text-zinc-400 leading-relaxed">
-              O contratante preenche data, local e estilo do evento, e a proposta chega pronta e estruturada diretamente no seu WhatsApp.
-            </p>
+        <!-- Card 3: Orçamento Direto no WhatsApp -->
+        <div onclick="previewSampleKit()" class="bg-brand-cardBg border border-brand-border p-6 rounded-3xl space-y-4 shadow-xl cursor-pointer hover:border-amber-500/50 transition-all group">
+          <div class="w-12 h-12 rounded-2xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center group-hover:scale-110 transition-transform">
+            <i data-lucide="message-square" class="w-6 h-6"></i>
           </div>
-          <div class="bg-zinc-900 border border-zinc-800 p-3 rounded-2xl text-[10px] text-zinc-300 italic">
-            "Olá! Gostaria de verificar disponibilidade..."
-          </div>
+          <h3 class="text-lg font-bold text-white">3. Orçamento via WhatsApp</h3>
+          <p class="text-xs text-zinc-400 leading-relaxed">
+            Questionário prático onde o contratante informa data, local e estilo do evento, gerando uma proposta pronta direto para o seu WhatsApp.
+          </p>
+          <span class="text-amber-400 text-xs font-bold inline-flex items-center gap-1">Ver amostra <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i></span>
         </div>
       </div>
     </section>
@@ -879,11 +860,10 @@
     </div>
   </div>
 
-  <!-- ==================== MODAL DE FORMATO & QUESTIONÁRIO WHATSAPP (Compactado com scroll e campo Nome Completo) ==================== -->
+  <!-- ==================== MODAL DE FORMATO & QUESTIONÁRIO WHATSAPP ==================== -->
   <div id="formatModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
     <div class="bg-brand-cardBg border border-brand-border rounded-3xl max-w-lg w-full max-h-[90vh] flex flex-col p-6 sm:p-8 space-y-4 shadow-2xl relative">
       
-      <!-- Botão X de fechar fixo no topo e sempre visível sem precisar de zoom -->
       <button onclick="closeFormatModal()" class="absolute top-6 right-6 text-zinc-400 hover:text-white z-20 bg-zinc-900/80 p-1.5 rounded-full border border-zinc-700"><i data-lucide="x" class="w-5 h-5"></i></button>
       
       <div class="shrink-0 pr-10">
@@ -894,7 +874,6 @@
         </p>
       </div>
 
-      <!-- Área rolável internamente para evitar que o modal estoure a tela -->
       <div class="overflow-y-auto space-y-3 text-xs pr-1 no-scrollbar flex-1">
         <div>
           <label class="block font-semibold text-zinc-300 mb-1">1. Nome Completo do Contratante *</label>
@@ -916,7 +895,7 @@
         </div>
         <div>
           <label class="block font-semibold text-zinc-300 mb-1">4. Público estimado</label>
-          <select id="qAudience" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-2.5 text-white">
+          <select id="qAudience" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white">
             <option>Até 50 pessoas</option>
             <option>50 a 150 pessoas</option>
             <option>150+ pessoas</option>
@@ -954,7 +933,7 @@
   <script>
     lucide.createIcons();
 
-    // Estado padrão robusto (nunca dá 404, exibe estados em construção se não houver dados preenchidos)
+    // Estado padrão robusto (nunca dá 404, exibe estados em construção se não houver dados)
     let artistData = JSON.parse(localStorage.getItem('stagekit_artist')) || {
       whatsapp: "(21)98936-8930",
       artistMainName: "NOME DO ARTISTA",
@@ -993,11 +972,19 @@
       updateCacheCalculations();
       renderCalendarEvents();
       
-      // Tratamento de rota robusto para impedir erro 404 em qualquer slug acessada
+      handleRouting();
+      window.addEventListener('popstate', handleRouting);
+    }
+
+    function handleRouting() {
       const path = window.location.pathname.replace('/', '').trim();
       if (path && path !== '' && path !== 'index.html' && path !== 'dashboard') {
         artistData.slug = path;
         showPublicPressKit();
+      } else if (path === 'dashboard') {
+        showArtistDashboard();
+      } else {
+        goHome();
       }
     }
 
@@ -1057,7 +1044,6 @@
       document.getElementById('landingPage').classList.remove('hidden');
       document.getElementById('contractorView').classList.add('hidden');
       document.getElementById('artistDashboard').classList.add('hidden');
-      document.getElementById('floatingBackBtn').classList.add('hidden');
       document.getElementById('landingHeaderActions').classList.remove('hidden');
       document.getElementById('panelHeaderActions').classList.add('hidden');
       document.getElementById('headerVerPressKitBtn').classList.add('hidden');
@@ -1068,7 +1054,6 @@
       document.getElementById('landingPage').classList.add('hidden');
       document.getElementById('contractorView').classList.remove('hidden');
       document.getElementById('artistDashboard').classList.add('hidden');
-      document.getElementById('floatingBackBtn').classList.remove('hidden');
       document.getElementById('landingHeaderActions').classList.add('hidden');
       document.getElementById('panelHeaderActions').classList.remove('hidden');
       document.getElementById('headerVerPressKitBtn').classList.add('hidden');
@@ -1084,9 +1069,8 @@
       document.getElementById('landingPage').classList.add('hidden');
       document.getElementById('contractorView').classList.add('hidden');
       document.getElementById('artistDashboard').classList.remove('hidden');
-      document.getElementById('floatingBackBtn').classList.add('hidden');
       document.getElementById('landingHeaderActions').classList.add('hidden');
-      document.getElementById('panelHeaderActions').classList.add('hidden'); // Ícones de e-mail/instagram somem na área do artista
+      document.getElementById('panelHeaderActions').classList.add('hidden'); // Ícones somem na área do artista
       document.getElementById('headerVerPressKitBtn').classList.remove('hidden');
       switchTab('tabDashboard');
     }
@@ -1165,7 +1149,10 @@
       }
     }
 
-    function logoutToHome() { goHome(); }
+    // Correção: Encerra a sessão e retorna à home limpa
+    function logoutToHome() {
+      goHome();
+    }
 
     function switchTab(tabId) {
       document.querySelectorAll('.dashboard-tab').forEach(t => t.classList.add('hidden'));
