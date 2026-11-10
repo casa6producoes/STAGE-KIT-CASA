@@ -861,7 +861,7 @@
     </div>
   </div>
 
-  <!-- ==================== MODAL DE AUTENTICAÇÃO SOCIAL COM CÓDIGO REAL (EMAILJS) ==================== -->
+  <!-- ==================== MODAL DE AUTENTICAÇÃO SOCIAL (COM CREDENCIAIS REAIS EMAILJS) ==================== -->
   <div id="socialAuthModal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-sm hidden flex items-center justify-center p-4">
     <div class="bg-brand-cardBg border border-brand-border rounded-3xl max-w-md w-full p-6 sm:p-8 space-y-6 shadow-2xl relative text-center">
       <button onclick="closeSocialAuthModal()" class="absolute top-6 right-6 text-zinc-400 hover:text-white"><i data-lucide="x" class="w-5 h-5"></i></button>
@@ -872,7 +872,7 @@
         </div>
         <div>
           <h3 id="socialAuthTitle" class="text-xl font-bold text-white">Autenticação</h3>
-          <p id="socialAuthSubtitle" class="text-xs text-zinc-400 mt-1">Informe seu e-mail para receber o código de verificação real enviado pela plataforma.</p>
+          <p id="socialAuthSubtitle" class="text-xs text-zinc-400 mt-1">Informe seu e-mail para receber o código de verificação enviado pela plataforma.</p>
         </div>
         <div class="text-left space-y-3 text-xs">
           <div>
@@ -880,7 +880,7 @@
             <input type="email" id="socialAuthEmailInput" placeholder="seu@email.com" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white">
           </div>
           <button onclick="sendRealVerificationCode()" class="w-full bg-amber-500 hover:bg-amber-600 text-black font-extrabold py-3 rounded-xl shadow-md transition-all">
-            Enviar Código Real por E-mail
+            Enviar Código por E-mail
           </button>
         </div>
       </div>
@@ -1217,7 +1217,7 @@
       showArtistDashboard();
     }
 
-    // Fluxo de Autenticação com Envio Real de Código via EmailJS
+    // Fluxo de Autenticação com Envio Real de Código via EmailJS (Credenciais Inseridas)
     function startSocialAuth(provider) {
       currentAuthType = provider;
       closeLoginModal();
@@ -1225,9 +1225,9 @@
 
       document.getElementById('socialAuthTitle').innerText = `Autenticar com ${provider}`;
       if(provider === 'iCloud') {
-        document.getElementById('socialAuthSubtitle').innerText = 'Insira seu ID Apple e e-mail para receber o código de verificação real.';
+        document.getElementById('socialAuthSubtitle').innerText = 'Insira seu ID Apple e e-mail para receber o código de verificação.';
       } else {
-        document.getElementById('socialAuthSubtitle').innerText = `Informe seu e-mail para receber o código de verificação real via ${provider}.`;
+        document.getElementById('socialAuthSubtitle').innerText = `Informe seu e-mail para receber o código de verificação via ${provider}.`;
       }
 
       document.getElementById('socialAuthStep1').classList.remove('hidden');
@@ -1237,7 +1237,7 @@
     }
 
     function closeSocialAuthModal() {
-      document.getElementById('socialAuthModal').classList.add('hidden');
+      document.getElementById('socialAuthModal'].classList.add('hidden');
     }
 
     function sendRealVerificationCode() {
@@ -1249,7 +1249,7 @@
 
       generatedVerificationCode = Math.floor(100000 + Math.random() * 900000).toString();
 
-      // Envio real via EmailJS (com fallback seguro caso não haja chaves pré-configuradas)
+      // Configuração Real com as suas credenciais do EmailJS
       const templateParams = {
         to_email: email,
         pass_code: generatedVerificationCode,
@@ -1257,25 +1257,26 @@
       };
 
       try {
-        emailjs.init("user_STAGEKIT_PUBLIC_KEY");
-        emailjs.send("service_stagekit", "template_verification", templateParams)
+        emailjs.init("LylxGmkZwZeQPvhMt"); // Sua Public Key real
+        emailjs.send("service_stagekit", "template_vrl1qan", templateParams)
           .then(() => {
             alert(`Código de verificação enviado com sucesso para ${email}! Verifique sua caixa de entrada.`);
+            document.getElementById('socialAuthStep1').classList.add('hidden');
+            document.getElementById('socialAuthStep2').classList.remove('hidden');
+            document.getElementById('socialAuthCodeInput').value = '';
           }, (err) => {
-            alert(`[Modo Produção] Código de confirmação enviado para ${email}: ${generatedVerificationCode}`);
+            console.error('Erro EmailJS:', err);
+            alert('Erro ao enviar e-mail. Verifique o Service ID ou Template ID no painel do EmailJS.');
           });
       } catch(e) {
-        alert(`[Código Real Gerado] Seu código de verificação para ${email} é: ${generatedVerificationCode}`);
+        console.error(e);
+        alert('Erro na inicialização do serviço de e-mail.');
       }
-
-      document.getElementById('socialAuthStep1').classList.add('hidden');
-      document.getElementById('socialAuthStep2').classList.remove('hidden');
-      document.getElementById('socialAuthCodeInput').value = '';
     }
 
     function verifyRealCode() {
       const enteredCode = document.getElementById('socialAuthCodeInput').value.trim();
-      if(enteredCode !== generatedVerificationCode && enteredCode !== '123456') {
+      if(enteredCode !== generatedVerificationCode) {
         alert('Código incorreto! Digite o código de 6 dígitos enviado para o seu e-mail.');
         return;
       }
