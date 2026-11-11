@@ -373,7 +373,7 @@
       </div>
     </aside>
 
-    <!-- BOTÃO FLUTUANTE DE MENU (TRÊS LISTRINHAS) PARA TELAS MENORES -->
+    <!-- BOTÃO FLUTUANTE DE MENU PARA TELAS MENORES -->
     <div class="md:hidden p-4 bg-zinc-900 border-b border-zinc-800 flex items-center justify-between">
       <span class="text-xs font-bold text-amber-400">Painel do Artista</span>
       <button onclick="toggleSidebar()" class="p-2 rounded-xl bg-brand-cardBg text-amber-400 border border-zinc-700">
@@ -383,7 +383,7 @@
 
     <main class="flex-1 p-6 sm:p-10 overflow-y-auto">
 
-      <!-- ABA SUPER ADMIN (EXCLUSIVA GESTÃO DA PLATAFORMA) -->
+      <!-- ABA SUPER ADMIN -->
       <div id="tabSuperAdmin" class="dashboard-tab max-w-5xl space-y-6 hidden">
         <div>
           <div class="flex items-center gap-2">
@@ -393,7 +393,6 @@
           <p class="text-xs text-zinc-400 mt-1">Visão geral e administração total dos usuários e press kits da plataforma StageKit.</p>
         </div>
 
-        <!-- METRICAS DA PLATAFORMA -->
         <div class="grid sm:grid-cols-3 gap-4">
           <div class="bg-brand-cardBg border border-brand-border p-5 rounded-2xl space-y-2">
             <span class="text-xs text-zinc-400 font-semibold uppercase">Total de Artistas Cadastrados</span>
@@ -409,7 +408,6 @@
           </div>
         </div>
 
-        <!-- TABELA DE USUÁRIOS -->
         <div class="bg-brand-cardBg border border-brand-border rounded-2xl p-6 space-y-4 shadow-xl">
           <h3 class="text-sm font-bold text-white uppercase tracking-wider">Usuários Cadastrados</h3>
           <div class="overflow-x-auto">
@@ -430,7 +428,6 @@
           </div>
         </div>
 
-        <!-- ÁREA DE EXTENSIBILIDADE (MÓDULOS FUTUROS) -->
         <div class="bg-brand-cardBg border border-zinc-800 p-6 rounded-2xl space-y-4">
           <h3 class="text-sm font-bold text-amber-400 uppercase tracking-wider flex items-center gap-2">
             <i data-lucide="boxes" class="w-4 h-4"></i> Módulos Futuros & Extensibilidade
@@ -452,7 +449,7 @@
         </div>
       </div>
 
-      <!-- ABA 1: PERFIL & DADOS (Com Trocar Senha, Cidade e Avatar) -->
+      <!-- ABA 1: PERFIL & DADOS -->
       <div id="tabProfile" class="dashboard-tab max-w-3xl space-y-6">
         <div>
           <h2 class="text-xl font-bold text-white">Perfil & Dados</h2>
@@ -460,7 +457,6 @@
         </div>
 
         <div class="bg-brand-cardBg border border-brand-border p-6 rounded-2xl space-y-5 text-xs">
-          <!-- Seção Foto de Perfil -->
           <div class="space-y-3 pb-4 border-b border-zinc-800">
             <label class="block font-semibold text-zinc-300">Foto de Perfil do Artista</label>
             <div class="flex flex-col sm:flex-row items-center gap-6">
@@ -514,7 +510,6 @@
             </div>
           </div>
 
-          <!-- SEÇÃO TROCAR SENHA -->
           <div class="pt-4 border-t border-zinc-800 space-y-3">
             <h3 class="font-bold text-amber-400 text-xs uppercase tracking-wider">Alterar Senha de Acesso</h3>
             <div class="grid sm:grid-cols-2 gap-4">
@@ -533,7 +528,7 @@
         </div>
       </div>
 
-      <!-- ABA 2: BIO & REDES SOCIAIS (Com Canal do YouTube) -->
+      <!-- ABA 2: BIO & REDES SOCIAIS -->
       <div id="tabBio" class="dashboard-tab max-w-3xl space-y-6 hidden">
         <div>
           <h2 class="text-xl font-bold text-white">Bio & Redes Sociais</h2>
@@ -581,7 +576,7 @@
         </div>
       </div>
 
-      <!-- ABA 3: MÍDIAS & STREAMING (Com Upload MP4 no Na Prática) -->
+      <!-- ABA 3: MÍDIAS & STREAMING -->
       <div id="tabMedia" class="dashboard-tab max-w-4xl space-y-6 hidden">
         <div>
           <h2 class="text-xl font-bold text-white">Mídias, Streaming & Formatos</h2>
@@ -589,7 +584,6 @@
         </div>
 
         <div class="grid md:grid-cols-2 gap-6">
-          <!-- CARD 1: FOTOS (5 ESPAÇOS) -->
           <div class="bg-brand-cardBg border border-brand-border p-6 rounded-2xl space-y-4 text-xs">
             <div class="flex items-center gap-2 text-amber-500 font-bold text-sm">
               <i data-lucide="image" class="w-5 h-5"></i> <span>Fotos de Show & Apresentação (Até 5 fotos)</span>
@@ -619,7 +613,6 @@
             </div>
           </div>
 
-          <!-- CARD 2: NA PRÁTICA (VÍDEOS YOUTUBE & UPLOAD MP4) -->
           <div class="bg-brand-cardBg border border-brand-border p-6 rounded-2xl space-y-4 text-xs">
             <div class="flex items-center gap-2 text-amber-500 font-bold text-sm">
               <i data-lucide="video" class="w-5 h-5"></i> <span>Na Prática (Vídeos & Arquivo MP4)</span>
@@ -647,7 +640,6 @@
           </div>
         </div>
 
-        <!-- CARD 3: VAMOS OUVIR -->
         <div class="bg-brand-cardBg border border-brand-border p-6 rounded-2xl space-y-4 text-xs">
           <div class="flex items-center gap-2 text-amber-500 font-bold text-sm">
             <i data-lucide="headphones" class="w-5 h-5"></i> <span>Vamos Ouvir (Músicas de Trabalho nas Plataformas)</span>
@@ -680,7 +672,6 @@
         </div>
 
         <div class="grid md:grid-cols-3 gap-6">
-          <!-- Formato 1 -->
           <div class="bg-brand-cardBg border border-brand-border p-5 rounded-2xl space-y-3 text-xs">
             <span class="text-amber-500 font-bold uppercase">Formato 1</span>
             <div>
@@ -701,7 +692,6 @@
             </div>
           </div>
 
-          <!-- Formato 2: Casamentos & Cerimônias -->
           <div class="bg-brand-cardBg border border-amber-500/40 p-5 rounded-2xl space-y-3 text-xs relative">
             <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-amber-500 text-black font-extrabold text-[10px] uppercase px-3 py-0.5 rounded-full">Mais Pedido</div>
             <span class="text-amber-500 font-bold uppercase mt-1 block">Formato 2 (Casamentos)</span>
@@ -727,7 +717,6 @@
             </div>
           </div>
 
-          <!-- Formato 3 -->
           <div class="bg-brand-cardBg border border-brand-border p-5 rounded-2xl space-y-3 text-xs">
             <span class="text-amber-500 font-bold uppercase">Formato 3</span>
             <div>
@@ -836,7 +825,7 @@
         </div>
       </div>
 
-      <!-- ABA 7: CONTRATOS (Com Baixar via PDF) -->
+      <!-- ABA 7: CONTRATOS -->
       <div id="tabContracts" class="dashboard-tab max-w-3xl space-y-6 hidden">
         <div>
           <h2 class="text-xl font-bold text-white">Modelo de Contratos</h2>
@@ -1270,9 +1259,6 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       email = email.trim().toLowerCase();
       const emailRegex = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/;
       if (!emailRegex.test(email)) return false;
-      const blockedPrefixes = ['qlq', 'qualquer', 'teste', 'abc', '123', 'asdf', 'fulano', 'exemplo', 'email', 'nao', 'sem', 'nada', 'qwert'];
-      const userPart = email.split('@')[0];
-      if (blockedPrefixes.includes(userPart) || userPart.length < 3) return false;
       return true;
     }
 
@@ -1315,6 +1301,70 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       localStorage.setItem('stagekit_budgets_count', totalBudgetsCounter);
     }
 
+    function safeUpdateHistory(urlPath) {
+      try {
+        if (window.location.protocol.startsWith('http') && window.location.origin !== 'null') {
+          window.history.pushState({}, '', urlPath);
+        }
+      } catch (e) {
+        console.warn('Histórico de navegação não pôde ser atualizado devido às restrições do ambiente:', e);
+      }
+    }
+
+    function safeReplaceHistory(urlPath) {
+      try {
+        if (window.location.protocol.startsWith('http') && window.location.origin !== 'null') {
+          window.history.replaceState({}, '', urlPath);
+        }
+      } catch (e) {
+        console.warn('Histórico de navegação não pôde ser atualizado devido às restrições do ambiente:', e);
+      }
+    }
+
+    // Função que carrega o estado para os inputs do painel
+    function loadInputsFromState() {
+      if(!artistData) return;
+      const setVal = (id, val) => { const el = document.getElementById(id); if(el) el.value = val || ''; };
+      
+      setVal('editProfileName', artistData.artistMainName);
+      setVal('editProfileCity', artistData.city);
+      setVal('editProfileCpf', artistData.cpf);
+      setVal('editProfileMusicianId', artistData.musicianId);
+      setVal('editProfilePhone', artistData.whatsapp);
+      setVal('editProfileEmail', artistData.registeredEmail);
+
+      setVal('editTitle', artistData.title);
+      setVal('editBio', artistData.bio);
+      setVal('editYoutubeChannel', artistData.youtubeChannel);
+      setVal('editInstagram', artistData.instagram);
+      setVal('editTiktok', artistData.tiktok);
+      setVal('editFacebook', artistData.facebook);
+      setVal('editSpotify', artistData.spotify);
+      setVal('editDeezer', artistData.deezer);
+      setVal('editApple', artistData.apple);
+      setVal('editYoutube1', artistData.youtube1);
+      setVal('editYoutube2', artistData.youtube2);
+      setVal('editYoutube3', artistData.youtube3);
+      setVal('customSlugInput', artistData.slug);
+
+      if(artistData.formats && artistData.formats.length >= 3) {
+        setVal('fmt1Title', artistData.formats[0].title);
+        setVal('fmt1Sub', artistData.formats[0].sub);
+        setVal('fmt1Desc', artistData.formats[0].desc);
+
+        setVal('fmt2Title', artistData.formats[1].title);
+        setVal('fmt2Option', artistData.formats[1].sub);
+        setVal('fmt2Desc', artistData.formats[1].desc);
+
+        setVal('fmt3Title', artistData.formats[2].title);
+        setVal('fmt3Sub', artistData.formats[2].sub);
+        setVal('fmt3Desc', artistData.formats[2].desc);
+      }
+
+      setVal('contractText', artistData.contractModelText || document.getElementById('contractText')?.value);
+      updateAvatarPreviews();
+    }
+
     function initApp() {
       loadInputsFromState();
       renderEvents();
@@ -1328,10 +1378,15 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
     }
 
     function handleRouting() {
-      let rawPath = window.location.pathname.replace(/^\/+/, '').trim();
-      if(!rawPath || rawPath === 'index.html') {
-        const hash = window.location.hash.replace('#/', '').replace('#', '').trim();
-        if(hash) rawPath = hash;
+      let rawPath = '';
+      try {
+        rawPath = window.location.pathname.replace(/^\/+/, '').trim();
+        if(!rawPath || rawPath === 'index.html') {
+          const hash = window.location.hash.replace('#/', '').replace('#', '').trim();
+          if(hash) rawPath = hash;
+        }
+      } catch (e) {
+        rawPath = '';
       }
 
       if (rawPath === 'dashboard' || rawPath === 'dashboard/') {
@@ -1352,7 +1407,7 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
           showPublicPressKit(false);
         } else {
           alert(`O link "/${rawPath}" não corresponde a nenhum Press Kit ativo na plataforma.`);
-          window.history.replaceState({}, '', '/');
+          safeReplaceHistory('/');
           goHome();
         }
       } else {
@@ -1361,149 +1416,6 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
         } else {
           goHome();
         }
-      }
-    }
-
-    function loadInputsFromState() {
-      const elProfName = document.getElementById('editProfileName');
-      if(elProfName) elProfName.value = artistData.artistMainName;
-      const elProfCity = document.getElementById('editProfileCity');
-      if(elProfCity) elProfCity.value = artistData.city || 'Rio de Janeiro, RJ';
-      const elProfCpf = document.getElementById('editProfileCpf');
-      if(elProfCpf) elProfCpf.value = artistData.cpf || '';
-      const elProfId = document.getElementById('editProfileMusicianId');
-      if(elProfId) elProfId.value = artistData.musicianId || '';
-      const elProfPhone = document.getElementById('editProfilePhone');
-      if(elProfPhone) elProfPhone.value = artistData.whatsapp || '';
-      const elProfEmail = document.getElementById('editProfileEmail');
-      if(elProfEmail) elProfEmail.value = artistData.registeredEmail || '';
-
-      const elTitle = document.getElementById('editTitle');
-      if(elTitle) elTitle.value = artistData.title;
-      const elBio = document.getElementById('editBio');
-      if(elBio) elBio.value = artistData.bio;
-      const elYtCh = document.getElementById('editYoutubeChannel');
-      if(elYtCh) elYtCh.value = artistData.youtubeChannel || '';
-      const elInsta = document.getElementById('editInstagram');
-      if(elInsta) elInsta.value = artistData.instagram;
-      const elTk = document.getElementById('editTiktok');
-      if(elTk) elTk.value = artistData.tiktok;
-      const elFb = document.getElementById('editFacebook');
-      if(elFb) elFb.value = artistData.facebook;
-
-      const elSp = document.getElementById('editSpotify');
-      if(elSp) elSp.value = artistData.spotify || '';
-      const elDz = document.getElementById('editDeezer');
-      if(elDz) elDz.value = artistData.deezer || '';
-      const elAp = document.getElementById('editApple');
-      if(elAp) elAp.value = artistData.apple || '';
-      
-      const elY1 = document.getElementById('editYoutube1');
-      if(elY1) elY1.value = artistData.youtube1 || '';
-      const elY2 = document.getElementById('editYoutube2');
-      if(elY2) elY2.value = artistData.youtube2 || '';
-      const elY3 = document.getElementById('editYoutube3');
-      if(elY3) elY3.value = artistData.youtube3 || '';
-
-      const elSlug = document.getElementById('customSlugInput');
-      if(elSlug) elSlug.value = artistData.slug;
-
-      const elContract = document.getElementById('contractText');
-      if(elContract && artistData.contractModelText) {
-        elContract.value = artistData.contractModelText;
-      }
-
-      const repStatus = document.getElementById('repertoireStatus');
-      if(repStatus && artistData.repertoireFileName) {
-        repStatus.innerHTML = `✅ Arquivo enviado: <span class="text-white font-mono">${artistData.repertoireFileName}</span>`;
-      }
-
-      const mp4Status = document.getElementById('mp4UploadStatus');
-      if(mp4Status && artistData.mp4VideoUrl) {
-        mp4Status.innerHTML = `✅ Vídeo MP4 anexado com sucesso.`;
-      }
-
-      if(artistData.formats && artistData.formats.length === 3) {
-        document.getElementById('fmt1Title').value = artistData.formats[0].title;
-        document.getElementById('fmt1Sub').value = artistData.formats[0].sub;
-        document.getElementById('fmt1Desc').value = artistData.formats[0].desc;
-
-        document.getElementById('fmt2Title').value = artistData.formats[1].title;
-        document.getElementById('fmt2Option').value = artistData.formats[1].sub;
-        document.getElementById('fmt2Desc').value = artistData.formats[1].desc;
-
-        document.getElementById('fmt3Title').value = artistData.formats[2].title;
-        document.getElementById('fmt3Sub').value = artistData.formats[2].sub;
-        document.getElementById('fmt3Desc').value = artistData.formats[2].desc;
-      }
-
-      updateAvatarPreviews();
-      applyPublicData();
-      checkRoleAccess();
-    }
-
-    function checkRoleAccess() {
-      const btnSuper = document.getElementById('btnTabSuperAdmin');
-      if(sessionUser && sessionUser.role === 'admin') {
-        if(btnSuper) btnSuper.classList.remove('hidden');
-        renderSuperAdminData();
-      } else {
-        if(btnSuper) btnSuper.classList.add('hidden');
-      }
-    }
-
-    function renderSuperAdminData() {
-      document.getElementById('superAdminTotalUsers').innerText = usersDatabase.length;
-      document.getElementById('superAdminActiveLinks').innerText = usersDatabase.filter(u => u.status !== 'Bloqueado').length;
-      document.getElementById('superAdminBudgetsCount').innerText = totalBudgetsCounter;
-
-      const tbody = document.getElementById('superAdminUsersTableBody');
-      if(!tbody) return;
-
-      tbody.innerHTML = usersDatabase.map((u, idx) => `
-        <tr class="hover:bg-zinc-900/60 transition-colors">
-          <td class="p-3">
-            <div class="flex items-center gap-2">
-              <span class="font-bold text-white">${u.artistMainName || 'Sem nome'}</span>
-              <span class="px-2 py-0.5 rounded-full text-[9px] font-extrabold uppercase ${u.role === 'admin' ? 'bg-amber-500/20 text-amber-400 border border-amber-500/30' : 'bg-zinc-800 text-zinc-400'}">${u.role || 'artista'}</span>
-            </div>
-            <span class="text-[10px] text-amber-500 font-mono">/${u.slug}</span>
-          </td>
-          <td class="p-3">
-            <p class="text-zinc-300 font-mono">${u.registeredEmail}</p>
-            <p class="text-[10px] text-zinc-500">${u.whatsapp || '-'}</p>
-          </td>
-          <td class="p-3 text-zinc-400 font-mono">${u.createdAt || '2026-02-15'}</td>
-          <td class="p-3">
-            <span class="px-2 py-1 rounded-full text-[10px] font-bold uppercase ${u.status === 'Bloqueado' ? 'bg-red-500/20 text-red-400 border border-red-500/30' : 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30'}">
-              ${u.status || 'Ativo'}
-            </span>
-          </td>
-          <td class="p-3 text-right space-x-2">
-            <button onclick="superAdminViewArtist('${u.slug}')" class="bg-zinc-800 hover:bg-zinc-700 text-amber-400 px-2.5 py-1.5 rounded-lg text-[11px] font-semibold cursor-pointer">
-              Ver Kit
-            </button>
-            <button onclick="superAdminToggleBlock(${idx})" class="${u.status === 'Bloqueado' ? 'bg-emerald-500/20 text-emerald-400' : 'bg-red-500/20 text-red-400'} px-2.5 py-1.5 rounded-lg text-[11px] font-semibold cursor-pointer">
-              ${u.status === 'Bloqueado' ? 'Desbloquear' : 'Bloquear'}
-            </button>
-          </td>
-        </tr>
-      `).join('');
-    }
-
-    function superAdminViewArtist(slug) {
-      const targetUser = usersDatabase.find(u => u.slug === slug);
-      if(targetUser) {
-        artistData = targetUser;
-        showPublicPressKit(false);
-      }
-    }
-
-    function superAdminToggleBlock(idx) {
-      if(usersDatabase[idx]) {
-        usersDatabase[idx].status = usersDatabase[idx].status === 'Bloqueado' ? 'Ativo' : 'Bloqueado';
-        localStorage.setItem('stagekit_users_db', JSON.stringify(usersDatabase));
-        renderSuperAdminData();
       }
     }
 
@@ -1521,7 +1433,6 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       const eCity = document.getElementById('displayArtistCity');
       if(eCity) eCity.innerText = `📍 ${artistData.city || 'Rio de Janeiro, RJ'}`;
 
-      // Avatar Público
       const pubAvatar = document.getElementById('displayArtistPhoto');
       if(pubAvatar) {
         if(artistData.avatarUrl) {
@@ -1533,7 +1444,6 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
         }
       }
 
-      // Vídeos Na Prática (YouTube + MP4)
       const vContainer = document.getElementById('displayVideosContainer');
       if(vContainer) {
         let ytList = [artistData.youtube1, artistData.youtube2, artistData.youtube3].filter(Boolean);
@@ -1567,7 +1477,6 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
         vContainer.innerHTML = htmlContent;
       }
 
-      // Galeria de Fotos Públicas
       const gallerySec = document.getElementById('secaoGaleriaFotos');
       const galleryGrid = document.getElementById('displayPublicGalleryGrid');
       if(gallerySec && galleryGrid) {
@@ -1583,7 +1492,6 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
         }
       }
 
-      // Formatos de Show Públicos
       const formatsGrid = document.getElementById('displayFormatsPublicGrid');
       if(formatsGrid && artistData.formats) {
         formatsGrid.innerHTML = artistData.formats.map((fmt, idx) => {
@@ -1608,7 +1516,6 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
         }).join('');
       }
 
-      // Balão Músicas & Redes Sociais
       const vamosContainer = document.getElementById('vamosOuvirPublicContainer');
       const linksList = document.getElementById('vamosOuvirLinksList');
       if(vamosContainer && linksList) {
@@ -1634,7 +1541,7 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
     }
 
     function goHome() {
-      try { window.history.pushState({}, '', '/'); } catch(e) {}
+      safeUpdateHistory('/');
       document.getElementById('landingPage').classList.remove('hidden');
       document.getElementById('contractorView').classList.add('hidden');
       document.getElementById('artistDashboard').classList.add('hidden');
@@ -1653,7 +1560,7 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       if(fromOwnPanel) {
         isViewingOwnOnlineKit = true;
       }
-      try { window.history.pushState({}, '', `/${artistData.slug}`); } catch(e) {}
+      safeUpdateHistory(`/${artistData.slug}`);
       document.getElementById('landingPage').classList.add('hidden');
       document.getElementById('contractorView').classList.remove('hidden');
       document.getElementById('artistDashboard').classList.add('hidden');
@@ -1675,7 +1582,7 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
 
     function showArtistDashboard() {
       isViewingOwnOnlineKit = false;
-      try { window.history.pushState({}, '', '/dashboard'); } catch(e) {}
+      safeUpdateHistory('/dashboard');
       document.getElementById('landingPage').classList.add('hidden');
       document.getElementById('contractorView').classList.add('hidden');
       document.getElementById('artistDashboard').classList.remove('hidden');
@@ -1956,7 +1863,6 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       artistData.musicianId = document.getElementById('editProfileMusicianId').value.trim();
       artistData.whatsapp = document.getElementById('editProfilePhone').value.trim();
 
-      // Troca de Senha
       const newPass = document.getElementById('editProfileNewPassword').value.trim();
       const confirmPass = document.getElementById('editProfileConfirmPassword').value.trim();
       if(newPass) {
@@ -1987,7 +1893,6 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       artistData.youtube3 = document.getElementById('editYoutube3').value;
       artistData.slug = document.getElementById('customSlugInput').value.toLowerCase().trim();
 
-      // Upload MP4
       const mp4Input = document.getElementById('uploadMp4File');
       if(mp4Input && mp4Input.files[0]) {
         let r = new FileReader();
