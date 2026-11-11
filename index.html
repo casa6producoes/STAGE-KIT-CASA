@@ -25,7 +25,7 @@
     }
   </script>
   
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Montserrat:wght@400;700;900&family=Playfair+Display:wght@400;700&family=Cinzel:wght@400;700&family=Bebas+Neue&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/lucide@latest"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
@@ -247,14 +247,9 @@
   <div id="contractorView" class="flex-1 pt-20 hidden">
     <section id="hero" class="relative py-16 md:py-24 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto text-center space-y-6">
       
-      <!-- CAPA / LOGO DO ARTISTA (FOTO 1) -->
-      <div id="displayCoverContainer" class="w-full max-w-3xl mx-auto rounded-3xl overflow-hidden border border-amber-500/40 shadow-2xl bg-brand-cardBg mb-4 min-h-[140px] flex flex-col items-center justify-center p-6 relative">
-        <img id="displayCoverImg" src="" class="w-full h-full object-cover absolute inset-0 hidden" alt="Capa">
-        <div class="absolute inset-0 bg-black/40 backdrop-blur-[2px]"></div>
-        
-        <div class="relative z-10 flex items-center justify-center gap-3 px-8 py-4 rounded-2xl bg-amber-500/20 border border-amber-500/40 text-amber-400 text-2xl sm:text-4xl font-extrabold uppercase tracking-wider shadow-2xl">
-          <span>🎵</span> <span id="displayArtistMainName">SEU NOME</span>
-        </div>
+      <!-- CAPA OU TEXTO COM ESTILO CUSTOMIZADO (ATUALIZADO) -->
+      <div id="displayHeroHeaderContainer" class="w-full max-w-4xl mx-auto transition-all duration-300">
+        <!-- Renderizado dinamicamente via JS (Capa pura aumentada OU Nome estilizado) -->
       </div>
       
       <h1 id="displayTitle" class="text-lg sm:text-2xl font-bold text-zinc-300 tracking-tight leading-snug max-w-3xl mx-auto uppercase">
@@ -311,7 +306,7 @@
         <div id="vamosOuvirPlayerList" class="space-y-3 pt-2"></div>
       </div>
 
-      <!-- DEPOIMENTOS DE CLIENTES (NOVO CARD) -->
+      <!-- DEPOIMENTOS DE CLIENTES (ATÉ 5 CARDS COM SUPORTE A PRINTS) -->
       <div id="secaoDepoimentos" class="space-y-4 pt-6 max-w-4xl mx-auto">
         <div class="text-center">
           <span class="text-amber-500 font-bold text-xs uppercase tracking-widest">Prova Social</span>
@@ -367,7 +362,7 @@
             <span id="lockBio" class="hidden text-zinc-500"><i data-lucide="lock" class="w-3.5 h-3.5"></i></span>
           </button>
           <button onclick="switchTab('tabMedia')" id="btnTabMedia" class="tab-menu-btn w-full flex items-center justify-between px-4 py-3 rounded-xl text-xs font-semibold text-zinc-400 hover:bg-zinc-800 hover:text-white transition-all cursor-pointer">
-            <div class="flex items-center gap-3"><i data-lucide="video" class="w-4 h-4"></i> Mídias & Streaming</div>
+            <div class="flex items-center gap-3"><i data-lucide="video" class="w-4 h-4"></i> Mídias, Streaming & Depoimentos</div>
             <span id="lockMedia" class="hidden text-zinc-500"><i data-lucide="lock" class="w-3.5 h-3.5"></i></span>
           </button>
           <button onclick="switchTab('tabFormats')" id="btnTabFormats" class="tab-menu-btn w-full flex items-center justify-between px-4 py-3 rounded-xl text-xs font-semibold text-zinc-400 hover:bg-zinc-800 hover:text-white transition-all cursor-pointer">
@@ -405,7 +400,7 @@
         <button onclick="toggleTheme()" class="w-full flex items-center justify-center gap-2 p-3 rounded-xl bg-zinc-900 border border-zinc-800 text-amber-400 hover:bg-zinc-800 transition-colors text-xs font-bold cursor-pointer">
           <i data-lucide="sun" id="dashThemeIcon" class="w-4 h-4"></i> Alternar Tema
         </button>
-        <p class="text-[10px] text-zinc-500 text-center">StageKit v3.3 — Casa 6</p>
+        <p class="text-[10px] text-zinc-500 text-center">StageKit v3.4 — Casa 6</p>
       </div>
     </aside>
 
@@ -461,7 +456,7 @@
         </div>
 
         <div class="bg-brand-cardBg border border-brand-border p-6 rounded-2xl space-y-4">
-          <h3 class="text-sm font-bold text-amber-400 uppercase tracking-wider">Módulos Fututos & Relatórios</h3>
+          <h3 class="text-sm font-bold text-amber-400 uppercase tracking-wider">Módulos Futuros & Relatórios</h3>
           <p class="text-xs text-zinc-400">Distribuição visual comparativa entre o volume de usuários cadastrados e o engajamento de contratos gerados na plataforma.</p>
           <div class="max-w-xs mx-auto pt-2">
             <canvas id="superAdminPieChart" width="200" height="200"></canvas>
@@ -482,34 +477,77 @@
         </div>
       </div>
 
-      <!-- ABA 1: PERFIL & DADOS (Com Capa + Logo em Texto) -->
+      <!-- ABA 1: PERFIL & DADOS -->
       <div id="tabProfile" class="dashboard-tab max-w-3xl space-y-6">
         <div>
           <h2 class="text-xl font-bold text-white">Perfil & Dados</h2>
-          <p class="text-xs text-zinc-400 mt-1">Gerencie seu nome, capa/logo, foto de perfil, WhatsApp e segurança.</p>
+          <p class="text-xs text-zinc-400 mt-1">Gerencie seu nome, capa aumentada, foto de perfil, WhatsApp e segurança.</p>
         </div>
 
         <div class="bg-brand-cardBg border border-brand-border p-6 rounded-2xl space-y-5 text-xs">
-          <!-- CARD GRANDE DE CAPA & LOGO -->
-          <div class="space-y-3 pb-4 border-b border-zinc-800">
-            <label class="block font-semibold text-amber-400">Capa do Press Kit & Logo em Texto</label>
-            <div class="bg-zinc-900 border border-zinc-700 rounded-2xl p-4 space-y-3">
-              <div class="flex flex-col sm:flex-row items-center gap-4">
-                <div id="previewCoverContainer" class="w-full sm:w-48 h-24 rounded-xl bg-zinc-800 border border-zinc-700 overflow-hidden flex items-center justify-center relative">
-                  <img id="previewCoverImg" src="" class="w-full h-full object-cover hidden" alt="Capa">
-                  <span id="previewCoverPlaceholder" class="text-[11px] text-zinc-500">Sem capa</span>
+          
+          <!-- SEÇÃO CAPA & NOME EM TEXTO CUSTOMIZADO (ATUALIZADO) -->
+          <div class="space-y-4 pb-4 border-b border-zinc-800">
+            <label class="block font-semibold text-amber-400 text-sm">Capa do Press Kit / Título em Texto</label>
+            <p class="text-zinc-400 text-xs">Envie uma imagem de capa panorâmica (exibida sem texto por cima) ou configure o nome em texto estilizado.</p>
+            
+            <div class="bg-zinc-900 border border-zinc-700 rounded-2xl p-5 space-y-4">
+              <!-- Upload de Capa Aumentada -->
+              <div class="space-y-3">
+                <span class="font-bold text-zinc-200">Opção A: Enviar Imagem de Capa (Card Grande)</span>
+                <div id="previewCoverContainer" class="w-full h-40 sm:h-52 rounded-2xl bg-zinc-800 border border-zinc-700 overflow-hidden flex items-center justify-center relative shadow-lg">
+                  <img id="previewCoverImg" src="" class="w-full h-full object-cover hidden transition-transform duration-200" alt="Capa">
+                  <span id="previewCoverPlaceholder" class="text-xs text-zinc-500 font-semibold">Nenhuma capa anexada</span>
                 </div>
-                <div class="space-y-2 flex-1 w-full">
-                  <label class="bg-zinc-800 hover:bg-zinc-700 border border-zinc-600 text-white font-bold px-4 py-2 rounded-xl cursor-pointer text-xs inline-flex items-center gap-2">
+                
+                <div class="flex flex-wrap gap-2 pt-1">
+                  <label class="bg-amber-500 hover:bg-amber-600 text-black font-bold px-4 py-2 rounded-xl cursor-pointer text-xs flex items-center gap-1.5 shadow-md">
                     <i data-lucide="image" class="w-4 h-4"></i> Anexar Arquivo de Capa
                     <input type="file" id="uploadCoverInput" accept="image/*" class="hidden" onchange="handleCoverUpload(event)">
                   </label>
-                  <p class="text-[11px] text-zinc-400">Envie uma imagem de capa panorâmica.</p>
+                  <button onclick="openEditCoverModal()" class="bg-zinc-800 hover:bg-zinc-700 border border-zinc-700 text-white font-bold px-4 py-2 rounded-xl cursor-pointer text-xs flex items-center gap-1.5">
+                    <i data-lucide="crop" class="w-4 h-4"></i> Editar Foto de Capa (Zoom/Girar)
+                  </button>
+                  <button onclick="removeCoverPhoto()" class="bg-red-500/10 hover:bg-red-500/20 border border-red-500/30 text-red-400 font-bold px-3 py-2 rounded-xl cursor-pointer text-xs flex items-center gap-1.5">
+                    <i data-lucide="trash-2" class="w-4 h-4"></i> Remover Capa
+                  </button>
                 </div>
               </div>
-              <div>
-                <label class="block font-semibold text-zinc-300 mb-1">Segunda Opção do Nome em Texto (Capa)</label>
-                <input type="text" id="editCoverText" placeholder="Ex: MATHEUS FELIPE" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl p-2.5 text-white uppercase font-bold tracking-wider">
+
+              <!-- Opção B: Texto com Fontes, Estilos e Tamanhos -->
+              <div class="space-y-3 pt-4 border-t border-zinc-800">
+                <span class="font-bold text-zinc-200">Opção B: Somente Texto com o Nome (Sem Capa)</span>
+                <div>
+                  <label class="block text-zinc-400 mb-1">Texto do Nome</label>
+                  <input type="text" id="editCoverText" placeholder="Ex: MATHEUS FELIPE" oninput="saveProfileEditsQuiet()" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl p-2.5 text-white">
+                </div>
+
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                  <div>
+                    <label class="block text-zinc-400 mb-1">Fonte</label>
+                    <select id="editCoverFont" onchange="saveProfileEditsQuiet()" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl p-2 text-white">
+                      <option value="Plus Jakarta Sans">Padrão</option>
+                      <option value="Montserrat">Montserrat</option>
+                      <option value="Playfair Display">Playfair Display</option>
+                      <option value="Cinzel">Cinzel</option>
+                      <option value="Bebas Neue">Bebas Neue</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label class="block text-zinc-400 mb-1">Tamanho</label>
+                    <select id="editCoverFontSize" onchange="saveProfileEditsQuiet()" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl p-2 text-white">
+                      <option value="text-xl sm:text-2xl">Pequeno</option>
+                      <option value="text-2xl sm:text-4xl" selected>Médio</option>
+                      <option value="text-3xl sm:text-5xl">Grande</option>
+                      <option value="text-4xl sm:text-6xl">Extra Grande</option>
+                    </select>
+                  </div>
+                  <div class="col-span-2 flex items-end gap-2">
+                    <button type="button" onclick="toggleCoverStyle('bold')" id="btnStyleBold" class="flex-1 py-2 px-3 rounded-xl bg-zinc-800 border border-zinc-700 text-white font-bold hover:bg-zinc-700">N</button>
+                    <button type="button" onclick="toggleCoverStyle('italic')" id="btnStyleItalic" class="flex-1 py-2 px-3 rounded-xl bg-zinc-800 border border-zinc-700 text-white italic hover:bg-zinc-700">I</button>
+                    <button type="button" onclick="toggleCoverStyle('underline')" id="btnStyleUnderline" class="flex-1 py-2 px-3 rounded-xl bg-zinc-800 border border-zinc-700 text-white underline hover:bg-zinc-700">S</button>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -619,11 +657,11 @@
         </div>
       </div>
 
-      <!-- ABA 3: MÍDIAS & STREAMING (Com Anexar MP4 em cada lacuna + Depoimentos) -->
+      <!-- ABA 3: MÍDIAS, STREAMING & DEPOIMENTOS (ATÉ 5 CARDS COM PRINTS E NOME DO CONTRATANTE) -->
       <div id="tabMedia" class="dashboard-tab max-w-4xl space-y-6 hidden">
         <div>
           <h2 class="text-xl font-bold text-white">Mídias, Streaming & Depoimentos</h2>
-          <p class="text-xs text-zinc-400 mt-1">Gerencie fotos, vídeos MP4 individuais em cada lacuna, links de streaming e depoimentos de clientes.</p>
+          <p class="text-xs text-zinc-400 mt-1">Gerencie fotos, vídeos MP4 individuais em cada lacuna, links de streaming e até 5 depoimentos de clientes com prints.</p>
         </div>
 
         <div class="grid md:grid-cols-2 gap-6">
@@ -705,24 +743,20 @@
           </div>
         </div>
 
-        <!-- DEPOIMENTOS DE CLIENTES -->
+        <!-- DEPOIMENTOS DE CLIENTES (ATÉ 5 CARDS COM PRINTS E NOME DO CONTRATANTE) -->
         <div class="bg-brand-cardBg border border-brand-border p-6 rounded-2xl space-y-4 text-xs">
           <div class="flex items-center gap-2 text-amber-500 font-bold text-sm">
-            <i data-lucide="message-square" class="w-5 h-5"></i> <span>Depoimentos de Clientes (Prints ou Textos)</span>
+            <i data-lucide="message-square" class="w-5 h-5"></i> <span>Depoimentos de Clientes (Até 5 Cards com Prints)</span>
           </div>
-          <p class="text-zinc-400">Adicione depoimentos ou envie prints de conversas com clientes satisfeitos.</p>
-          <div class="grid sm:grid-cols-2 gap-4">
-            <div class="space-y-2">
-              <label class="block font-semibold text-zinc-300">Depoimento 1 (Texto)</label>
-              <textarea id="testText1" placeholder="Ex: Show incrível no nosso casamento! Todos elogiaram." class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white h-20"></textarea>
-              <input type="text" id="testAuthor1" placeholder="Nome do Cliente / Noivos" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-2 text-white">
-            </div>
-            <div class="space-y-2">
-              <label class="block font-semibold text-zinc-300">Depoimento 2 (Texto)</label>
-              <textarea id="testText2" placeholder="Ex: Profissionalismo impecável e repertório maravilhoso." class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white h-20"></textarea>
-              <input type="text" id="testAuthor2" placeholder="Nome do Contratante" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-2 text-white">
-            </div>
+          <p class="text-zinc-400">Adicione até 5 depoimentos com texto ou anexe prints de conversas com clientes satisfeitos.</p>
+          
+          <div id="testimonialsBuilderContainer" class="space-y-4">
+            <!-- Renderizado dinamicamente via JS -->
           </div>
+
+          <button type="button" onclick="addTestimonialSlot()" class="bg-zinc-800 hover:bg-zinc-700 border border-zinc-700 text-amber-400 font-bold px-4 py-2.5 rounded-xl text-xs flex items-center gap-2 cursor-pointer">
+            <i data-lucide="plus" class="w-4 h-4"></i> Adicionar Mais um Depoimento (Máx 5)
+          </button>
         </div>
 
         <button onclick="saveArtistEdits()" class="bg-amber-500 hover:bg-amber-600 text-black font-extrabold py-3 px-6 rounded-xl shadow-md cursor-pointer">Salvar Mídias, Streaming & Depoimentos</button>
@@ -1045,6 +1079,33 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
   </div>
 
   <!-- MODAIS -->
+  <div id="editCoverModal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="bg-brand-cardBg border border-brand-border rounded-3xl max-w-md w-full p-6 space-y-4 shadow-2xl relative">
+      <button onclick="closeEditCoverModal()" class="absolute top-5 right-5 text-zinc-400 hover:text-white cursor-pointer"><i data-lucide="x" class="w-5 h-5"></i></button>
+      <h3 class="text-lg font-bold text-white">Editar Foto de Capa</h3>
+      <p class="text-xs text-zinc-400">Ajuste o zoom e a rotação da sua foto de capa panorâmica.</p>
+      
+      <div class="flex justify-center my-4">
+        <div class="w-full h-36 rounded-2xl overflow-hidden border border-zinc-700 bg-zinc-900 flex items-center justify-center relative">
+          <img id="modalCoverCropImg" src="" class="w-full h-full object-cover transition-transform duration-200" alt="Crop">
+        </div>
+      </div>
+
+      <div class="space-y-3 text-xs">
+        <div>
+          <label class="block text-zinc-300 mb-1">Zoom / Tamanho</label>
+          <input type="range" id="coverZoomRange" min="1" max="2" step="0.1" value="1" oninput="updateCoverTransform()" class="w-full accent-amber-500">
+        </div>
+        <div>
+          <label class="block text-zinc-300 mb-1">Girar Capa (Graus)</label>
+          <input type="range" id="coverRotateRange" min="0" max="360" step="90" value="0" oninput="updateCoverTransform()" class="w-full accent-amber-500">
+        </div>
+      </div>
+
+      <button onclick="saveCoverTransform()" class="w-full bg-amber-500 hover:bg-amber-600 text-black font-bold py-2.5 rounded-xl text-xs cursor-pointer mt-2">Aplicar Ajustes</button>
+    </div>
+  </div>
+
   <div id="editAvatarModal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-sm hidden flex items-center justify-center p-4">
     <div class="bg-brand-cardBg border border-brand-border rounded-3xl max-w-md w-full p-6 space-y-4 shadow-2xl relative">
       <button onclick="closeEditAvatarModal()" class="absolute top-5 right-5 text-zinc-400 hover:text-white cursor-pointer"><i data-lucide="x" class="w-5 h-5"></i></button>
@@ -1249,7 +1310,14 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       bio: "Músico profissional, multi-instrumentista e arranjador com vasta experiência em palcos de eventos corporativos, casamentos e casas noturnas de destaque.",
       slug: "seu-nome",
       coverUrl: "",
+      coverZoom: 1,
+      coverRotate: 0,
       coverText: "SEU NOME",
+      coverFont: "Plus Jakarta Sans",
+      coverFontSize: "text-2xl sm:text-4xl",
+      coverBold: true,
+      coverItalic: false,
+      coverUnderline: false,
       channelYoutube: "",
       instagram: "seunomeaqui",
       tiktok: "",
@@ -1268,8 +1336,8 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       avatarRotate: 0,
       galleryPhotos: [],
       testimonials: [
-        { text: "Show incrível no nosso casamento! Todos elogiaram.", author: "Ana & Bruno" },
-        { text: "Profissionalismo impecável e repertório maravilhoso.", author: "Carlos Eduardo" }
+        { text: "Show incrível no nosso casamento! Todos elogiaram.", author: "Nome do Contratante", printUrl: "" },
+        { text: "Profissionalismo impecável e repertório maravilhoso.", author: "Nome do Contratante", printUrl: "" }
       ],
       formats: [
         { title: "Barzinhos & Aniversários", sub: "ACÚSTICO & BANDA", desc: "Repertório versátil de MPB, pop, rock e sertanejo adaptado ao clima do evento.", photo: "" },
@@ -1349,6 +1417,7 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       renderCalendarEvents();
       renderSuperAdminData();
       renderClientsData();
+      renderTestimonialsBuilder();
       
       try {
         window.addEventListener('popstate', handleRouting);
@@ -1411,6 +1480,13 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
 
       const elCoverText = document.getElementById('editCoverText');
       if(elCoverText) elCoverText.value = artistData.coverText || artistData.artistMainName;
+      
+      const elCoverFont = document.getElementById('editCoverFont');
+      if(elCoverFont) elCoverFont.value = artistData.coverFont || 'Plus Jakarta Sans';
+      const elCoverFontSize = document.getElementById('editCoverFontSize');
+      if(elCoverFontSize) elCoverFontSize.value = artistData.coverFontSize || 'text-2xl sm:text-4xl';
+
+      updateStyleButtonStates();
 
       const elTitle = document.getElementById('editTitle');
       if(elTitle) elTitle.value = artistData.title;
@@ -1442,13 +1518,6 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       const elSlug = document.getElementById('customSlugInput');
       if(elSlug) elSlug.value = artistData.slug;
 
-      if(artistData.testimonials && artistData.testimonials.length >= 2) {
-        document.getElementById('testText1').value = artistData.testimonials[0].text || '';
-        document.getElementById('testAuthor1').value = artistData.testimonials[0].author || '';
-        document.getElementById('testText2').value = artistData.testimonials[1].text || '';
-        document.getElementById('testAuthor2').value = artistData.testimonials[1].author || '';
-      }
-
       const elContract = document.getElementById('contractText');
       if(elContract) {
         if(sessionUser && sessionUser.role === 'admin') {
@@ -1479,12 +1548,63 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
 
       updateAvatarPreviews();
       updateCoverPreviews();
+      renderTestimonialsBuilder();
       applyPublicData();
     }
 
+    function toggleCoverStyle(style) {
+      if(style === 'bold') artistData.coverBold = !artistData.coverBold;
+      if(style === 'italic') artistData.coverItalic = !artistData.coverItalic;
+      if(style === 'underline') artistData.coverUnderline = !artistData.coverUnderline;
+      saveData();
+      updateStyleButtonStates();
+    }
+
+    function updateStyleButtonStates() {
+      const bBold = document.getElementById('btnStyleBold');
+      const bItalic = document.getElementById('btnStyleItalic');
+      const bUnderline = document.getElementById('btnStyleUnderline');
+      if(bBold) bBold.style.borderColor = artistData.coverBold ? '#F59E0B' : '#3F3F46';
+      if(bItalic) bItalic.style.borderColor = artistData.coverItalic ? '#F59E0B' : '#3F3F46';
+      if(bUnderline) bUnderline.style.borderColor = artistData.coverUnderline ? '#F59E0B' : '#3F3F46';
+    }
+
+    function saveProfileEditsQuiet() {
+      artistData.coverText = document.getElementById('editCoverText').value;
+      artistData.coverFont = document.getElementById('editCoverFont').value;
+      artistData.coverFontSize = document.getElementById('editCoverFontSize').value;
+      saveData();
+    }
+
     function applyPublicData() {
-      const e1 = document.getElementById('displayArtistMainName');
-      if(e1) e1.innerText = artistData.coverText || artistData.artistMainName;
+      const heroHeaderContainer = document.getElementById('displayHeroHeaderContainer');
+      if(heroHeaderContainer) {
+        if(artistData.coverUrl) {
+          // Se o artista escolheu capa: exibir somente a capa aumentada sem texto por cima
+          heroHeaderContainer.innerHTML = `
+            <div class="w-full h-64 sm:h-96 rounded-3xl overflow-hidden border border-amber-500/40 shadow-2xl bg-brand-cardBg relative">
+              <img src="${artistData.coverUrl}" style="transform: scale(${artistData.coverZoom || 1}) rotate(${artistData.coverRotate || 0}deg);" class="w-full h-full object-cover" alt="Capa">
+            </div>
+          `;
+        } else {
+          // Se o artista optou somente pelo texto com fontes, sublinhado, itálico, negrito, tamanho
+          let fFamily = artistData.coverFont || 'Plus Jakarta Sans';
+          let fSize = artistData.coverFontSize || 'text-2xl sm:text-4xl';
+          let fBold = artistData.coverBold ? 'font-black' : 'font-normal';
+          let fItalic = artistData.coverItalic ? 'italic' : '';
+          let fUnderline = artistData.coverUnderline ? 'underline' : '';
+          let cText = artistData.coverText || artistData.artistMainName;
+
+          heroHeaderContainer.innerHTML = `
+            <div class="py-10 px-6 rounded-3xl bg-gradient-to-r from-amber-500/20 via-brand-cardBg to-brand-cardBg border border-amber-500/40 shadow-2xl flex items-center justify-center">
+              <span style="font-family: '${fFamily}', sans-serif;" class="${fSize} ${fBold} ${fItalic} ${fUnderline} text-amber-400 tracking-wider text-center uppercase">
+                🎵 ${cText}
+              </span>
+            </div>
+          `;
+        }
+      }
+
       const e2 = document.getElementById('displayArtistName');
       if(e2) e2.innerText = artistData.artistMainName;
       const e3 = document.getElementById('displayTitle');
@@ -1495,18 +1615,6 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       if(e5) e5.innerText = `stagekitcasa6.vercel.app/${artistData.slug}`;
       const eCity = document.getElementById('displayArtistCity');
       if(eCity) eCity.innerText = `📍 ${artistData.city || 'Rio de Janeiro, RJ'}`;
-
-      // Capa
-      const coverImg = document.getElementById('displayCoverImg');
-      const coverContainer = document.getElementById('displayCoverContainer');
-      if(coverImg && coverContainer) {
-        if(artistData.coverUrl) {
-          coverImg.src = artistData.coverUrl;
-          coverImg.classList.remove('hidden');
-        } else {
-          coverImg.classList.add('hidden');
-        }
-      }
 
       const pubAvatar = document.getElementById('displayArtistPhoto');
       if(pubAvatar) {
@@ -1622,7 +1730,6 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
                 </div>
               `;
             } else {
-              // Se for um link de streaming genérico, exibe player simulado / integrado com botão de play/pause
               return `
                 <div class="bg-zinc-900 p-4 rounded-2xl border border-zinc-800 flex items-center justify-between">
                   <div class="flex items-center gap-3">
@@ -1650,15 +1757,21 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
         }
       }
 
-      // Depoimentos de Clientes (Novo card)
+      // Depoimentos de Clientes (Até 5 cards, suportando prints ou textos)
       const testGrid = document.getElementById('displayTestimonialsGrid');
       if(testGrid && artistData.testimonials) {
-        testGrid.innerHTML = artistData.testimonials.map(t => `
-          <div class="bg-brand-cardBg border border-brand-border p-6 rounded-3xl shadow-xl space-y-3 flex flex-col justify-between">
-            <p class="text-xs sm:text-sm text-zinc-300 italic leading-relaxed">"${t.text}"</p>
-            <p class="text-amber-400 font-bold text-xs uppercase tracking-wider">— ${t.author}</p>
-          </div>
-        `).join('');
+        testGrid.innerHTML = artistData.testimonials.map(t => {
+          let printHtml = t.printUrl ? `<div class="rounded-xl overflow-hidden border border-zinc-700 h-48 mt-2"><img src="${t.printUrl}" class="w-full h-full object-cover"></div>` : '';
+          return `
+            <div class="bg-brand-cardBg border border-brand-border p-6 rounded-3xl shadow-xl space-y-3 flex flex-col justify-between">
+              <div>
+                <p class="text-xs sm:text-sm text-zinc-300 italic leading-relaxed">"${t.text}"</p>
+                ${printHtml}
+              </div>
+              <p class="text-amber-400 font-bold text-xs uppercase tracking-wider">— ${t.author || 'Nome do Contratante'}</p>
+            </div>
+          `;
+        }).join('');
       }
 
       const formatsGrid = document.getElementById('displayFormatsPublicGrid');
@@ -1685,6 +1798,49 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
         }).join('');
       }
       try { lucide.createIcons(); } catch(e) {}
+    }
+
+    function renderTestimonialsBuilder() {
+      const container = document.getElementById('testimonialsBuilderContainer');
+      if(!container) return;
+      if(!artistData.testimonials) artistData.testimonials = [];
+
+      container.innerHTML = artistData.testimonials.map((t, idx) => `
+        <div class="p-4 bg-zinc-900 rounded-2xl border border-zinc-800 space-y-3 relative">
+          <div class="flex items-center justify-between">
+            <span class="font-bold text-amber-400">Depoimento ${idx + 1}</span>
+            ${artistData.testimonials.length > 1 ? `<button type="button" onclick="removeTestimonialSlot(${idx})" class="text-red-400 text-xs font-bold hover:underline cursor-pointer">Remover</button>` : ''}
+          </div>
+          <textarea id="testText_${idx}" placeholder="Ex: Show incrível no nosso casamento! Todos elogiaram." class="w-full bg-zinc-800 border border-zinc-700 rounded-xl p-3 text-white h-20 text-xs">${t.text || ''}</textarea>
+          
+          <div class="grid sm:grid-cols-2 gap-3">
+            <div>
+              <label class="block text-zinc-400 mb-1">Nome do Contratante</label>
+              <input type="text" id="testAuthor_${idx}" value="${t.author || 'Nome do Contratante'}" placeholder="Nome do Contratante" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl p-2.5 text-white text-xs">
+            </div>
+            <div>
+              <label class="block text-zinc-400 mb-1">Anexar Print (Opcional)</label>
+              <input type="file" id="testPrint_${idx}" accept="image/*" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl p-1.5 text-zinc-300 text-[11px]">
+            </div>
+          </div>
+          ${t.printUrl ? `<p class="text-[10px] text-emerald-400">✅ Print anexado com sucesso.</p>` : ''}
+        </div>
+      `).join('');
+    }
+
+    function addTestimonialSlot() {
+      if(!artistData.testimonials) artistData.testimonials = [];
+      if(artistData.testimonials.length >= 5) {
+        alert('Você pode adicionar no máximo 5 cards de depoimento.');
+        return;
+      }
+      artistData.testimonials.push({ text: '', author: 'Nome do Contratante', printUrl: '' });
+      renderTestimonialsBuilder();
+    }
+
+    function removeTestimonialSlot(idx) {
+      artistData.testimonials.splice(idx, 1);
+      renderTestimonialsBuilder();
     }
 
     function goHome() {
@@ -1848,6 +2004,8 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
         const reader = new FileReader();
         reader.onload = e => {
           artistData.coverUrl = e.target.result;
+          artistData.coverZoom = 1;
+          artistData.coverRotate = 0;
           saveData();
           updateCoverPreviews();
         };
@@ -1861,6 +2019,7 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       if(previewImg && previewPlaceholder) {
         if(artistData.coverUrl) {
           previewImg.src = artistData.coverUrl;
+          previewImg.style.transform = `scale(${artistData.coverZoom || 1}) rotate(${artistData.coverRotate || 0}deg)`;
           previewImg.classList.remove('hidden');
           previewPlaceholder.classList.add('hidden');
         } else {
@@ -1868,6 +2027,52 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
           previewPlaceholder.classList.remove('hidden');
         }
       }
+    }
+
+    function openEditCoverModal() {
+      if(sessionUser && sessionUser.role === 'admin') return;
+      if(!artistData.coverUrl) {
+        alert('Adicione uma foto de capa primeiro.');
+        return;
+      }
+      const modal = document.getElementById('editCoverModal');
+      const cropImg = document.getElementById('modalCoverCropImg');
+      if(cropImg) cropImg.src = artistData.coverUrl;
+      document.getElementById('coverZoomRange').value = artistData.coverZoom || 1;
+      document.getElementById('coverRotateRange').value = artistData.coverRotate || 0;
+      updateCoverTransform();
+      modal.classList.remove('hidden');
+    }
+
+    function closeEditCoverModal() {
+      document.getElementById('editCoverModal').classList.add('hidden');
+    }
+
+    function updateCoverTransform() {
+      const zoom = document.getElementById('coverZoomRange').value;
+      const rotate = document.getElementById('coverRotateRange').value;
+      const cropImg = document.getElementById('modalCoverCropImg');
+      if(cropImg) cropImg.style.transform = `scale(${zoom}) rotate(${rotate}deg)`;
+    }
+
+    function saveCoverTransform() {
+      if(sessionUser && sessionUser.role === 'admin') return;
+      artistData.coverZoom = parseFloat(document.getElementById('coverZoomRange').value);
+      artistData.coverRotate = parseInt(document.getElementById('coverRotateRange').value);
+      saveData();
+      updateCoverPreviews();
+      closeEditCoverModal();
+      alert('Ajustes da capa aplicados com sucesso!');
+    }
+
+    function removeCoverPhoto() {
+      if(sessionUser && sessionUser.role === 'admin') return;
+      artistData.coverUrl = "";
+      artistData.coverZoom = 1;
+      artistData.coverRotate = 0;
+      saveData();
+      updateCoverPreviews();
+      alert('Capa removida. O press kit agora exibirá o texto estilizado.');
     }
 
     function handleAvatarUpload(event) {
@@ -2006,7 +2211,14 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
         bio: "Músico profissional, multi-instrumentista e arranjador...",
         slug: generatedSlug,
         coverUrl: "",
+        coverZoom: 1,
+        coverRotate: 0,
         coverText: fullName.toUpperCase(),
+        coverFont: "Plus Jakarta Sans",
+        coverFontSize: "text-2xl sm:text-4xl",
+        coverBold: true,
+        coverItalic: false,
+        coverUnderline: false,
         channelYoutube: "",
         instagram: "",
         tiktok: "",
@@ -2023,7 +2235,7 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
         avatarUrl: "",
         galleryPhotos: [],
         testimonials: [
-          { text: "Show incrível no nosso evento! Todos elogiaram.", author: "Cliente Satisfeito" }
+          { text: "Show incrível no nosso evento! Todos elogiaram.", author: "Nome do Contratante", printUrl: "" }
         ],
         formats: [
           { title: "Barzinhos & Aniversários", sub: "ACÚSTICO & BANDA", desc: "Repertório versátil de MPB, pop, rock e sertanejo adaptado ao clima do evento.", photo: "" },
@@ -2153,7 +2365,10 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       if(sessionUser && sessionUser.role === 'admin') return;
       artistData.artistMainName = document.getElementById('editProfileName').value.toUpperCase();
       artistData.city = document.getElementById('editProfileCity').value.trim();
-      artistData.coverText = document.getElementById('editCoverText').value.toUpperCase().trim() || artistData.artistMainName;
+      artistData.coverText = document.getElementById('editCoverText').value;
+      artistData.coverFont = document.getElementById('editCoverFont').value;
+      artistData.coverFontSize = document.getElementById('editCoverFontSize').value;
+
       const cpfVal = document.getElementById('editProfileCpf').value.trim();
       if(cpfVal && !isValidCPF(cpfVal)) { alert('CPF inválido!'); return; }
       artistData.cpf = cpfVal;
@@ -2188,20 +2403,16 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       artistData.youtube3 = document.getElementById('editYoutube3').value;
       artistData.slug = document.getElementById('customSlugInput').value.toLowerCase().trim();
 
-      const t1 = document.getElementById('testText1').value;
-      const a1 = document.getElementById('testAuthor1').value;
-      const t2 = document.getElementById('testText2').value;
-      const a2 = document.getElementById('testAuthor2').value;
-      artistData.testimonials = [
-        { text: t1, author: a1 },
-        { text: t2, author: a2 }
-      ].filter(t => t.text);
-
-      let file1 = document.getElementById('uploadMp4_1').files[0];
-      let file2 = document.getElementById('uploadMp4_2').files[0];
-      let file3 = document.getElementById('uploadMp4_3').files[0];
-
-      let promises = [];
+      // Coletar depoimentos dinâmicos com prints
+      let newTestimonials = [];
+      if(artistData.testimonials) {
+        artistData.testimonials.forEach((t, idx) => {
+          let txt = document.getElementById(`testText_${idx}`)?.value || '';
+          let auth = document.getElementById(`testAuthor_${idx}`)?.value || 'Nome do Contratante';
+          newTestimonials.push({ text: txt, author: auth, printUrl: t.printUrl || '' });
+        });
+      }
+      artistData.testimonials = newTestimonials.filter(t => t.text || t.printUrl);
 
       let getFileBase64 = (file) => new Promise(res => {
         if(!file) return res(null);
@@ -2209,6 +2420,22 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
         r.onload = e => res(e.target.result);
         r.readAsDataURL(file);
       });
+
+      let promises = [];
+
+      for(let i=0; i<artistData.testimonials.length; i++) {
+        let printInput = document.getElementById(`testPrint_${i}`);
+        if(printInput && printInput.files[0]) {
+          let idx = i;
+          promises.push(getFileBase64(printInput.files[0]).then(res => {
+            if(res) artistData.testimonials[idx].printUrl = res;
+          }));
+        }
+      }
+
+      let file1 = document.getElementById('uploadMp4_1').files[0];
+      let file2 = document.getElementById('uploadMp4_2').files[0];
+      let file3 = document.getElementById('uploadMp4_3').files[0];
 
       for(let i=1; i<=5; i++) {
         let fileInput = document.getElementById(`galleryPhoto${i}`);
@@ -2224,10 +2451,10 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       Promise.all(promises).then(results => {
         let newGallery = [];
         results.forEach(r => {
-          if(r.type === 'gallery' && r.val) newGallery.push(r.val);
-          if(r.type === 'mp4_1' && r.val) artistData.mp4_1 = r.val;
-          if(r.type === 'mp4_2' && r.val) artistData.mp4_2 = r.val;
-          if(r.type === 'mp4_3' && r.val) artistData.mp4_3 = r.val;
+          if(r && r.type === 'gallery' && r.val) newGallery.push(r.val);
+          if(r && r.type === 'mp4_1' && r.val) artistData.mp4_1 = r.val;
+          if(r && r.type === 'mp4_2' && r.val) artistData.mp4_2 = r.val;
+          if(r && r.type === 'mp4_3' && r.val) artistData.mp4_3 = r.val;
         });
 
         if(newGallery.length > 0) {
@@ -2235,7 +2462,7 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
         }
 
         saveData();
-        alert('Mídias & Streaming salvas com sucesso!');
+        alert('Mídias, Streaming & Depoimentos salvos com sucesso!');
         loadInputsFromState();
       });
     }
