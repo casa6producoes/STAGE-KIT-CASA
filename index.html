@@ -1222,8 +1222,8 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
 
       <div class="overflow-y-auto space-y-3 text-xs pr-1 no-scrollbar flex-1">
         <div>
-          <label class="block font-semibold text-zinc-300 mb-1">1. Nome Completo do Contratante *</label>
-          <input type="text" id="qClientName" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-2.5 text-white" placeholder="Seu nome completo">
+          <label class="block font-semibold text-zinc-300 mb-1">1. Nome do Contratante *</label>
+          <input type="text" id="qClientName" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-2.5 text-white" placeholder="Nome do Contratante">
         </div>
         <div>
           <label class="block font-semibold text-zinc-300 mb-1">2. Data e horário do evento *</label>
@@ -1288,7 +1288,7 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
 
     const superAdminAccount = {
       role: "admin",
-      whatsapp: "casa6producoes@gmail.com",
+      whatsapp: "(21) 98936-8930",
       registeredPassword: "@Alohomora21",
       artistMainName: "CASA 6 PRODUÇÕES (ADMIN)",
       city: "Rio de Janeiro, RJ",
@@ -1296,14 +1296,14 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       createdAt: "2026-01-01"
     };
 
-    if(!usersDatabase.some(u => u.whatsapp === "casa6producoes@gmail.com")) {
+    if(!usersDatabase.some(u => u.whatsapp === "(21) 98936-8930")) {
       usersDatabase.push(superAdminAccount);
       localStorage.setItem('stagekit_users_db', JSON.stringify(usersDatabase));
     }
 
     let artistData = sessionUser || {
       role: "artista",
-      whatsapp: "(21)98936-8930",
+      whatsapp: "(21) 98936-8930",
       artistMainName: "SEU NOME",
       city: "Rio de Janeiro, RJ",
       title: "A TRILHA SONORA PERFEITA PARA O SEU MOMENTO",
@@ -1429,11 +1429,11 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
     function handleRouting() {
       let rawPath = "";
       try {
-        rawPath = window.location.pathname.replace(/^\/+/, '').trim();
+        rawPath = window.location.pathname.replace(/^\/+/, '').trim().toLowerCase();
       } catch(e) {}
       
       if(!rawPath || rawPath === 'index.html') {
-        const hash = window.location.hash.replace('#/', '').replace('#', '').trim();
+        const hash = window.location.hash.replace('#/', '').replace('#', '').trim().toLowerCase();
         if(hash) rawPath = hash;
       }
 
@@ -1446,10 +1446,16 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
         return;
       }
 
+      if (rawPath === 'modovisualizacao' || rawPath === 'modovisualizacao/') {
+        isViewingOwnOnlineKit = true;
+        showPublicPressKit(false);
+        return;
+      }
+
       if (rawPath && rawPath !== '') {
-        const matchedArtist = usersDatabase.find(u => u.slug && u.slug.toLowerCase() === rawPath.toLowerCase());
+        const matchedArtist = usersDatabase.find(u => u.slug && u.slug.toLowerCase() === rawPath);
         
-        if (matchedArtist || (artistData && artistData.slug && artistData.slug.toLowerCase() === rawPath.toLowerCase())) {
+        if (matchedArtist || (artistData && artistData.slug && artistData.slug.toLowerCase() === rawPath)) {
           if (matchedArtist) artistData = matchedArtist;
           isViewingOwnOnlineKit = false;
           showPublicPressKit(false);
@@ -1580,14 +1586,12 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       const heroHeaderContainer = document.getElementById('displayHeroHeaderContainer');
       if(heroHeaderContainer) {
         if(artistData.coverUrl) {
-          // Se o artista escolheu capa: exibir somente a capa aumentada sem texto por cima
           heroHeaderContainer.innerHTML = `
             <div class="w-full h-64 sm:h-96 rounded-3xl overflow-hidden border border-amber-500/40 shadow-2xl bg-brand-cardBg relative">
               <img src="${artistData.coverUrl}" style="transform: scale(${artistData.coverZoom || 1}) rotate(${artistData.coverRotate || 0}deg);" class="w-full h-full object-cover" alt="Capa">
             </div>
           `;
         } else {
-          // Se o artista optou somente pelo texto com fontes, sublinhado, itálico, negrito, tamanho
           let fFamily = artistData.coverFont || 'Plus Jakarta Sans';
           let fSize = artistData.coverFontSize || 'text-2xl sm:text-4xl';
           let fBold = artistData.coverBold ? 'font-black' : 'font-normal';
@@ -1642,7 +1646,6 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
         `).join('');
       }
 
-      // Vídeos Na Prática (3 Lacunas: Suporta Link do YouTube ou Upload MP4 individual)
       const vContainer = document.getElementById('displayVideosContainer');
       if(vContainer) {
         let items = [];
@@ -1684,7 +1687,6 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
         vContainer.innerHTML = htmlContent;
       }
 
-      // Galeria de Fotos Ampliada (espaços maiores)
       const galleryGrid = document.getElementById('displayPublicGalleryGrid');
       if(galleryGrid) {
         let photos = artistData.galleryPhotos || [];
@@ -1708,7 +1710,6 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
         `).join('');
       }
 
-      // Player Integrado (Vamos Ouvir) diretamente no site sem abrir nova página
       const playerList = document.getElementById('vamosOuvirPlayerList');
       if(playerList) {
         let songs = [
@@ -1757,7 +1758,6 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
         }
       }
 
-      // Depoimentos de Clientes (Até 5 cards, suportando prints ou textos)
       const testGrid = document.getElementById('displayTestimonialsGrid');
       if(testGrid && artistData.testimonials) {
         testGrid.innerHTML = artistData.testimonials.map(t => {
@@ -1870,8 +1870,11 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
     function showPublicPressKit(fromOwnPanel = false) {
       if(fromOwnPanel) {
         isViewingOwnOnlineKit = true;
+        try { window.history.pushState({}, '', '/modovisualizacao'); } catch(e) {}
+      } else {
+        try { window.history.pushState({}, '', `/${artistData.slug}`); } catch(e) {}
       }
-      try { window.history.pushState({}, '', `/${artistData.slug}`); } catch(e) {}
+
       const lp = document.getElementById('landingPage');
       if(lp) lp.classList.add('hidden');
       const cv = document.getElementById('contractorView');
@@ -1892,9 +1895,9 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
         if(backText) backText.innerText = "Voltar para o admin";
         if(viewOnlineBtn) viewOnlineBtn.classList.add('hidden');
       } else if(isViewingOwnOnlineKit && sessionUser) {
-        if(backBtnContainer) backBtnContainer.classList.remove('hidden');
-        if(backText) backText.innerText = "Voltar para área do artista";
-        if(viewOnlineBtn) viewOnlineBtn.classList.add('hidden');
+        // Conforme solicitado: o link personalizado do artista em modo visualização não deve conter o botão "voltar pra área do artista"
+        if(backBtnContainer) backBtnContainer.classList.add('hidden');
+        if(viewOnlineBtn) viewOnlineBtn.classList.remove('hidden');
       } else {
         if(backBtnContainer) backBtnContainer.classList.add('hidden');
         if(viewOnlineBtn) viewOnlineBtn.classList.remove('hidden');
@@ -2165,7 +2168,7 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
 
       if(!loginInput || !pass) { alert('Digite seu WhatsApp de acesso e senha.'); return; }
 
-      if(loginInput.toLowerCase() === "casa6producoes@gmail.com" && pass === "@Alohomora21") {
+      if(loginInput === "(21) 98936-8930" && pass === "@Alohomora21") {
         sessionUser = superAdminAccount;
         artistData = superAdminAccount;
         localStorage.setItem('stagekit_session', JSON.stringify(sessionUser));
@@ -2344,7 +2347,7 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
 
     function sendWhatsAppBudget() {
       const clientName = document.getElementById('qClientName').value.trim();
-      if(!clientName) { alert('Informe seu Nome Completo.'); return; }
+      if(!clientName) { alert('Informe o Nome do Contratante.'); return; }
       
       const dt = document.getElementById('qDateTime').value || 'A combinar';
       const ev = document.getElementById('qEventType').value;
@@ -2355,7 +2358,7 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       artistData.budgetsGeneratedCount = (artistData.budgetsGeneratedCount || 0) + 1;
       saveData();
 
-      const text = `*Olá! Gostaria de verificar disponibilidade.*\n\n👤 *Contratante:* ${clientName}\n🎵 *Formato:* ${selectedFormatForModal}\n📅 *Data:* ${dt}\n🎉 *Evento:* ${ev}\n👥 *Público:* ${aud}\n📍 *Local:* ${loc}`;
+      const text = `*Olá! Gostaria de verificar disponibilidade.*\n\n👤 *Nome do Contratante:* ${clientName}\n🎵 *Formato:* ${selectedFormatForModal}\n📅 *Data:* ${dt}\n🎉 *Evento:* ${ev}\n👥 *Público:* ${aud}\n📍 *Local:* ${loc}`;
       const phoneNum = artistData.whatsapp.replace(/\D/g,'') || '21989368930';
       window.open(`https://wa.me/${phoneNum}?text=${encodeURIComponent(text)}`, '_blank');
       closeFormatModal();
@@ -2403,7 +2406,6 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       artistData.youtube3 = document.getElementById('editYoutube3').value;
       artistData.slug = document.getElementById('customSlugInput').value.toLowerCase().trim();
 
-      // Coletar depoimentos dinâmicos com prints
       let newTestimonials = [];
       if(artistData.testimonials) {
         artistData.testimonials.forEach((t, idx) => {
