@@ -27,6 +27,7 @@
   
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
   <style>
     body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: var(--bg-color, #09090B); color: var(--text-color, #FAFAFA); transition: background-color 0.3s, color 0.3s; scroll-behavior: smooth; }
@@ -97,8 +98,8 @@
       <div id="panelHeaderActions" class="hidden items-center gap-3">
         <div class="flex items-center gap-2">
           <div id="backToDashboardContainer" class="hidden">
-            <button onclick="showArtistDashboard()" class="bg-zinc-800 hover:bg-zinc-700 border border-zinc-700 text-amber-400 font-bold px-3.5 py-2 rounded-xl text-xs flex items-center gap-2 transition-all cursor-pointer">
-              <i data-lucide="arrow-left" class="w-4 h-4"></i> Voltar para área do artista
+            <button onclick="handleBackToDashboardFromPublic()" class="bg-zinc-800 hover:bg-zinc-700 border border-zinc-700 text-amber-400 font-bold px-3.5 py-2 rounded-xl text-xs flex items-center gap-2 transition-all cursor-pointer">
+              <i data-lucide="arrow-left" class="w-4 h-4"></i> <span id="backToDashboardBtnText">Voltar para área do artista</span>
             </button>
           </div>
           <button id="viewOnlineKitBtn" onclick="showPublicPressKit(true)" class="bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/30 text-amber-400 font-bold px-3.5 py-2 rounded-xl text-xs flex items-center gap-2 transition-all cursor-pointer">
@@ -336,8 +337,7 @@
       <div class="space-y-6">
         <div class="flex items-center justify-between">
           <div>
-            <!-- Removido "perfil de admin" acima de "área do artista" conforme solicitado -->
-            <h3 class="text-lg font-bold text-white mt-0.5">Área do Artista</h3>
+            <h3 class="text-lg font-bold text-white mt-0.5" id="sidebarAreaTitle">Área do Artista</h3>
           </div>
           <button onclick="toggleSidebar()" class="md:hidden p-2 rounded-xl bg-zinc-900 border border-zinc-800 text-amber-400 hover:bg-zinc-800 cursor-pointer" title="Ocultar Abas">
             <i data-lucide="menu" class="w-5 h-5"></i>
@@ -353,36 +353,46 @@
             <i data-lucide="users" class="w-4 h-4 text-amber-500"></i> Clientes
           </button>
 
-          <!-- Abas comuns -->
-          <button onclick="switchTab('tabProfile')" id="btnTabProfile" class="tab-menu-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl text-xs font-semibold bg-amber-500/10 text-amber-400 border border-amber-500/35 transition-all cursor-pointer">
-            <i data-lucide="shield" class="w-4 h-4"></i> Perfil & Dados
+          <!-- Abas comuns / com cadeado para Admin -->
+          <button onclick="switchTab('tabProfile')" id="btnTabProfile" class="tab-menu-btn w-full flex items-center justify-between px-4 py-3 rounded-xl text-xs font-semibold bg-amber-500/10 text-amber-400 border border-amber-500/35 transition-all cursor-pointer">
+            <div class="flex items-center gap-3"><i data-lucide="shield" class="w-4 h-4"></i> Perfil & Dados</div>
+            <span id="lockProfile" class="hidden text-zinc-500"><i data-lucide="lock" class="w-3.5 h-3.5"></i></span>
           </button>
-          <button onclick="switchTab('tabBio')" id="btnTabBio" class="tab-menu-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl text-xs font-semibold text-zinc-400 hover:bg-zinc-800 hover:text-white transition-all cursor-pointer">
-            <i data-lucide="user" class="w-4 h-4"></i> Bio & Redes Sociais
+          <button onclick="switchTab('tabBio')" id="btnTabBio" class="tab-menu-btn w-full flex items-center justify-between px-4 py-3 rounded-xl text-xs font-semibold text-zinc-400 hover:bg-zinc-800 hover:text-white transition-all cursor-pointer">
+            <div class="flex items-center gap-3"><i data-lucide="user" class="w-4 h-4"></i> Bio & Redes Sociais</div>
+            <span id="lockBio" class="hidden text-zinc-500"><i data-lucide="lock" class="w-3.5 h-3.5"></i></span>
           </button>
-          <button onclick="switchTab('tabMedia')" id="btnTabMedia" class="tab-menu-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl text-xs font-semibold text-zinc-400 hover:bg-zinc-800 hover:text-white transition-all cursor-pointer">
-            <i data-lucide="video" class="w-4 h-4"></i> Mídias & Streaming
+          <button onclick="switchTab('tabMedia')" id="btnTabMedia" class="tab-menu-btn w-full flex items-center justify-between px-4 py-3 rounded-xl text-xs font-semibold text-zinc-400 hover:bg-zinc-800 hover:text-white transition-all cursor-pointer">
+            <div class="flex items-center gap-3"><i data-lucide="video" class="w-4 h-4"></i> Mídias & Streaming</div>
+            <span id="lockMedia" class="hidden text-zinc-500"><i data-lucide="lock" class="w-3.5 h-3.5"></i></span>
           </button>
-          <button onclick="switchTab('tabFormats')" id="btnTabFormats" class="tab-menu-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl text-xs font-semibold text-zinc-400 hover:bg-zinc-800 hover:text-white transition-all cursor-pointer">
-            <i data-lucide="sliders-horizontal" class="w-4 h-4"></i> Formatos de Show
+          <button onclick="switchTab('tabFormats')" id="btnTabFormats" class="tab-menu-btn w-full flex items-center justify-between px-4 py-3 rounded-xl text-xs font-semibold text-zinc-400 hover:bg-zinc-800 hover:text-white transition-all cursor-pointer">
+            <div class="flex items-center gap-3"><i data-lucide="sliders-horizontal" class="w-4 h-4"></i> Formatos de Show</div>
+            <span id="lockFormats" class="hidden text-zinc-500"><i data-lucide="lock" class="w-3.5 h-3.5"></i></span>
           </button>
-          <button onclick="switchTab('tabDashboard')" id="btnTabDashboard" class="tab-menu-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl text-xs font-semibold text-zinc-400 hover:bg-zinc-800 hover:text-white transition-all cursor-pointer">
-            <i data-lucide="layout-dashboard" class="w-4 h-4"></i> Dashboard
+          <button onclick="switchTab('tabDashboard')" id="btnTabDashboard" class="tab-menu-btn w-full flex items-center justify-between px-4 py-3 rounded-xl text-xs font-semibold text-zinc-400 hover:bg-zinc-800 hover:text-white transition-all cursor-pointer">
+            <div class="flex items-center gap-3"><i data-lucide="layout-dashboard" class="w-4 h-4"></i> Dashboard</div>
+            <span id="lockDashboard" class="hidden text-zinc-500"><i data-lucide="lock" class="w-3.5 h-3.5"></i></span>
           </button>
-          <button onclick="switchTab('tabRepertoire')" id="btnTabRepertoire" class="tab-menu-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl text-xs font-semibold text-zinc-400 hover:bg-zinc-800 hover:text-white transition-all cursor-pointer">
-            <i data-lucide="file-audio" class="w-4 h-4"></i> Repertório
+          <button onclick="switchTab('tabRepertoire')" id="btnTabRepertoire" class="tab-menu-btn w-full flex items-center justify-between px-4 py-3 rounded-xl text-xs font-semibold text-zinc-400 hover:bg-zinc-800 hover:text-white transition-all cursor-pointer">
+            <div class="flex items-center gap-3"><i data-lucide="file-audio" class="w-4 h-4"></i> Repertório</div>
+            <span id="lockRepertoire" class="hidden text-zinc-500"><i data-lucide="lock" class="w-3.5 h-3.5"></i></span>
           </button>
-          <button onclick="switchTab('tabContracts')" id="btnTabContracts" class="tab-menu-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl text-xs font-semibold text-zinc-400 hover:bg-zinc-800 hover:text-white transition-all cursor-pointer">
-            <i data-lucide="file-text" class="w-4 h-4"></i> Contratos
+          <button onclick="switchTab('tabContracts')" id="btnTabContracts" class="tab-menu-btn w-full flex items-center justify-between px-4 py-3 rounded-xl text-xs font-semibold text-zinc-400 hover:bg-zinc-800 hover:text-white transition-all cursor-pointer">
+            <div class="flex items-center gap-3"><i data-lucide="file-text" class="w-4 h-4"></i> Contratos</div>
+            <span id="badgeContracts" class="hidden px-2 py-0.5 rounded text-[9px] bg-amber-500/20 text-amber-400 uppercase font-bold">Modelo</span>
           </button>
-          <button onclick="switchTab('tabEvents')" id="btnTabEvents" class="tab-menu-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl text-xs font-semibold text-zinc-400 hover:bg-zinc-800 hover:text-white transition-all cursor-pointer">
-            <i data-lucide="calendar-check" class="w-4 h-4"></i> Eventos
+          <button onclick="switchTab('tabEvents')" id="btnTabEvents" class="tab-menu-btn w-full flex items-center justify-between px-4 py-3 rounded-xl text-xs font-semibold text-zinc-400 hover:bg-zinc-800 hover:text-white transition-all cursor-pointer">
+            <div class="flex items-center gap-3"><i data-lucide="calendar-check" class="w-4 h-4"></i> Eventos</div>
+            <span id="lockEvents" class="hidden text-zinc-500"><i data-lucide="lock" class="w-3.5 h-3.5"></i></span>
           </button>
-          <button onclick="switchTab('tabTeam')" id="btnTabTeam" class="tab-menu-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl text-xs font-semibold text-zinc-400 hover:bg-zinc-800 hover:text-white transition-all cursor-pointer">
-            <i data-lucide="users" class="w-4 h-4"></i> Gestão de Equipe
+          <button onclick="switchTab('tabTeam')" id="btnTabTeam" class="tab-menu-btn w-full flex items-center justify-between px-4 py-3 rounded-xl text-xs font-semibold text-zinc-400 hover:bg-zinc-800 hover:text-white transition-all cursor-pointer">
+            <div class="flex items-center gap-3"><i data-lucide="users" class="w-4 h-4"></i> Gestão de Equipe</div>
+            <span id="lockTeam" class="hidden text-zinc-500"><i data-lucide="lock" class="w-3.5 h-3.5"></i></span>
           </button>
-          <button onclick="switchTab('tabCalendar')" id="btnTabCalendar" class="tab-menu-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl text-xs font-semibold text-zinc-400 hover:bg-zinc-800 hover:text-white transition-all cursor-pointer">
-            <i data-lucide="calendar" class="w-4 h-4"></i> Google Agenda
+          <button onclick="switchTab('tabCalendar')" id="btnTabCalendar" class="tab-menu-btn w-full flex items-center justify-between px-4 py-3 rounded-xl text-xs font-semibold text-zinc-400 hover:bg-zinc-800 hover:text-white transition-all cursor-pointer">
+            <div class="flex items-center gap-3"><i data-lucide="calendar" class="w-4 h-4"></i> Google Agenda</div>
+            <span id="lockCalendar" class="hidden text-zinc-500"><i data-lucide="lock" class="w-3.5 h-3.5"></i></span>
           </button>
         </nav>
       </div>
@@ -391,11 +401,11 @@
         <button onclick="toggleTheme()" class="w-full flex items-center justify-center gap-2 p-3 rounded-xl bg-zinc-900 border border-zinc-800 text-amber-400 hover:bg-zinc-800 transition-colors text-xs font-bold cursor-pointer">
           <i data-lucide="sun" id="dashThemeIcon" class="w-4 h-4"></i> Alternar Tema
         </button>
-        <p class="text-[10px] text-zinc-500 text-center">StageKit v3.0 — Casa 6</p>
+        <p class="text-[10px] text-zinc-500 text-center">StageKit v3.1 — Casa 6</p>
       </div>
     </aside>
 
-    <!-- BOTÃO FLUTUANTE DE MENU (TRÊS LISTRINHAS) PARA TELAS MENORES -->
+    <!-- BOTÃO FLUTUANTE DE MENU PARA TELAS MENORES -->
     <div class="md:hidden p-4 bg-zinc-900 border-b border-zinc-800 flex items-center justify-between">
       <span class="text-xs font-bold text-amber-400">Painel do Artista</span>
       <button onclick="toggleSidebar()" class="p-2 rounded-xl bg-brand-cardBg text-amber-400 border border-zinc-700">
@@ -409,7 +419,7 @@
       <div id="tabSuperAdmin" class="dashboard-tab max-w-5xl space-y-6 hidden">
         <div>
           <h2 class="text-xl font-bold text-white">Super Admin — Gestão da Plataforma</h2>
-          <p class="text-xs text-zinc-400 mt-1">Visão geral do sistema, métricas consolidadas e controle de cadastros.</p>
+          <p class="text-xs text-zinc-400 mt-1">Visão geral do sistema, métricas consolidadas e controle de cadastros na comunidade.</p>
         </div>
 
         <div class="grid sm:grid-cols-3 gap-4">
@@ -428,13 +438,13 @@
         </div>
 
         <div class="bg-brand-cardBg border border-brand-border p-6 rounded-2xl space-y-4">
-          <h3 class="text-sm font-bold text-white uppercase tracking-wider">Usuários Cadastrados na Plataforma</h3>
+          <h3 class="text-sm font-bold text-white uppercase tracking-wider">Usuários Cadastrados na Comunidade</h3>
           <div class="overflow-x-auto">
             <table class="w-full text-left text-xs text-zinc-300">
               <thead class="bg-zinc-900 text-zinc-400 uppercase text-[10px]">
                 <tr>
                   <th class="p-3 rounded-l-xl">Artista / Banda</th>
-                  <th class="p-3">WhatsApp / Credencial</th>
+                  <th class="p-3">WhatsApp de Acesso</th>
                   <th class="p-3">Data de Cadastro</th>
                   <th class="p-3">Status</th>
                   <th class="p-3 rounded-r-xl text-right">Ações</th>
@@ -447,9 +457,13 @@
           </div>
         </div>
 
-        <div class="bg-brand-cardBg border border-brand-border p-6 rounded-2xl space-y-3">
-          <h3 class="text-sm font-bold text-amber-400 uppercase tracking-wider">Módulos Futuros & Relatórios</h3>
-          <p class="text-xs text-zinc-400">Espaço reservado para integrações de relatórios de shows, métricas de acessos e faturamento automatizado.</p>
+        <!-- MÓDULOS FUTUROS & GRÁFICO EM PIZZA -->
+        <div class="bg-brand-cardBg border border-brand-border p-6 rounded-2xl space-y-4">
+          <h3 class="text-sm font-bold text-amber-400 uppercase tracking-wider">Módulos Futuros & Relatórios (Gráfico de Usuários vs Contratos)</h3>
+          <p class="text-xs text-zinc-400">Distribuição visual comparativa entre o volume de usuários cadastrados e o engajamento de contratos gerados na plataforma.</p>
+          <div class="max-w-xs mx-auto pt-2">
+            <canvas id="superAdminPieChart" width="200" height="200"></canvas>
+          </div>
         </div>
       </div>
 
@@ -457,7 +471,7 @@
       <div id="tabClients" class="dashboard-tab max-w-4xl space-y-6 hidden">
         <div>
           <h2 class="text-xl font-bold text-white">Clientes (Artistas da Plataforma)</h2>
-          <p class="text-xs text-zinc-400 mt-1">Lista completa de artistas cadastrados e seus contatos telefônicos.</p>
+          <p class="text-xs text-zinc-400 mt-1">Lista completa de artistas cadastrados e seus contatos telefônicos na comunidade.</p>
         </div>
         <div class="bg-brand-cardBg border border-brand-border p-6 rounded-2xl space-y-4">
           <div id="clientsListContainer" class="space-y-3 text-xs">
@@ -834,35 +848,35 @@
         </div>
       </div>
 
-      <!-- ABA 7: CONTRATOS (Com Baixar via PDF) -->
+      <!-- ABA 7: CONTRATOS (Com Modelo de Contrato Padrão para o Sistema) -->
       <div id="tabContracts" class="dashboard-tab max-w-3xl space-y-6 hidden">
         <div>
-          <h2 class="text-xl font-bold text-white">Modelo de Contratos</h2>
-          <p class="text-xs text-zinc-400 mt-1">Edite seu contrato modelo e baixe diretamente via PDF.</p>
+          <h2 class="text-xl font-bold text-white">Modelo de Contratos do Sistema</h2>
+          <p class="text-xs text-zinc-400 mt-1" id="contractSubtitleDesc">Edite o modelo oficial que servirá como padrão para todos os usuários do sistema.</p>
         </div>
 
         <div class="bg-brand-cardBg border border-brand-border p-6 rounded-2xl space-y-4 text-xs">
           <div class="space-y-3">
             <div class="flex items-center gap-2 text-amber-500 font-bold text-sm">
-              <i data-lucide="file-text" class="w-5 h-5"></i> <span>Contrato de Prestação de Serviços</span>
+              <i data-lucide="file-text" class="w-5 h-5"></i> <span id="contractCardHeaderTitle">Contrato Padrão da Plataforma (Casa 6 Produções)</span>
             </div>
-            <p class="text-zinc-400 leading-relaxed">Este documento possui o selo oficial de padronização do <strong>StageKit</strong>, sendo de <strong>inteira e exclusiva responsabilidade do artista</strong>.</p>
+            <p class="text-zinc-400 leading-relaxed" id="contractCardHelperText">Este documento serve como modelo oficial padronizado para todos os artistas cadastrados no <strong>StageKit</strong>.</p>
             
             <div class="space-y-2">
-              <label class="block font-semibold text-zinc-300">Cláusulas e Condições (Editável)</label>
-              <textarea id="contractText" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white h-48 leading-relaxed">CONTRATO DE PRESTAÇÃO DE SERVIÇOS ARTÍSTICOS
+              <label class="block font-semibold text-zinc-300">Cláusulas e Condições Gerais (Editável pelo Administrador)</label>
+              <textarea id="contractText" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white h-48 leading-relaxed">CONTRATO DE PRESTAÇÃO DE SERVIÇOS ARTÍSTICOS - PADRÃO CASA 6 PRODUÇÕES
 
 Pelo presente instrumento particular, de um lado o(a) contratado(a) [NOME DO ARTISTA], inscrito(a) no CPF sob o nº [CPF], doravante denominado(a) ARTISTA, e de outro o CONTRATANTE acordam a realização da apresentação musical conforme termos combinados.
 
 CLÁUSULA PRIMEIRA - DO OBJETO
-A prestação de serviços artísticos musicais para o evento estipulado.
+A prestação de serviços artísticos musicais para o evento estipulado na plataforma StageKit.
 
 CLÁUSULA SEGUNDA - DA RESPONSABILIDADE
 Este documento é gerado através da plataforma StageKit com padrão Casa 6 Produções, sendo de total e exclusiva responsabilidade civil e criminal do ARTISTA a execução, negociação, emissão de recibos e cumprimento deste instrumento.</textarea>
             </div>
           </div>
           <div class="flex gap-3">
-            <button onclick="saveContractModel()" class="flex-1 bg-amber-500 hover:bg-amber-600 text-black font-bold py-2.5 rounded-xl cursor-pointer">Salvar Modelo</button>
+            <button onclick="saveContractModel()" id="saveContractBtn" class="flex-1 bg-amber-500 hover:bg-amber-600 text-black font-bold py-2.5 rounded-xl cursor-pointer">Salvar Modelo Global do Sistema</button>
             <button onclick="downloadContractPdf()" class="bg-zinc-800 hover:bg-zinc-700 border border-zinc-700 text-white font-bold py-2.5 px-4 rounded-xl flex items-center gap-2 cursor-pointer"><i data-lucide="download" class="w-4 h-4"></i> Baixar via PDF</button>
           </div>
         </div>
@@ -1062,13 +1076,13 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       <div>
         <span class="text-xs font-bold text-amber-500 uppercase">Área do Artista & Admin</span>
         <h3 class="text-2xl font-bold text-white mt-1">Entrar no Painel</h3>
-        <p class="text-xs text-zinc-400 mt-1">Digite seu WhatsApp ou e-mail de administrador e senha.</p>
+        <p class="text-xs text-zinc-400 mt-1">Digite seu WhatsApp de acesso e senha.</p>
       </div>
 
       <div class="space-y-4 text-xs">
         <div>
-          <label class="block font-semibold text-zinc-300 mb-1">WhatsApp ou E-mail Admin</label>
-          <input type="text" id="loginWhatsapp" onkeypress="handleLoginKey(event)" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white" placeholder="Seu WhatsApp ou e-mail admin">
+          <label class="block font-semibold text-zinc-300 mb-1">WhatsApp de Acesso</label>
+          <input type="text" id="loginWhatsapp" onkeypress="handleLoginKey(event)" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white" placeholder="Seu WhatsApp">
         </div>
         <div>
           <label class="block font-semibold text-zinc-300 mb-1">Senha</label>
@@ -1172,8 +1186,9 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
     let usersDatabase = JSON.parse(localStorage.getItem('stagekit_users_db')) || [];
     let sessionUser = JSON.parse(localStorage.getItem('stagekit_session')) || null;
     let isViewingOwnOnlineKit = false;
+    let isAdminViewingArtistKit = false; // Controle para saber se o admin está vendo o kit do artista
 
-    // Criar o Super Admin padrão se não existir
+    // Criar o Super Admin padrão (Casa 6 Produções / @Alohomora21)
     const superAdminAccount = {
       role: "admin",
       whatsapp: "casa6producoes@gmail.com",
@@ -1221,15 +1236,26 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       cpf: "",
       musicianId: "",
       repertoireFileName: "",
-      contractModelText: "",
       googleCalendarConnected: false,
-      createdAt: new Date().toISOString().split('T')[0]
+      createdAt: new Date().toISOString().split('T')[0],
+      budgetsGeneratedCount: 0
     };
 
     let eventsList = JSON.parse(localStorage.getItem('stagekit_events')) || [];
     let musiciansList = JSON.parse(localStorage.getItem('stagekit_musicians')) || [];
+    let globalContractModel = localStorage.getItem('stagekit_global_contract') || `CONTRATO DE PRESTAÇÃO DE SERVIÇOS ARTÍSTICOS - PADRÃO CASA 6 PRODUÇÕES
+
+Pelo presente instrumento particular, de um lado o(a) contratado(a) [NOME DO ARTISTA], inscrito(a) no CPF sob o nº [CPF], doravante denominado(a) ARTISTA, e de outro o CONTRATANTE acordam a realização da apresentação musical conforme termos combinados.
+
+CLÁUSULA PRIMEIRA - DO OBJETO
+A prestação de serviços artísticos musicais para o evento estipulado na plataforma StageKit.
+
+CLÁUSULA SEGUNDA - DA RESPONSABILIDADE
+Este documento é gerado através da plataforma StageKit com padrão Casa 6 Produções, sendo de total e exclusiva responsabilidade civil e criminal do ARTISTA a execução, negociação, emissão de recibos e cumprimento deste instrumento.`;
+
     let selectedFormatForModal = "";
     let totalBudgetsCount = parseInt(localStorage.getItem('stagekit_budgets_count')) || 0;
+    let pieChartInstance = null;
 
     function isValidPassword(password) {
       if (password.length < 8) return false;
@@ -1268,6 +1294,7 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       localStorage.setItem('stagekit_events', JSON.stringify(eventsList));
       localStorage.setItem('stagekit_musicians', JSON.stringify(musiciansList));
       localStorage.setItem('stagekit_budgets_count', totalBudgetsCount);
+      localStorage.setItem('stagekit_global_contract', globalContractModel);
     }
 
     function initApp() {
@@ -1369,8 +1396,12 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       if(elSlug) elSlug.value = artistData.slug;
 
       const elContract = document.getElementById('contractText');
-      if(elContract && artistData.contractModelText) {
-        elContract.value = artistData.contractModelText;
+      if(elContract) {
+        if(sessionUser && sessionUser.role === 'admin') {
+          elContract.value = globalContractModel;
+        } else {
+          elContract.value = artistData.contractModelText || globalContractModel;
+        }
       }
 
       const repStatus = document.getElementById('repertoireStatus');
@@ -1547,6 +1578,7 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
     }
 
     function goHome() {
+      isAdminViewingArtistKit = false;
       try { window.history.pushState({}, '', '/'); } catch(e) {}
       const lp = document.getElementById('landingPage');
       if(lp) lp.classList.remove('hidden');
@@ -1587,8 +1619,15 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
 
       const backBtnContainer = document.getElementById('backToDashboardContainer');
       const viewOnlineBtn = document.getElementById('viewOnlineKitBtn');
-      if(isViewingOwnOnlineKit && sessionUser) {
+      const backText = document.getElementById('backToDashboardBtnText');
+
+      if (sessionUser && sessionUser.role === 'admin' && isAdminViewingArtistKit) {
         if(backBtnContainer) backBtnContainer.classList.remove('hidden');
+        if(backText) backText.innerText = "Voltar para o admin";
+        if(viewOnlineBtn) viewOnlineBtn.classList.add('hidden');
+      } else if(isViewingOwnOnlineKit && sessionUser) {
+        if(backBtnContainer) backBtnContainer.classList.remove('hidden');
+        if(backText) backText.innerText = "Voltar para área do artista";
         if(viewOnlineBtn) viewOnlineBtn.classList.add('hidden');
       } else {
         if(backBtnContainer) backBtnContainer.classList.add('hidden');
@@ -1598,8 +1637,19 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       applyPublicData();
     }
 
+    function handleBackToDashboardFromPublic() {
+      if (sessionUser && sessionUser.role === 'admin' && isAdminViewingArtistKit) {
+        isAdminViewingArtistKit = false;
+        artistData = sessionUser;
+        showArtistDashboard();
+      } else {
+        showArtistDashboard();
+      }
+    }
+
     function showArtistDashboard() {
       isViewingOwnOnlineKit = false;
+      isAdminViewingArtistKit = false;
       try { window.history.pushState({}, '', '/dashboard'); } catch(e) {}
       const lp = document.getElementById('landingPage');
       if(lp) lp.classList.add('hidden');
@@ -1617,18 +1667,50 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       if(backBtnContainer) backBtnContainer.classList.add('hidden');
       if(viewOnlineBtn) viewOnlineBtn.classList.remove('hidden');
 
-      // Configurar abas conforme role
-      if(artistData.role === 'admin') {
+      // Configurar abas e bloqueios conforme role
+      if(sessionUser && sessionUser.role === 'admin') {
         document.getElementById('btnTabSuperAdmin').classList.remove('hidden');
         document.getElementById('btnTabSuperAdmin').classList.add('flex');
         document.getElementById('btnTabClients').classList.remove('hidden');
         document.getElementById('btnTabClients').classList.add('flex');
+        
+        // Ajustar aba Contratos para modo Administrador Global
+        document.getElementById('contractSubtitleDesc').innerText = "Edite o modelo oficial que servirá como padrão para todos os usuários do sistema.";
+        document.getElementById('contractCardHeaderTitle').innerText = "Contrato Padrão da Plataforma (Casa 6 Produções)";
+        document.getElementById('contractCardHelperText').innerHTML = "Este documento serve como modelo oficial padronizado para todos os artistas cadastrados no <strong>StageKit</strong>.";
+        document.getElementById('saveContractBtn').innerText = "Salvar Modelo Global do Sistema";
+
+        // Travar abas do artista com cadeados e desabilitar cliques para perfil admin estrito
+        const restrictedTabs = ['btnTabProfile', 'btnTabBio', 'btnTabMedia', 'btnTabFormats', 'btnTabDashboard', 'btnTabRepertoire', 'btnTabEvents', 'btnTabTeam', 'btnTabCalendar'];
+        restrictedTabs.forEach(tabId => {
+          const el = document.getElementById(tabId);
+          if(el) {
+            el.classList.add('opacity-50', 'cursor-not-allowed');
+            el.onclick = (e) => { e.preventDefault(); alert('Esta aba está bloqueada no perfil estrito de administrador da plataforma.'); };
+          }
+        });
+
+        // Mostrar cadeados visuais
+        const locks = ['lockProfile', 'lockBio', 'lockMedia', 'lockFormats', 'lockDashboard', 'lockRepertoire', 'lockEvents', 'lockTeam', 'lockCalendar'];
+        locks.forEach(lId => {
+          const lEl = document.getElementById(lId);
+          if(lEl) lEl.classList.remove('hidden');
+        });
+
+        document.getElementById('sidebarAreaTitle').innerText = "Painel Super Admin";
         switchTab('tabSuperAdmin');
       } else {
         document.getElementById('btnTabSuperAdmin').classList.add('hidden');
         document.getElementById('btnTabSuperAdmin').classList.remove('flex');
         document.getElementById('btnTabClients').classList.add('hidden');
         document.getElementById('btnTabClients').classList.remove('flex');
+        
+        document.getElementById('contractSubtitleDesc').innerText = "Edite seu contrato modelo e baixe diretamente via PDF.";
+        document.getElementById('contractCardHeaderTitle').innerText = "Contrato de Prestação de Serviços";
+        document.getElementById('contractCardHelperText').innerHTML = "Este documento possui o selo oficial de padronização do <strong>StageKit</strong>, sendo de <strong>inteira e exclusiva responsabilidade do artista</strong>.";
+        document.getElementById('saveContractBtn').innerText = "Salvar Modelo";
+
+        document.getElementById('sidebarAreaTitle').innerText = "Área do Artista";
         switchTab('tabProfile');
       }
     }
@@ -1639,6 +1721,7 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
     }
 
     function handleAvatarUpload(event) {
+      if(sessionUser && sessionUser.role === 'admin') return;
       const file = event.target.files[0];
       if(file) {
         const reader = new FileReader();
@@ -1667,6 +1750,7 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
     }
 
     function openEditAvatarModal() {
+      if(sessionUser && sessionUser.role === 'admin') return;
       if(!artistData.avatarUrl) {
         alert('Adicione uma foto de perfil primeiro.');
         return;
@@ -1692,6 +1776,7 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
     }
 
     function saveAvatarTransform() {
+      if(sessionUser && sessionUser.role === 'admin') return;
       artistData.avatarZoom = parseFloat(document.getElementById('avatarZoomRange').value);
       artistData.avatarRotate = parseInt(document.getElementById('avatarRotateRange').value);
       saveData();
@@ -1701,6 +1786,7 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
     }
 
     function removeAvatarPhoto() {
+      if(sessionUser && sessionUser.role === 'admin') return;
       artistData.avatarUrl = "";
       artistData.avatarZoom = 1;
       artistData.avatarRotate = 0;
@@ -1722,9 +1808,9 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       const loginInput = document.getElementById('loginWhatsapp').value.trim();
       const pass = document.getElementById('loginPassword').value.trim();
 
-      if(!loginInput || !pass) { alert('Digite seu WhatsApp / e-mail e senha.'); return; }
+      if(!loginInput || !pass) { alert('Digite seu WhatsApp de acesso e senha.'); return; }
 
-      // Verificar Super Admin
+      // Verificar Administrador Dono da Plataforma (casa6producoes@gmail.com / @Alohomora21)
       if(loginInput.toLowerCase() === "casa6producoes@gmail.com" && pass === "@Alohomora21") {
         sessionUser = superAdminAccount;
         artistData = superAdminAccount;
@@ -1760,6 +1846,7 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       if(!isValidPassword(pass)) { alert('A senha deve ter no mínimo 8 caracteres, com letras e números.'); return; }
 
       const generatedSlug = fullName.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]/g, '');
+      const realRegistrationDate = new Date().toISOString().split('T')[0]; // Data real e efetiva de cadastro
 
       const newUser = {
         role: "artista",
@@ -1791,9 +1878,10 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
         cpf: "",
         musicianId: "",
         repertoireFileName: "",
-        contractModelText: "",
+        contractModelText: globalContractModel,
         googleCalendarConnected: false,
-        createdAt: new Date().toISOString().split('T')[0]
+        createdAt: realRegistrationDate,
+        budgetsGeneratedCount: 0
       };
 
       usersDatabase.push(newUser);
@@ -1804,7 +1892,7 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
 
       loadInputsFromState();
       closeRegisterModal();
-      alert('Cadastro realizado com sucesso!');
+      alert('Cadastro realizado com sucesso na comunidade!');
       showArtistDashboard();
     }
 
@@ -1815,6 +1903,11 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
     }
 
     function switchTab(tabId) {
+      if(sessionUser && sessionUser.role === 'admin' && tabId !== 'tabSuperAdmin' && tabId !== 'tabClients' && tabId !== 'tabContracts') {
+        alert('Esta aba está bloqueada no perfil estrito de administrador da plataforma.');
+        return;
+      }
+
       document.querySelectorAll('.dashboard-tab').forEach(t => t.classList.add('hidden'));
       const activeTab = document.getElementById(tabId);
       if(activeTab) activeTab.classList.remove('hidden');
@@ -1846,6 +1939,10 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
           btn.classList.remove('text-zinc-400');
           btn.classList.add('bg-amber-500/10', 'text-amber-400', 'border', 'border-amber-500/35');
         }
+      }
+
+      if(tabId === 'tabSuperAdmin') {
+        renderSuperAdminChart();
       }
     }
 
@@ -1887,6 +1984,7 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       const loc = document.getElementById('qLocation').value || 'A combinar';
 
       totalBudgetsCount++;
+      artistData.budgetsGeneratedCount = (artistData.budgetsGeneratedCount || 0) + 1;
       saveData();
 
       const text = `*Olá! Gostaria de verificar disponibilidade.*\n\n👤 *Contratante:* ${clientName}\n🎵 *Formato:* ${selectedFormatForModal}\n📅 *Data:* ${dt}\n🎉 *Evento:* ${ev}\n👥 *Público:* ${aud}\n📍 *Local:* ${loc}`;
@@ -1896,6 +1994,7 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
     }
 
     function saveProfileEdits() {
+      if(sessionUser && sessionUser.role === 'admin') return;
       artistData.artistMainName = document.getElementById('editProfileName').value.toUpperCase();
       artistData.city = document.getElementById('editProfileCity').value.trim();
       const cpfVal = document.getElementById('editProfileCpf').value.trim();
@@ -1916,6 +2015,7 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
     }
 
     function saveArtistEdits() {
+      if(sessionUser && sessionUser.role === 'admin') return;
       artistData.title = document.getElementById('editTitle').value;
       artistData.bio = document.getElementById('editBio').value;
       artistData.channelYoutube = document.getElementById('editChannelYoutube').value;
@@ -1969,6 +2069,7 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
     }
 
     function saveFormatsEdits() {
+      if(sessionUser && sessionUser.role === 'admin') return;
       artistData.formats[0].title = document.getElementById('fmt1Title').value;
       artistData.formats[0].sub = document.getElementById('fmt1Sub').value;
       artistData.formats[0].desc = document.getElementById('fmt1Desc').value;
@@ -2015,6 +2116,7 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
     }
 
     function uploadRepertoire() {
+      if(sessionUser && sessionUser.role === 'admin') return;
       const fileInput = document.getElementById('repertoireFile');
       if(fileInput && fileInput.files[0]) {
         artistData.repertoireFileName = fileInput.files[0].name;
@@ -2027,9 +2129,16 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
     }
 
     function saveContractModel() {
-      artistData.contractModelText = document.getElementById('contractText').value;
-      saveData();
-      alert('Modelo de contrato salvo com sucesso!');
+      const textVal = document.getElementById('contractText').value;
+      if(sessionUser && sessionUser.role === 'admin') {
+        globalContractModel = textVal;
+        localStorage.setItem('stagekit_global_contract', globalContractModel);
+        alert('Modelo de contrato global do sistema salvo com sucesso!');
+      } else {
+        artistData.contractModelText = textVal;
+        saveData();
+        alert('Modelo de contrato salvo com sucesso!');
+      }
     }
 
     function downloadContractPdf() {
@@ -2056,6 +2165,7 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
     }
 
     function addNewEvent() {
+      if(sessionUser && sessionUser.role === 'admin') return;
       const name = document.getElementById('newEventName').value;
       if(!name) { alert('Insira o nome do evento'); return; }
       const date = document.getElementById('newEventDate').value;
@@ -2115,6 +2225,7 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
     }
 
     function addNewMusician() {
+      if(sessionUser && sessionUser.role === 'admin') return;
       const name = document.getElementById('newMusicianName').value;
       const instrument = document.getElementById('newMusicianInstrument').value;
       const whatsapp = document.getElementById('newMusicianWhatsapp').value;
@@ -2150,6 +2261,7 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
     }
 
     function connectGoogleCalendar() {
+      if(sessionUser && sessionUser.role === 'admin') return;
       artistData.googleCalendarConnected = true;
       saveData();
       document.getElementById('googleCalendarStatusText').innerText = 'Conectado com sucesso';
@@ -2182,7 +2294,7 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       const tbody = document.getElementById('superAdminUsersTableBody');
       if(!tbody) return;
       if(artists.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="5" class="p-4 text-center text-zinc-500">Nenhum artista cadastrado.</td></tr>';
+        tbody.innerHTML = '<tr><td colspan="5" class="p-4 text-center text-zinc-500">Nenhum artista cadastrado na comunidade.</td></tr>';
         return;
       }
 
@@ -2196,7 +2308,7 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
           <td class="p-3 text-zinc-400">${u.createdAt || '2026-01-01'}</td>
           <td class="p-3"><span class="px-2 py-0.5 rounded text-[10px] bg-emerald-500/10 text-emerald-400 font-bold">Ativo</span></td>
           <td class="p-3 text-right">
-            <button onclick="viewUserPublicKit('${u.slug}')" class="bg-amber-500/10 hover:bg-amber-500/20 text-amber-400 px-3 py-1.5 rounded-lg font-bold text-xs">Ver Kit</button>
+            <button onclick="adminViewUserKit('${u.slug}')" class="bg-amber-500/10 hover:bg-amber-500/20 text-amber-400 px-3 py-1.5 rounded-lg font-bold text-xs">Ver Kit</button>
           </td>
         </tr>
       `).join('');
@@ -2207,7 +2319,7 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       const container = document.getElementById('clientsListContainer');
       if(!container) return;
       if(artists.length === 0) {
-        container.innerHTML = '<p class="text-zinc-500 italic">Nenhum artista cadastrado.</p>';
+        container.innerHTML = '<p class="text-zinc-500 italic">Nenhum artista cadastrado na comunidade.</p>';
         return;
       }
       container.innerHTML = artists.map(u => `
@@ -2216,17 +2328,52 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
             <p class="font-bold text-white text-sm">${u.artistMainName}</p>
             <p class="text-zinc-400">Telefone / WhatsApp: <span class="text-amber-400 font-mono">${u.whatsapp}</span></p>
           </div>
-          <button onclick="viewUserPublicKit('${u.slug}')" class="bg-amber-500 hover:bg-amber-600 text-black font-bold px-3 py-2 rounded-lg text-xs">Visualizar Kit</button>
+          <button onclick="adminViewUserKit('${u.slug}')" class="bg-amber-500 hover:bg-amber-600 text-black font-bold px-3 py-2 rounded-lg text-xs">Visualizar Kit</button>
         </div>
       `).join('');
     }
 
-    function viewUserPublicKit(slug) {
+    function adminViewUserKit(slug) {
       const found = usersDatabase.find(u => u.slug === slug);
       if(found) {
         artistData = found;
+        isAdminViewingArtistKit = true;
         showPublicPressKit(false);
       }
+    }
+
+    function renderSuperAdminChart() {
+      const ctx = document.getElementById('superAdminPieChart');
+      if(!ctx) return;
+
+      const artists = usersDatabase.filter(u => u.role !== 'admin');
+      let totalUsersCount = artists.length;
+      let totalContracts = artists.reduce((acc, u) => acc + (u.budgetsGeneratedCount || 0), 0);
+
+      if(pieChartInstance) {
+        pieChartInstance.destroy();
+      }
+
+      pieChartInstance = new Chart(ctx, {
+        type: 'pie',
+        data: {
+          labels: ['Usuários Cadastrados', 'Contratos / Orçamentos Gerados'],
+          datasets: [{
+            data: [totalUsersCount, totalContracts],
+            backgroundColor: ['#F59E0B', '#10B981'],
+            borderWidth: 0
+          }]
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            legend: {
+              position: 'bottom',
+              labels: { color: '#A1A1AA', font: { size: 10 } }
+            }
+          }
+        }
+      });
     }
 
     function toggleTheme() {
