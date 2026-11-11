@@ -197,7 +197,7 @@
           <span class="text-amber-400 text-xs font-bold inline-flex items-center gap-1 pt-2">Ver demonstração dos formatos <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i></span>
         </div>
 
-        <div onclick="openFormatModal('Orçamento Geral', true)" class="bg-brand-cardBg border border-brand-border p-6 rounded-3xl space-y-4 shadow-xl cursor-pointer hover:border-amber-500/50 transition-all group flex flex-col justify-between">
+        <div onclick="openFormatModal('Orçamento Geral')" class="bg-brand-cardBg border border-brand-border p-6 rounded-3xl space-y-4 shadow-xl cursor-pointer hover:border-amber-500/50 transition-all group flex flex-col justify-between">
           <div class="space-y-3">
             <div class="w-12 h-12 rounded-2xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center group-hover:scale-110 transition-transform">
               <i data-lucide="message-square" class="w-6 h-6"></i>
@@ -227,7 +227,6 @@
         </p>
       </div>
 
-      <!-- CTA RETORNADO ABAIXO DO CARD LGPD -->
       <div class="bg-gradient-to-r from-amber-500/20 via-brand-cardBg to-brand-cardBg border border-amber-500/40 p-8 rounded-3xl text-center space-y-4 shadow-xl">
         <h3 class="text-2xl sm:text-3xl font-extrabold text-white">Pronto para elevar o nível da sua carreira?</h3>
         <p class="text-xs sm:text-sm text-zinc-300 max-w-xl mx-auto">
@@ -274,10 +273,7 @@
             <p id="displayBio" class="text-zinc-300 leading-relaxed text-sm sm:text-base">
               Músico profissional, multi-instrumentista e arranjador com vasta experiência em palcos de eventos corporativos, casamentos e casas noturnas de destaque.
             </p>
-            <!-- Canais de rede social sempre fixados -->
-            <div id="displaySocialLinksContainer" class="flex flex-wrap gap-2 pt-2">
-              <!-- Injetado dinamicamente -->
-            </div>
+            <div id="displaySocialLinksContainer" class="flex flex-wrap gap-2 pt-2"></div>
           </div>
         </div>
       </div>
@@ -288,12 +284,10 @@
           <span class="text-amber-500 font-bold text-xs uppercase tracking-widest">Vídeos Reais</span>
           <h3 class="text-2xl font-bold text-white mt-1">Assista às Performances</h3>
         </div>
-        <div id="displayVideosContainer" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 max-w-5xl mx-auto">
-          <!-- Injetado dinamicamente -->
-        </div>
+        <div id="displayVideosContainer" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 max-w-5xl mx-auto"></div>
       </div>
 
-      <!-- GALERIA DE FOTOS (SEMPRE FIXADO 5 ESPAÇOS) -->
+      <!-- GALERIA DE FOTOS -->
       <div id="secaoGaleriaFotos" class="space-y-4 pt-6">
         <div class="text-center">
           <span class="text-amber-500 font-bold text-xs uppercase tracking-widest">Galeria</span>
@@ -302,7 +296,7 @@
         <div id="displayPublicGalleryGrid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3 max-w-5xl mx-auto"></div>
       </div>
 
-      <!-- PLAYER / BALÃO "VAMOS OUVIR" (SEMPRE FIXADO) -->
+      <!-- BALÃO "VAMOS OUVIR" -->
       <div id="vamosOuvirPublicContainer" class="w-full max-w-4xl mx-auto bg-brand-cardBg border border-brand-border p-6 rounded-3xl shadow-xl text-left space-y-3">
         <div class="flex items-center gap-2 text-amber-500 font-bold text-sm">
           <i data-lucide="headphones" class="w-5 h-5"></i> <span>Vamos Ouvir (Músicas de Trabalho)</span>
@@ -319,9 +313,7 @@
         <h2 class="text-2xl sm:text-4xl font-bold text-white mt-1">Formatos de Show</h2>
       </div>
 
-      <div id="displayFormatsPublicGrid" class="grid md:grid-cols-3 gap-6">
-        <!-- Injetado dinamicamente -->
-      </div>
+      <div id="displayFormatsPublicGrid" class="grid md:grid-cols-3 gap-6"></div>
     </section>
 
     <footer class="py-8 text-center text-xs text-zinc-500 border-t border-brand-border">
@@ -332,7 +324,6 @@
   <!-- ==================== ÁREA DO ARTISTA / ADMIN (PAINEL) ==================== -->
   <div id="artistDashboard" class="flex-1 pt-20 bg-zinc-950 hidden flex flex-col md:flex-row min-h-[calc(100vh-5rem)]">
     
-    <!-- ASIDE COM BOTÃO DE RECOLHER/OCULTAR (TRÊS LISTRINHAS) -->
     <aside id="adminSidebar" class="w-full md:w-64 bg-brand-cardBg border-r border-brand-border p-6 flex flex-col justify-between shrink-0 transition-all duration-300">
       <div class="space-y-6">
         <div class="flex items-center justify-between">
@@ -353,7 +344,7 @@
             <i data-lucide="users" class="w-4 h-4 text-amber-500"></i> Clientes
           </button>
 
-          <!-- Abas comuns / com cadeado para Admin -->
+          <!-- Abas comuns do artista (Liberadas para artistas) -->
           <button onclick="switchTab('tabProfile')" id="btnTabProfile" class="tab-menu-btn w-full flex items-center justify-between px-4 py-3 rounded-xl text-xs font-semibold bg-amber-500/10 text-amber-400 border border-amber-500/35 transition-all cursor-pointer">
             <div class="flex items-center gap-3"><i data-lucide="shield" class="w-4 h-4"></i> Perfil & Dados</div>
             <span id="lockProfile" class="hidden text-zinc-500"><i data-lucide="lock" class="w-3.5 h-3.5"></i></span>
@@ -401,11 +392,10 @@
         <button onclick="toggleTheme()" class="w-full flex items-center justify-center gap-2 p-3 rounded-xl bg-zinc-900 border border-zinc-800 text-amber-400 hover:bg-zinc-800 transition-colors text-xs font-bold cursor-pointer">
           <i data-lucide="sun" id="dashThemeIcon" class="w-4 h-4"></i> Alternar Tema
         </button>
-        <p class="text-[10px] text-zinc-500 text-center">StageKit v3.1 — Casa 6</p>
+        <p class="text-[10px] text-zinc-500 text-center">StageKit v3.2 — Casa 6</p>
       </div>
     </aside>
 
-    <!-- BOTÃO FLUTUANTE DE MENU PARA TELAS MENORES -->
     <div class="md:hidden p-4 bg-zinc-900 border-b border-zinc-800 flex items-center justify-between">
       <span class="text-xs font-bold text-amber-400">Painel do Artista</span>
       <button onclick="toggleSidebar()" class="p-2 rounded-xl bg-brand-cardBg text-amber-400 border border-zinc-700">
@@ -457,9 +447,8 @@
           </div>
         </div>
 
-        <!-- MÓDULOS FUTUROS & GRÁFICO EM PIZZA -->
         <div class="bg-brand-cardBg border border-brand-border p-6 rounded-2xl space-y-4">
-          <h3 class="text-sm font-bold text-amber-400 uppercase tracking-wider">Módulos Futuros & Relatórios (Gráfico de Usuários vs Contratos)</h3>
+          <h3 class="text-sm font-bold text-amber-400 uppercase tracking-wider">Módulos Futuros & Relatórios</h3>
           <p class="text-xs text-zinc-400">Distribuição visual comparativa entre o volume de usuários cadastrados e o engajamento de contratos gerados na plataforma.</p>
           <div class="max-w-xs mx-auto pt-2">
             <canvas id="superAdminPieChart" width="200" height="200"></canvas>
@@ -467,7 +456,7 @@
         </div>
       </div>
 
-      <!-- CLIENTES ABA (Exclusiva Dono Plataforma) -->
+      <!-- CLIENTES ABA -->
       <div id="tabClients" class="dashboard-tab max-w-4xl space-y-6 hidden">
         <div>
           <h2 class="text-xl font-bold text-white">Clientes (Artistas da Plataforma)</h2>
@@ -480,7 +469,7 @@
         </div>
       </div>
 
-      <!-- ABA 1: PERFIL & DADOS (Com Troca de Senha) -->
+      <!-- ABA 1: PERFIL & DADOS -->
       <div id="tabProfile" class="dashboard-tab max-w-3xl space-y-6">
         <div>
           <h2 class="text-xl font-bold text-white">Perfil & Dados</h2>
@@ -488,7 +477,6 @@
         </div>
 
         <div class="bg-brand-cardBg border border-brand-border p-6 rounded-2xl space-y-5 text-xs">
-          <!-- Seção Foto de Perfil -->
           <div class="space-y-3 pb-4 border-b border-zinc-800">
             <label class="block font-semibold text-zinc-300">Foto de Perfil do Artista</label>
             <div class="flex flex-col sm:flex-row items-center gap-6">
@@ -545,7 +533,7 @@
         </div>
       </div>
 
-      <!-- ABA 2: BIO & REDES SOCIAIS (Com Canal do YouTube) -->
+      <!-- ABA 2: BIO & REDES SOCIAIS -->
       <div id="tabBio" class="dashboard-tab max-w-3xl space-y-6 hidden">
         <div>
           <h2 class="text-xl font-bold text-white">Bio & Redes Sociais</h2>
@@ -593,7 +581,7 @@
         </div>
       </div>
 
-      <!-- ABA 3: MÍDIAS & STREAMING (Com upload de MP4 em "Na Prática") -->
+      <!-- ABA 3: MÍDIAS & STREAMING -->
       <div id="tabMedia" class="dashboard-tab max-w-4xl space-y-6 hidden">
         <div>
           <h2 class="text-xl font-bold text-white">Mídias, Streaming & Formatos</h2>
@@ -601,7 +589,6 @@
         </div>
 
         <div class="grid md:grid-cols-2 gap-6">
-          <!-- CARD 1: FOTOS (5 ESPAÇOS) -->
           <div class="bg-brand-cardBg border border-brand-border p-6 rounded-2xl space-y-4 text-xs">
             <div class="flex items-center gap-2 text-amber-500 font-bold text-sm">
               <i data-lucide="image" class="w-5 h-5"></i> <span>Fotos de Show & Apresentação (Até 5 fotos)</span>
@@ -631,7 +618,6 @@
             </div>
           </div>
 
-          <!-- CARD 2: NA PRÁTICA (3 VÍDEOS + BOTÃO UPLOAD MP4) -->
           <div class="bg-brand-cardBg border border-brand-border p-6 rounded-2xl space-y-4 text-xs">
             <div class="flex items-center gap-2 text-amber-500 font-bold text-sm">
               <i data-lucide="video" class="w-5 h-5"></i> <span>Na Prática (3 Links do YouTube + Upload MP4)</span>
@@ -659,7 +645,6 @@
           </div>
         </div>
 
-        <!-- CARD 3: VAMOS OUVIR -->
         <div class="bg-brand-cardBg border border-brand-border p-6 rounded-2xl space-y-4 text-xs">
           <div class="flex items-center gap-2 text-amber-500 font-bold text-sm">
             <i data-lucide="headphones" class="w-5 h-5"></i> <span>Vamos Ouvir (Músicas de Trabalho nas Plataformas)</span>
@@ -692,7 +677,6 @@
         </div>
 
         <div class="grid md:grid-cols-3 gap-6">
-          <!-- Formato 1 -->
           <div class="bg-brand-cardBg border border-brand-border p-5 rounded-2xl space-y-3 text-xs">
             <span class="text-amber-500 font-bold uppercase">Formato 1</span>
             <div>
@@ -713,7 +697,6 @@
             </div>
           </div>
 
-          <!-- Formato 2: Casamentos & Cerimônias -->
           <div class="bg-brand-cardBg border border-amber-500/40 p-5 rounded-2xl space-y-3 text-xs relative">
             <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-amber-500 text-black font-extrabold text-[10px] uppercase px-3 py-0.5 rounded-full">Mais Pedido</div>
             <span class="text-amber-500 font-bold uppercase mt-1 block">Formato 2 (Casamentos)</span>
@@ -739,7 +722,6 @@
             </div>
           </div>
 
-          <!-- Formato 3 -->
           <div class="bg-brand-cardBg border border-brand-border p-5 rounded-2xl space-y-3 text-xs">
             <span class="text-amber-500 font-bold uppercase">Formato 3</span>
             <div>
@@ -848,7 +830,7 @@
         </div>
       </div>
 
-      <!-- ABA 7: CONTRATOS (Com Modelo de Contrato Padrão para o Sistema) -->
+      <!-- ABA 7: CONTRATOS -->
       <div id="tabContracts" class="dashboard-tab max-w-3xl space-y-6 hidden">
         <div>
           <h2 class="text-xl font-bold text-white">Modelo de Contratos do Sistema</h2>
@@ -1003,7 +985,7 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
     </main>
   </div>
 
-  <!-- ==================== MODAL DE EDIÇÃO DE FOTO DE PERFIL ==================== -->
+  <!-- MODAIS -->
   <div id="editAvatarModal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-sm hidden flex items-center justify-center p-4">
     <div class="bg-brand-cardBg border border-brand-border rounded-3xl max-w-md w-full p-6 space-y-4 shadow-2xl relative">
       <button onclick="closeEditAvatarModal()" class="absolute top-5 right-5 text-zinc-400 hover:text-white cursor-pointer"><i data-lucide="x" class="w-5 h-5"></i></button>
@@ -1031,7 +1013,6 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
     </div>
   </div>
 
-  <!-- ==================== MODAL DE CADASTRO ==================== -->
   <div id="registerModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-4 overflow-y-auto">
     <div class="bg-brand-cardBg border border-brand-border rounded-3xl max-w-lg w-full p-6 sm:p-8 space-y-6 shadow-2xl relative my-8">
       <button onclick="closeRegisterModal()" class="absolute top-6 right-6 text-zinc-400 hover:text-white cursor-pointer"><i data-lucide="x" class="w-5 h-5"></i></button>
@@ -1069,7 +1050,6 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
     </div>
   </div>
 
-  <!-- ==================== MODAL DE LOGIN (WPP + SENHA) ==================== -->
   <div id="loginModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
     <div class="bg-brand-cardBg border border-brand-border rounded-3xl max-w-md w-full p-6 sm:p-8 space-y-6 shadow-2xl relative">
       <button onclick="closeLoginModal()" class="absolute top-6 right-6 text-zinc-400 hover:text-white cursor-pointer"><i data-lucide="x" class="w-5 h-5"></i></button>
@@ -1098,7 +1078,6 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
     </div>
   </div>
 
-  <!-- ==================== DEMO MODAL ==================== -->
   <div id="demoModal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-sm hidden flex items-center justify-center p-4">
     <div class="bg-brand-cardBg border border-brand-border rounded-3xl max-w-3xl w-full max-h-[90vh] flex flex-col p-6 sm:p-8 space-y-4 shadow-2xl relative">
       <button onclick="closeDemoModal()" class="absolute top-6 right-6 text-zinc-400 hover:text-white z-20 bg-zinc-900/80 p-1.5 rounded-full border border-zinc-700 cursor-pointer"><i data-lucide="x" class="w-5 h-5"></i></button>
@@ -1110,7 +1089,6 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
     </div>
   </div>
 
-  <!-- ==================== FORMAT MODAL (ORÇAMENTO) ==================== -->
   <div id="formatModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
     <div class="bg-brand-cardBg border border-brand-border rounded-3xl max-w-lg w-full max-h-[90vh] flex flex-col p-6 sm:p-8 space-y-4 shadow-2xl relative">
       <button onclick="closeFormatModal()" class="absolute top-6 right-6 text-zinc-400 hover:text-white z-20 bg-zinc-900/80 p-1.5 rounded-full border border-zinc-700 cursor-pointer"><i data-lucide="x" class="w-5 h-5"></i></button>
@@ -1186,9 +1164,9 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
     let usersDatabase = JSON.parse(localStorage.getItem('stagekit_users_db')) || [];
     let sessionUser = JSON.parse(localStorage.getItem('stagekit_session')) || null;
     let isViewingOwnOnlineKit = false;
-    let isAdminViewingArtistKit = false; // Controle para saber se o admin está vendo o kit do artista
+    let isAdminViewingArtistKit = false;
 
-    // Criar o Super Admin padrão (Casa 6 Produções / @Alohomora21)
+    // Criar o Super Admin padrão (casa6producoes@gmail.com / @Alohomora21)
     const superAdminAccount = {
       role: "admin",
       whatsapp: "casa6producoes@gmail.com",
@@ -1446,7 +1424,6 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       const eCity = document.getElementById('displayArtistCity');
       if(eCity) eCity.innerText = `📍 ${artistData.city || 'Rio de Janeiro, RJ'}`;
 
-      // Avatar Público
       const pubAvatar = document.getElementById('displayArtistPhoto');
       if(pubAvatar) {
         if(artistData.avatarUrl) {
@@ -1458,7 +1435,6 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
         }
       }
 
-      // Redes Sociais / Canais (Sempre fixos no link personalizado)
       const socialContainer = document.getElementById('displaySocialLinksContainer');
       if(socialContainer) {
         let socials = [];
@@ -1474,7 +1450,6 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
         `).join('');
       }
 
-      // Vídeos Na Prática (Até 3 YouTube + MP4 Upload)
       const vContainer = document.getElementById('displayVideosContainer');
       if(vContainer) {
         let ytList = [artistData.youtube1, artistData.youtube2, artistData.youtube3].filter(Boolean);
@@ -1510,7 +1485,6 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
         vContainer.innerHTML = htmlContent;
       }
 
-      // Galeria de Fotos Públicas (Sempre fixado 5 espaços)
       const galleryGrid = document.getElementById('displayPublicGalleryGrid');
       if(galleryGrid) {
         let photos = artistData.galleryPhotos || [];
@@ -1534,7 +1508,6 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
         `).join('');
       }
 
-      // Formatos de Show Públicos
       const formatsGrid = document.getElementById('displayFormatsPublicGrid');
       if(formatsGrid && artistData.formats) {
         formatsGrid.innerHTML = artistData.formats.map((fmt, idx) => {
@@ -1559,7 +1532,6 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
         }).join('');
       }
 
-      // Balão Vamos Ouvir (Sempre fixo)
       const linksList = document.getElementById('vamosOuvirLinksList');
       if(linksList) {
         let musicItems = [
@@ -1667,21 +1639,20 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       if(backBtnContainer) backBtnContainer.classList.add('hidden');
       if(viewOnlineBtn) viewOnlineBtn.classList.remove('hidden');
 
-      // Configurar abas e bloqueios conforme role
+      const restrictedTabs = ['btnTabProfile', 'btnTabBio', 'btnTabMedia', 'btnTabFormats', 'btnTabDashboard', 'btnTabRepertoire', 'btnTabEvents', 'btnTabTeam', 'btnTabCalendar'];
+      const locks = ['lockProfile', 'lockBio', 'lockMedia', 'lockFormats', 'lockDashboard', 'lockRepertoire', 'lockEvents', 'lockTeam', 'lockCalendar'];
+
       if(sessionUser && sessionUser.role === 'admin') {
         document.getElementById('btnTabSuperAdmin').classList.remove('hidden');
         document.getElementById('btnTabSuperAdmin').classList.add('flex');
         document.getElementById('btnTabClients').classList.remove('hidden');
         document.getElementById('btnTabClients').classList.add('flex');
         
-        // Ajustar aba Contratos para modo Administrador Global
         document.getElementById('contractSubtitleDesc').innerText = "Edite o modelo oficial que servirá como padrão para todos os usuários do sistema.";
         document.getElementById('contractCardHeaderTitle').innerText = "Contrato Padrão da Plataforma (Casa 6 Produções)";
         document.getElementById('contractCardHelperText').innerHTML = "Este documento serve como modelo oficial padronizado para todos os artistas cadastrados no <strong>StageKit</strong>.";
         document.getElementById('saveContractBtn').innerText = "Salvar Modelo Global do Sistema";
 
-        // Travar abas do artista com cadeados e desabilitar cliques para perfil admin estrito
-        const restrictedTabs = ['btnTabProfile', 'btnTabBio', 'btnTabMedia', 'btnTabFormats', 'btnTabDashboard', 'btnTabRepertoire', 'btnTabEvents', 'btnTabTeam', 'btnTabCalendar'];
         restrictedTabs.forEach(tabId => {
           const el = document.getElementById(tabId);
           if(el) {
@@ -1690,8 +1661,6 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
           }
         });
 
-        // Mostrar cadeados visuais
-        const locks = ['lockProfile', 'lockBio', 'lockMedia', 'lockFormats', 'lockDashboard', 'lockRepertoire', 'lockEvents', 'lockTeam', 'lockCalendar'];
         locks.forEach(lId => {
           const lEl = document.getElementById(lId);
           if(lEl) lEl.classList.remove('hidden');
@@ -1700,6 +1669,7 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
         document.getElementById('sidebarAreaTitle').innerText = "Painel Super Admin";
         switchTab('tabSuperAdmin');
       } else {
+        // Usuário padrão (Artista): Todas as abas 100% liberadas e funcionais
         document.getElementById('btnTabSuperAdmin').classList.add('hidden');
         document.getElementById('btnTabSuperAdmin').classList.remove('flex');
         document.getElementById('btnTabClients').classList.add('hidden');
@@ -1709,6 +1679,21 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
         document.getElementById('contractCardHeaderTitle').innerText = "Contrato de Prestação de Serviços";
         document.getElementById('contractCardHelperText').innerHTML = "Este documento possui o selo oficial de padronização do <strong>StageKit</strong>, sendo de <strong>inteira e exclusiva responsabilidade do artista</strong>.";
         document.getElementById('saveContractBtn').innerText = "Salvar Modelo";
+
+        restrictedTabs.forEach(tabId => {
+          const el = document.getElementById(tabId);
+          if(el) {
+            el.classList.remove('opacity-50', 'cursor-not-allowed');
+            // Restaurar chamadas normais de troca de aba
+            const pureTabName = tabId.replace('btnTab', 'tab');
+            el.onclick = () => switchTab(pureTabName);
+          }
+        });
+
+        locks.forEach(lId => {
+          const lEl = document.getElementById(lId);
+          if(lEl) lEl.classList.add('hidden');
+        });
 
         document.getElementById('sidebarAreaTitle').innerText = "Área do Artista";
         switchTab('tabProfile');
@@ -1810,7 +1795,6 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
 
       if(!loginInput || !pass) { alert('Digite seu WhatsApp de acesso e senha.'); return; }
 
-      // Verificar Administrador Dono da Plataforma (casa6producoes@gmail.com / @Alohomora21)
       if(loginInput.toLowerCase() === "casa6producoes@gmail.com" && pass === "@Alohomora21") {
         sessionUser = superAdminAccount;
         artistData = superAdminAccount;
@@ -1846,7 +1830,7 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       if(!isValidPassword(pass)) { alert('A senha deve ter no mínimo 8 caracteres, com letras e números.'); return; }
 
       const generatedSlug = fullName.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]/g, '');
-      const realRegistrationDate = new Date().toISOString().split('T')[0]; // Data real e efetiva de cadastro
+      const realRegistrationDate = new Date().toISOString().split('T')[0];
 
       const newUser = {
         role: "artista",
@@ -2030,7 +2014,6 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       artistData.youtube3 = document.getElementById('editYoutube3').value;
       artistData.slug = document.getElementById('customSlugInput').value.toLowerCase().trim();
 
-      // Ler upload MP4
       const videoFile = document.getElementById('uploadVideoMp4').files[0];
       let photoPromises = [];
 
