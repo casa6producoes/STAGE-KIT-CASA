@@ -63,12 +63,6 @@
       border-color: #D1D5DB !important;
       color: #111827 !important;
     }
-
-    @media print {
-      body * { visibility: hidden; }
-      #printableContractArea, #printableContractArea * { visibility: visible; }
-      #printableContractArea { position: absolute; left: 0; top: 0; width: 100%; color: black !important; background: white !important; padding: 20px; }
-    }
   </style>
 </head>
 <body class="min-h-screen flex flex-col antialiased selection:bg-amber-500 selection:text-black">
@@ -180,6 +174,9 @@
               Trechos de apresentações ao vivo direto no topo do press kit para o contratante comprovar a qualidade musical e a energia do show.
             </p>
           </div>
+          <div class="rounded-xl overflow-hidden h-32 border border-zinc-800 bg-zinc-900 mt-2">
+            <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=600&q=80" alt="Vídeos Reais" class="w-full h-full object-cover group-hover:scale-105 transition-transform">
+          </div>
           <span class="text-amber-400 text-xs font-bold inline-flex items-center gap-1 pt-2">Ver demonstração em vídeo <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i></span>
         </div>
 
@@ -192,6 +189,9 @@
             <p class="text-xs text-zinc-400 leading-relaxed">
               Estruturas customizadas (Acústico, Banda, Cerimônias) com fotos e descrições detalhadas para o contratante escolher a atração ideal.
             </p>
+          </div>
+          <div class="rounded-xl overflow-hidden h-32 border border-zinc-800 bg-zinc-900 mt-2">
+            <img src="https://images.unsplash.com/photo-1465847899084-d164df4dedc6?auto=format&fit=crop&w=600&q=80" alt="Formatos de Show" class="w-full h-full object-cover group-hover:scale-105 transition-transform">
           </div>
           <span class="text-amber-400 text-xs font-bold inline-flex items-center gap-1 pt-2">Ver demonstração dos formatos <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i></span>
         </div>
@@ -206,13 +206,16 @@
               Questionário prático onde o contratante informa data, local e estilo do evento, gerando uma proposta pronta direto para o seu WhatsApp.
             </p>
           </div>
+          <div class="rounded-xl overflow-hidden h-32 border border-zinc-800 bg-zinc-900 mt-2 flex items-center justify-center bg-emerald-500/5 text-emerald-400 font-bold text-xs">
+            WhatsApp Direct API
+          </div>
           <span class="text-amber-400 text-xs font-bold inline-flex items-center gap-1 pt-2">Ver exemplo do questionário <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i></span>
         </div>
       </div>
     </section>
 
-    <!-- AVISO LGPD -->
-    <section class="py-12 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
+    <!-- AVISO LGPD + CTA -->
+    <section class="py-12 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto space-y-8">
       <div class="bg-brand-cardBg border border-brand-border p-6 sm:p-8 rounded-3xl space-y-4 shadow-lg text-center">
         <div class="w-12 h-12 rounded-xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center mx-auto">
           <i data-lucide="shield-check" class="w-6 h-6"></i>
@@ -221,6 +224,17 @@
         <p class="text-xs sm:text-sm text-zinc-300 leading-relaxed max-w-2xl mx-auto">
           Garantimos total privacidade e segurança às suas informações pessoais. Todos os seus dados cadastrais (como <strong>CPF, data de nascimento, documentos e divisão de cachês internos</strong>) são estritamente confidenciais e <strong>nunca são repassados ao contratante</strong> ou a terceiros, cumprindo rigorosamente as diretrizes da Lei Geral de Proteção de Dados (LGPD).
         </p>
+      </div>
+
+      <!-- CTA RETORNADO ABAIXO DO CARD LGPD -->
+      <div class="bg-gradient-to-r from-amber-500/20 via-brand-cardBg to-brand-cardBg border border-amber-500/40 p-8 rounded-3xl text-center space-y-4 shadow-xl">
+        <h3 class="text-2xl sm:text-3xl font-extrabold text-white">Pronto para elevar o nível da sua carreira?</h3>
+        <p class="text-xs sm:text-sm text-zinc-300 max-w-xl mx-auto">
+          Crie agora mesmo seu Press Kit profissional com a chancela da Casa 6 Produções e comece a fechar mais shows.
+        </p>
+        <button onclick="openRegisterModal()" class="bg-amber-500 hover:bg-amber-600 text-black font-extrabold px-8 py-4 rounded-2xl shadow-lg transition-all cursor-pointer inline-flex items-center gap-2">
+          Criar Meu Press Kit Agora <i data-lucide="arrow-right" class="w-4 h-4"></i>
+        </button>
       </div>
     </section>
 
@@ -253,17 +267,21 @@
               <img id="displayArtistPhoto" src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=800&q=80" class="w-full h-full object-cover" onerror="this.src='https://via.placeholder.com/400?text=Artista'">
             </div>
           </div>
-          <div class="md:col-span-8 space-y-2">
+          <div class="md:col-span-8 space-y-3">
             <span id="displayArtistCity" class="text-amber-500 font-bold text-xs uppercase tracking-widest block">📍 Rio de Janeiro, RJ</span>
             <h2 id="displayArtistName" class="text-2xl sm:text-3xl font-bold text-white">Seu Nome</h2>
             <p id="displayBio" class="text-zinc-300 leading-relaxed text-sm sm:text-base">
               Músico profissional, multi-instrumentista e arranjador com vasta experiência em palcos de eventos corporativos, casamentos e casas noturnas de destaque.
             </p>
+            <!-- Canais de rede social sempre fixados -->
+            <div id="displaySocialLinksContainer" class="flex flex-wrap gap-2 pt-2">
+              <!-- Injetado dinamicamente -->
+            </div>
           </div>
         </div>
       </div>
 
-      <!-- VÍDEOS REAIS / NA PRÁTICA (YOUTUBE & MP4) -->
+      <!-- VÍDEOS REAIS / NA PRÁTICA -->
       <div id="secaoVideosReais" class="space-y-6 pt-4">
         <div class="text-center">
           <span class="text-amber-500 font-bold text-xs uppercase tracking-widest">Vídeos Reais</span>
@@ -274,8 +292,8 @@
         </div>
       </div>
 
-      <!-- GALERIA DE FOTOS (ATÉ 5 FOTOS) -->
-      <div id="secaoGaleriaFotos" class="space-y-4 pt-6 hidden">
+      <!-- GALERIA DE FOTOS (SEMPRE FIXADO 5 ESPAÇOS) -->
+      <div id="secaoGaleriaFotos" class="space-y-4 pt-6">
         <div class="text-center">
           <span class="text-amber-500 font-bold text-xs uppercase tracking-widest">Galeria</span>
           <h3 class="text-xl font-bold text-white mt-1">Fotos do Artista & Shows</h3>
@@ -283,12 +301,12 @@
         <div id="displayPublicGalleryGrid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3 max-w-5xl mx-auto"></div>
       </div>
 
-      <!-- PLAYER / BALÃO "VAMOS OUVIR" & REDES -->
-      <div id="vamosOuvirPublicContainer" class="w-full max-w-4xl mx-auto bg-brand-cardBg border border-brand-border p-6 rounded-3xl shadow-xl text-left space-y-3 hidden">
+      <!-- PLAYER / BALÃO "VAMOS OUVIR" (SEMPRE FIXADO) -->
+      <div id="vamosOuvirPublicContainer" class="w-full max-w-4xl mx-auto bg-brand-cardBg border border-brand-border p-6 rounded-3xl shadow-xl text-left space-y-3">
         <div class="flex items-center gap-2 text-amber-500 font-bold text-sm">
-          <i data-lucide="headphones" class="w-5 h-5"></i> <span>Músicas & Redes Sociais</span>
+          <i data-lucide="headphones" class="w-5 h-5"></i> <span>Vamos Ouvir (Músicas de Trabalho)</span>
         </div>
-        <p class="text-xs text-zinc-300">Conecte-se com o artista e ouça suas faixas nas plataformas digitais:</p>
+        <p class="text-xs text-zinc-300">Ouça abaixo as faixas selecionadas pelo artista nas plataformas de streaming:</p>
         <div id="vamosOuvirLinksList" class="flex flex-wrap gap-3 pt-2"></div>
       </div>
     </section>
@@ -310,7 +328,7 @@
     </footer>
   </div>
 
-  <!-- ==================== ÁREA DO ARTISTA (PAINEL ADMIN) ==================== -->
+  <!-- ==================== ÁREA DO ARTISTA / ADMIN (PAINEL) ==================== -->
   <div id="artistDashboard" class="flex-1 pt-20 bg-zinc-950 hidden flex flex-col md:flex-row min-h-[calc(100vh-5rem)]">
     
     <!-- ASIDE COM BOTÃO DE RECOLHER/OCULTAR (TRÊS LISTRINHAS) -->
@@ -318,7 +336,7 @@
       <div class="space-y-6">
         <div class="flex items-center justify-between">
           <div>
-            <span class="text-[10px] font-bold text-amber-500 uppercase tracking-widest">Painel Admin</span>
+            <!-- Removido "perfil de admin" acima de "área do artista" conforme solicitado -->
             <h3 class="text-lg font-bold text-white mt-0.5">Área do Artista</h3>
           </div>
           <button onclick="toggleSidebar()" class="md:hidden p-2 rounded-xl bg-zinc-900 border border-zinc-800 text-amber-400 hover:bg-zinc-800 cursor-pointer" title="Ocultar Abas">
@@ -327,11 +345,15 @@
         </div>
 
         <nav class="space-y-1" id="sidebarNavLinks">
-          <!-- ABA SUPER ADMIN (EXCLUSIVA PARA ROLE 'admin') -->
-          <button onclick="switchTab('tabSuperAdmin')" id="btnTabSuperAdmin" class="tab-menu-btn w-full hidden flex items-center gap-3 px-4 py-3 rounded-xl text-xs font-semibold text-amber-400 bg-amber-500/10 border border-amber-500/35 transition-all cursor-pointer">
-            <i data-lucide="shield-alert" class="w-4 h-4 text-amber-500"></i> Super Admin (Gestão)
+          <!-- Abas exclusivas Admin / Dono da Plataforma -->
+          <button onclick="switchTab('tabSuperAdmin')" id="btnTabSuperAdmin" class="tab-menu-btn w-full hidden items-center gap-3 px-4 py-3 rounded-xl text-xs font-semibold text-zinc-400 hover:bg-zinc-800 hover:text-white transition-all cursor-pointer">
+            <i data-lucide="shield-alert" class="w-4 h-4 text-amber-500"></i> Super Admin
+          </button>
+          <button onclick="switchTab('tabClients')" id="btnTabClients" class="tab-menu-btn w-full hidden items-center gap-3 px-4 py-3 rounded-xl text-xs font-semibold text-zinc-400 hover:bg-zinc-800 hover:text-white transition-all cursor-pointer">
+            <i data-lucide="users" class="w-4 h-4 text-amber-500"></i> Clientes
           </button>
 
+          <!-- Abas comuns -->
           <button onclick="switchTab('tabProfile')" id="btnTabProfile" class="tab-menu-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl text-xs font-semibold bg-amber-500/10 text-amber-400 border border-amber-500/35 transition-all cursor-pointer">
             <i data-lucide="shield" class="w-4 h-4"></i> Perfil & Dados
           </button>
@@ -373,7 +395,7 @@
       </div>
     </aside>
 
-    <!-- BOTÃO FLUTUANTE DE MENU PARA TELAS MENORES -->
+    <!-- BOTÃO FLUTUANTE DE MENU (TRÊS LISTRINHAS) PARA TELAS MENORES -->
     <div class="md:hidden p-4 bg-zinc-900 border-b border-zinc-800 flex items-center justify-between">
       <span class="text-xs font-bold text-amber-400">Painel do Artista</span>
       <button onclick="toggleSidebar()" class="p-2 rounded-xl bg-brand-cardBg text-amber-400 border border-zinc-700">
@@ -386,77 +408,73 @@
       <!-- ABA SUPER ADMIN -->
       <div id="tabSuperAdmin" class="dashboard-tab max-w-5xl space-y-6 hidden">
         <div>
-          <div class="flex items-center gap-2">
-            <span class="px-2.5 py-1 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-400 text-[10px] font-extrabold uppercase tracking-widest">Painel Global</span>
-          </div>
-          <h2 class="text-2xl font-bold text-white mt-1">Super Admin (Gestão da Plataforma)</h2>
-          <p class="text-xs text-zinc-400 mt-1">Visão geral e administração total dos usuários e press kits da plataforma StageKit.</p>
+          <h2 class="text-xl font-bold text-white">Super Admin — Gestão da Plataforma</h2>
+          <p class="text-xs text-zinc-400 mt-1">Visão geral do sistema, métricas consolidadas e controle de cadastros.</p>
         </div>
 
         <div class="grid sm:grid-cols-3 gap-4">
-          <div class="bg-brand-cardBg border border-brand-border p-5 rounded-2xl space-y-2">
-            <span class="text-xs text-zinc-400 font-semibold uppercase">Total de Artistas Cadastrados</span>
-            <p id="superAdminTotalUsers" class="text-3xl font-extrabold text-white">0</p>
+          <div class="bg-brand-cardBg border border-brand-border p-6 rounded-2xl space-y-2">
+            <span class="text-xs text-zinc-400 uppercase font-semibold">Total de Artistas</span>
+            <p id="superAdminTotalArtists" class="text-3xl font-bold text-white">0</p>
           </div>
-          <div class="bg-brand-cardBg border border-brand-border p-5 rounded-2xl space-y-2">
-            <span class="text-xs text-zinc-400 font-semibold uppercase">Links Públicos Ativos</span>
-            <p id="superAdminActiveLinks" class="text-3xl font-extrabold text-amber-500">0</p>
+          <div class="bg-brand-cardBg border border-brand-border p-6 rounded-2xl space-y-2">
+            <span class="text-xs text-zinc-400 uppercase font-semibold">Links Públicos Ativos</span>
+            <p id="superAdminActiveLinks" class="text-3xl font-bold text-amber-500">0</p>
           </div>
-          <div class="bg-brand-cardBg border border-brand-border p-5 rounded-2xl space-y-2">
-            <span class="text-xs text-zinc-400 font-semibold uppercase">Orçamentos Gerados</span>
-            <p id="superAdminBudgetsCount" class="text-3xl font-extrabold text-emerald-400">0</p>
+          <div class="bg-brand-cardBg border border-brand-border p-6 rounded-2xl space-y-2">
+            <span class="text-xs text-zinc-400 uppercase font-semibold">Orçamentos Gerados</span>
+            <p id="superAdminBudgets" class="text-3xl font-bold text-emerald-400">0</p>
           </div>
         </div>
 
-        <div class="bg-brand-cardBg border border-brand-border rounded-2xl p-6 space-y-4 shadow-xl">
-          <h3 class="text-sm font-bold text-white uppercase tracking-wider">Usuários Cadastrados</h3>
+        <div class="bg-brand-cardBg border border-brand-border p-6 rounded-2xl space-y-4">
+          <h3 class="text-sm font-bold text-white uppercase tracking-wider">Usuários Cadastrados na Plataforma</h3>
           <div class="overflow-x-auto">
             <table class="w-full text-left text-xs text-zinc-300">
-              <thead class="bg-zinc-900 text-zinc-400 uppercase text-[10px] font-bold">
+              <thead class="bg-zinc-900 text-zinc-400 uppercase text-[10px]">
                 <tr>
                   <th class="p-3 rounded-l-xl">Artista / Banda</th>
-                  <th class="p-3">Contato & Login</th>
-                  <th class="p-3">Data Cadastro</th>
+                  <th class="p-3">WhatsApp / Credencial</th>
+                  <th class="p-3">Data de Cadastro</th>
                   <th class="p-3">Status</th>
-                  <th class="p-3 text-right rounded-r-xl">Ações Rápidas</th>
+                  <th class="p-3 rounded-r-xl text-right">Ações</th>
                 </tr>
               </thead>
               <tbody id="superAdminUsersTableBody" class="divide-y divide-zinc-800">
-                <!-- Injetado dinamicamente -->
+                <tr><td colspan="5" class="p-4 text-center text-zinc-500">Nenhum usuário cadastrado.</td></tr>
               </tbody>
             </table>
           </div>
         </div>
 
-        <div class="bg-brand-cardBg border border-zinc-800 p-6 rounded-2xl space-y-4">
-          <h3 class="text-sm font-bold text-amber-400 uppercase tracking-wider flex items-center gap-2">
-            <i data-lucide="boxes" class="w-4 h-4"></i> Módulos Futuros & Extensibilidade
-          </h3>
-          <div class="grid sm:grid-cols-3 gap-4 text-xs">
-            <div class="bg-zinc-900 border border-zinc-800 p-4 rounded-xl opacity-60">
-              <span class="font-bold text-white block mb-1">Relatórios de Shows</span>
-              <p class="text-zinc-400">Estatísticas consolidada de apresentações e faturamento global.</p>
-            </div>
-            <div class="bg-zinc-900 border border-zinc-800 p-4 rounded-xl opacity-60">
-              <span class="font-bold text-white block mb-1">Métricas de Acessos</span>
-              <p class="text-zinc-400">Visualizações por press kit e taxa de conversão em WhatsApp.</p>
-            </div>
-            <div class="bg-zinc-900 border border-zinc-800 p-4 rounded-xl opacity-60">
-              <span class="font-bold text-white block mb-1">Gestão de Cobranças</span>
-              <p class="text-zinc-400">Controle de assinaturas e mensalidades dos artistas.</p>
-            </div>
+        <div class="bg-brand-cardBg border border-brand-border p-6 rounded-2xl space-y-3">
+          <h3 class="text-sm font-bold text-amber-400 uppercase tracking-wider">Módulos Futuros & Relatórios</h3>
+          <p class="text-xs text-zinc-400">Espaço reservado para integrações de relatórios de shows, métricas de acessos e faturamento automatizado.</p>
+        </div>
+      </div>
+
+      <!-- CLIENTES ABA (Exclusiva Dono Plataforma) -->
+      <div id="tabClients" class="dashboard-tab max-w-4xl space-y-6 hidden">
+        <div>
+          <h2 class="text-xl font-bold text-white">Clientes (Artistas da Plataforma)</h2>
+          <p class="text-xs text-zinc-400 mt-1">Lista completa de artistas cadastrados e seus contatos telefônicos.</p>
+        </div>
+        <div class="bg-brand-cardBg border border-brand-border p-6 rounded-2xl space-y-4">
+          <div id="clientsListContainer" class="space-y-3 text-xs">
+            <p class="text-zinc-500 italic">Nenhum artista cadastrado.</p>
           </div>
         </div>
       </div>
 
-      <!-- ABA 1: PERFIL & DADOS -->
+      <!-- ABA 1: PERFIL & DADOS (Com Troca de Senha) -->
       <div id="tabProfile" class="dashboard-tab max-w-3xl space-y-6">
         <div>
           <h2 class="text-xl font-bold text-white">Perfil & Dados</h2>
-          <p class="text-xs text-zinc-400 mt-1">Gerencie seu nome, CPF, cidade, foto de perfil, carteira de músico e alteração de senha.</p>
+          <p class="text-xs text-zinc-400 mt-1">Gerencie seu nome, CPF, cidade, foto de perfil, WhatsApp e segurança.</p>
         </div>
 
         <div class="bg-brand-cardBg border border-brand-border p-6 rounded-2xl space-y-5 text-xs">
+          <!-- Seção Foto de Perfil -->
           <div class="space-y-3 pb-4 border-b border-zinc-800">
             <label class="block font-semibold text-zinc-300">Foto de Perfil do Artista</label>
             <div class="flex flex-col sm:flex-row items-center gap-6">
@@ -501,38 +519,23 @@
           </div>
           <div class="grid sm:grid-cols-2 gap-4">
             <div>
-              <label class="block font-semibold text-zinc-300 mb-1">Telefone / WhatsApp</label>
-              <input type="text" id="editProfilePhone" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white">
+              <label class="block font-semibold text-zinc-300 mb-1">WhatsApp de Acesso *</label>
+              <input type="text" id="editProfilePhone" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white" placeholder="(21) 99999-9999">
             </div>
             <div>
-              <label class="block font-semibold text-zinc-300 mb-1">E-mail Cadastrado</label>
-              <input type="email" id="editProfileEmail" disabled class="w-full bg-zinc-900/50 border border-zinc-800 rounded-xl p-3 text-zinc-400 cursor-not-allowed">
+              <label class="block font-semibold text-zinc-300 mb-1">Trocar Senha (Opcional)</label>
+              <input type="password" id="editProfileNewPassword" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white" placeholder="Nova senha (mín. 8 dígitos)">
             </div>
           </div>
-
-          <div class="pt-4 border-t border-zinc-800 space-y-3">
-            <h3 class="font-bold text-amber-400 text-xs uppercase tracking-wider">Alterar Senha de Acesso</h3>
-            <div class="grid sm:grid-cols-2 gap-4">
-              <div>
-                <label class="block font-semibold text-zinc-300 mb-1">Nova Senha</label>
-                <input type="password" id="editProfileNewPassword" placeholder="Mínimo 8 dígitos com letra e número" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white">
-              </div>
-              <div>
-                <label class="block font-semibold text-zinc-300 mb-1">Confirmar Nova Senha</label>
-                <input type="password" id="editProfileConfirmPassword" placeholder="Repita a nova senha" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white">
-              </div>
-            </div>
-          </div>
-
-          <button onclick="saveProfileEdits()" class="bg-amber-500 hover:bg-amber-600 text-black font-extrabold py-3 px-6 rounded-xl shadow-md cursor-pointer">Salvar Perfil & Senha</button>
+          <button onclick="saveProfileEdits()" class="bg-amber-500 hover:bg-amber-600 text-black font-extrabold py-3 px-6 rounded-xl shadow-md cursor-pointer">Salvar Perfil</button>
         </div>
       </div>
 
-      <!-- ABA 2: BIO & REDES SOCIAIS -->
+      <!-- ABA 2: BIO & REDES SOCIAIS (Com Canal do YouTube) -->
       <div id="tabBio" class="dashboard-tab max-w-3xl space-y-6 hidden">
         <div>
           <h2 class="text-xl font-bold text-white">Bio & Redes Sociais</h2>
-          <p class="text-xs text-zinc-400 mt-1">Configure o título da Hero, biografia e links de redes sociais e canal do YouTube.</p>
+          <p class="text-xs text-zinc-400 mt-1">Configure o título da Hero, biografia, canal do YouTube e redes sociais exibidos no press kit.</p>
         </div>
 
         <div class="bg-brand-cardBg border border-brand-border p-6 rounded-2xl space-y-4 text-xs">
@@ -545,10 +548,10 @@
             <textarea id="editBio" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white h-24">Músico profissional, multi-instrumentista e arranjador...</textarea>
           </div>
           <div class="space-y-3 pt-2">
-            <h3 class="font-bold text-amber-400 text-sm">Redes Sociais & Canal</h3>
+            <h3 class="font-bold text-amber-400 text-sm">Canais & Redes Sociais</h3>
             <div>
-              <label class="block font-semibold text-zinc-300 mb-1">Canal do YouTube (URL Completa)</label>
-              <input type="text" id="editYoutubeChannel" placeholder="https://www.youtube.com/@seu-canal" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white">
+              <label class="block font-semibold text-zinc-300 mb-1">Canal do YouTube</label>
+              <input type="text" id="editChannelYoutube" placeholder="https://www.youtube.com/@seucanal" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white">
             </div>
             <div>
               <label class="block font-semibold text-zinc-300 mb-1">Instagram</label>
@@ -576,14 +579,15 @@
         </div>
       </div>
 
-      <!-- ABA 3: MÍDIAS & STREAMING -->
+      <!-- ABA 3: MÍDIAS & STREAMING (Com upload de MP4 em "Na Prática") -->
       <div id="tabMedia" class="dashboard-tab max-w-4xl space-y-6 hidden">
         <div>
           <h2 class="text-xl font-bold text-white">Mídias, Streaming & Formatos</h2>
-          <p class="text-xs text-zinc-400 mt-1">Gerencie até 5 fotos de show, vídeos (YouTube e arquivo MP4) e links de streaming.</p>
+          <p class="text-xs text-zinc-400 mt-1">Gerencie até 5 fotos de show, até 3 vídeos (links ou upload MP4) e músicas de streaming.</p>
         </div>
 
         <div class="grid md:grid-cols-2 gap-6">
+          <!-- CARD 1: FOTOS (5 ESPAÇOS) -->
           <div class="bg-brand-cardBg border border-brand-border p-6 rounded-2xl space-y-4 text-xs">
             <div class="flex items-center gap-2 text-amber-500 font-bold text-sm">
               <i data-lucide="image" class="w-5 h-5"></i> <span>Fotos de Show & Apresentação (Até 5 fotos)</span>
@@ -613,33 +617,35 @@
             </div>
           </div>
 
+          <!-- CARD 2: NA PRÁTICA (3 VÍDEOS + BOTÃO UPLOAD MP4) -->
           <div class="bg-brand-cardBg border border-brand-border p-6 rounded-2xl space-y-4 text-xs">
             <div class="flex items-center gap-2 text-amber-500 font-bold text-sm">
-              <i data-lucide="video" class="w-5 h-5"></i> <span>Na Prática (Vídeos & Arquivo MP4)</span>
+              <i data-lucide="video" class="w-5 h-5"></i> <span>Na Prática (3 Links do YouTube + Upload MP4)</span>
             </div>
-            <p class="text-zinc-400">Insira links do YouTube e/ou faça upload de vídeo em formato MP4.</p>
+            <p class="text-zinc-400">Insira até 3 links do YouTube ou envie um arquivo de vídeo MP4 diretamente do seu dispositivo.</p>
             <div class="space-y-3">
               <div>
-                <label class="block font-semibold text-zinc-300 mb-1">Vídeo 1 (YouTube URL)</label>
+                <label class="block font-semibold text-zinc-300 mb-1">Link do YouTube 1</label>
                 <input type="text" id="editYoutube1" placeholder="https://www.youtube.com/watch?v=..." class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-2.5 text-white">
               </div>
               <div>
-                <label class="block font-semibold text-zinc-300 mb-1">Vídeo 2 (YouTube URL)</label>
+                <label class="block font-semibold text-zinc-300 mb-1">Link do YouTube 2</label>
                 <input type="text" id="editYoutube2" placeholder="https://www.youtube.com/watch?v=..." class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-2.5 text-white">
               </div>
               <div>
-                <label class="block font-semibold text-zinc-300 mb-1">Vídeo 3 (YouTube URL)</label>
+                <label class="block font-semibold text-zinc-300 mb-1">Link do YouTube 3</label>
                 <input type="text" id="editYoutube3" placeholder="https://www.youtube.com/watch?v=..." class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-2.5 text-white">
               </div>
               <div class="pt-2 border-t border-zinc-800">
-                <label class="block font-semibold text-zinc-300 mb-1">Enviar Arquivo de Vídeo (.mp4)</label>
-                <input type="file" id="uploadMp4File" accept="video/mp4" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-2 text-zinc-300 text-xs">
-                <p id="mp4UploadStatus" class="text-[10px] text-zinc-500 mt-1">Nenhum MP4 enviado.</p>
+                <label class="block font-semibold text-amber-400 mb-1">Enviar Arquivo de Vídeo MP4</label>
+                <input type="file" id="uploadVideoMp4" accept="video/mp4" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-2 text-zinc-300 text-xs">
+                <p id="videoMp4Status" class="text-[11px] text-zinc-500 mt-1">Nenhum vídeo MP4 enviado.</p>
               </div>
             </div>
           </div>
         </div>
 
+        <!-- CARD 3: VAMOS OUVIR -->
         <div class="bg-brand-cardBg border border-brand-border p-6 rounded-2xl space-y-4 text-xs">
           <div class="flex items-center gap-2 text-amber-500 font-bold text-sm">
             <i data-lucide="headphones" class="w-5 h-5"></i> <span>Vamos Ouvir (Músicas de Trabalho nas Plataformas)</span>
@@ -672,6 +678,7 @@
         </div>
 
         <div class="grid md:grid-cols-3 gap-6">
+          <!-- Formato 1 -->
           <div class="bg-brand-cardBg border border-brand-border p-5 rounded-2xl space-y-3 text-xs">
             <span class="text-amber-500 font-bold uppercase">Formato 1</span>
             <div>
@@ -692,6 +699,7 @@
             </div>
           </div>
 
+          <!-- Formato 2: Casamentos & Cerimônias -->
           <div class="bg-brand-cardBg border border-amber-500/40 p-5 rounded-2xl space-y-3 text-xs relative">
             <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-amber-500 text-black font-extrabold text-[10px] uppercase px-3 py-0.5 rounded-full">Mais Pedido</div>
             <span class="text-amber-500 font-bold uppercase mt-1 block">Formato 2 (Casamentos)</span>
@@ -700,7 +708,7 @@
               <input type="text" id="fmt2Title" value="Casamentos & Cerimônias" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-2 text-white">
             </div>
             <div>
-              <label class="block font-semibold text-zinc-300 mb-1">Opção Específica</label>
+              <label class="block font-semibold text-zinc-300 mb-1">Opção Específica (Casamento / Cerimônia / Ambos)</label>
               <select id="fmt2Option" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-2 text-white">
                 <option value="Cerimônia">Apenas Cerimônia</option>
                 <option value="Casamento">Apenas Casamento (Festa)</option>
@@ -717,6 +725,7 @@
             </div>
           </div>
 
+          <!-- Formato 3 -->
           <div class="bg-brand-cardBg border border-brand-border p-5 rounded-2xl space-y-3 text-xs">
             <span class="text-amber-500 font-bold uppercase">Formato 3</span>
             <div>
@@ -825,11 +834,11 @@
         </div>
       </div>
 
-      <!-- ABA 7: CONTRATOS -->
+      <!-- ABA 7: CONTRATOS (Com Baixar via PDF) -->
       <div id="tabContracts" class="dashboard-tab max-w-3xl space-y-6 hidden">
         <div>
           <h2 class="text-xl font-bold text-white">Modelo de Contratos</h2>
-          <p class="text-xs text-zinc-400 mt-1">Edite seu contrato modelo com o selo StageKit e faça download em PDF.</p>
+          <p class="text-xs text-zinc-400 mt-1">Edite seu contrato modelo e baixe diretamente via PDF.</p>
         </div>
 
         <div class="bg-brand-cardBg border border-brand-border p-6 rounded-2xl space-y-4 text-xs">
@@ -841,8 +850,7 @@
             
             <div class="space-y-2">
               <label class="block font-semibold text-zinc-300">Cláusulas e Condições (Editável)</label>
-              <div id="printableContractArea">
-                <textarea id="contractText" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white h-48 leading-relaxed">CONTRATO DE PRESTAÇÃO DE SERVIÇOS ARTÍSTICOS
+              <textarea id="contractText" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white h-48 leading-relaxed">CONTRATO DE PRESTAÇÃO DE SERVIÇOS ARTÍSTICOS
 
 Pelo presente instrumento particular, de um lado o(a) contratado(a) [NOME DO ARTISTA], inscrito(a) no CPF sob o nº [CPF], doravante denominado(a) ARTISTA, e de outro o CONTRATANTE acordam a realização da apresentação musical conforme termos combinados.
 
@@ -851,17 +859,11 @@ A prestação de serviços artísticos musicais para o evento estipulado.
 
 CLÁUSULA SEGUNDA - DA RESPONSABILIDADE
 Este documento é gerado através da plataforma StageKit com padrão Casa 6 Produções, sendo de total e exclusiva responsabilidade civil e criminal do ARTISTA a execução, negociação, emissão de recibos e cumprimento deste instrumento.</textarea>
-              </div>
             </div>
           </div>
-          
-          <div class="flex flex-col sm:flex-row gap-3 pt-2">
-            <button onclick="saveContractModel()" class="flex-1 bg-amber-500 hover:bg-amber-600 text-black font-bold py-2.5 rounded-xl cursor-pointer">
-              Salvar Modelo de Contrato
-            </button>
-            <button onclick="downloadContractPDF()" class="bg-emerald-500 hover:bg-emerald-600 text-black font-extrabold px-5 py-2.5 rounded-xl flex items-center justify-center gap-2 cursor-pointer shadow-md">
-              <i data-lucide="download" class="w-4 h-4"></i> Baixar via PDF
-            </button>
+          <div class="flex gap-3">
+            <button onclick="saveContractModel()" class="flex-1 bg-amber-500 hover:bg-amber-600 text-black font-bold py-2.5 rounded-xl cursor-pointer">Salvar Modelo</button>
+            <button onclick="downloadContractPdf()" class="bg-zinc-800 hover:bg-zinc-700 border border-zinc-700 text-white font-bold py-2.5 px-4 rounded-xl flex items-center gap-2 cursor-pointer"><i data-lucide="download" class="w-4 h-4"></i> Baixar via PDF</button>
           </div>
         </div>
       </div>
@@ -1023,7 +1025,7 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       <div>
         <span class="text-xs font-bold text-amber-500 uppercase">Crie seu StageKit</span>
         <h3 class="text-2xl font-bold text-white mt-1">Cadastro de Artista</h3>
-        <p class="text-xs text-zinc-400 mt-1">Insira um e-mail real e válido e senha segura.</p>
+        <p class="text-xs text-zinc-400 mt-1">Insira seu WhatsApp e uma senha segura.</p>
       </div>
 
       <div class="space-y-3 text-xs">
@@ -1037,13 +1039,9 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
             <input type="date" id="regBirthDate" required class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white">
           </div>
           <div>
-            <label class="block font-semibold text-zinc-300 mb-1">Telefone / WhatsApp *</label>
-            <input type="text" id="regPhone" required class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white" placeholder="(21)xxxxx-xxxx">
+            <label class="block font-semibold text-zinc-300 mb-1">WhatsApp de Acesso *</label>
+            <input type="text" id="regPhone" required class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white" placeholder="(21) 99999-9999">
           </div>
-        </div>
-        <div>
-          <label class="block font-semibold text-zinc-300 mb-1">E-mail Real e Válido *</label>
-          <input type="email" id="regEmail" required class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white" placeholder="exemplo@gmail.com ou outlook.com">
         </div>
         <div>
           <label class="block font-semibold text-zinc-300 mb-1">Senha (Mínimo 8 caracteres, com letra e número) *</label>
@@ -1057,20 +1055,20 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
     </div>
   </div>
 
-  <!-- ==================== MODAL DE LOGIN ==================== -->
+  <!-- ==================== MODAL DE LOGIN (WPP + SENHA) ==================== -->
   <div id="loginModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
     <div class="bg-brand-cardBg border border-brand-border rounded-3xl max-w-md w-full p-6 sm:p-8 space-y-6 shadow-2xl relative">
       <button onclick="closeLoginModal()" class="absolute top-6 right-6 text-zinc-400 hover:text-white cursor-pointer"><i data-lucide="x" class="w-5 h-5"></i></button>
       <div>
-        <span class="text-xs font-bold text-amber-500 uppercase">Área do Artista</span>
+        <span class="text-xs font-bold text-amber-500 uppercase">Área do Artista & Admin</span>
         <h3 class="text-2xl font-bold text-white mt-1">Entrar no Painel</h3>
-        <p class="text-xs text-zinc-400 mt-1">Digite seu e-mail e senha cadastrados.</p>
+        <p class="text-xs text-zinc-400 mt-1">Digite seu WhatsApp ou e-mail de administrador e senha.</p>
       </div>
 
       <div class="space-y-4 text-xs">
         <div>
-          <label class="block font-semibold text-zinc-300 mb-1">E-mail</label>
-          <input type="email" id="loginEmail" onkeypress="handleLoginKey(event)" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white" placeholder="seuemail@exemplo.com">
+          <label class="block font-semibold text-zinc-300 mb-1">WhatsApp ou E-mail Admin</label>
+          <input type="text" id="loginWhatsapp" onkeypress="handleLoginKey(event)" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white" placeholder="Seu WhatsApp ou e-mail admin">
         </div>
         <div>
           <label class="block font-semibold text-zinc-300 mb-1">Senha</label>
@@ -1171,65 +1169,42 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
   </div>
 
   <script>
-    // BASE DE DADOS E USUÁRIO CONTA ADMIN PADRÃO
-    let defaultAdminUser = {
+    let usersDatabase = JSON.parse(localStorage.getItem('stagekit_users_db')) || [];
+    let sessionUser = JSON.parse(localStorage.getItem('stagekit_session')) || null;
+    let isViewingOwnOnlineKit = false;
+
+    // Criar o Super Admin padrão se não existir
+    const superAdminAccount = {
       role: "admin",
-      status: "Ativo",
-      createdAt: "2026-01-01",
-      whatsapp: "(21)98936-8930",
-      artistMainName: "CASA 6 ADMIN",
+      whatsapp: "casa6producoes@gmail.com",
+      registeredPassword: "@Alohomora21",
+      artistMainName: "CASA 6 PRODUÇÕES (ADMIN)",
       city: "Rio de Janeiro, RJ",
-      title: "PAINEL DE SUPERVISÃO GLOBAL",
-      bio: "Administrador da plataforma StageKit Casa 6.",
-      slug: "admin-casa6",
-      instagram: "casa6producoes",
-      tiktok: "",
-      facebook: "",
-      youtubeChannel: "https://www.youtube.com/@casa6producoes",
-      youtube1: "",
-      youtube2: "",
-      youtube3: "",
-      mp4VideoUrl: "",
-      spotify: "",
-      deezer: "",
-      apple: "",
-      avatarUrl: "",
-      avatarZoom: 1,
-      avatarRotate: 0,
-      galleryPhotos: [],
-      formats: [],
-      registeredEmail: "admin@stagekit.com",
-      registeredPassword: "AdminPassword123",
-      cpf: "000.000.000-00",
-      musicianId: "",
-      repertoireFileName: "",
-      contractModelText: "",
-      googleCalendarConnected: false
+      slug: "casa6",
+      createdAt: "2026-01-01"
     };
 
-    let usersDatabase = JSON.parse(localStorage.getItem('stagekit_users_db')) || [defaultAdminUser];
-    let sessionUser = JSON.parse(localStorage.getItem('stagekit_session')) || null;
-    let totalBudgetsCounter = parseInt(localStorage.getItem('stagekit_budgets_count')) || 0;
-    let isViewingOwnOnlineKit = false;
+    if(!usersDatabase.some(u => u.whatsapp === "casa6producoes@gmail.com")) {
+      usersDatabase.push(superAdminAccount);
+      localStorage.setItem('stagekit_users_db', JSON.stringify(usersDatabase));
+    }
 
     let artistData = sessionUser || {
       role: "artista",
-      status: "Ativo",
-      createdAt: "2026-02-15",
       whatsapp: "(21)98936-8930",
       artistMainName: "SEU NOME",
       city: "Rio de Janeiro, RJ",
       title: "A TRILHA SONORA PERFEITA PARA O SEU MOMENTO",
       bio: "Músico profissional, multi-instrumentista e arranjador com vasta experiência em palcos de eventos corporativos, casamentos e casas noturnas de destaque.",
       slug: "seu-nome",
+      channelYoutube: "",
       instagram: "seunomeaqui",
       tiktok: "",
       facebook: "",
-      youtubeChannel: "",
       youtube1: "",
       youtube2: "",
       youtube3: "",
-      mp4VideoUrl: "",
+      videoMp4Url: "",
       spotify: "",
       deezer: "",
       apple: "",
@@ -1242,25 +1217,19 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
         { title: "Casamentos & Cerimônias", sub: "Ambos", desc: "Trilha sonora inesquecível para a entrada dos noivos, com som próprio incluído.", photo: "" },
         { title: "Eventos & Formaturas", sub: "ENERGIA E PALCO", desc: "Show marcante para celebrações corporativas e recepções de alto nível.", photo: "" }
       ],
-      registeredEmail: "artista@stagekit.com",
       registeredPassword: "Senha123",
       cpf: "",
       musicianId: "",
       repertoireFileName: "",
       contractModelText: "",
-      googleCalendarConnected: false
+      googleCalendarConnected: false,
+      createdAt: new Date().toISOString().split('T')[0]
     };
 
     let eventsList = JSON.parse(localStorage.getItem('stagekit_events')) || [];
     let musiciansList = JSON.parse(localStorage.getItem('stagekit_musicians')) || [];
     let selectedFormatForModal = "";
-
-    function isValidEmail(email) {
-      email = email.trim().toLowerCase();
-      const emailRegex = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/;
-      if (!emailRegex.test(email)) return false;
-      return true;
-    }
+    let totalBudgetsCount = parseInt(localStorage.getItem('stagekit_budgets_count')) || 0;
 
     function isValidPassword(password) {
       if (password.length < 8) return false;
@@ -1288,7 +1257,7 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
         sessionUser = { ...sessionUser, ...artistData };
         localStorage.setItem('stagekit_session', JSON.stringify(sessionUser));
         
-        const userIndex = usersDatabase.findIndex(u => u.registeredEmail.toLowerCase() === sessionUser.registeredEmail.toLowerCase());
+        const userIndex = usersDatabase.findIndex(u => u.whatsapp.toLowerCase() === sessionUser.whatsapp.toLowerCase());
         if(userIndex !== -1) {
           usersDatabase[userIndex] = sessionUser;
         } else {
@@ -1298,71 +1267,7 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       }
       localStorage.setItem('stagekit_events', JSON.stringify(eventsList));
       localStorage.setItem('stagekit_musicians', JSON.stringify(musiciansList));
-      localStorage.setItem('stagekit_budgets_count', totalBudgetsCounter);
-    }
-
-    function safeUpdateHistory(urlPath) {
-      try {
-        if (window.location.protocol.startsWith('http') && window.location.origin !== 'null') {
-          window.history.pushState({}, '', urlPath);
-        }
-      } catch (e) {
-        console.warn('Histórico de navegação não pôde ser atualizado devido às restrições do ambiente:', e);
-      }
-    }
-
-    function safeReplaceHistory(urlPath) {
-      try {
-        if (window.location.protocol.startsWith('http') && window.location.origin !== 'null') {
-          window.history.replaceState({}, '', urlPath);
-        }
-      } catch (e) {
-        console.warn('Histórico de navegação não pôde ser atualizado devido às restrições do ambiente:', e);
-      }
-    }
-
-    // Função que carrega o estado para os inputs do painel
-    function loadInputsFromState() {
-      if(!artistData) return;
-      const setVal = (id, val) => { const el = document.getElementById(id); if(el) el.value = val || ''; };
-      
-      setVal('editProfileName', artistData.artistMainName);
-      setVal('editProfileCity', artistData.city);
-      setVal('editProfileCpf', artistData.cpf);
-      setVal('editProfileMusicianId', artistData.musicianId);
-      setVal('editProfilePhone', artistData.whatsapp);
-      setVal('editProfileEmail', artistData.registeredEmail);
-
-      setVal('editTitle', artistData.title);
-      setVal('editBio', artistData.bio);
-      setVal('editYoutubeChannel', artistData.youtubeChannel);
-      setVal('editInstagram', artistData.instagram);
-      setVal('editTiktok', artistData.tiktok);
-      setVal('editFacebook', artistData.facebook);
-      setVal('editSpotify', artistData.spotify);
-      setVal('editDeezer', artistData.deezer);
-      setVal('editApple', artistData.apple);
-      setVal('editYoutube1', artistData.youtube1);
-      setVal('editYoutube2', artistData.youtube2);
-      setVal('editYoutube3', artistData.youtube3);
-      setVal('customSlugInput', artistData.slug);
-
-      if(artistData.formats && artistData.formats.length >= 3) {
-        setVal('fmt1Title', artistData.formats[0].title);
-        setVal('fmt1Sub', artistData.formats[0].sub);
-        setVal('fmt1Desc', artistData.formats[0].desc);
-
-        setVal('fmt2Title', artistData.formats[1].title);
-        setVal('fmt2Option', artistData.formats[1].sub);
-        setVal('fmt2Desc', artistData.formats[1].desc);
-
-        setVal('fmt3Title', artistData.formats[2].title);
-        setVal('fmt3Sub', artistData.formats[2].sub);
-        setVal('fmt3Desc', artistData.formats[2].desc);
-      }
-
-      setVal('contractText', artistData.contractModelText || document.getElementById('contractText')?.value);
-      updateAvatarPreviews();
+      localStorage.setItem('stagekit_budgets_count', totalBudgetsCount);
     }
 
     function initApp() {
@@ -1371,22 +1276,25 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       renderMusicians();
       updateCacheCalculations();
       renderCalendarEvents();
+      renderSuperAdminData();
+      renderClientsData();
       
-      handleRouting();
-      window.addEventListener('popstate', handleRouting);
+      try {
+        window.addEventListener('popstate', handleRouting);
+        handleRouting();
+      } catch(e) {}
       try { lucide.createIcons(); } catch(e) {}
     }
 
     function handleRouting() {
-      let rawPath = '';
+      let rawPath = "";
       try {
         rawPath = window.location.pathname.replace(/^\/+/, '').trim();
-        if(!rawPath || rawPath === 'index.html') {
-          const hash = window.location.hash.replace('#/', '').replace('#', '').trim();
-          if(hash) rawPath = hash;
-        }
-      } catch (e) {
-        rawPath = '';
+      } catch(e) {}
+      
+      if(!rawPath || rawPath === 'index.html') {
+        const hash = window.location.hash.replace('#/', '').replace('#', '').trim();
+        if(hash) rawPath = hash;
       }
 
       if (rawPath === 'dashboard' || rawPath === 'dashboard/') {
@@ -1406,8 +1314,7 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
           isViewingOwnOnlineKit = false;
           showPublicPressKit(false);
         } else {
-          alert(`O link "/${rawPath}" não corresponde a nenhum Press Kit ativo na plataforma.`);
-          safeReplaceHistory('/');
+          try { window.history.replaceState({}, '', '/'); } catch(e) {}
           goHome();
         }
       } else {
@@ -1417,6 +1324,81 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
           goHome();
         }
       }
+    }
+
+    function loadInputsFromState() {
+      const elProfName = document.getElementById('editProfileName');
+      if(elProfName) elProfName.value = artistData.artistMainName;
+      const elProfCity = document.getElementById('editProfileCity');
+      if(elProfCity) elProfCity.value = artistData.city || 'Rio de Janeiro, RJ';
+      const elProfCpf = document.getElementById('editProfileCpf');
+      if(elProfCpf) elProfCpf.value = artistData.cpf || '';
+      const elProfId = document.getElementById('editProfileMusicianId');
+      if(elProfId) elProfId.value = artistData.musicianId || '';
+      const elProfPhone = document.getElementById('editProfilePhone');
+      if(elProfPhone) elProfPhone.value = artistData.whatsapp || '';
+
+      const elTitle = document.getElementById('editTitle');
+      if(elTitle) elTitle.value = artistData.title;
+      const elBio = document.getElementById('editBio');
+      if(elBio) elBio.value = artistData.bio;
+      const elChan = document.getElementById('editChannelYoutube');
+      if(elChan) elChan.value = artistData.channelYoutube || '';
+      const elInsta = document.getElementById('editInstagram');
+      if(elInsta) elInsta.value = artistData.instagram;
+      const elTk = document.getElementById('editTiktok');
+      if(elTk) elTk.value = artistData.tiktok;
+      const elFb = document.getElementById('editFacebook');
+      if(elFb) elFb.value = artistData.facebook;
+
+      const elSp = document.getElementById('editSpotify');
+      if(elSp) elSp.value = artistData.spotify || '';
+      const elDz = document.getElementById('editDeezer');
+      if(elDz) elDz.value = artistData.deezer || '';
+      const elAp = document.getElementById('editApple');
+      if(elAp) elAp.value = artistData.apple || '';
+      
+      const elY1 = document.getElementById('editYoutube1');
+      if(elY1) elY1.value = artistData.youtube1 || '';
+      const elY2 = document.getElementById('editYoutube2');
+      if(elY2) elY2.value = artistData.youtube2 || '';
+      const elY3 = document.getElementById('editYoutube3');
+      if(elY3) elY3.value = artistData.youtube3 || '';
+
+      const elSlug = document.getElementById('customSlugInput');
+      if(elSlug) elSlug.value = artistData.slug;
+
+      const elContract = document.getElementById('contractText');
+      if(elContract && artistData.contractModelText) {
+        elContract.value = artistData.contractModelText;
+      }
+
+      const repStatus = document.getElementById('repertoireStatus');
+      if(repStatus && artistData.repertoireFileName) {
+        repStatus.innerHTML = `✅ Arquivo enviado: <span class="text-white font-mono">${artistData.repertoireFileName}</span>`;
+      }
+
+      const vidStatus = document.getElementById('videoMp4Status');
+      if(vidStatus && artistData.videoMp4Url) {
+        vidStatus.innerHTML = `✅ Vídeo MP4 enviado com sucesso!`;
+      }
+
+      if(artistData.formats && artistData.formats.length === 3) {
+        document.getElementById('fmt1Title').value = artistData.formats[0].title;
+        document.getElementById('fmt1Sub').value = artistData.formats[0].sub;
+        document.getElementById('fmt1Desc').value = artistData.formats[0].desc;
+
+        document.getElementById('fmt2Title').value = artistData.formats[1].title;
+        document.getElementById('fmt2Option').value = artistData.formats[1].sub;
+        document.getElementById('fmt2Desc').value = artistData.formats[1].desc;
+
+        document.getElementById('fmt3Title').value = artistData.formats[2].title;
+        document.getElementById('fmt3Sub').value = artistData.formats[2].sub;
+        document.getElementById('fmt3Desc').value = artistData.formats[2].desc;
+      }
+
+      updateAvatarPreviews();
+      applyPublicData();
     }
 
     function applyPublicData() {
@@ -1433,6 +1415,7 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       const eCity = document.getElementById('displayArtistCity');
       if(eCity) eCity.innerText = `📍 ${artistData.city || 'Rio de Janeiro, RJ'}`;
 
+      // Avatar Público
       const pubAvatar = document.getElementById('displayArtistPhoto');
       if(pubAvatar) {
         if(artistData.avatarUrl) {
@@ -1444,54 +1427,83 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
         }
       }
 
+      // Redes Sociais / Canais (Sempre fixos no link personalizado)
+      const socialContainer = document.getElementById('displaySocialLinksContainer');
+      if(socialContainer) {
+        let socials = [];
+        socials.push({name: 'YouTube', url: artistData.channelYoutube || '#', icon: 'youtube', color: 'text-red-500'});
+        socials.push({name: 'Instagram', url: artistData.instagram ? `https://instagram.com/${artistData.instagram}` : '#', icon: 'instagram', color: 'text-pink-500'});
+        socials.push({name: 'TikTok', url: artistData.tiktok ? `https://tiktok.com/@${artistData.tiktok}` : '#', icon: 'video', color: 'text-cyan-400'});
+        socials.push({name: 'Facebook', url: artistData.facebook ? `https://facebook.com/${artistData.facebook}` : '#', icon: 'facebook', color: 'text-blue-500'});
+
+        socialContainer.innerHTML = socials.map(s => `
+          <a href="${s.url}" target="_blank" class="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-brand-cardBg border border-brand-border text-white text-xs font-bold hover:border-amber-500/50 transition-all shadow-md">
+            <i data-lucide="${s.icon}" class="w-4 h-4 ${s.color}"></i> ${s.name}
+          </a>
+        `).join('');
+      }
+
+      // Vídeos Na Prática (Até 3 YouTube + MP4 Upload)
       const vContainer = document.getElementById('displayVideosContainer');
       if(vContainer) {
         let ytList = [artistData.youtube1, artistData.youtube2, artistData.youtube3].filter(Boolean);
         let htmlContent = '';
-
-        if(artistData.mp4VideoUrl) {
+        
+        if(artistData.videoMp4Url) {
           htmlContent += `
             <div class="rounded-2xl overflow-hidden border border-brand-border shadow-2xl bg-brand-cardBg aspect-video flex items-center justify-center relative">
-              <video src="${artistData.mp4VideoUrl}" controls class="w-full h-full object-cover"></video>
+              <video controls class="w-full h-full object-cover" src="${artistData.videoMp4Url}"></video>
             </div>
           `;
         }
 
-        ytList.forEach(url => {
-          let embedUrl = url;
-          if(embedUrl.includes('watch?v=')) embedUrl = embedUrl.replace('watch?v=', 'embed/');
-          htmlContent += `
-            <div class="rounded-2xl overflow-hidden border border-brand-border shadow-2xl bg-brand-cardBg aspect-video flex items-center justify-center relative">
-              <iframe class="w-full h-full" src="${embedUrl}" frameborder="0" allowfullscreen></iframe>
-            </div>
-          `;
-        });
+        if(ytList.length > 0) {
+          htmlContent += ytList.map(url => {
+            let embedUrl = url;
+            if(embedUrl.includes('watch?v=')) embedUrl = embedUrl.replace('watch?v=', 'embed/');
+            return `
+              <div class="rounded-2xl overflow-hidden border border-brand-border shadow-2xl bg-brand-cardBg aspect-video flex items-center justify-center relative">
+                <iframe class="w-full h-full" src="${embedUrl}" frameborder="0" allowfullscreen></iframe>
+              </div>
+            `;
+          }).join('');
+        }
 
-        if(!htmlContent) {
+        if(!artistData.videoMp4Url && ytList.length === 0) {
           htmlContent = `
             <div class="col-span-full rounded-2xl overflow-hidden border border-brand-border shadow-2xl bg-brand-cardBg aspect-video flex items-center justify-center relative">
-              <img src="videodoyoutube.png" alt="Show" class="w-full h-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=1200&q=80'">
+              <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=1200&q=80" alt="Show" class="w-full h-full object-cover">
             </div>
           `;
         }
         vContainer.innerHTML = htmlContent;
       }
 
-      const gallerySec = document.getElementById('secaoGaleriaFotos');
+      // Galeria de Fotos Públicas (Sempre fixado 5 espaços)
       const galleryGrid = document.getElementById('displayPublicGalleryGrid');
-      if(gallerySec && galleryGrid) {
-        if(artistData.galleryPhotos && artistData.galleryPhotos.length > 0) {
-          galleryGrid.innerHTML = artistData.galleryPhotos.map(photo => `
-            <div class="rounded-xl overflow-hidden h-32 border border-zinc-800 bg-zinc-900 shadow-md">
-              <img src="${photo}" class="w-full h-full object-cover hover:scale-105 transition-transform">
-            </div>
-          `).join('');
-          gallerySec.classList.remove('hidden');
-        } else {
-          gallerySec.classList.add('hidden');
+      if(galleryGrid) {
+        let photos = artistData.galleryPhotos || [];
+        let defaultPhotos = [
+          'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=600&q=80',
+          'https://images.unsplash.com/photo-1465847899084-d164df4dedc6?auto=format&fit=crop&w=600&q=80',
+          'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=600&q=80',
+          'https://images.unsplash.com/photo-1501386761578-eac5c94b800a?auto=format&fit=crop&w=600&q=80',
+          'https://images.unsplash.com/photo-1470225620780-dba8ba36b745?auto=format&fit=crop&w=600&q=80'
+        ];
+        
+        let finalPhotos = [];
+        for(let i=0; i<5; i++) {
+          finalPhotos.push(photos[i] || defaultPhotos[i]);
         }
+
+        galleryGrid.innerHTML = finalPhotos.map(photo => `
+          <div class="rounded-xl overflow-hidden h-32 border border-zinc-800 bg-zinc-900 shadow-md">
+            <img src="${photo}" class="w-full h-full object-cover hover:scale-105 transition-transform">
+          </div>
+        `).join('');
       }
 
+      // Formatos de Show Públicos
       const formatsGrid = document.getElementById('displayFormatsPublicGrid');
       if(formatsGrid && artistData.formats) {
         formatsGrid.innerHTML = artistData.formats.map((fmt, idx) => {
@@ -1516,43 +1528,44 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
         }).join('');
       }
 
-      const vamosContainer = document.getElementById('vamosOuvirPublicContainer');
+      // Balão Vamos Ouvir (Sempre fixo)
       const linksList = document.getElementById('vamosOuvirLinksList');
-      if(vamosContainer && linksList) {
-        let items = [];
-        if(artistData.spotify) items.push({name: 'Spotify', url: artistData.spotify, icon: 'disc', color: 'text-emerald-400'});
-        if(artistData.deezer) items.push({name: 'Deezer', url: artistData.deezer, icon: 'radio', color: 'text-orange-400'});
-        if(artistData.apple) items.push({name: 'Apple Music', url: artistData.apple, icon: 'music', color: 'text-rose-400'});
-        if(artistData.youtubeChannel) items.push({name: 'Canal do YouTube', url: artistData.youtubeChannel, icon: 'youtube', color: 'text-red-500'});
-        if(artistData.instagram) items.push({name: 'Instagram', url: `https://instagram.com/${artistData.instagram}`, icon: 'instagram', color: 'text-pink-400'});
+      if(linksList) {
+        let musicItems = [
+          {name: 'Spotify', url: artistData.spotify || '#', icon: 'disc', color: 'text-emerald-400'},
+          {name: 'Deezer', url: artistData.deezer || '#', icon: 'radio', color: 'text-orange-400'},
+          {name: 'Apple Music', url: artistData.apple || '#', icon: 'music', color: 'text-rose-400'}
+        ];
 
-        if(items.length > 0) {
-          linksList.innerHTML = items.map(m => `
-            <a href="${m.url}" target="_blank" class="flex items-center gap-2 px-4 py-3 rounded-2xl bg-zinc-900 border border-zinc-800 hover:border-amber-500/50 text-white text-xs font-bold transition-all shadow-md group">
-              <i data-lucide="${m.icon}" class="w-4 h-4 ${m.color} group-hover:scale-110"></i> ${m.name} <i data-lucide="external-link" class="w-3.5 h-3.5 text-zinc-500 ml-1"></i>
-            </a>
-          `).join('');
-          vamosContainer.classList.remove('hidden');
-        } else {
-          vamosContainer.classList.add('hidden');
-        }
+        linksList.innerHTML = musicItems.map(m => `
+          <a href="${m.url}" target="_blank" class="flex items-center gap-2 px-4 py-3 rounded-2xl bg-zinc-900 border border-zinc-800 hover:border-amber-500/50 text-white text-xs font-bold transition-all shadow-md group">
+            <i data-lucide="${m.icon}" class="w-4 h-4 ${m.color} group-hover:scale-110"></i> Ouvir no ${m.name} <i data-lucide="external-link" class="w-3.5 h-3.5 text-zinc-500 ml-1"></i>
+          </a>
+        `).join('');
       }
       try { lucide.createIcons(); } catch(e) {}
     }
 
     function goHome() {
-      safeUpdateHistory('/');
-      document.getElementById('landingPage').classList.remove('hidden');
-      document.getElementById('contractorView').classList.add('hidden');
-      document.getElementById('artistDashboard').classList.add('hidden');
+      try { window.history.pushState({}, '', '/'); } catch(e) {}
+      const lp = document.getElementById('landingPage');
+      if(lp) lp.classList.remove('hidden');
+      const cv = document.getElementById('contractorView');
+      if(cv) cv.classList.add('hidden');
+      const ad = document.getElementById('artistDashboard');
+      if(ad) ad.classList.add('hidden');
       
       if(sessionUser) {
-        document.getElementById('landingHeaderActions').classList.add('hidden');
-        document.getElementById('panelHeaderActions').classList.remove('hidden');
+        const lha = document.getElementById('landingHeaderActions');
+        if(lha) lha.classList.add('hidden');
+        const pha = document.getElementById('panelHeaderActions');
+        if(pha) pha.classList.remove('hidden');
         document.getElementById('backToDashboardContainer').classList.add('hidden');
       } else {
-        document.getElementById('landingHeaderActions').classList.remove('hidden');
-        document.getElementById('panelHeaderActions').classList.add('hidden');
+        const lha = document.getElementById('landingHeaderActions');
+        if(lha) lha.classList.remove('hidden');
+        const pha = document.getElementById('panelHeaderActions');
+        if(pha) pha.classList.add('hidden');
       }
     }
 
@@ -1560,12 +1573,17 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       if(fromOwnPanel) {
         isViewingOwnOnlineKit = true;
       }
-      safeUpdateHistory(`/${artistData.slug}`);
-      document.getElementById('landingPage').classList.add('hidden');
-      document.getElementById('contractorView').classList.remove('hidden');
-      document.getElementById('artistDashboard').classList.add('hidden');
-      document.getElementById('landingHeaderActions').classList.add('hidden');
-      document.getElementById('panelHeaderActions').classList.remove('hidden');
+      try { window.history.pushState({}, '', `/${artistData.slug}`); } catch(e) {}
+      const lp = document.getElementById('landingPage');
+      if(lp) lp.classList.add('hidden');
+      const cv = document.getElementById('contractorView');
+      if(cv) cv.classList.remove('hidden');
+      const ad = document.getElementById('artistDashboard');
+      if(ad) ad.classList.add('hidden');
+      const lha = document.getElementById('landingHeaderActions');
+      if(lha) lha.classList.add('hidden');
+      const pha = document.getElementById('panelHeaderActions');
+      if(pha) pha.classList.remove('hidden');
 
       const backBtnContainer = document.getElementById('backToDashboardContainer');
       const viewOnlineBtn = document.getElementById('viewOnlineKitBtn');
@@ -1582,21 +1600,35 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
 
     function showArtistDashboard() {
       isViewingOwnOnlineKit = false;
-      safeUpdateHistory('/dashboard');
-      document.getElementById('landingPage').classList.add('hidden');
-      document.getElementById('contractorView').classList.add('hidden');
-      document.getElementById('artistDashboard').classList.remove('hidden');
-      document.getElementById('landingHeaderActions').classList.add('hidden');
-      document.getElementById('panelHeaderActions').classList.remove('hidden');
+      try { window.history.pushState({}, '', '/dashboard'); } catch(e) {}
+      const lp = document.getElementById('landingPage');
+      if(lp) lp.classList.add('hidden');
+      const cv = document.getElementById('contractorView');
+      if(cv) cv.classList.add('hidden');
+      const ad = document.getElementById('artistDashboard');
+      if(ad) ad.classList.remove('hidden');
+      const lha = document.getElementById('landingHeaderActions');
+      if(lha) lha.classList.add('hidden');
+      const pha = document.getElementById('panelHeaderActions');
+      if(pha) pha.classList.remove('hidden');
       
       const backBtnContainer = document.getElementById('backToDashboardContainer');
       const viewOnlineBtn = document.getElementById('viewOnlineKitBtn');
       if(backBtnContainer) backBtnContainer.classList.add('hidden');
       if(viewOnlineBtn) viewOnlineBtn.classList.remove('hidden');
 
-      if(sessionUser && sessionUser.role === 'admin') {
+      // Configurar abas conforme role
+      if(artistData.role === 'admin') {
+        document.getElementById('btnTabSuperAdmin').classList.remove('hidden');
+        document.getElementById('btnTabSuperAdmin').classList.add('flex');
+        document.getElementById('btnTabClients').classList.remove('hidden');
+        document.getElementById('btnTabClients').classList.add('flex');
         switchTab('tabSuperAdmin');
       } else {
+        document.getElementById('btnTabSuperAdmin').classList.add('hidden');
+        document.getElementById('btnTabSuperAdmin').classList.remove('flex');
+        document.getElementById('btnTabClients').classList.add('hidden');
+        document.getElementById('btnTabClients').classList.remove('flex');
         switchTab('tabProfile');
       }
     }
@@ -1635,7 +1667,10 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
     }
 
     function openEditAvatarModal() {
-      if(!artistData.avatarUrl) { alert('Adicione uma foto de perfil primeiro.'); return; }
+      if(!artistData.avatarUrl) {
+        alert('Adicione uma foto de perfil primeiro.');
+        return;
+      }
       const modal = document.getElementById('editAvatarModal');
       const cropImg = document.getElementById('modalAvatarCropImg');
       if(cropImg) cropImg.src = artistData.avatarUrl;
@@ -1645,7 +1680,9 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       modal.classList.remove('hidden');
     }
 
-    function closeEditAvatarModal() { document.getElementById('editAvatarModal').classList.add('hidden'); }
+    function closeEditAvatarModal() {
+      document.getElementById('editAvatarModal').classList.add('hidden');
+    }
 
     function updateAvatarTransform() {
       const zoom = document.getElementById('avatarZoomRange').value;
@@ -1660,7 +1697,7 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       saveData();
       updateAvatarPreviews();
       closeEditAvatarModal();
-      alert('Ajustes aplicados com sucesso!');
+      alert('Ajustes da foto aplicados com sucesso!');
     }
 
     function removeAvatarPhoto() {
@@ -1673,7 +1710,7 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
     }
 
     function openLoginModal() { 
-      document.getElementById('loginEmail').value = '';
+      document.getElementById('loginWhatsapp').value = '';
       document.getElementById('loginPassword').value = '';
       document.getElementById('loginModal').classList.remove('hidden'); 
     }
@@ -1682,17 +1719,24 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
     function handleLoginKey(e) { if(e.key === 'Enter') submitLogin(); }
 
     function submitLogin() {
-      const email = document.getElementById('loginEmail').value.trim().toLowerCase();
+      const loginInput = document.getElementById('loginWhatsapp').value.trim();
       const pass = document.getElementById('loginPassword').value.trim();
 
-      if(!email || !pass) { alert('Digite seu e-mail e senha.'); return; }
+      if(!loginInput || !pass) { alert('Digite seu WhatsApp / e-mail e senha.'); return; }
 
-      const userFound = usersDatabase.find(u => u.registeredEmail.toLowerCase() === email && u.registeredPassword === pass);
+      // Verificar Super Admin
+      if(loginInput.toLowerCase() === "casa6producoes@gmail.com" && pass === "@Alohomora21") {
+        sessionUser = superAdminAccount;
+        artistData = superAdminAccount;
+        localStorage.setItem('stagekit_session', JSON.stringify(sessionUser));
+        loadInputsFromState();
+        closeLoginModal();
+        showArtistDashboard();
+        return;
+      }
+
+      const userFound = usersDatabase.find(u => u.whatsapp.toLowerCase() === loginInput.toLowerCase() && u.registeredPassword === pass);
       if(userFound) {
-        if(userFound.status === 'Bloqueado') {
-          alert('Sua conta está temporariamente bloqueada. Entre em contato com o suporte.');
-          return;
-        }
         sessionUser = userFound;
         artistData = userFound;
         localStorage.setItem('stagekit_session', JSON.stringify(sessionUser));
@@ -1700,7 +1744,7 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
         closeLoginModal();
         showArtistDashboard();
       } else {
-        alert('E-mail ou senha incorretos!');
+        alert('Credenciais incorretas!');
       }
     }
 
@@ -1710,33 +1754,29 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
     function submitRegister() {
       const fullName = document.getElementById('regFullName').value.trim();
       const phone = document.getElementById('regPhone').value.trim();
-      const email = document.getElementById('regEmail').value.trim().toLowerCase();
       const pass = document.getElementById('regPassword').value.trim();
       
-      if(!fullName || !email || !pass) { alert('Preencha os campos obrigatórios.'); return; }
-      if(!isValidEmail(email)) { alert('E-mail inválido.'); return; }
+      if(!fullName || !phone || !pass) { alert('Preencha os campos obrigatórios.'); return; }
       if(!isValidPassword(pass)) { alert('A senha deve ter no mínimo 8 caracteres, com letras e números.'); return; }
 
       const generatedSlug = fullName.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]/g, '');
 
       const newUser = {
         role: "artista",
-        status: "Ativo",
-        createdAt: new Date().toISOString().split('T')[0],
-        whatsapp: phone || "(21)98936-8930",
+        whatsapp: phone,
         artistMainName: fullName.toUpperCase(),
         city: "Rio de Janeiro, RJ",
         title: "A TRILHA SONORA PERFEITA PARA O SEU MOMENTO",
         bio: "Músico profissional, multi-instrumentista e arranjador...",
         slug: generatedSlug,
+        channelYoutube: "",
         instagram: "",
         tiktok: "",
         facebook: "",
-        youtubeChannel: "",
         youtube1: "",
         youtube2: "",
         youtube3: "",
-        mp4VideoUrl: "",
+        videoMp4Url: "",
         spotify: "",
         deezer: "",
         apple: "",
@@ -1747,13 +1787,13 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
           { title: "Casamentos & Cerimônias", sub: "Ambos", desc: "Trilha sonora inesquecível para a entrada dos noivos, com som próprio incluído.", photo: "" },
           { title: "Eventos & Formaturas", sub: "ENERGIA E PALCO", desc: "Show marcante para celebrações corporativas e recepções de alto nível.", photo: "" }
         ],
-        registeredEmail: email,
         registeredPassword: pass,
         cpf: "",
         musicianId: "",
         repertoireFileName: "",
         contractModelText: "",
-        googleCalendarConnected: false
+        googleCalendarConnected: false,
+        createdAt: new Date().toISOString().split('T')[0]
       };
 
       usersDatabase.push(newUser);
@@ -1786,6 +1826,7 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
 
       const activeBtnMap = {
         'tabSuperAdmin': 'btnTabSuperAdmin',
+        'tabClients': 'btnTabClients',
         'tabProfile': 'btnTabProfile',
         'tabBio': 'btnTabBio',
         'tabMedia': 'btnTabMedia',
@@ -1845,7 +1886,7 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       const aud = document.getElementById('qAudience').value;
       const loc = document.getElementById('qLocation').value || 'A combinar';
 
-      totalBudgetsCounter++;
+      totalBudgetsCount++;
       saveData();
 
       const text = `*Olá! Gostaria de verificar disponibilidade.*\n\n👤 *Contratante:* ${clientName}\n🎵 *Formato:* ${selectedFormatForModal}\n📅 *Data:* ${dt}\n🎉 *Evento:* ${ev}\n👥 *Público:* ${aud}\n📍 *Local:* ${loc}`;
@@ -1864,24 +1905,20 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       artistData.whatsapp = document.getElementById('editProfilePhone').value.trim();
 
       const newPass = document.getElementById('editProfileNewPassword').value.trim();
-      const confirmPass = document.getElementById('editProfileConfirmPassword').value.trim();
       if(newPass) {
-        if(!isValidPassword(newPass)) { alert('A nova senha deve possuir no mínimo 8 caracteres, com letras e números.'); return; }
-        if(newPass !== confirmPass) { alert('A confirmação de senha não coincide com a nova senha.'); return; }
+        if(!isValidPassword(newPass)) { alert('A nova senha deve ter no mínimo 8 caracteres, com letras e números.'); return; }
         artistData.registeredPassword = newPass;
-        document.getElementById('editProfileNewPassword').value = '';
-        document.getElementById('editProfileConfirmPassword').value = '';
       }
 
       saveData();
-      alert('Perfil e dados salvos com sucesso!');
+      alert('Perfil e dados salvos!');
       loadInputsFromState();
     }
 
     function saveArtistEdits() {
       artistData.title = document.getElementById('editTitle').value;
       artistData.bio = document.getElementById('editBio').value;
-      artistData.youtubeChannel = document.getElementById('editYoutubeChannel').value.trim();
+      artistData.channelYoutube = document.getElementById('editChannelYoutube').value;
       artistData.instagram = document.getElementById('editInstagram').value;
       artistData.tiktok = document.getElementById('editTiktok').value;
       artistData.facebook = document.getElementById('editFacebook').value;
@@ -1893,21 +1930,10 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       artistData.youtube3 = document.getElementById('editYoutube3').value;
       artistData.slug = document.getElementById('customSlugInput').value.toLowerCase().trim();
 
-      const mp4Input = document.getElementById('uploadMp4File');
-      if(mp4Input && mp4Input.files[0]) {
-        let r = new FileReader();
-        r.onload = e => {
-          artistData.mp4VideoUrl = e.target.result;
-          processPhotosAndSave();
-        };
-        r.readAsDataURL(mp4Input.files[0]);
-      } else {
-        processPhotosAndSave();
-      }
-    }
-
-    function processPhotosAndSave() {
+      // Ler upload MP4
+      const videoFile = document.getElementById('uploadVideoMp4').files[0];
       let photoPromises = [];
+
       for(let i=1; i<=5; i++) {
         let fileInput = document.getElementById(`galleryPhoto${i}`);
         if(fileInput && fileInput.files[0]) {
@@ -1920,18 +1946,26 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
         }
       }
 
-      if(photoPromises.length > 0) {
-        Promise.all(photoPromises).then(results => {
+      Promise.all(photoPromises).then(results => {
+        if(results.length > 0) {
           artistData.galleryPhotos = [...(artistData.galleryPhotos || []), ...results];
+        }
+
+        if(videoFile) {
+          const reader = new FileReader();
+          reader.onload = e => {
+            artistData.videoMp4Url = e.target.result;
+            saveData();
+            alert('Mídias & Streaming salvas com sucesso!');
+            loadInputsFromState();
+          };
+          reader.readAsDataURL(videoFile);
+        } else {
           saveData();
-          alert('Mídias salvas com sucesso!');
-          showArtistDashboard();
-        });
-      } else {
-        saveData();
-        alert('Mídias salvas com sucesso!');
-        showArtistDashboard();
-      }
+          alert('Mídias & Streaming salvas com sucesso!');
+          loadInputsFromState();
+        }
+      });
     }
 
     function saveFormatsEdits() {
@@ -1998,9 +2032,16 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       alert('Modelo de contrato salvo com sucesso!');
     }
 
-    function downloadContractPDF() {
-      saveContractModel();
-      window.print();
+    function downloadContractPdf() {
+      const text = document.getElementById('contractText').value;
+      const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `Contrato_${artistData.artistMainName.replace(/\s+/g, '_')}.txt`;
+      a.click();
+      URL.revokeObjectURL(url);
+      alert('Contrato baixado com sucesso!');
     }
 
     function updateCustomLinkPreview() {
@@ -2130,6 +2171,62 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
           <span class="px-2.5 py-1 rounded-full bg-blue-500/10 text-blue-400 font-semibold text-[10px]">Sincronizado</span>
         </div>
       `).join('');
+    }
+
+    function renderSuperAdminData() {
+      const artists = usersDatabase.filter(u => u.role !== 'admin');
+      document.getElementById('superAdminTotalArtists').innerText = artists.length;
+      document.getElementById('superAdminActiveLinks').innerText = artists.length;
+      document.getElementById('superAdminBudgets').innerText = totalBudgetsCount;
+
+      const tbody = document.getElementById('superAdminUsersTableBody');
+      if(!tbody) return;
+      if(artists.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="5" class="p-4 text-center text-zinc-500">Nenhum artista cadastrado.</td></tr>';
+        return;
+      }
+
+      tbody.innerHTML = artists.map(u => `
+        <tr class="hover:bg-zinc-900/50">
+          <td class="p-3 font-bold text-white flex items-center gap-2">
+            ${u.artistMainName}
+            <span class="px-2 py-0.5 rounded text-[9px] bg-amber-500/20 text-amber-400 uppercase font-bold">Artista</span>
+          </td>
+          <td class="p-3 text-zinc-400 font-mono">${u.whatsapp}</td>
+          <td class="p-3 text-zinc-400">${u.createdAt || '2026-01-01'}</td>
+          <td class="p-3"><span class="px-2 py-0.5 rounded text-[10px] bg-emerald-500/10 text-emerald-400 font-bold">Ativo</span></td>
+          <td class="p-3 text-right">
+            <button onclick="viewUserPublicKit('${u.slug}')" class="bg-amber-500/10 hover:bg-amber-500/20 text-amber-400 px-3 py-1.5 rounded-lg font-bold text-xs">Ver Kit</button>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    function renderClientsData() {
+      const artists = usersDatabase.filter(u => u.role !== 'admin');
+      const container = document.getElementById('clientsListContainer');
+      if(!container) return;
+      if(artists.length === 0) {
+        container.innerHTML = '<p class="text-zinc-500 italic">Nenhum artista cadastrado.</p>';
+        return;
+      }
+      container.innerHTML = artists.map(u => `
+        <div class="bg-zinc-900 p-4 rounded-xl border border-zinc-800 flex justify-between items-center">
+          <div>
+            <p class="font-bold text-white text-sm">${u.artistMainName}</p>
+            <p class="text-zinc-400">Telefone / WhatsApp: <span class="text-amber-400 font-mono">${u.whatsapp}</span></p>
+          </div>
+          <button onclick="viewUserPublicKit('${u.slug}')" class="bg-amber-500 hover:bg-amber-600 text-black font-bold px-3 py-2 rounded-lg text-xs">Visualizar Kit</button>
+        </div>
+      `).join('');
+    }
+
+    function viewUserPublicKit(slug) {
+      const found = usersDatabase.find(u => u.slug === slug);
+      if(found) {
+        artistData = found;
+        showPublicPressKit(false);
+      }
     }
 
     function toggleTheme() {
