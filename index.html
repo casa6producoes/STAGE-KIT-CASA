@@ -247,8 +247,14 @@
   <div id="contractorView" class="flex-1 pt-20 hidden">
     <section id="hero" class="relative py-16 md:py-24 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto text-center space-y-6">
       
-      <div id="displayBadge" class="inline-flex items-center gap-3 px-8 py-4 rounded-full bg-amber-500/20 border border-amber-500/40 text-amber-400 text-3xl sm:text-5xl font-extrabold uppercase tracking-wider shadow-2xl my-2">
-        <span>🎵</span> <span id="displayArtistMainName">SEU NOME</span>
+      <!-- CAPA / LOGO DO ARTISTA (FOTO 1) -->
+      <div id="displayCoverContainer" class="w-full max-w-3xl mx-auto rounded-3xl overflow-hidden border border-amber-500/40 shadow-2xl bg-brand-cardBg mb-4 min-h-[140px] flex flex-col items-center justify-center p-6 relative">
+        <img id="displayCoverImg" src="" class="w-full h-full object-cover absolute inset-0 hidden" alt="Capa">
+        <div class="absolute inset-0 bg-black/40 backdrop-blur-[2px]"></div>
+        
+        <div class="relative z-10 flex items-center justify-center gap-3 px-8 py-4 rounded-2xl bg-amber-500/20 border border-amber-500/40 text-amber-400 text-2xl sm:text-4xl font-extrabold uppercase tracking-wider shadow-2xl">
+          <span>🎵</span> <span id="displayArtistMainName">SEU NOME</span>
+        </div>
       </div>
       
       <h1 id="displayTitle" class="text-lg sm:text-2xl font-bold text-zinc-300 tracking-tight leading-snug max-w-3xl mx-auto uppercase">
@@ -287,22 +293,31 @@
         <div id="displayVideosContainer" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 max-w-5xl mx-auto"></div>
       </div>
 
-      <!-- GALERIA DE FOTOS -->
+      <!-- GALERIA DE FOTOS (AMPLIADA) -->
       <div id="secaoGaleriaFotos" class="space-y-4 pt-6">
         <div class="text-center">
           <span class="text-amber-500 font-bold text-xs uppercase tracking-widest">Galeria</span>
           <h3 class="text-xl font-bold text-white mt-1">Fotos do Artista & Shows</h3>
         </div>
-        <div id="displayPublicGalleryGrid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3 max-w-5xl mx-auto"></div>
+        <div id="displayPublicGalleryGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 max-w-5xl mx-auto"></div>
       </div>
 
-      <!-- BALÃO "VAMOS OUVIR" -->
-      <div id="vamosOuvirPublicContainer" class="w-full max-w-4xl mx-auto bg-brand-cardBg border border-brand-border p-6 rounded-3xl shadow-xl text-left space-y-3">
+      <!-- PLAYER INTERNO INTEGRADO ("VAMOS OUVIR") -->
+      <div id="vamosOuvirPublicContainer" class="w-full max-w-4xl mx-auto bg-brand-cardBg border border-brand-border p-6 sm:p-8 rounded-3xl shadow-xl text-left space-y-4">
         <div class="flex items-center gap-2 text-amber-500 font-bold text-sm">
-          <i data-lucide="headphones" class="w-5 h-5"></i> <span>Vamos Ouvir (Músicas de Trabalho)</span>
+          <i data-lucide="headphones" class="w-5 h-5"></i> <span>Vamos Ouvir (Player de Músicas de Trabalho)</span>
         </div>
-        <p class="text-xs text-zinc-300">Ouça abaixo as faixas selecionadas pelo artista nas plataformas de streaming:</p>
-        <div id="vamosOuvirLinksList" class="flex flex-wrap gap-3 pt-2"></div>
+        <p class="text-xs text-zinc-300">Ouça abaixo as faixas selecionadas pelo artista diretamente pelo player integrado:</p>
+        <div id="vamosOuvirPlayerList" class="space-y-3 pt-2"></div>
+      </div>
+
+      <!-- DEPOIMENTOS DE CLIENTES (NOVO CARD) -->
+      <div id="secaoDepoimentos" class="space-y-4 pt-6 max-w-4xl mx-auto">
+        <div class="text-center">
+          <span class="text-amber-500 font-bold text-xs uppercase tracking-widest">Prova Social</span>
+          <h3 class="text-2xl font-bold text-white mt-1">Depoimentos de Clientes & Contratantes</h3>
+        </div>
+        <div id="displayTestimonialsGrid" class="grid sm:grid-cols-2 gap-4"></div>
       </div>
     </section>
 
@@ -336,7 +351,6 @@
         </div>
 
         <nav class="space-y-1" id="sidebarNavLinks">
-          <!-- Abas exclusivas Admin / Dono da Plataforma -->
           <button onclick="switchTab('tabSuperAdmin')" id="btnTabSuperAdmin" class="tab-menu-btn w-full hidden items-center gap-3 px-4 py-3 rounded-xl text-xs font-semibold text-zinc-400 hover:bg-zinc-800 hover:text-white transition-all cursor-pointer">
             <i data-lucide="shield-alert" class="w-4 h-4 text-amber-500"></i> Super Admin
           </button>
@@ -344,7 +358,6 @@
             <i data-lucide="users" class="w-4 h-4 text-amber-500"></i> Clientes
           </button>
 
-          <!-- Abas comuns do artista (Liberadas para artistas) -->
           <button onclick="switchTab('tabProfile')" id="btnTabProfile" class="tab-menu-btn w-full flex items-center justify-between px-4 py-3 rounded-xl text-xs font-semibold bg-amber-500/10 text-amber-400 border border-amber-500/35 transition-all cursor-pointer">
             <div class="flex items-center gap-3"><i data-lucide="shield" class="w-4 h-4"></i> Perfil & Dados</div>
             <span id="lockProfile" class="hidden text-zinc-500"><i data-lucide="lock" class="w-3.5 h-3.5"></i></span>
@@ -392,7 +405,7 @@
         <button onclick="toggleTheme()" class="w-full flex items-center justify-center gap-2 p-3 rounded-xl bg-zinc-900 border border-zinc-800 text-amber-400 hover:bg-zinc-800 transition-colors text-xs font-bold cursor-pointer">
           <i data-lucide="sun" id="dashThemeIcon" class="w-4 h-4"></i> Alternar Tema
         </button>
-        <p class="text-[10px] text-zinc-500 text-center">StageKit v3.2 — Casa 6</p>
+        <p class="text-[10px] text-zinc-500 text-center">StageKit v3.3 — Casa 6</p>
       </div>
     </aside>
 
@@ -448,7 +461,7 @@
         </div>
 
         <div class="bg-brand-cardBg border border-brand-border p-6 rounded-2xl space-y-4">
-          <h3 class="text-sm font-bold text-amber-400 uppercase tracking-wider">Módulos Futuros & Relatórios</h3>
+          <h3 class="text-sm font-bold text-amber-400 uppercase tracking-wider">Módulos Fututos & Relatórios</h3>
           <p class="text-xs text-zinc-400">Distribuição visual comparativa entre o volume de usuários cadastrados e o engajamento de contratos gerados na plataforma.</p>
           <div class="max-w-xs mx-auto pt-2">
             <canvas id="superAdminPieChart" width="200" height="200"></canvas>
@@ -469,14 +482,39 @@
         </div>
       </div>
 
-      <!-- ABA 1: PERFIL & DADOS -->
+      <!-- ABA 1: PERFIL & DADOS (Com Capa + Logo em Texto) -->
       <div id="tabProfile" class="dashboard-tab max-w-3xl space-y-6">
         <div>
           <h2 class="text-xl font-bold text-white">Perfil & Dados</h2>
-          <p class="text-xs text-zinc-400 mt-1">Gerencie seu nome, CPF, cidade, foto de perfil, WhatsApp e segurança.</p>
+          <p class="text-xs text-zinc-400 mt-1">Gerencie seu nome, capa/logo, foto de perfil, WhatsApp e segurança.</p>
         </div>
 
         <div class="bg-brand-cardBg border border-brand-border p-6 rounded-2xl space-y-5 text-xs">
+          <!-- CARD GRANDE DE CAPA & LOGO -->
+          <div class="space-y-3 pb-4 border-b border-zinc-800">
+            <label class="block font-semibold text-amber-400">Capa do Press Kit & Logo em Texto</label>
+            <div class="bg-zinc-900 border border-zinc-700 rounded-2xl p-4 space-y-3">
+              <div class="flex flex-col sm:flex-row items-center gap-4">
+                <div id="previewCoverContainer" class="w-full sm:w-48 h-24 rounded-xl bg-zinc-800 border border-zinc-700 overflow-hidden flex items-center justify-center relative">
+                  <img id="previewCoverImg" src="" class="w-full h-full object-cover hidden" alt="Capa">
+                  <span id="previewCoverPlaceholder" class="text-[11px] text-zinc-500">Sem capa</span>
+                </div>
+                <div class="space-y-2 flex-1 w-full">
+                  <label class="bg-zinc-800 hover:bg-zinc-700 border border-zinc-600 text-white font-bold px-4 py-2 rounded-xl cursor-pointer text-xs inline-flex items-center gap-2">
+                    <i data-lucide="image" class="w-4 h-4"></i> Anexar Arquivo de Capa
+                    <input type="file" id="uploadCoverInput" accept="image/*" class="hidden" onchange="handleCoverUpload(event)">
+                  </label>
+                  <p class="text-[11px] text-zinc-400">Envie uma imagem de capa panorâmica.</p>
+                </div>
+              </div>
+              <div>
+                <label class="block font-semibold text-zinc-300 mb-1">Segunda Opção do Nome em Texto (Capa)</label>
+                <input type="text" id="editCoverText" placeholder="Ex: MATHEUS FELIPE" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl p-2.5 text-white uppercase font-bold tracking-wider">
+              </div>
+            </div>
+          </div>
+
+          <!-- SEÇÃO FOTO DE PERFIL -->
           <div class="space-y-3 pb-4 border-b border-zinc-800">
             <label class="block font-semibold text-zinc-300">Foto de Perfil do Artista</label>
             <div class="flex flex-col sm:flex-row items-center gap-6">
@@ -496,7 +534,7 @@
                     <i data-lucide="trash-2" class="w-4 h-4"></i> Remover
                   </button>
                 </div>
-                <p class="text-[11px] text-zinc-500">Insira uma imagem quadrada para melhor visualização no press kit.</p>
+                <p class="text-[11px] text-zinc-500">Insira uma imagem quadrada para melhor visualização.</p>
               </div>
             </div>
           </div>
@@ -581,19 +619,20 @@
         </div>
       </div>
 
-      <!-- ABA 3: MÍDIAS & STREAMING -->
+      <!-- ABA 3: MÍDIAS & STREAMING (Com Anexar MP4 em cada lacuna + Depoimentos) -->
       <div id="tabMedia" class="dashboard-tab max-w-4xl space-y-6 hidden">
         <div>
-          <h2 class="text-xl font-bold text-white">Mídias, Streaming & Formatos</h2>
-          <p class="text-xs text-zinc-400 mt-1">Gerencie até 5 fotos de show, até 3 vídeos (links ou upload MP4) e músicas de streaming.</p>
+          <h2 class="text-xl font-bold text-white">Mídias, Streaming & Depoimentos</h2>
+          <p class="text-xs text-zinc-400 mt-1">Gerencie fotos, vídeos MP4 individuais em cada lacuna, links de streaming e depoimentos de clientes.</p>
         </div>
 
         <div class="grid md:grid-cols-2 gap-6">
+          <!-- FOTOS -->
           <div class="bg-brand-cardBg border border-brand-border p-6 rounded-2xl space-y-4 text-xs">
             <div class="flex items-center gap-2 text-amber-500 font-bold text-sm">
-              <i data-lucide="image" class="w-5 h-5"></i> <span>Fotos de Show & Apresentação (Até 5 fotos)</span>
+              <i data-lucide="image" class="w-5 h-5"></i> <span>Fotos de Show & Apresentação (Galeria)</span>
             </div>
-            <p class="text-zinc-400">Insira até 5 fotos que aparecerão na galeria pública do seu press kit.</p>
+            <p class="text-zinc-400">Insira fotos para a galeria pública do seu press kit.</p>
             <div class="space-y-3">
               <div>
                 <label class="block font-semibold text-zinc-300 mb-1">Foto 1</label>
@@ -618,55 +657,75 @@
             </div>
           </div>
 
+          <!-- NA PRÁTICA COM BOTÃO ANEXAR MP4 EM CADA LACUNA -->
           <div class="bg-brand-cardBg border border-brand-border p-6 rounded-2xl space-y-4 text-xs">
             <div class="flex items-center gap-2 text-amber-500 font-bold text-sm">
-              <i data-lucide="video" class="w-5 h-5"></i> <span>Na Prática (3 Links do YouTube + Upload MP4)</span>
+              <i data-lucide="video" class="w-5 h-5"></i> <span>Na Prática (3 Lacunas com Opção MP4 ou Link)</span>
             </div>
-            <p class="text-zinc-400">Insira até 3 links do YouTube ou envie um arquivo de vídeo MP4 diretamente do seu dispositivo.</p>
-            <div class="space-y-3">
-              <div>
-                <label class="block font-semibold text-zinc-300 mb-1">Link do YouTube 1</label>
-                <input type="text" id="editYoutube1" placeholder="https://www.youtube.com/watch?v=..." class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-2.5 text-white">
+            <p class="text-zinc-400">Insira o link do YouTube ou anexe um arquivo MP4 diretamente em cada lacuna.</p>
+            <div class="space-y-4">
+              <div class="p-3 bg-zinc-900 rounded-xl border border-zinc-800 space-y-2">
+                <label class="block font-semibold text-zinc-200">Lacuna 1 (YouTube ou MP4)</label>
+                <input type="text" id="editYoutube1" placeholder="Link do YouTube 1" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl p-2 text-white">
+                <input type="file" id="uploadMp4_1" accept="video/mp4" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl p-1.5 text-zinc-300 text-[11px]">
               </div>
-              <div>
-                <label class="block font-semibold text-zinc-300 mb-1">Link do YouTube 2</label>
-                <input type="text" id="editYoutube2" placeholder="https://www.youtube.com/watch?v=..." class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-2.5 text-white">
+              <div class="p-3 bg-zinc-900 rounded-xl border border-zinc-800 space-y-2">
+                <label class="block font-semibold text-zinc-200">Lacuna 2 (YouTube ou MP4)</label>
+                <input type="text" id="editYoutube2" placeholder="Link do YouTube 2" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl p-2 text-white">
+                <input type="file" id="uploadMp4_2" accept="video/mp4" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl p-1.5 text-zinc-300 text-[11px]">
               </div>
-              <div>
-                <label class="block font-semibold text-zinc-300 mb-1">Link do YouTube 3</label>
-                <input type="text" id="editYoutube3" placeholder="https://www.youtube.com/watch?v=..." class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-2.5 text-white">
-              </div>
-              <div class="pt-2 border-t border-zinc-800">
-                <label class="block font-semibold text-amber-400 mb-1">Enviar Arquivo de Vídeo MP4</label>
-                <input type="file" id="uploadVideoMp4" accept="video/mp4" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-2 text-zinc-300 text-xs">
-                <p id="videoMp4Status" class="text-[11px] text-zinc-500 mt-1">Nenhum vídeo MP4 enviado.</p>
+              <div class="p-3 bg-zinc-900 rounded-xl border border-zinc-800 space-y-2">
+                <label class="block font-semibold text-zinc-200">Lacuna 3 (YouTube ou MP4)</label>
+                <input type="text" id="editYoutube3" placeholder="Link do YouTube 3" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl p-2 text-white">
+                <input type="file" id="uploadMp4_3" accept="video/mp4" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl p-1.5 text-zinc-300 text-[11px]">
               </div>
             </div>
           </div>
         </div>
 
+        <!-- VAMOS OUVIR PLAYER INTEGRADO -->
         <div class="bg-brand-cardBg border border-brand-border p-6 rounded-2xl space-y-4 text-xs">
           <div class="flex items-center gap-2 text-amber-500 font-bold text-sm">
-            <i data-lucide="headphones" class="w-5 h-5"></i> <span>Vamos Ouvir (Músicas de Trabalho nas Plataformas)</span>
+            <i data-lucide="headphones" class="w-5 h-5"></i> <span>Vamos Ouvir (Músicas de Trabalho - Player Integrado)</span>
           </div>
-          <p class="text-zinc-400">Cole abaixo os links das suas músicas de trabalho.</p>
+          <p class="text-zinc-400">Cole abaixo os links de streaming ou áudio para reprodução direta no site.</p>
           <div class="grid sm:grid-cols-3 gap-3">
             <div>
-              <label class="block font-semibold text-zinc-300 mb-1">Spotify</label>
-              <input type="text" id="editSpotify" placeholder="https://spotify.com/track/..." class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-2.5 text-white">
+              <label class="block font-semibold text-zinc-300 mb-1">Música 1 (Link ou Embed)</label>
+              <input type="text" id="editSpotify" placeholder="https://..." class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-2.5 text-white">
             </div>
             <div>
-              <label class="block font-semibold text-zinc-300 mb-1">Deezer</label>
-              <input type="text" id="editDeezer" placeholder="https://deezer.com/track/..." class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-2.5 text-white">
+              <label class="block font-semibold text-zinc-300 mb-1">Música 2 (Link ou Embed)</label>
+              <input type="text" id="editDeezer" placeholder="https://..." class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-2.5 text-white">
             </div>
             <div>
-              <label class="block font-semibold text-zinc-300 mb-1">Apple Music</label>
-              <input type="text" id="editApple" placeholder="https://music.apple.com/..." class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-2.5 text-white">
+              <label class="block font-semibold text-zinc-300 mb-1">Música 3 (Link ou Embed)</label>
+              <input type="text" id="editApple" placeholder="https://..." class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-2.5 text-white">
             </div>
           </div>
         </div>
 
-        <button onclick="saveArtistEdits()" class="bg-amber-500 hover:bg-amber-600 text-black font-extrabold py-3 px-6 rounded-xl shadow-md cursor-pointer">Salvar Mídias & Streaming</button>
+        <!-- DEPOIMENTOS DE CLIENTES -->
+        <div class="bg-brand-cardBg border border-brand-border p-6 rounded-2xl space-y-4 text-xs">
+          <div class="flex items-center gap-2 text-amber-500 font-bold text-sm">
+            <i data-lucide="message-square" class="w-5 h-5"></i> <span>Depoimentos de Clientes (Prints ou Textos)</span>
+          </div>
+          <p class="text-zinc-400">Adicione depoimentos ou envie prints de conversas com clientes satisfeitos.</p>
+          <div class="grid sm:grid-cols-2 gap-4">
+            <div class="space-y-2">
+              <label class="block font-semibold text-zinc-300">Depoimento 1 (Texto)</label>
+              <textarea id="testText1" placeholder="Ex: Show incrível no nosso casamento! Todos elogiaram." class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white h-20"></textarea>
+              <input type="text" id="testAuthor1" placeholder="Nome do Cliente / Noivos" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-2 text-white">
+            </div>
+            <div class="space-y-2">
+              <label class="block font-semibold text-zinc-300">Depoimento 2 (Texto)</label>
+              <textarea id="testText2" placeholder="Ex: Profissionalismo impecável e repertório maravilhoso." class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white h-20"></textarea>
+              <input type="text" id="testAuthor2" placeholder="Nome do Contratante" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-2 text-white">
+            </div>
+          </div>
+        </div>
+
+        <button onclick="saveArtistEdits()" class="bg-amber-500 hover:bg-amber-600 text-black font-extrabold py-3 px-6 rounded-xl shadow-md cursor-pointer">Salvar Mídias, Streaming & Depoimentos</button>
       </div>
 
       <!-- ABA 4: FORMATOS DE SHOW -->
@@ -1166,7 +1225,6 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
     let isViewingOwnOnlineKit = false;
     let isAdminViewingArtistKit = false;
 
-    // Criar o Super Admin padrão (casa6producoes@gmail.com / @Alohomora21)
     const superAdminAccount = {
       role: "admin",
       whatsapp: "casa6producoes@gmail.com",
@@ -1190,6 +1248,8 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       title: "A TRILHA SONORA PERFEITA PARA O SEU MOMENTO",
       bio: "Músico profissional, multi-instrumentista e arranjador com vasta experiência em palcos de eventos corporativos, casamentos e casas noturnas de destaque.",
       slug: "seu-nome",
+      coverUrl: "",
+      coverText: "SEU NOME",
       channelYoutube: "",
       instagram: "seunomeaqui",
       tiktok: "",
@@ -1197,7 +1257,9 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       youtube1: "",
       youtube2: "",
       youtube3: "",
-      videoMp4Url: "",
+      mp4_1: "",
+      mp4_2: "",
+      mp4_3: "",
       spotify: "",
       deezer: "",
       apple: "",
@@ -1205,6 +1267,10 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       avatarZoom: 1,
       avatarRotate: 0,
       galleryPhotos: [],
+      testimonials: [
+        { text: "Show incrível no nosso casamento! Todos elogiaram.", author: "Ana & Bruno" },
+        { text: "Profissionalismo impecável e repertório maravilhoso.", author: "Carlos Eduardo" }
+      ],
       formats: [
         { title: "Barzinhos & Aniversários", sub: "ACÚSTICO & BANDA", desc: "Repertório versátil de MPB, pop, rock e sertanejo adaptado ao clima do evento.", photo: "" },
         { title: "Casamentos & Cerimônias", sub: "Ambos", desc: "Trilha sonora inesquecível para a entrada dos noivos, com som próprio incluído.", photo: "" },
@@ -1343,6 +1409,9 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       const elProfPhone = document.getElementById('editProfilePhone');
       if(elProfPhone) elProfPhone.value = artistData.whatsapp || '';
 
+      const elCoverText = document.getElementById('editCoverText');
+      if(elCoverText) elCoverText.value = artistData.coverText || artistData.artistMainName;
+
       const elTitle = document.getElementById('editTitle');
       if(elTitle) elTitle.value = artistData.title;
       const elBio = document.getElementById('editBio');
@@ -1373,6 +1442,13 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       const elSlug = document.getElementById('customSlugInput');
       if(elSlug) elSlug.value = artistData.slug;
 
+      if(artistData.testimonials && artistData.testimonials.length >= 2) {
+        document.getElementById('testText1').value = artistData.testimonials[0].text || '';
+        document.getElementById('testAuthor1').value = artistData.testimonials[0].author || '';
+        document.getElementById('testText2').value = artistData.testimonials[1].text || '';
+        document.getElementById('testAuthor2').value = artistData.testimonials[1].author || '';
+      }
+
       const elContract = document.getElementById('contractText');
       if(elContract) {
         if(sessionUser && sessionUser.role === 'admin') {
@@ -1385,11 +1461,6 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       const repStatus = document.getElementById('repertoireStatus');
       if(repStatus && artistData.repertoireFileName) {
         repStatus.innerHTML = `✅ Arquivo enviado: <span class="text-white font-mono">${artistData.repertoireFileName}</span>`;
-      }
-
-      const vidStatus = document.getElementById('videoMp4Status');
-      if(vidStatus && artistData.videoMp4Url) {
-        vidStatus.innerHTML = `✅ Vídeo MP4 enviado com sucesso!`;
       }
 
       if(artistData.formats && artistData.formats.length === 3) {
@@ -1407,12 +1478,13 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       }
 
       updateAvatarPreviews();
+      updateCoverPreviews();
       applyPublicData();
     }
 
     function applyPublicData() {
       const e1 = document.getElementById('displayArtistMainName');
-      if(e1) e1.innerText = artistData.artistMainName;
+      if(e1) e1.innerText = artistData.coverText || artistData.artistMainName;
       const e2 = document.getElementById('displayArtistName');
       if(e2) e2.innerText = artistData.artistMainName;
       const e3 = document.getElementById('displayTitle');
@@ -1423,6 +1495,18 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       if(e5) e5.innerText = `stagekitcasa6.vercel.app/${artistData.slug}`;
       const eCity = document.getElementById('displayArtistCity');
       if(eCity) eCity.innerText = `📍 ${artistData.city || 'Rio de Janeiro, RJ'}`;
+
+      // Capa
+      const coverImg = document.getElementById('displayCoverImg');
+      const coverContainer = document.getElementById('displayCoverContainer');
+      if(coverImg && coverContainer) {
+        if(artistData.coverUrl) {
+          coverImg.src = artistData.coverUrl;
+          coverImg.classList.remove('hidden');
+        } else {
+          coverImg.classList.add('hidden');
+        }
+      }
 
       const pubAvatar = document.getElementById('displayArtistPhoto');
       if(pubAvatar) {
@@ -1450,32 +1534,39 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
         `).join('');
       }
 
+      // Vídeos Na Prática (3 Lacunas: Suporta Link do YouTube ou Upload MP4 individual)
       const vContainer = document.getElementById('displayVideosContainer');
       if(vContainer) {
-        let ytList = [artistData.youtube1, artistData.youtube2, artistData.youtube3].filter(Boolean);
+        let items = [];
+        if(artistData.mp4_1) items.push({type: 'mp4', src: artistData.mp4_1});
+        else if(artistData.youtube1) items.push({type: 'yt', src: artistData.youtube1});
+
+        if(artistData.mp4_2) items.push({type: 'mp4', src: artistData.mp4_2});
+        else if(artistData.youtube2) items.push({type: 'yt', src: artistData.youtube2});
+
+        if(artistData.mp4_3) items.push({type: 'mp4', src: artistData.mp4_3});
+        else if(artistData.youtube3) items.push({type: 'yt', src: artistData.youtube3});
+
         let htmlContent = '';
-        
-        if(artistData.videoMp4Url) {
-          htmlContent += `
-            <div class="rounded-2xl overflow-hidden border border-brand-border shadow-2xl bg-brand-cardBg aspect-video flex items-center justify-center relative">
-              <video controls class="w-full h-full object-cover" src="${artistData.videoMp4Url}"></video>
-            </div>
-          `;
-        }
-
-        if(ytList.length > 0) {
-          htmlContent += ytList.map(url => {
-            let embedUrl = url;
-            if(embedUrl.includes('watch?v=')) embedUrl = embedUrl.replace('watch?v=', 'embed/');
-            return `
-              <div class="rounded-2xl overflow-hidden border border-brand-border shadow-2xl bg-brand-cardBg aspect-video flex items-center justify-center relative">
-                <iframe class="w-full h-full" src="${embedUrl}" frameborder="0" allowfullscreen></iframe>
-              </div>
-            `;
+        if(items.length > 0) {
+          htmlContent = items.map(item => {
+            if(item.type === 'mp4') {
+              return `
+                <div class="rounded-2xl overflow-hidden border border-brand-border shadow-2xl bg-brand-cardBg aspect-video flex items-center justify-center relative">
+                  <video controls class="w-full h-full object-cover" src="${item.src}"></video>
+                </div>
+              `;
+            } else {
+              let embedUrl = item.src;
+              if(embedUrl.includes('watch?v=')) embedUrl = embedUrl.replace('watch?v=', 'embed/');
+              return `
+                <div class="rounded-2xl overflow-hidden border border-brand-border shadow-2xl bg-brand-cardBg aspect-video flex items-center justify-center relative">
+                  <iframe class="w-full h-full" src="${embedUrl}" frameborder="0" allowfullscreen></iframe>
+                </div>
+              `;
+            }
           }).join('');
-        }
-
-        if(!artistData.videoMp4Url && ytList.length === 0) {
+        } else {
           htmlContent = `
             <div class="col-span-full rounded-2xl overflow-hidden border border-brand-border shadow-2xl bg-brand-cardBg aspect-video flex items-center justify-center relative">
               <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=1200&q=80" alt="Show" class="w-full h-full object-cover">
@@ -1485,15 +1576,16 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
         vContainer.innerHTML = htmlContent;
       }
 
+      // Galeria de Fotos Ampliada (espaços maiores)
       const galleryGrid = document.getElementById('displayPublicGalleryGrid');
       if(galleryGrid) {
         let photos = artistData.galleryPhotos || [];
         let defaultPhotos = [
-          'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=600&q=80',
-          'https://images.unsplash.com/photo-1465847899084-d164df4dedc6?auto=format&fit=crop&w=600&q=80',
-          'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=600&q=80',
-          'https://images.unsplash.com/photo-1501386761578-eac5c94b800a?auto=format&fit=crop&w=600&q=80',
-          'https://images.unsplash.com/photo-1470225620780-dba8ba36b745?auto=format&fit=crop&w=600&q=80'
+          'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=800&q=80',
+          'https://images.unsplash.com/photo-1465847899084-d164df4dedc6?auto=format&fit=crop&w=800&q=80',
+          'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=800&q=80',
+          'https://images.unsplash.com/photo-1501386761578-eac5c94b800a?auto=format&fit=crop&w=800&q=80',
+          'https://images.unsplash.com/photo-1470225620780-dba8ba36b745?auto=format&fit=crop&w=800&q=80'
         ];
         
         let finalPhotos = [];
@@ -1502,8 +1594,69 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
         }
 
         galleryGrid.innerHTML = finalPhotos.map(photo => `
-          <div class="rounded-xl overflow-hidden h-32 border border-zinc-800 bg-zinc-900 shadow-md">
+          <div class="rounded-2xl overflow-hidden h-48 sm:h-56 border border-zinc-800 bg-zinc-900 shadow-xl">
             <img src="${photo}" class="w-full h-full object-cover hover:scale-105 transition-transform">
+          </div>
+        `).join('');
+      }
+
+      // Player Integrado (Vamos Ouvir) diretamente no site sem abrir nova página
+      const playerList = document.getElementById('vamosOuvirPlayerList');
+      if(playerList) {
+        let songs = [
+          {title: 'Música de Trabalho 1', src: artistData.spotify},
+          {title: 'Música de Trabalho 2', src: artistData.deezer},
+          {title: 'Música de Trabalho 3', src: artistData.apple}
+        ].filter(s => s.src);
+
+        if(songs.length > 0) {
+          playerList.innerHTML = songs.map((song, i) => {
+            let isEmbed = song.src.includes('<iframe') || song.src.includes('embed');
+            if(isEmbed) {
+              return `<div class="rounded-xl overflow-hidden bg-zinc-900 p-2">${song.src}</div>`;
+            } else if(song.src.match(/\.(mp3|wav|ogg)$/i) || song.src.startsWith('data:audio')) {
+              return `
+                <div class="bg-zinc-900 p-4 rounded-2xl border border-zinc-800 space-y-2">
+                  <span class="text-xs font-bold text-amber-400">🎵 ${song.title}</span>
+                  <audio controls class="w-full" src="${song.src}"></audio>
+                </div>
+              `;
+            } else {
+              // Se for um link de streaming genérico, exibe player simulado / integrado com botão de play/pause
+              return `
+                <div class="bg-zinc-900 p-4 rounded-2xl border border-zinc-800 flex items-center justify-between">
+                  <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center font-bold">
+                      <i data-lucide="music" class="w-5 h-5"></i>
+                    </div>
+                    <div>
+                      <p class="font-bold text-white text-xs">${song.title}</p>
+                      <p class="text-[10px] text-zinc-400 truncate max-w-xs">${song.src}</p>
+                    </div>
+                  </div>
+                  <a href="${song.src}" target="_blank" class="px-4 py-2 bg-amber-500 hover:bg-amber-600 text-black font-bold rounded-xl text-xs flex items-center gap-1.5 shadow-md">
+                    <i data-lucide="play" class="w-3.5 h-3.5"></i> Ouvir Faixa
+                  </a>
+                </div>
+              `;
+            }
+          }).join('');
+        } else {
+          playerList.innerHTML = `
+            <div class="bg-zinc-900 p-4 rounded-2xl border border-zinc-800 text-center text-zinc-500 text-xs">
+              Nenhuma faixa cadastrada no momento.
+            </div>
+          `;
+        }
+      }
+
+      // Depoimentos de Clientes (Novo card)
+      const testGrid = document.getElementById('displayTestimonialsGrid');
+      if(testGrid && artistData.testimonials) {
+        testGrid.innerHTML = artistData.testimonials.map(t => `
+          <div class="bg-brand-cardBg border border-brand-border p-6 rounded-3xl shadow-xl space-y-3 flex flex-col justify-between">
+            <p class="text-xs sm:text-sm text-zinc-300 italic leading-relaxed">"${t.text}"</p>
+            <p class="text-amber-400 font-bold text-xs uppercase tracking-wider">— ${t.author}</p>
           </div>
         `).join('');
       }
@@ -1530,21 +1683,6 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
             </div>
           `;
         }).join('');
-      }
-
-      const linksList = document.getElementById('vamosOuvirLinksList');
-      if(linksList) {
-        let musicItems = [
-          {name: 'Spotify', url: artistData.spotify || '#', icon: 'disc', color: 'text-emerald-400'},
-          {name: 'Deezer', url: artistData.deezer || '#', icon: 'radio', color: 'text-orange-400'},
-          {name: 'Apple Music', url: artistData.apple || '#', icon: 'music', color: 'text-rose-400'}
-        ];
-
-        linksList.innerHTML = musicItems.map(m => `
-          <a href="${m.url}" target="_blank" class="flex items-center gap-2 px-4 py-3 rounded-2xl bg-zinc-900 border border-zinc-800 hover:border-amber-500/50 text-white text-xs font-bold transition-all shadow-md group">
-            <i data-lucide="${m.icon}" class="w-4 h-4 ${m.color} group-hover:scale-110"></i> Ouvir no ${m.name} <i data-lucide="external-link" class="w-3.5 h-3.5 text-zinc-500 ml-1"></i>
-          </a>
-        `).join('');
       }
       try { lucide.createIcons(); } catch(e) {}
     }
@@ -1669,7 +1807,6 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
         document.getElementById('sidebarAreaTitle').innerText = "Painel Super Admin";
         switchTab('tabSuperAdmin');
       } else {
-        // Usuário padrão (Artista): Todas as abas 100% liberadas e funcionais
         document.getElementById('btnTabSuperAdmin').classList.add('hidden');
         document.getElementById('btnTabSuperAdmin').classList.remove('flex');
         document.getElementById('btnTabClients').classList.add('hidden');
@@ -1684,7 +1821,6 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
           const el = document.getElementById(tabId);
           if(el) {
             el.classList.remove('opacity-50', 'cursor-not-allowed');
-            // Restaurar chamadas normais de troca de aba
             const pureTabName = tabId.replace('btnTab', 'tab');
             el.onclick = () => switchTab(pureTabName);
           }
@@ -1703,6 +1839,35 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
     function toggleSidebar() {
       const sidebar = document.getElementById('adminSidebar');
       if(sidebar) sidebar.classList.toggle('hidden');
+    }
+
+    function handleCoverUpload(event) {
+      if(sessionUser && sessionUser.role === 'admin') return;
+      const file = event.target.files[0];
+      if(file) {
+        const reader = new FileReader();
+        reader.onload = e => {
+          artistData.coverUrl = e.target.result;
+          saveData();
+          updateCoverPreviews();
+        };
+        reader.readAsDataURL(file);
+      }
+    }
+
+    function updateCoverPreviews() {
+      const previewImg = document.getElementById('previewCoverImg');
+      const previewPlaceholder = document.getElementById('previewCoverPlaceholder');
+      if(previewImg && previewPlaceholder) {
+        if(artistData.coverUrl) {
+          previewImg.src = artistData.coverUrl;
+          previewImg.classList.remove('hidden');
+          previewPlaceholder.classList.add('hidden');
+        } else {
+          previewImg.classList.add('hidden');
+          previewPlaceholder.classList.remove('hidden');
+        }
+      }
     }
 
     function handleAvatarUpload(event) {
@@ -1840,6 +2005,8 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
         title: "A TRILHA SONORA PERFEITA PARA O SEU MOMENTO",
         bio: "Músico profissional, multi-instrumentista e arranjador...",
         slug: generatedSlug,
+        coverUrl: "",
+        coverText: fullName.toUpperCase(),
         channelYoutube: "",
         instagram: "",
         tiktok: "",
@@ -1847,12 +2014,17 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
         youtube1: "",
         youtube2: "",
         youtube3: "",
-        videoMp4Url: "",
+        mp4_1: "",
+        mp4_2: "",
+        mp4_3: "",
         spotify: "",
         deezer: "",
         apple: "",
         avatarUrl: "",
         galleryPhotos: [],
+        testimonials: [
+          { text: "Show incrível no nosso evento! Todos elogiaram.", author: "Cliente Satisfeito" }
+        ],
         formats: [
           { title: "Barzinhos & Aniversários", sub: "ACÚSTICO & BANDA", desc: "Repertório versátil de MPB, pop, rock e sertanejo adaptado ao clima do evento.", photo: "" },
           { title: "Casamentos & Cerimônias", sub: "Ambos", desc: "Trilha sonora inesquecível para a entrada dos noivos, com som próprio incluído.", photo: "" },
@@ -1981,6 +2153,7 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       if(sessionUser && sessionUser.role === 'admin') return;
       artistData.artistMainName = document.getElementById('editProfileName').value.toUpperCase();
       artistData.city = document.getElementById('editProfileCity').value.trim();
+      artistData.coverText = document.getElementById('editCoverText').value.toUpperCase().trim() || artistData.artistMainName;
       const cpfVal = document.getElementById('editProfileCpf').value.trim();
       if(cpfVal && !isValidCPF(cpfVal)) { alert('CPF inválido!'); return; }
       artistData.cpf = cpfVal;
@@ -2009,45 +2182,61 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       artistData.spotify = document.getElementById('editSpotify').value;
       artistData.deezer = document.getElementById('editDeezer').value;
       artistData.apple = document.getElementById('editApple').value;
+      
       artistData.youtube1 = document.getElementById('editYoutube1').value;
       artistData.youtube2 = document.getElementById('editYoutube2').value;
       artistData.youtube3 = document.getElementById('editYoutube3').value;
       artistData.slug = document.getElementById('customSlugInput').value.toLowerCase().trim();
 
-      const videoFile = document.getElementById('uploadVideoMp4').files[0];
-      let photoPromises = [];
+      const t1 = document.getElementById('testText1').value;
+      const a1 = document.getElementById('testAuthor1').value;
+      const t2 = document.getElementById('testText2').value;
+      const a2 = document.getElementById('testAuthor2').value;
+      artistData.testimonials = [
+        { text: t1, author: a1 },
+        { text: t2, author: a2 }
+      ].filter(t => t.text);
+
+      let file1 = document.getElementById('uploadMp4_1').files[0];
+      let file2 = document.getElementById('uploadMp4_2').files[0];
+      let file3 = document.getElementById('uploadMp4_3').files[0];
+
+      let promises = [];
+
+      let getFileBase64 = (file) => new Promise(res => {
+        if(!file) return res(null);
+        let r = new FileReader();
+        r.onload = e => res(e.target.result);
+        r.readAsDataURL(file);
+      });
 
       for(let i=1; i<=5; i++) {
         let fileInput = document.getElementById(`galleryPhoto${i}`);
         if(fileInput && fileInput.files[0]) {
-          let p = new Promise(resolve => {
-            let reader = new FileReader();
-            reader.onload = e => resolve(e.target.result);
-            reader.readAsDataURL(fileInput.files[0]);
-          });
-          photoPromises.push(p);
+          promises.push(getFileBase64(fileInput.files[0]).then(res => ({type: 'gallery', val: res})));
         }
       }
 
-      Promise.all(photoPromises).then(results => {
-        if(results.length > 0) {
-          artistData.galleryPhotos = [...(artistData.galleryPhotos || []), ...results];
+      promises.push(getFileBase64(file1).then(res => ({type: 'mp4_1', val: res})));
+      promises.push(getFileBase64(file2).then(res => ({type: 'mp4_2', val: res})));
+      promises.push(getFileBase64(file3).then(res => ({type: 'mp4_3', val: res})));
+
+      Promise.all(promises).then(results => {
+        let newGallery = [];
+        results.forEach(r => {
+          if(r.type === 'gallery' && r.val) newGallery.push(r.val);
+          if(r.type === 'mp4_1' && r.val) artistData.mp4_1 = r.val;
+          if(r.type === 'mp4_2' && r.val) artistData.mp4_2 = r.val;
+          if(r.type === 'mp4_3' && r.val) artistData.mp4_3 = r.val;
+        });
+
+        if(newGallery.length > 0) {
+          artistData.galleryPhotos = [...(artistData.galleryPhotos || []), ...newGallery];
         }
 
-        if(videoFile) {
-          const reader = new FileReader();
-          reader.onload = e => {
-            artistData.videoMp4Url = e.target.result;
-            saveData();
-            alert('Mídias & Streaming salvas com sucesso!');
-            loadInputsFromState();
-          };
-          reader.readAsDataURL(videoFile);
-        } else {
-          saveData();
-          alert('Mídias & Streaming salvas com sucesso!');
-          loadInputsFromState();
-        }
+        saveData();
+        alert('Mídias & Streaming salvas com sucesso!');
+        loadInputsFromState();
       });
     }
 
