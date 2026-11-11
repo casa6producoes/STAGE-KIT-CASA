@@ -93,13 +93,17 @@
         </button>
       </div>
 
-      <!-- Ações do Painel / PressKit (Com "Ver meu kit online" e desconectar) -->
+      <!-- Ações do Painel / PressKit -->
       <div id="panelHeaderActions" class="hidden items-center gap-3">
         <div class="flex items-center gap-2">
-          <button onclick="showPublicPressKit()" class="bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/30 text-amber-400 font-bold px-3.5 py-2 rounded-xl text-xs flex items-center gap-2 transition-all cursor-pointer">
+          <div id="backToDashboardContainer" class="hidden">
+            <button onclick="showArtistDashboard()" class="bg-zinc-800 hover:bg-zinc-700 border border-zinc-700 text-amber-400 font-bold px-3.5 py-2 rounded-xl text-xs flex items-center gap-2 transition-all cursor-pointer">
+              <i data-lucide="arrow-left" class="w-4 h-4"></i> Voltar para área do artista
+            </button>
+          </div>
+          <button id="viewOnlineKitBtn" onclick="showPublicPressKit()" class="bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/30 text-amber-400 font-bold px-3.5 py-2 rounded-xl text-xs flex items-center gap-2 transition-all cursor-pointer">
             <i data-lucide="eye" class="w-4 h-4"></i> Ver meu kit online
           </button>
-          
           <button onclick="logoutToHome()" class="p-2.5 rounded-xl bg-zinc-900 border border-zinc-800 text-red-400 hover:bg-zinc-800 transition-colors cursor-pointer flex items-center gap-2 text-xs font-semibold" title="Desconectar da conta">
             <i data-lucide="log-out" class="w-4 h-4"></i> <span class="hidden sm:inline">Desconectar</span>
           </button>
@@ -214,20 +218,6 @@
       </div>
     </section>
 
-    <section class="py-24 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto text-center space-y-8">
-      <div class="w-16 h-16 rounded-2xl bg-amber-500/10 border border-amber-500/20 text-amber-500 flex items-center justify-center mx-auto">
-        <i data-lucide="file-text" class="w-8 h-8"></i>
-      </div>
-      <h2 class="text-3xl sm:text-5xl font-extrabold text-white tracking-tight leading-tight">
-        Menos conversa solta, mais<br /><span class="text-amber-500">shows fechados.</span>
-      </h2>
-      <div>
-        <button onclick="openRegisterModal()" class="bg-emerald-500 hover:bg-emerald-600 text-black font-extrabold px-10 py-5 rounded-2xl text-lg shadow-2xl transition-all transform hover:scale-105 cursor-pointer">
-          Começar agora
-        </button>
-      </div>
-    </section>
-
     <footer class="py-8 text-center text-xs text-zinc-500 border-t border-brand-border">
       <p>© 2026 StageKit — Desenvolvido por Casa 6 Produções</p>
     </footer>
@@ -252,13 +242,13 @@
 
       <div class="pt-6 max-w-4xl mx-auto">
         <div class="bg-brand-cardBg border border-brand-border p-6 sm:p-8 rounded-3xl shadow-xl grid md:grid-cols-12 gap-6 items-center text-left">
-          <div class="md:col-span-4">
-            <div class="relative rounded-2xl overflow-hidden border border-brand-border shadow-md aspect-square bg-zinc-800">
+          <div class="md:col-span-4 flex justify-center">
+            <div id="displayAvatarContainer" class="relative rounded-2xl overflow-hidden border border-brand-border shadow-md w-40 h-40 sm:w-48 sm:h-48 bg-zinc-800 flex items-center justify-center">
               <img id="displayArtistPhoto" src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=800&q=80" class="w-full h-full object-cover" onerror="this.src='https://via.placeholder.com/400?text=Artista'">
             </div>
           </div>
-          <div class="md:col-span-8 space-y-3">
-            <span class="text-amber-500 font-bold text-xs uppercase tracking-widest">Sobre o Artista</span>
+          <div class="md:col-span-8 space-y-2">
+            <span id="displayArtistCity" class="text-amber-500 font-bold text-xs uppercase tracking-widest block">📍 Rio de Janeiro, RJ</span>
             <h2 id="displayArtistName" class="text-2xl sm:text-3xl font-bold text-white">Seu Nome</h2>
             <p id="displayBio" class="text-zinc-300 leading-relaxed text-sm sm:text-base">
               Músico profissional, multi-instrumentista e arranjador com vasta experiência em palcos de eventos corporativos, casamentos e casas noturnas de destaque.
@@ -267,19 +257,27 @@
         </div>
       </div>
 
-      <!-- VÍDEO / FOTO "VIDEODOYOUTUBE.PNG" -->
-      <div id="secaoVideosReais" class="space-y-4 pt-4">
+      <!-- VÍDEOS REAIS / NA PRÁTICA -->
+      <div id="secaoVideosReais" class="space-y-6 pt-4">
         <div class="text-center">
           <span class="text-amber-500 font-bold text-xs uppercase tracking-widest">Vídeos Reais</span>
           <h3 class="text-2xl font-bold text-white mt-1">Assista às Performances</h3>
         </div>
-        <div id="displayHeroVideoContainer" class="w-full max-w-4xl mx-auto rounded-2xl overflow-hidden border border-brand-border shadow-2xl bg-brand-cardBg aspect-video flex items-center justify-center relative">
-          <img id="displayHeroImage" src="videodoyoutube.png" alt="Matheus Felipe em um show acústico aconchegante" class="w-full h-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=1200&q=80'">
-          <iframe id="displayHeroVideo" class="w-full h-full hidden" src="" frameborder="0" allowfullscreen></iframe>
+        <div id="displayVideosContainer" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 max-w-5xl mx-auto">
+          <!-- Injetado dinamicamente -->
         </div>
       </div>
 
-      <!-- PLAYER / BALÃO "VAMOS OUVIR" PERSONALIZADO PARA O CONTRATANTE -->
+      <!-- GALERIA DE FOTOS (ATÉ 5 FOTOS) -->
+      <div id="secaoGaleriaFotos" class="space-y-4 pt-6 hidden">
+        <div class="text-center">
+          <span class="text-amber-500 font-bold text-xs uppercase tracking-widest">Galeria</span>
+          <h3 class="text-xl font-bold text-white mt-1">Fotos do Artista & Shows</h3>
+        </div>
+        <div id="displayPublicGalleryGrid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3 max-w-5xl mx-auto"></div>
+      </div>
+
+      <!-- PLAYER / BALÃO "VAMOS OUVIR" -->
       <div id="vamosOuvirPublicContainer" class="w-full max-w-4xl mx-auto bg-brand-cardBg border border-brand-border p-6 rounded-3xl shadow-xl text-left space-y-3 hidden">
         <div class="flex items-center gap-2 text-amber-500 font-bold text-sm">
           <i data-lucide="headphones" class="w-5 h-5"></i> <span>Vamos Ouvir (Músicas de Trabalho)</span>
@@ -289,49 +287,15 @@
       </div>
     </section>
 
+    <!-- FORMATOS DE SHOW PÚBLICO -->
     <section id="formatos" class="py-16 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto border-t border-brand-border">
       <div class="text-center mb-12">
         <span class="text-amber-500 font-bold text-xs uppercase tracking-widest">Estruturas Disponíveis</span>
         <h2 class="text-2xl sm:text-4xl font-bold text-white mt-1">Formatos de Show</h2>
       </div>
 
-      <div class="grid md:grid-cols-3 gap-6">
-        <div class="p-6 rounded-2xl bg-brand-cardBg border border-brand-border flex flex-col justify-between space-y-4">
-          <div class="rounded-xl overflow-hidden h-40 border border-zinc-800 bg-zinc-900">
-            <img id="displayFormatPhoto1" src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover">
-          </div>
-          <div>
-            <span class="text-[10px] font-bold text-amber-500 uppercase">ACÚSTICO & BANDA</span>
-            <h3 class="text-xl font-bold text-white mt-1 mb-2">Barzinhos & Aniversários</h3>
-            <p class="text-xs text-zinc-400 leading-relaxed">Repertório versátil de MPB, pop, rock e sertanejo adaptado ao clima do evento.</p>
-          </div>
-          <button onclick="openFormatModal('Barzinhos & Aniversários')" class="w-full bg-amber-500 hover:bg-amber-600 text-black font-bold py-3 rounded-xl text-sm flex items-center justify-center gap-2 cursor-pointer">Quero este formato <i data-lucide="arrow-right" class="w-4 h-4"></i></button>
-        </div>
-
-        <div class="p-6 rounded-2xl bg-brand-cardBg border border-amber-500/40 relative flex flex-col justify-between shadow-xl space-y-4">
-          <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-amber-500 text-black font-extrabold text-[10px] uppercase px-3 py-0.5 rounded-full">Mais Pedido</div>
-          <div class="rounded-xl overflow-hidden h-40 border border-zinc-800 bg-zinc-900 mt-2">
-            <img id="displayFormatPhoto2" src="https://images.unsplash.com/photo-1465847899084-d164df4dedc6?auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover">
-          </div>
-          <div>
-            <span class="text-[10px] font-bold text-amber-500 uppercase">A TRILHA SONORA DO SEU 'SIM'</span>
-            <h3 class="text-xl font-bold text-white mt-1 mb-2">Casamentos & Cerimônias</h3>
-            <p class="text-xs text-zinc-400 leading-relaxed">Trilha sonora inesquecível para a entrada dos noivos, com som próprio incluído.</p>
-          </div>
-          <button onclick="openFormatModal('Casamentos & Cerimônias')" class="w-full bg-amber-500 hover:bg-amber-600 text-black font-bold py-3 rounded-xl text-sm flex items-center justify-center gap-2 cursor-pointer">Quero este formato <i data-lucide="arrow-right" class="w-4 h-4"></i></button>
-        </div>
-
-        <div class="p-6 rounded-2xl bg-brand-cardBg border border-brand-border flex flex-col justify-between space-y-4">
-          <div class="rounded-xl overflow-hidden h-40 border border-zinc-800 bg-zinc-900">
-            <img id="displayFormatPhoto3" src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover">
-          </div>
-          <div>
-            <span class="text-[10px] font-bold text-amber-500 uppercase">ENERGIA E PALCO</span>
-            <h3 class="text-xl font-bold text-white mt-1 mb-2">Eventos & Formaturas</h3>
-            <p class="text-xs text-zinc-400 leading-relaxed">Show marcante para celebrações corporativas e recepções de alto nível.</p>
-          </div>
-          <button onclick="openFormatModal('Eventos & Formaturas')" class="w-full bg-amber-500 hover:bg-amber-600 text-black font-bold py-3 rounded-xl text-sm flex items-center justify-center gap-2 cursor-pointer">Quero este formato <i data-lucide="arrow-right" class="w-4 h-4"></i></button>
-        </div>
+      <div id="displayFormatsPublicGrid" class="grid md:grid-cols-3 gap-6">
+        <!-- Injetado dinamicamente -->
       </div>
     </section>
 
@@ -343,18 +307,21 @@
   <!-- ==================== ÁREA DO ARTISTA (PAINEL ADMIN) ==================== -->
   <div id="artistDashboard" class="flex-1 pt-20 bg-zinc-950 hidden flex flex-col md:flex-row min-h-[calc(100vh-5rem)]">
     
-    <aside class="w-full md:w-64 bg-brand-cardBg border-r border-brand-border p-6 flex flex-col justify-between shrink-0">
+    <!-- ASIDE COM BOTÃO DE RECOLHER/OCULTAR (TRÊS LISTRINHAS) -->
+    <aside id="adminSidebar" class="w-full md:w-64 bg-brand-cardBg border-r border-brand-border p-6 flex flex-col justify-between shrink-0 transition-all duration-300">
       <div class="space-y-6">
-        <div>
-          <span class="text-[10px] font-bold text-amber-500 uppercase tracking-widest">Painel Admin</span>
-          <h3 class="text-lg font-bold text-white mt-0.5">Área do Artista</h3>
+        <div class="flex items-center justify-between">
+          <div>
+            <span class="text-[10px] font-bold text-amber-500 uppercase tracking-widest">Painel Admin</span>
+            <h3 class="text-lg font-bold text-white mt-0.5">Área do Artista</h3>
+          </div>
+          <button onclick="toggleSidebar()" class="md:hidden p-2 rounded-xl bg-zinc-900 border border-zinc-800 text-amber-400 hover:bg-zinc-800 cursor-pointer" title="Ocultar Abas">
+            <i data-lucide="menu" class="w-5 h-5"></i>
+          </button>
         </div>
 
-        <nav class="space-y-1">
-          <button onclick="switchTab('tabDashboard')" id="btnTabDashboard" class="tab-menu-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl text-xs font-semibold bg-amber-500/10 text-amber-400 border border-amber-500/35 transition-all cursor-pointer">
-            <i data-lucide="layout-dashboard" class="w-4 h-4"></i> Dashboard
-          </button>
-          <button onclick="switchTab('tabProfile')" id="btnTabProfile" class="tab-menu-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl text-xs font-semibold text-zinc-400 hover:bg-zinc-800 hover:text-white transition-all cursor-pointer">
+        <nav class="space-y-1" id="sidebarNavLinks">
+          <button onclick="switchTab('tabProfile')" id="btnTabProfile" class="tab-menu-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl text-xs font-semibold bg-amber-500/10 text-amber-400 border border-amber-500/35 transition-all cursor-pointer">
             <i data-lucide="shield" class="w-4 h-4"></i> Perfil & Dados
           </button>
           <button onclick="switchTab('tabBio')" id="btnTabBio" class="tab-menu-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl text-xs font-semibold text-zinc-400 hover:bg-zinc-800 hover:text-white transition-all cursor-pointer">
@@ -363,8 +330,17 @@
           <button onclick="switchTab('tabMedia')" id="btnTabMedia" class="tab-menu-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl text-xs font-semibold text-zinc-400 hover:bg-zinc-800 hover:text-white transition-all cursor-pointer">
             <i data-lucide="video" class="w-4 h-4"></i> Mídias & Streaming
           </button>
-          <button onclick="switchTab('tabDocuments')" id="btnTabDocuments" class="tab-menu-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl text-xs font-semibold text-zinc-400 hover:bg-zinc-800 hover:text-white transition-all cursor-pointer">
-            <i data-lucide="folder-kanban" class="w-4 h-4"></i> Documentos & Contratos
+          <button onclick="switchTab('tabFormats')" id="btnTabFormats" class="tab-menu-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl text-xs font-semibold text-zinc-400 hover:bg-zinc-800 hover:text-white transition-all cursor-pointer">
+            <i data-lucide="sliders-horizontal" class="w-4 h-4"></i> Formatos de Show
+          </button>
+          <button onclick="switchTab('tabDashboard')" id="btnTabDashboard" class="tab-menu-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl text-xs font-semibold text-zinc-400 hover:bg-zinc-800 hover:text-white transition-all cursor-pointer">
+            <i data-lucide="layout-dashboard" class="w-4 h-4"></i> Dashboard
+          </button>
+          <button onclick="switchTab('tabRepertoire')" id="btnTabRepertoire" class="tab-menu-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl text-xs font-semibold text-zinc-400 hover:bg-zinc-800 hover:text-white transition-all cursor-pointer">
+            <i data-lucide="file-audio" class="w-4 h-4"></i> Repertório
+          </button>
+          <button onclick="switchTab('tabContracts')" id="btnTabContracts" class="tab-menu-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl text-xs font-semibold text-zinc-400 hover:bg-zinc-800 hover:text-white transition-all cursor-pointer">
+            <i data-lucide="file-text" class="w-4 h-4"></i> Contratos
           </button>
           <button onclick="switchTab('tabEvents')" id="btnTabEvents" class="tab-menu-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl text-xs font-semibold text-zinc-400 hover:bg-zinc-800 hover:text-white transition-all cursor-pointer">
             <i data-lucide="calendar-check" class="w-4 h-4"></i> Eventos
@@ -382,15 +358,300 @@
         <button onclick="toggleTheme()" class="w-full flex items-center justify-center gap-2 p-3 rounded-xl bg-zinc-900 border border-zinc-800 text-amber-400 hover:bg-zinc-800 transition-colors text-xs font-bold cursor-pointer">
           <i data-lucide="sun" id="dashThemeIcon" class="w-4 h-4"></i> Alternar Tema
         </button>
-        <p class="text-[10px] text-zinc-500 text-center">StageKit v2.8 — Casa 6</p>
+        <p class="text-[10px] text-zinc-500 text-center">StageKit v2.9 — Casa 6</p>
       </div>
     </aside>
 
+    <!-- BOTÃO FLUTUANTE DE MENU (TRÊS LISTRINHAS) PARA TELAS MENORES -->
+    <div class="md:hidden p-4 bg-zinc-900 border-b border-zinc-800 flex items-center justify-between">
+      <span class="text-xs font-bold text-amber-400">Painel do Artista</span>
+      <button onclick="toggleSidebar()" class="p-2 rounded-xl bg-brand-cardBg text-amber-400 border border-zinc-700">
+        <i data-lucide="menu" class="w-5 h-5"></i>
+      </button>
+    </div>
+
     <main class="flex-1 p-6 sm:p-10 overflow-y-auto">
-      <div id="tabDashboard" class="dashboard-tab max-w-4xl space-y-6">
+
+      <!-- ABA 1: PERFIL & DADOS (Com Cidade e Avatar avançado) -->
+      <div id="tabProfile" class="dashboard-tab max-w-3xl space-y-6">
+        <div>
+          <h2 class="text-xl font-bold text-white">Perfil & Dados</h2>
+          <p class="text-xs text-zinc-400 mt-1">Gerencie seu nome, CPF, cidade, foto de perfil e carteira de músico.</p>
+        </div>
+
+        <div class="bg-brand-cardBg border border-brand-border p-6 rounded-2xl space-y-5 text-xs">
+          <!-- Seção Foto de Perfil -->
+          <div class="space-y-3 pb-4 border-b border-zinc-800">
+            <label class="block font-semibold text-zinc-300">Foto de Perfil do Artista</label>
+            <div class="flex flex-col sm:flex-row items-center gap-6">
+              <div class="relative w-28 h-28 rounded-2xl overflow-hidden border border-zinc-700 bg-zinc-900 flex items-center justify-center">
+                <img id="previewAvatarImg" src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=400&q=80" class="w-full h-full object-cover transition-transform duration-300 scale-100 rotate-0" alt="Avatar">
+              </div>
+              <div class="space-y-2 flex-1 w-full">
+                <div class="flex flex-wrap gap-2">
+                  <label class="bg-amber-500 hover:bg-amber-600 text-black font-bold px-4 py-2 rounded-xl cursor-pointer text-xs flex items-center gap-1.5">
+                    <i data-lucide="upload" class="w-4 h-4"></i> Adicionar Foto
+                    <input type="file" id="uploadAvatarInput" accept="image/*" class="hidden" onchange="handleAvatarUpload(event)">
+                  </label>
+                  <button onclick="openEditAvatarModal()" class="bg-zinc-800 hover:bg-zinc-700 border border-zinc-700 text-white font-bold px-4 py-2 rounded-xl cursor-pointer text-xs flex items-center gap-1.5">
+                    <i data-lucide="crop" class="w-4 h-4"></i> Editar Foto (Zoom/Girar)
+                  </button>
+                  <button onclick="removeAvatarPhoto()" class="bg-red-500/10 hover:bg-red-500/20 border border-red-500/30 text-red-400 font-bold px-3 py-2 rounded-xl cursor-pointer text-xs flex items-center gap-1.5">
+                    <i data-lucide="trash-2" class="w-4 h-4"></i> Remover
+                  </button>
+                </div>
+                <p class="text-[11px] text-zinc-500">Insira uma imagem quadrada para melhor visualização no press kit.</p>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <label class="block font-semibold text-zinc-300 mb-1">Nome Completo / Artístico *</label>
+            <input type="text" id="editProfileName" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white">
+          </div>
+          <div>
+            <label class="block font-semibold text-zinc-300 mb-1">Cidade e Estado (Ex: Rio de Janeiro, RJ) *</label>
+            <input type="text" id="editProfileCity" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white" placeholder="Rio de Janeiro, RJ">
+          </div>
+          <div class="grid sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block font-semibold text-zinc-300 mb-1">CPF Válido *</label>
+              <input type="text" id="editProfileCpf" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white" placeholder="000.000.000-00">
+            </div>
+            <div>
+              <label class="block font-semibold text-zinc-300 mb-1">Carteira de Músico (Opcional)</label>
+              <input type="text" id="editProfileMusicianId" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white" placeholder="OMS / OMB">
+            </div>
+          </div>
+          <div class="grid sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block font-semibold text-zinc-300 mb-1">Telefone / WhatsApp</label>
+              <input type="text" id="editProfilePhone" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white">
+            </div>
+            <div>
+              <label class="block font-semibold text-zinc-300 mb-1">E-mail Cadastrado</label>
+              <input type="email" id="editProfileEmail" disabled class="w-full bg-zinc-900/50 border border-zinc-800 rounded-xl p-3 text-zinc-400 cursor-not-allowed">
+            </div>
+          </div>
+          <button onclick="saveProfileEdits()" class="bg-amber-500 hover:bg-amber-600 text-black font-extrabold py-3 px-6 rounded-xl shadow-md cursor-pointer">Salvar Perfil</button>
+        </div>
+      </div>
+
+      <!-- ABA 2: BIO & REDES SOCIAIS -->
+      <div id="tabBio" class="dashboard-tab max-w-3xl space-y-6 hidden">
+        <div>
+          <h2 class="text-xl font-bold text-white">Bio & Redes Sociais</h2>
+          <p class="text-xs text-zinc-400 mt-1">Configure o título da Hero, biografia e links de redes sociais exibidos no press kit.</p>
+        </div>
+
+        <div class="bg-brand-cardBg border border-brand-border p-6 rounded-2xl space-y-4 text-xs">
+          <div>
+            <label class="block font-semibold text-zinc-300 mb-1">Título de Impacto / Chamariz (H1)</label>
+            <input type="text" id="editTitle" value="A TRILHA SONORA PERFEITA PARA O SEU MOMENTO" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white">
+          </div>
+          <div>
+            <label class="block font-semibold text-zinc-300 mb-1">Biografia do Artista</label>
+            <textarea id="editBio" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white h-24">Músico profissional, multi-instrumentista e arranjador...</textarea>
+          </div>
+          <div class="space-y-3 pt-2">
+            <h3 class="font-bold text-amber-400 text-sm">Redes Sociais</h3>
+            <div>
+              <label class="block font-semibold text-zinc-300 mb-1">Instagram</label>
+              <div class="flex items-center bg-zinc-900 border border-zinc-700 rounded-xl overflow-hidden">
+                <span class="px-3 py-2.5 bg-zinc-800 text-zinc-400 font-mono text-[11px] select-none border-r border-zinc-700">https://www.instagram.com/</span>
+                <input type="text" id="editInstagram" placeholder="seunomeaqui" class="w-full bg-transparent px-3 py-2.5 text-white focus:outline-none">
+              </div>
+            </div>
+            <div>
+              <label class="block font-semibold text-zinc-300 mb-1">TikTok</label>
+              <div class="flex items-center bg-zinc-900 border border-zinc-700 rounded-xl overflow-hidden">
+                <span class="px-3 py-2.5 bg-zinc-800 text-zinc-400 font-mono text-[11px] select-none border-r border-zinc-700">https://www.tiktok.com/@</span>
+                <input type="text" id="editTiktok" placeholder="seunomeaqui" class="w-full bg-transparent px-3 py-2.5 text-white focus:outline-none">
+              </div>
+            </div>
+            <div>
+              <label class="block font-semibold text-zinc-300 mb-1">Facebook</label>
+              <div class="flex items-center bg-zinc-900 border border-zinc-700 rounded-xl overflow-hidden">
+                <span class="px-3 py-2.5 bg-zinc-800 text-zinc-400 font-mono text-[11px] select-none border-r border-zinc-700">https://www.facebook.com/</span>
+                <input type="text" id="editFacebook" placeholder="seunomeaqui" class="w-full bg-transparent px-3 py-2.5 text-white focus:outline-none">
+              </div>
+            </div>
+          </div>
+          <button onclick="saveArtistEdits()" class="bg-amber-500 hover:bg-amber-600 text-black font-extrabold py-3 px-6 rounded-xl shadow-md cursor-pointer">Salvar Bio & Redes</button>
+        </div>
+      </div>
+
+      <!-- ABA 3: MÍDIAS & STREAMING (Até 5 fotos e até 3 vídeos) -->
+      <div id="tabMedia" class="dashboard-tab max-w-4xl space-y-6 hidden">
+        <div>
+          <h2 class="text-xl font-bold text-white">Mídias, Streaming & Formatos</h2>
+          <p class="text-xs text-zinc-400 mt-1">Gerencie até 5 fotos de show, até 3 vídeos de trabalho e músicas de streaming.</p>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-6">
+          <!-- CARD 1: FOTOS (5 ESPAÇOS) -->
+          <div class="bg-brand-cardBg border border-brand-border p-6 rounded-2xl space-y-4 text-xs">
+            <div class="flex items-center gap-2 text-amber-500 font-bold text-sm">
+              <i data-lucide="image" class="w-5 h-5"></i> <span>Fotos de Show & Apresentação (Até 5 fotos)</span>
+            </div>
+            <p class="text-zinc-400">Insira até 5 fotos que aparecerão na galeria pública do seu press kit.</p>
+            <div class="space-y-3">
+              <div>
+                <label class="block font-semibold text-zinc-300 mb-1">Foto 1</label>
+                <input type="file" id="galleryPhoto1" accept="image/*" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-2 text-zinc-300 text-xs">
+              </div>
+              <div>
+                <label class="block font-semibold text-zinc-300 mb-1">Foto 2</label>
+                <input type="file" id="galleryPhoto2" accept="image/*" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-2 text-zinc-300 text-xs">
+              </div>
+              <div>
+                <label class="block font-semibold text-zinc-300 mb-1">Foto 3</label>
+                <input type="file" id="galleryPhoto3" accept="image/*" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-2 text-zinc-300 text-xs">
+              </div>
+              <div>
+                <label class="block font-semibold text-zinc-300 mb-1">Foto 4</label>
+                <input type="file" id="galleryPhoto4" accept="image/*" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-2 text-zinc-300 text-xs">
+              </div>
+              <div>
+                <label class="block font-semibold text-zinc-300 mb-1">Foto 5</label>
+                <input type="file" id="galleryPhoto5" accept="image/*" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-2 text-zinc-300 text-xs">
+              </div>
+            </div>
+          </div>
+
+          <!-- CARD 2: NA PRÁTICA (3 VÍDEOS) -->
+          <div class="bg-brand-cardBg border border-brand-border p-6 rounded-2xl space-y-4 text-xs">
+            <div class="flex items-center gap-2 text-amber-500 font-bold text-sm">
+              <i data-lucide="video" class="w-5 h-5"></i> <span>Na Prática (Até 3 Vídeos / YouTube Links)</span>
+            </div>
+            <p class="text-zinc-400">Insira até 3 links do YouTube para exibir os vídeos de performance no topo.</p>
+            <div class="space-y-3">
+              <div>
+                <label class="block font-semibold text-zinc-300 mb-1">Vídeo 1 (YouTube URL)</label>
+                <input type="text" id="editYoutube1" placeholder="https://www.youtube.com/watch?v=..." class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-2.5 text-white">
+              </div>
+              <div>
+                <label class="block font-semibold text-zinc-300 mb-1">Vídeo 2 (YouTube URL)</label>
+                <input type="text" id="editYoutube2" placeholder="https://www.youtube.com/watch?v=..." class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-2.5 text-white">
+              </div>
+              <div>
+                <label class="block font-semibold text-zinc-300 mb-1">Vídeo 3 (YouTube URL)</label>
+                <input type="text" id="editYoutube3" placeholder="https://www.youtube.com/watch?v=..." class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-2.5 text-white">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CARD 3: VAMOS OUVIR -->
+        <div class="bg-brand-cardBg border border-brand-border p-6 rounded-2xl space-y-4 text-xs">
+          <div class="flex items-center gap-2 text-amber-500 font-bold text-sm">
+            <i data-lucide="headphones" class="w-5 h-5"></i> <span>Vamos Ouvir (Músicas de Trabalho nas Plataformas)</span>
+          </div>
+          <p class="text-zinc-400">Cole abaixo os links das suas músicas de trabalho.</p>
+          <div class="grid sm:grid-cols-3 gap-3">
+            <div>
+              <label class="block font-semibold text-zinc-300 mb-1">Spotify</label>
+              <input type="text" id="editSpotify" placeholder="https://spotify.com/track/..." class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-2.5 text-white">
+            </div>
+            <div>
+              <label class="block font-semibold text-zinc-300 mb-1">Deezer</label>
+              <input type="text" id="editDeezer" placeholder="https://deezer.com/track/..." class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-2.5 text-white">
+            </div>
+            <div>
+              <label class="block font-semibold text-zinc-300 mb-1">Apple Music</label>
+              <input type="text" id="editApple" placeholder="https://music.apple.com/..." class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-2.5 text-white">
+            </div>
+          </div>
+        </div>
+
+        <button onclick="saveArtistEdits()" class="bg-amber-500 hover:bg-amber-600 text-black font-extrabold py-3 px-6 rounded-xl shadow-md cursor-pointer">Salvar Mídias & Streaming</button>
+      </div>
+
+      <!-- ABA 4: FORMATOS DE SHOW (Edição completa e restrição em casamentos) -->
+      <div id="tabFormats" class="dashboard-tab max-w-4xl space-y-6 hidden">
+        <div>
+          <h2 class="text-xl font-bold text-white">Gestão de Formatos de Show</h2>
+          <p class="text-xs text-zinc-400 mt-1">Edite os títulos, subtítulos, descrições e fotos de cada formato exibido no seu kit.</p>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-6">
+          <!-- Formato 1 -->
+          <div class="bg-brand-cardBg border border-brand-border p-5 rounded-2xl space-y-3 text-xs">
+            <span class="text-amber-500 font-bold uppercase">Formato 1</span>
+            <div>
+              <label class="block font-semibold text-zinc-300 mb-1">Título do Formato</label>
+              <input type="text" id="fmt1Title" value="Barzinhos & Aniversários" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-2 text-white">
+            </div>
+            <div>
+              <label class="block font-semibold text-zinc-300 mb-1">Subtítulo / Estilo</label>
+              <input type="text" id="fmt1Sub" value="ACÚSTICO & BANDA" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-2 text-white uppercase">
+            </div>
+            <div>
+              <label class="block font-semibold text-zinc-300 mb-1">Descrição</label>
+              <textarea id="fmt1Desc" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-2 text-white h-20">Repertório versátil de MPB, pop, rock e sertanejo adaptado ao clima do evento.</textarea>
+            </div>
+            <div>
+              <label class="block font-semibold text-zinc-300 mb-1">Foto do Formato</label>
+              <input type="file" id="fmt1PhotoFile" accept="image/*" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-2 text-zinc-300 text-xs">
+            </div>
+          </div>
+
+          <!-- Formato 2: Casamentos & Cerimônias (Com opções restritas) -->
+          <div class="bg-brand-cardBg border border-amber-500/40 p-5 rounded-2xl space-y-3 text-xs relative">
+            <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-amber-500 text-black font-extrabold text-[10px] uppercase px-3 py-0.5 rounded-full">Mais Pedido</div>
+            <span class="text-amber-500 font-bold uppercase mt-1 block">Formato 2 (Casamentos)</span>
+            <div>
+              <label class="block font-semibold text-zinc-300 mb-1">Título do Formato</label>
+              <input type="text" id="fmt2Title" value="Casamentos & Cerimônias" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-2 text-white">
+            </div>
+            <div>
+              <label class="block font-semibold text-zinc-300 mb-1">Opção Específica (Casamento / Cerimônia / Ambos)</label>
+              <select id="fmt2Option" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-2 text-white">
+                <option value="Cerimônia">Apenas Cerimônia</option>
+                <option value="Casamento">Apenas Casamento (Festa)</option>
+                <option value="Ambos" selected>Casamento e Cerimônia (Ambos)</option>
+              </select>
+            </div>
+            <div>
+              <label class="block font-semibold text-zinc-300 mb-1">Descrição</label>
+              <textarea id="fmt2Desc" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-2 text-white h-20">Trilha sonora inesquecível para a entrada dos noivos, com som próprio incluído.</textarea>
+            </div>
+            <div>
+              <label class="block font-semibold text-zinc-300 mb-1">Foto do Formato</label>
+              <input type="file" id="fmt2PhotoFile" accept="image/*" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-2 text-zinc-300 text-xs">
+            </div>
+          </div>
+
+          <!-- Formato 3 -->
+          <div class="bg-brand-cardBg border border-brand-border p-5 rounded-2xl space-y-3 text-xs">
+            <span class="text-amber-500 font-bold uppercase">Formato 3</span>
+            <div>
+              <label class="block font-semibold text-zinc-300 mb-1">Título do Formato</label>
+              <input type="text" id="fmt3Title" value="Eventos & Formaturas" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-2 text-white">
+            </div>
+            <div>
+              <label class="block font-semibold text-zinc-300 mb-1">Subtítulo / Estilo</label>
+              <input type="text" id="fmt3Sub" value="ENERGIA E PALCO" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-2 text-white uppercase">
+            </div>
+            <div>
+              <label class="block font-semibold text-zinc-300 mb-1">Descrição</label>
+              <textarea id="fmt3Desc" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-2 text-white h-20">Show marcante para celebrações corporativas e recepções de alto nível.</textarea>
+            </div>
+            <div>
+              <label class="block font-semibold text-zinc-300 mb-1">Foto do Formato</label>
+              <input type="file" id="fmt3PhotoFile" accept="image/*" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-2 text-zinc-300 text-xs">
+            </div>
+          </div>
+        </div>
+
+        <button onclick="saveFormatsEdits()" class="bg-amber-500 hover:bg-amber-600 text-black font-extrabold py-3 px-6 rounded-xl shadow-md cursor-pointer">Salvar Formatos de Show</button>
+      </div>
+
+      <!-- ABA 5: DASHBOARD GERAL (Reposicionada) -->
+      <div id="tabDashboard" class="dashboard-tab max-w-4xl space-y-6 hidden">
         <div>
           <h2 class="text-xl font-bold text-white">Dashboard Geral</h2>
-          <p class="text-xs text-zinc-400 mt-1">Acesse seu link personalizado de Press Kit e gerencie seus dados.</p>
+          <p class="text-xs text-zinc-400 mt-1">Acesse seu link personalizado de Press Kit e gerencie seus dados financeiros.</p>
         </div>
 
         <div class="bg-gradient-to-r from-amber-500/10 via-brand-cardBg to-brand-cardBg border border-amber-500/40 p-6 rounded-2xl space-y-3 shadow-xl">
@@ -443,191 +704,50 @@
         </div>
       </div>
 
-      <!-- ABA PERFIL & DADOS (Renomeada sem o "(CPF)") -->
-      <div id="tabProfile" class="dashboard-tab max-w-3xl space-y-6 hidden">
+      <!-- ABA 6: REPERTÓRIO (Separado) -->
+      <div id="tabRepertoire" class="dashboard-tab max-w-3xl space-y-6 hidden">
         <div>
-          <h2 class="text-xl font-bold text-white">Perfil & Dados</h2>
-          <p class="text-xs text-zinc-400 mt-1">Gerencie seu nome, CPF e carteira de músico. Dados confidenciais protegidos.</p>
+          <h2 class="text-xl font-bold text-white">Gestão de Repertório</h2>
+          <p class="text-xs text-zinc-400 mt-1">Envie e gerencie a lista de músicas e repertório oficial do seu show.</p>
         </div>
 
         <div class="bg-brand-cardBg border border-brand-border p-6 rounded-2xl space-y-4 text-xs">
-          <div>
-            <label class="block font-semibold text-zinc-300 mb-1">Nome Completo / Artístico *</label>
-            <input type="text" id="editProfileName" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white">
-          </div>
-          <div class="grid sm:grid-cols-2 gap-4">
-            <div>
-              <label class="block font-semibold text-zinc-300 mb-1">CPF Válido *</label>
-              <input type="text" id="editProfileCpf" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white" placeholder="000.000.000-00">
-            </div>
-            <div>
-              <label class="block font-semibold text-zinc-300 mb-1">Carteira de Músico (Opcional)</label>
-              <input type="text" id="editProfileMusicianId" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white" placeholder="OMS / OMB">
-            </div>
-          </div>
-          <div class="grid sm:grid-cols-2 gap-4">
-            <div>
-              <label class="block font-semibold text-zinc-300 mb-1">Telefone / WhatsApp</label>
-              <input type="text" id="editProfilePhone" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white">
-            </div>
-            <div>
-              <label class="block font-semibold text-zinc-300 mb-1">E-mail Cadastrado</label>
-              <input type="email" id="editProfileEmail" disabled class="w-full bg-zinc-900/50 border border-zinc-800 rounded-xl p-3 text-zinc-400 cursor-not-allowed">
-            </div>
-          </div>
-          <button onclick="saveProfileEdits()" class="bg-amber-500 hover:bg-amber-600 text-black font-extrabold py-3 px-6 rounded-xl shadow-md cursor-pointer">Salvar Perfil</button>
-        </div>
-      </div>
-
-      <!-- ABA BIO & REDES SOCIAIS -->
-      <div id="tabBio" class="dashboard-tab max-w-3xl space-y-6 hidden">
-        <div>
-          <h2 class="text-xl font-bold text-white">Bio & Redes Sociais</h2>
-          <p class="text-xs text-zinc-400 mt-1">Configure o título da Hero, biografia e links de redes sociais exibidos no press kit.</p>
-        </div>
-
-        <div class="bg-brand-cardBg border border-brand-border p-6 rounded-2xl space-y-4 text-xs">
-          <div>
-            <label class="block font-semibold text-zinc-300 mb-1">Título de Impacto / Chamariz (H1)</label>
-            <input type="text" id="editTitle" value="A TRILHA SONORA PERFEITA PARA O SEU MOMENTO" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white">
-          </div>
-          <div>
-            <label class="block font-semibold text-zinc-300 mb-1">Biografia do Artista</label>
-            <textarea id="editBio" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white h-24">Músico profissional, multi-instrumentista e arranjador...</textarea>
-          </div>
-          <div class="space-y-3 pt-2">
-            <h3 class="font-bold text-amber-400 text-sm">Redes Sociais</h3>
-            <div>
-              <label class="block font-semibold text-zinc-300 mb-1">Instagram</label>
-              <div class="flex items-center bg-zinc-900 border border-zinc-700 rounded-xl overflow-hidden">
-                <span class="px-3 py-2.5 bg-zinc-800 text-zinc-400 font-mono text-[11px] select-none border-r border-zinc-700">https://www.instagram.com/</span>
-                <input type="text" id="editInstagram" placeholder="seunomeaqui" class="w-full bg-transparent px-3 py-2.5 text-white focus:outline-none">
-              </div>
-            </div>
-            <div>
-              <label class="block font-semibold text-zinc-300 mb-1">TikTok</label>
-              <div class="flex items-center bg-zinc-900 border border-zinc-700 rounded-xl overflow-hidden">
-                <span class="px-3 py-2.5 bg-zinc-800 text-zinc-400 font-mono text-[11px] select-none border-r border-zinc-700">https://www.tiktok.com/@</span>
-                <input type="text" id="editTiktok" placeholder="seunomeaqui" class="w-full bg-transparent px-3 py-2.5 text-white focus:outline-none">
-              </div>
-            </div>
-            <div>
-              <label class="block font-semibold text-zinc-300 mb-1">Facebook</label>
-              <div class="flex items-center bg-zinc-900 border border-zinc-700 rounded-xl overflow-hidden">
-                <span class="px-3 py-2.5 bg-zinc-800 text-zinc-400 font-mono text-[11px] select-none border-r border-zinc-700">https://www.facebook.com/</span>
-                <input type="text" id="editFacebook" placeholder="seunomeaqui" class="w-full bg-transparent px-3 py-2.5 text-white focus:outline-none">
-              </div>
-            </div>
-          </div>
-          <button onclick="saveArtistEdits()" class="bg-amber-500 hover:bg-amber-600 text-black font-extrabold py-3 px-6 rounded-xl shadow-md cursor-pointer">Salvar Bio & Redes</button>
-        </div>
-      </div>
-
-      <!-- ABA MÍDIAS & STREAMING (COM OS CARDS: FOTOS, NA PRÁTICA, VAMOS OUVIR) -->
-      <div id="tabMedia" class="dashboard-tab max-w-4xl space-y-6 hidden">
-        <div>
-          <h2 class="text-xl font-bold text-white">Mídias, Streaming & Formatos</h2>
-          <p class="text-xs text-zinc-400 mt-1">Gerencie suas fotos de show, vídeos de trabalho e músicas nas plataformas de streaming.</p>
-        </div>
-
-        <div class="grid md:grid-cols-2 gap-6">
-          <!-- CARD 1: FOTOS -->
-          <div class="bg-brand-cardBg border border-brand-border p-6 rounded-2xl space-y-4 text-xs">
+          <div class="space-y-3">
             <div class="flex items-center gap-2 text-amber-500 font-bold text-sm">
-              <i data-lucide="image" class="w-5 h-5"></i> <span>Fotos (Shows e Apresentações)</span>
+              <i data-lucide="file-audio" class="w-5 h-5"></i> <span>Repertório (Word / PDF)</span>
             </div>
-            <p class="text-zinc-400">Insira as fotos que aparecerão nos formatos de show do seu press kit.</p>
-            <div class="space-y-2">
-              <label class="block font-semibold text-zinc-300">Foto Formato 1</label>
-              <input type="file" id="fileFormat1" accept="image/*" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-2 text-zinc-300 text-xs">
+            <p class="text-zinc-400 leading-relaxed">Envie o arquivo oficial para compartilhamento com contratantes.</p>
+            
+            <div class="space-y-2 pt-2">
+              <label class="block font-semibold text-zinc-300">Selecionar arquivo (.pdf, .docx, .doc)</label>
+              <input type="file" id="repertoireFile" accept=".pdf,.doc,.docx" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-2 text-zinc-300 text-xs">
+              <button onclick="uploadRepertoire()" class="w-full bg-amber-500 hover:bg-amber-600 text-black font-bold py-2.5 rounded-xl mt-2 cursor-pointer">Enviar Repertório</button>
             </div>
-            <div class="space-y-2">
-              <label class="block font-semibold text-zinc-300">Foto Formato 2</label>
-              <input type="file" id="fileFormat2" accept="image/*" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-2 text-zinc-300 text-xs">
-            </div>
-            <div class="space-y-2">
-              <label class="block font-semibold text-zinc-300">Foto Formato 3</label>
-              <input type="file" id="fileFormat3" accept="image/*" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-2 text-zinc-300 text-xs">
-            </div>
-          </div>
 
-          <!-- CARD 2: NA PRÁTICA -->
-          <div class="bg-brand-cardBg border border-brand-border p-6 rounded-2xl space-y-4 text-xs">
-            <div class="flex items-center gap-2 text-amber-500 font-bold text-sm">
-              <i data-lucide="video" class="w-5 h-5"></i> <span>Na Prática (Vídeos do Trabalho)</span>
-            </div>
-            <p class="text-zinc-400">Insira o link do YouTube para exibir o vídeo de destaque na página inicial do seu press kit.</p>
-            <div>
-              <label class="block font-semibold text-zinc-300 mb-1">Vídeo Destaque (YouTube URL)</label>
-              <input type="text" id="editYoutubeMusic" placeholder="https://www.youtube.com/watch?v=..." class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white">
+            <div id="repertoireStatus" class="pt-2 text-emerald-400 font-semibold">
+              Nenhum repertório enviado no momento.
             </div>
           </div>
         </div>
-
-        <!-- CARD 3: VAMOS OUVIR -->
-        <div class="bg-brand-cardBg border border-brand-border p-6 rounded-2xl space-y-4 text-xs">
-          <div class="flex items-center gap-2 text-amber-500 font-bold text-sm">
-            <i data-lucide="headphones" class="w-5 h-5"></i> <span>Vamos Ouvir (Músicas de Trabalho nas Plataformas)</span>
-          </div>
-          <p class="text-zinc-400">Cole abaixo os links das suas músicas de trabalho. O sistema gerará um balão/player personalizado para o contratante ouvir diretamente no seu press kit.</p>
-          <div class="grid sm:grid-cols-3 gap-3">
-            <div>
-              <label class="block font-semibold text-zinc-300 mb-1">Spotify</label>
-              <input type="text" id="editSpotify" placeholder="https://spotify.com/track/..." class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-2.5 text-white">
-            </div>
-            <div>
-              <label class="block font-semibold text-zinc-300 mb-1">Deezer</label>
-              <input type="text" id="editDeezer" placeholder="https://deezer.com/track/..." class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-2.5 text-white">
-            </div>
-            <div>
-              <label class="block font-semibold text-zinc-300 mb-1">Apple Music</label>
-              <input type="text" id="editApple" placeholder="https://music.apple.com/..." class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-2.5 text-white">
-            </div>
-          </div>
-        </div>
-
-        <button onclick="saveArtistEdits()" class="bg-amber-500 hover:bg-amber-600 text-black font-extrabold py-3 px-6 rounded-xl shadow-md cursor-pointer">Salvar Mídias & Streaming</button>
       </div>
 
-      <!-- ABA DOCUMENTOS & CONTRATOS (LADO A LADO) -->
-      <div id="tabDocuments" class="dashboard-tab max-w-5xl space-y-6 hidden">
+      <!-- ABA 7: CONTRATOS (Separado) -->
+      <div id="tabContracts" class="dashboard-tab max-w-3xl space-y-6 hidden">
         <div>
-          <h2 class="text-xl font-bold text-white">Documentos & Contratos</h2>
-          <p class="text-xs text-zinc-400 mt-1">Envie seu repertório e edite seu contrato modelo com o selo StageKit.</p>
+          <h2 class="text-xl font-bold text-white">Modelo de Contratos</h2>
+          <p class="text-xs text-zinc-400 mt-1">Edite seu contrato modelo com o selo StageKit.</p>
         </div>
 
-        <div class="grid md:grid-cols-2 gap-6">
-          <!-- REPERTÓRIO -->
-          <div class="bg-brand-cardBg border border-brand-border p-6 rounded-2xl space-y-4 text-xs flex flex-col justify-between">
-            <div class="space-y-3">
-              <div class="flex items-center gap-2 text-amber-500 font-bold text-sm">
-                <i data-lucide="file-audio" class="w-5 h-5"></i> <span>Repertório (Word / PDF)</span>
-              </div>
-              <p class="text-zinc-400 leading-relaxed">Envie a lista de músicas e repertório oficial do seu show para compartilhamento com contratantes.</p>
-              
-              <div class="space-y-2 pt-2">
-                <label class="block font-semibold text-zinc-300">Selecionar arquivo (.pdf, .docx, .doc)</label>
-                <input type="file" id="repertoireFile" accept=".pdf,.doc,.docx" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-2 text-zinc-300 text-xs">
-                <button onclick="uploadRepertoire()" class="w-full bg-amber-500 hover:bg-amber-600 text-black font-bold py-2.5 rounded-xl mt-2 cursor-pointer">Enviar Repertório</button>
-              </div>
-
-              <div id="repertoireStatus" class="pt-2 text-emerald-400 font-semibold">
-                Nenhum repertório enviado no momento.
-              </div>
+        <div class="bg-brand-cardBg border border-brand-border p-6 rounded-2xl space-y-4 text-xs">
+          <div class="space-y-3">
+            <div class="flex items-center gap-2 text-amber-500 font-bold text-sm">
+              <i data-lucide="file-text" class="w-5 h-5"></i> <span>Contrato de Prestação de Serviços</span>
             </div>
-          </div>
-
-          <!-- CONTRATO -->
-          <div class="bg-brand-cardBg border border-brand-border p-6 rounded-2xl space-y-4 text-xs flex flex-col justify-between">
-            <div class="space-y-3">
-              <div class="flex items-center gap-2 text-amber-500 font-bold text-sm">
-                <i data-lucide="file-text" class="w-5 h-5"></i> <span>Contrato de Prestação de Serviços</span>
-              </div>
-              <p class="text-zinc-400 leading-relaxed">Edite o contrato modelo abaixo. Este documento possui o selo oficial de padronização do <strong>StageKit</strong>, porém sua validade jurídica e obrigações são de <strong>inteira e exclusiva responsabilidade do artista</strong>.</p>
-              
-              <div class="space-y-2">
-                <label class="block font-semibold text-zinc-300">Cláusulas e Condições do Contrato (Editável)</label>
-                <textarea id="contractText" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white h-36 leading-relaxed">CONTRATO DE PRESTAÇÃO DE SERVIÇOS ARTÍSTICOS
+            <p class="text-zinc-400 leading-relaxed">Este documento possui o selo oficial de padronização do <strong>StageKit</strong>, sendo de <strong>inteira e exclusiva responsabilidade do artista</strong>.</p>
+            
+            <div class="space-y-2">
+              <label class="block font-semibold text-zinc-300">Cláusulas e Condições (Editável)</label>
+              <textarea id="contractText" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white h-48 leading-relaxed">CONTRATO DE PRESTAÇÃO DE SERVIÇOS ARTÍSTICOS
 
 Pelo presente instrumento particular, de um lado o(a) contratado(a) [NOME DO ARTISTA], inscrito(a) no CPF sob o nº [CPF], doravante denominado(a) ARTISTA, e de outro o CONTRATANTE acordam a realização da apresentação musical conforme termos combinados.
 
@@ -636,13 +756,13 @@ A prestação de serviços artísticos musicais para o evento estipulado.
 
 CLÁUSULA SEGUNDA - DA RESPONSABILIDADE
 Este documento é gerado através da plataforma StageKit com padrão Casa 6 Produções, sendo de total e exclusiva responsabilidade civil e criminal do ARTISTA a execução, negociação, emissão de recibos e cumprimento deste instrumento.</textarea>
-              </div>
             </div>
-            <button onclick="saveContractModel()" class="w-full bg-amber-500 hover:bg-amber-600 text-black font-bold py-2.5 rounded-xl cursor-pointer mt-4">Salvar Modelo de Contrato</button>
           </div>
+          <button onclick="saveContractModel()" class="w-full bg-amber-500 hover:bg-amber-600 text-black font-bold py-2.5 rounded-xl cursor-pointer">Salvar Modelo de Contrato</button>
         </div>
       </div>
 
+      <!-- ABA 8: EVENTOS -->
       <div id="tabEvents" class="dashboard-tab max-w-4xl space-y-6 hidden">
         <div>
           <h2 class="text-xl font-bold text-white">Gestão de Eventos & Shows Fechados</h2>
@@ -697,6 +817,7 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
         </div>
       </div>
 
+      <!-- ABA 9: GESTÃO DE EQUIPE -->
       <div id="tabTeam" class="dashboard-tab max-w-4xl space-y-6 hidden">
         <div>
           <h2 class="text-xl font-bold text-white">Gestão de Equipe & Projetos</h2>
@@ -730,10 +851,11 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
         </div>
       </div>
 
+      <!-- ABA 10: GOOGLE AGENDA -->
       <div id="tabCalendar" class="dashboard-tab max-w-3xl space-y-6 hidden">
         <div>
           <h2 class="text-xl font-bold text-white">Google Agenda (Ferramenta)</h2>
-          <p class="text-xs text-zinc-400 mt-1">Conecte sua conta do Google exclusivamente para sincronizar a agenda dos seus shows. Isso é uma ferramenta do painel e não interfere no seu login no StageKit.</p>
+          <p class="text-xs text-zinc-400 mt-1">Conecte sua conta do Google exclusivamente para sincronizar a agenda dos seus shows.</p>
         </div>
         <div class="bg-brand-cardBg border border-brand-border p-6 rounded-2xl space-y-4 text-xs">
           <div class="flex items-center justify-between bg-zinc-900 p-4 rounded-xl border border-zinc-800">
@@ -759,6 +881,34 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       </div>
 
     </main>
+  </div>
+
+  <!-- ==================== MODAL DE EDIÇÃO DE FOTO DE PERFIL (CROP/ZOOM/GIRAR) ==================== -->
+  <div id="editAvatarModal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="bg-brand-cardBg border border-brand-border rounded-3xl max-w-md w-full p-6 space-y-4 shadow-2xl relative">
+      <button onclick="closeEditAvatarModal()" class="absolute top-5 right-5 text-zinc-400 hover:text-white cursor-pointer"><i data-lucide="x" class="w-5 h-5"></i></button>
+      <h3 class="text-lg font-bold text-white">Editar Foto de Perfil</h3>
+      <p class="text-xs text-zinc-400">Ajuste o zoom e a rotação da sua foto de perfil.</p>
+      
+      <div class="flex justify-center my-4">
+        <div class="w-36 h-36 rounded-2xl overflow-hidden border border-zinc-700 bg-zinc-900 flex items-center justify-center relative">
+          <img id="modalAvatarCropImg" src="" class="w-full h-full object-cover transition-transform duration-200" alt="Crop">
+        </div>
+      </div>
+
+      <div class="space-y-3 text-xs">
+        <div>
+          <label class="block text-zinc-300 mb-1">Zoom / Tamanho</label>
+          <input type="range" id="avatarZoomRange" min="1" max="2" step="0.1" value="1" oninput="updateAvatarTransform()" class="w-full accent-amber-500">
+        </div>
+        <div>
+          <label class="block text-zinc-300 mb-1">Girar Foto (Graus)</label>
+          <input type="range" id="avatarRotateRange" min="0" max="360" step="90" value="0" oninput="updateAvatarTransform()" class="w-full accent-amber-500">
+        </div>
+      </div>
+
+      <button onclick="saveAvatarTransform()" class="w-full bg-amber-500 hover:bg-amber-600 text-black font-bold py-2.5 rounded-xl text-xs cursor-pointer mt-2">Aplicar Ajustes</button>
+    </div>
   </div>
 
   <!-- ==================== MODAL DE CADASTRO SIMPLIFICADO ==================== -->
@@ -844,7 +994,7 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
     </div>
   </div>
 
-  <!-- ==================== FORMAT MODAL ==================== -->
+  <!-- ==================== FORMAT MODAL (ORÇAMENTO) ==================== -->
   <div id="formatModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
     <div class="bg-brand-cardBg border border-brand-border rounded-3xl max-w-lg w-full max-h-[90vh] flex flex-col p-6 sm:p-8 space-y-4 shadow-2xl relative">
       <button onclick="closeFormatModal()" class="absolute top-6 right-6 text-zinc-400 hover:text-white z-20 bg-zinc-900/80 p-1.5 rounded-full border border-zinc-700 cursor-pointer"><i data-lucide="x" class="w-5 h-5"></i></button>
@@ -920,23 +1070,33 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
   <script>
     let usersDatabase = JSON.parse(localStorage.getItem('stagekit_users_db')) || [];
     let sessionUser = JSON.parse(localStorage.getItem('stagekit_session')) || null;
+    let isViewingOwnOnlineKit = false; // Controle para exibir botão "Voltar para área do artista"
 
     let artistData = sessionUser || {
       whatsapp: "(21)98936-8930",
       artistMainName: "SEU NOME",
+      city: "Rio de Janeiro, RJ",
       title: "A TRILHA SONORA PERFEITA PARA O SEU MOMENTO",
       bio: "Músico profissional, multi-instrumentista e arranjador com vasta experiência em palcos de eventos corporativos, casamentos e casas noturnas de destaque.",
       slug: "seu-nome",
       instagram: "seunomeaqui",
       tiktok: "",
       facebook: "",
-      youtubeMusic: "",
+      youtube1: "",
+      youtube2: "",
+      youtube3: "",
       spotify: "",
       deezer: "",
       apple: "",
-      formatPhoto1: "",
-      formatPhoto2: "",
-      formatPhoto3: "",
+      avatarUrl: "",
+      avatarZoom: 1,
+      avatarRotate: 0,
+      galleryPhotos: [],
+      formats: [
+        { title: "Barzinhos & Aniversários", sub: "ACÚSTICO & BANDA", desc: "Repertório versátil de MPB, pop, rock e sertanejo adaptado ao clima do evento.", photo: "" },
+        { title: "Casamentos & Cerimônias", sub: "AMBOS", desc: "Trilha sonora inesquecível para a entrada dos noivos, com som próprio incluído.", photo: "" },
+        { title: "Eventos & Formaturas", sub: "ENERGIA E PALCO", desc: "Show marcante para celebrações corporativas e recepções de alto nível.", photo: "" }
+      ],
       registeredEmail: "artista@stagekit.com",
       registeredPassword: "Senha123",
       cpf: "",
@@ -1031,6 +1191,7 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
         
         if (matchedArtist || (artistData && artistData.slug && artistData.slug.toLowerCase() === rawPath.toLowerCase())) {
           if (matchedArtist) artistData = matchedArtist;
+          isViewingOwnOnlineKit = false; // Visitante externo
           showPublicPressKit();
         } else {
           alert(`O link "/${rawPath}" não corresponde a nenhum Press Kit ativo na plataforma.`);
@@ -1049,6 +1210,8 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
     function loadInputsFromState() {
       const elProfName = document.getElementById('editProfileName');
       if(elProfName) elProfName.value = artistData.artistMainName;
+      const elProfCity = document.getElementById('editProfileCity');
+      if(elProfCity) elProfCity.value = artistData.city || 'Rio de Janeiro, RJ';
       const elProfCpf = document.getElementById('editProfileCpf');
       if(elProfCpf) elProfCpf.value = artistData.cpf || '';
       const elProfId = document.getElementById('editProfileMusicianId');
@@ -1075,8 +1238,14 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       if(elDz) elDz.value = artistData.deezer || '';
       const elAp = document.getElementById('editApple');
       if(elAp) elAp.value = artistData.apple || '';
-      const elYt = document.getElementById('editYoutubeMusic');
-      if(elYt) elYt.value = artistData.youtubeMusic || '';
+      
+      const elY1 = document.getElementById('editYoutube1');
+      if(elY1) elY1.value = artistData.youtube1 || '';
+      const elY2 = document.getElementById('editYoutube2');
+      if(elY2) elY2.value = artistData.youtube2 || '';
+      const elY3 = document.getElementById('editYoutube3');
+      if(elY3) elY3.value = artistData.youtube3 || '';
+
       const elSlug = document.getElementById('customSlugInput');
       if(elSlug) elSlug.value = artistData.slug;
 
@@ -1089,7 +1258,22 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       if(repStatus && artistData.repertoireFileName) {
         repStatus.innerHTML = `✅ Arquivo enviado: <span class="text-white font-mono">${artistData.repertoireFileName}</span>`;
       }
-      
+
+      if(artistData.formats && artistData.formats.length === 3) {
+        document.getElementById('fmt1Title').value = artistData.formats[0].title;
+        document.getElementById('fmt1Sub').value = artistData.formats[0].sub;
+        document.getElementById('fmt1Desc').value = artistData.formats[0].desc;
+
+        document.getElementById('fmt2Title').value = artistData.formats[1].title;
+        document.getElementById('fmt2Option').value = artistData.formats[1].sub;
+        document.getElementById('fmt2Desc').value = artistData.formats[1].desc;
+
+        document.getElementById('fmt3Title').value = artistData.formats[2].title;
+        document.getElementById('fmt3Sub').value = artistData.formats[2].sub;
+        document.getElementById('fmt3Desc').value = artistData.formats[2].desc;
+      }
+
+      updateAvatarPreviews();
       applyPublicData();
     }
 
@@ -1104,20 +1288,86 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       if(e4) e4.innerText = artistData.bio;
       const e5 = document.getElementById('fullSlugPreview');
       if(e5) e5.innerText = `stagekitcasa6.vercel.app/${artistData.slug}`;
+      const eCity = document.getElementById('displayArtistCity');
+      if(eCity) eCity.innerText = `📍 ${artistData.city || 'Rio de Janeiro, RJ'}`;
 
-      if(artistData.formatPhoto1) {
-        const p1 = document.getElementById('displayFormatPhoto1');
-        if(p1) p1.src = artistData.formatPhoto1;
-      }
-      if(artistData.formatPhoto2) {
-        const p2 = document.getElementById('displayFormatPhoto2');
-        if(p2) p2.src = artistData.formatPhoto2;
-      }
-      if(artistData.formatPhoto3) {
-        const p3 = document.getElementById('displayFormatPhoto3');
-        if(p3) p3.src = artistData.formatPhoto3;
+      // Avatar Público
+      const pubAvatar = document.getElementById('displayArtistPhoto');
+      if(pubAvatar) {
+        if(artistData.avatarUrl) {
+          pubAvatar.src = artistData.avatarUrl;
+          pubAvatar.style.transform = `scale(${artistData.avatarZoom || 1}) rotate(${artistData.avatarRotate || 0}deg)`;
+        } else {
+          pubAvatar.src = 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=800&q=80';
+          pubAvatar.style.transform = 'scale(1) rotate(0deg)';
+        }
       }
 
+      // Vídeos Na Prática (Até 3)
+      const vContainer = document.getElementById('displayVideosContainer');
+      if(vContainer) {
+        let ytList = [artistData.youtube1, artistData.youtube2, artistData.youtube3].filter(Boolean);
+        if(ytList.length > 0) {
+          vContainer.innerHTML = ytList.map(url => {
+            let embedUrl = url;
+            if(embedUrl.includes('watch?v=')) embedUrl = embedUrl.replace('watch?v=', 'embed/');
+            return `
+              <div class="rounded-2xl overflow-hidden border border-brand-border shadow-2xl bg-brand-cardBg aspect-video flex items-center justify-center relative">
+                <iframe class="w-full h-full" src="${embedUrl}" frameborder="0" allowfullscreen></iframe>
+              </div>
+            `;
+          }).join('');
+        } else {
+          vContainer.innerHTML = `
+            <div class="col-span-full rounded-2xl overflow-hidden border border-brand-border shadow-2xl bg-brand-cardBg aspect-video flex items-center justify-center relative">
+              <img src="videodoyoutube.png" alt="Show" class="w-full h-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=1200&q=80'">
+            </div>
+          `;
+        }
+      }
+
+      // Galeria de Fotos Públicas
+      const gallerySec = document.getElementById('secaoGaleriaFotos');
+      const galleryGrid = document.getElementById('displayPublicGalleryGrid');
+      if(gallerySec && galleryGrid) {
+        if(artistData.galleryPhotos && artistData.galleryPhotos.length > 0) {
+          galleryGrid.innerHTML = artistData.galleryPhotos.map(photo => `
+            <div class="rounded-xl overflow-hidden h-32 border border-zinc-800 bg-zinc-900 shadow-md">
+              <img src="${photo}" class="w-full h-full object-cover hover:scale-105 transition-transform">
+            </div>
+          `).join('');
+          gallerySec.classList.remove('hidden');
+        } else {
+          gallerySec.classList.add('hidden');
+        }
+      }
+
+      // Formatos de Show Públicos
+      const formatsGrid = document.getElementById('displayFormatsPublicGrid');
+      if(formatsGrid && artistData.formats) {
+        formatsGrid.innerHTML = artistData.formats.map((fmt, idx) => {
+          let isMiddle = (idx === 1);
+          let defaultPhoto = idx === 0 ? 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=600&q=80' : (idx === 1 ? 'https://images.unsplash.com/photo-1465847899084-d164df4dedc6?auto=format&fit=crop&w=600&q=80' : 'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=600&q=80');
+          let photoSrc = fmt.photo || defaultPhoto;
+
+          return `
+            <div class="p-6 rounded-2xl bg-brand-cardBg ${isMiddle ? 'border border-amber-500/40 relative shadow-xl' : 'border border-brand-border'} flex flex-col justify-between space-y-4">
+              ${isMiddle ? '<div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-amber-500 text-black font-extrabold text-[10px] uppercase px-3 py-0.5 rounded-full">Mais Pedido</div>' : ''}
+              <div class="rounded-xl overflow-hidden h-40 border border-zinc-800 bg-zinc-900 ${isMiddle ? 'mt-2' : ''}">
+                <img src="${photoSrc}" class="w-full h-full object-cover">
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-amber-500 uppercase">${fmt.sub}</span>
+                <h3 class="text-xl font-bold text-white mt-1 mb-2">${fmt.title}</h3>
+                <p class="text-xs text-zinc-400 leading-relaxed">${fmt.desc}</p>
+              </div>
+              <button onclick="openFormatModal('${fmt.title}')" class="w-full bg-amber-500 hover:bg-amber-600 text-black font-bold py-3 rounded-xl text-sm flex items-center justify-center gap-2 cursor-pointer">Quero este formato <i data-lucide="arrow-right" class="w-4 h-4"></i></button>
+            </div>
+          `;
+        }).join('');
+      }
+
+      // Balão Vamos Ouvir
       const vamosContainer = document.getElementById('vamosOuvirPublicContainer');
       const linksList = document.getElementById('vamosOuvirLinksList');
       if(vamosContainer && linksList) {
@@ -1137,24 +1387,6 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
           vamosContainer.classList.add('hidden');
         }
       }
-
-      const heroImg = document.getElementById('displayHeroImage');
-      const ytFrame = document.getElementById('displayHeroVideo');
-      
-      if(artistData.youtubeMusic && artistData.youtubeMusic.includes('http')) {
-        let embedUrl = artistData.youtubeMusic;
-        if(embedUrl.includes('watch?v=')) {
-          embedUrl = embedUrl.replace('watch?v=', 'embed/');
-        }
-        if(ytFrame) {
-          ytFrame.src = embedUrl;
-          ytFrame.classList.remove('hidden');
-        }
-        if(heroImg) heroImg.classList.add('hidden');
-      } else {
-        if(ytFrame) ytFrame.classList.add('hidden');
-        if(heroImg) heroImg.classList.remove('hidden');
-      }
       try { lucide.createIcons(); } catch(e) {}
     }
 
@@ -1172,6 +1404,7 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
         if(lha) lha.classList.add('hidden');
         const pha = document.getElementById('panelHeaderActions');
         if(pha) pha.classList.remove('hidden');
+        document.getElementById('backToDashboardContainer').classList.add('hidden');
       } else {
         const lha = document.getElementById('landingHeaderActions');
         if(lha) lha.classList.remove('hidden');
@@ -1180,7 +1413,10 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       }
     }
 
-    function showPublicPressKit() {
+    function showPublicPressKit(fromOwnPanel = false) {
+      if(fromOwnPanel) {
+        isViewingOwnOnlineKit = true;
+      }
       try { window.history.pushState({}, '', `/${artistData.slug}`); } catch(e) {}
       const lp = document.getElementById('landingPage');
       if(lp) lp.classList.add('hidden');
@@ -1192,10 +1428,23 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       if(lha) lha.classList.add('hidden');
       const pha = document.getElementById('panelHeaderActions');
       if(pha) pha.classList.remove('hidden');
+
+      // Exibir ou ocultar botão "Voltar para área do artista"
+      const backBtnContainer = document.getElementById('backToDashboardContainer');
+      const viewOnlineBtn = document.getElementById('viewOnlineKitBtn');
+      if(isViewingOwnOnlineKit && sessionUser) {
+        if(backBtnContainer) backBtnContainer.classList.remove('hidden');
+        if(viewOnlineBtn) viewOnlineBtn.classList.add('hidden');
+      } else {
+        if(backBtnContainer) backBtnContainer.classList.add('hidden');
+        if(viewOnlineBtn) viewOnlineBtn.classList.remove('hidden');
+      }
+
       applyPublicData();
     }
 
     function showArtistDashboard() {
+      isViewingOwnOnlineKit = false;
       try { window.history.pushState({}, '', '/dashboard'); } catch(e) {}
       const lp = document.getElementById('landingPage');
       if(lp) lp.classList.add('hidden');
@@ -1207,125 +1456,162 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       if(lha) lha.classList.add('hidden');
       const pha = document.getElementById('panelHeaderActions');
       if(pha) pha.classList.remove('hidden');
-      switchTab('tabDashboard');
+      
+      const backBtnContainer = document.getElementById('backToDashboardContainer');
+      const viewOnlineBtn = document.getElementById('viewOnlineKitBtn');
+      if(backBtnContainer) backBtnContainer.classList.add('hidden');
+      if(viewOnlineBtn) viewOnlineBtn.classList.remove('hidden');
+
+      switchTab('tabProfile');
+    }
+
+    function toggleSidebar() {
+      const sidebar = document.getElementById('adminSidebar');
+      if(sidebar) {
+        sidebar.classList.toggle('hidden');
+      }
+    }
+
+    // Gerenciamento de Avatar Avançado
+    function handleAvatarUpload(event) {
+      const file = event.target.files[0];
+      if(file) {
+        const reader = new FileReader();
+        reader.onload = e => {
+          artistData.avatarUrl = e.target.result;
+          artistData.avatarZoom = 1;
+          artistData.avatarRotate = 0;
+          saveData();
+          updateAvatarPreviews();
+        };
+        reader.readAsDataURL(file);
+      }
+    }
+
+    function updateAvatarPreviews() {
+      const previewImg = document.getElementById('previewAvatarImg');
+      if(previewImg) {
+        if(artistData.avatarUrl) {
+          previewImg.src = artistData.avatarUrl;
+          previewImg.style.transform = `scale(${artistData.avatarZoom || 1}) rotate(${artistData.avatarRotate || 0}deg)`;
+        } else {
+          previewImg.src = 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=400&q=80';
+          previewImg.style.transform = 'scale(1) rotate(0deg)';
+        }
+      }
+    }
+
+    function openEditAvatarModal() {
+      if(!artistData.avatarUrl) {
+        alert('Adicione uma foto de perfil primeiro.');
+        return;
+      }
+      const modal = document.getElementById('editAvatarModal');
+      const cropImg = document.getElementById('modalAvatarCropImg');
+      if(cropImg) cropImg.src = artistData.avatarUrl;
+      document.getElementById('avatarZoomRange').value = artistData.avatarZoom || 1;
+      document.getElementById('avatarRotateRange').value = artistData.avatarRotate || 0;
+      updateAvatarTransform();
+      modal.classList.remove('hidden');
+    }
+
+    function closeEditAvatarModal() {
+      document.getElementById('editAvatarModal').classList.add('hidden');
+    }
+
+    function updateAvatarTransform() {
+      const zoom = document.getElementById('avatarZoomRange').value;
+      const rotate = document.getElementById('avatarRotateRange').value;
+      const cropImg = document.getElementById('modalAvatarCropImg');
+      if(cropImg) {
+        cropImg.style.transform = `scale(${zoom}) rotate(${rotate}deg)`;
+      }
+    }
+
+    function saveAvatarTransform() {
+      artistData.avatarZoom = parseFloat(document.getElementById('avatarZoomRange').value);
+      artistData.avatarRotate = parseInt(document.getElementById('avatarRotateRange').value);
+      saveData();
+      updateAvatarPreviews();
+      closeEditAvatarModal();
+      alert('Ajustes da foto aplicados com sucesso!');
+    }
+
+    function removeAvatarPhoto() {
+      artistData.avatarUrl = "";
+      artistData.avatarZoom = 1;
+      artistData.avatarRotate = 0;
+      saveData();
+      updateAvatarPreviews();
+      alert('Foto de perfil removida.');
     }
 
     function openLoginModal() { 
-      const le = document.getElementById('loginEmail');
-      if(le) le.value = '';
-      const lp = document.getElementById('loginPassword');
-      if(lp) lp.value = '';
-      const lm = document.getElementById('loginModal');
-      if(lm) lm.classList.remove('hidden'); 
+      document.getElementById('loginEmail').value = '';
+      document.getElementById('loginPassword').value = '';
+      document.getElementById('loginModal').classList.remove('hidden'); 
     }
 
-    function closeLoginModal() {
-      const lm = document.getElementById('loginModal');
-      if(lm) lm.classList.add('hidden');
-    }
-    
-    function handleLoginKey(e) {
-      if(e.key === 'Enter') submitLogin();
-    }
+    function closeLoginModal() { document.getElementById('loginModal').classList.add('hidden'); }
+    function handleLoginKey(e) { if(e.key === 'Enter') submitLogin(); }
 
     function submitLogin() {
-      const le = document.getElementById('loginEmail');
-      const lp = document.getElementById('loginPassword');
-      const email = le ? le.value.trim().toLowerCase() : '';
-      const pass = lp ? lp.value.trim() : '';
+      const email = document.getElementById('loginEmail').value.trim().toLowerCase();
+      const pass = document.getElementById('loginPassword').value.trim();
 
-      if(!email || !pass) {
-        alert('Por favor, digite seu e-mail e senha.');
-        return;
-      }
+      if(!email || !pass) { alert('Digite seu e-mail e senha.'); return; }
 
       const userFound = usersDatabase.find(u => u.registeredEmail.toLowerCase() === email && u.registeredPassword === pass);
-
       if(userFound) {
         sessionUser = userFound;
         artistData = userFound;
         localStorage.setItem('stagekit_session', JSON.stringify(sessionUser));
-        
         loadInputsFromState();
         closeLoginModal();
         showArtistDashboard();
       } else {
-        alert('E-mail ou senha incorretos! Verifique os dados digitados.');
+        alert('E-mail ou senha incorretos!');
       }
     }
 
-    function openRegisterModal() { 
-      const rf = document.getElementById('regFullName');
-      if(rf) rf.value = '';
-      const rb = document.getElementById('regBirthDate');
-      if(rb) rb.value = '';
-      const rp = document.getElementById('regPhone');
-      if(rp) rp.value = '';
-      const re = document.getElementById('regEmail');
-      if(re) re.value = '';
-      const rpass = document.getElementById('regPassword');
-      if(rpass) rpass.value = '';
-      const rm = document.getElementById('registerModal');
-      if(rm) rm.classList.remove('hidden'); 
-    }
+    function openRegisterModal() { document.getElementById('registerModal').classList.remove('hidden'); }
+    function closeRegisterModal() { document.getElementById('registerModal').classList.add('hidden'); }
 
-    function closeRegisterModal() {
-      const rm = document.getElementById('registerModal');
-      if(rm) rm.classList.add('hidden');
-    }
-    
     function submitRegister() {
-      const rf = document.getElementById('regFullName');
-      const rp = document.getElementById('regPhone');
-      const re = document.getElementById('regEmail');
-      const rpass = document.getElementById('regPassword');
-
-      const fullName = rf ? rf.value.trim() : '';
-      const phone = rp ? rp.value.trim() : '';
-      const email = re ? re.value.trim().toLowerCase() : '';
-      const pass = rpass ? rpass.value.trim() : '';
+      const fullName = document.getElementById('regFullName').value.trim();
+      const phone = document.getElementById('regPhone').value.trim();
+      const email = document.getElementById('regEmail').value.trim().toLowerCase();
+      const pass = document.getElementById('regPassword').value.trim();
       
-      if(!fullName || !email || !pass) { 
-        alert('Preencha todos os campos obrigatórios.'); 
-        return; 
-      }
-
-      if(!isValidEmail(email)) {
-        alert('E-mail inválido ou fictício. Informe um e-mail real e legítimo (ex: seu.nome@gmail.com ou @outlook.com).');
-        return;
-      }
-
-      if(!isValidPassword(pass)) {
-        alert('A senha é muito fraca. Ela deve conter no mínimo 8 caracteres, incluindo letras e números.');
-        return;
-      }
-
-      const existingUser = usersDatabase.find(u => u.registeredEmail.toLowerCase() === email);
-      if(existingUser) {
-        alert('Este e-mail já está cadastrado. Faça login na sua conta.');
-        closeRegisterModal();
-        openLoginModal();
-        return;
-      }
+      if(!fullName || !email || !pass) { alert('Preencha os campos obrigatórios.'); return; }
+      if(!isValidEmail(email)) { alert('E-mail inválido.'); return; }
+      if(!isValidPassword(pass)) { alert('A senha deve ter no mínimo 8 caracteres, com letras e números.'); return; }
 
       const generatedSlug = fullName.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]/g, '');
 
       const newUser = {
         whatsapp: phone || "(21)98936-8930",
         artistMainName: fullName.toUpperCase(),
+        city: "Rio de Janeiro, RJ",
         title: "A TRILHA SONORA PERFEITA PARA O SEU MOMENTO",
         bio: "Músico profissional, multi-instrumentista e arranjador...",
         slug: generatedSlug,
         instagram: "",
         tiktok: "",
         facebook: "",
-        youtubeMusic: "",
+        youtube1: "",
+        youtube2: "",
+        youtube3: "",
         spotify: "",
         deezer: "",
         apple: "",
-        formatPhoto1: "",
-        formatPhoto2: "",
-        formatPhoto3: "",
+        avatarUrl: "",
+        galleryPhotos: [],
+        formats: [
+          { title: "Barzinhos & Aniversários", sub: "ACÚSTICO & BANDA", desc: "Repertório versátil de MPB, pop, rock e sertanejo adaptado ao clima do evento.", photo: "" },
+          { title: "Casamentos & Cerimônias", sub: "AMBOS", desc: "Trilha sonora inesquecível para a entrada dos noivos, com som próprio incluído.", photo: "" },
+          { title: "Eventos & Formaturas", sub: "ENERGIA E PALCO", desc: "Show marcante para celebrações corporativas e recepções de alto nível.", photo: "" }
+        ],
         registeredEmail: email,
         registeredPassword: pass,
         cpf: "",
@@ -1337,14 +1623,13 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
 
       usersDatabase.push(newUser);
       localStorage.setItem('stagekit_users_db', JSON.stringify(usersDatabase));
-
       sessionUser = newUser;
       artistData = newUser;
       localStorage.setItem('stagekit_session', JSON.stringify(sessionUser));
 
       loadInputsFromState();
       closeRegisterModal();
-      alert('Cadastro validado com sucesso! Bem-vindo ao seu painel.');
+      alert('Cadastro realizado com sucesso!');
       showArtistDashboard();
     }
 
@@ -1365,11 +1650,13 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       });
 
       const activeBtnMap = {
-        'tabDashboard': 'btnTabDashboard',
         'tabProfile': 'btnTabProfile',
         'tabBio': 'btnTabBio',
         'tabMedia': 'btnTabMedia',
-        'tabDocuments': 'btnTabDocuments',
+        'tabFormats': 'btnTabFormats',
+        'tabDashboard': 'btnTabDashboard',
+        'tabRepertoire': 'btnTabRepertoire',
+        'tabContracts': 'btnTabContracts',
         'tabEvents': 'btnTabEvents',
         'tabTeam': 'btnTabTeam',
         'tabCalendar': 'btnTabCalendar'
@@ -1394,286 +1681,205 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       if(type === 'videos') {
         subtitle.innerText = "Demonstração da Seção";
         title.innerText = "1. Vídeos Reais no Topo";
-        content.innerHTML = `
-          <div class="space-y-4">
-            <p class="text-zinc-300 text-xs leading-relaxed">Veja como o contratante visualiza o vídeo de performance ao vivo do artista logo no topo do Press Kit (com a imagem real videodoyoutube.png):</p>
-            <div class="w-full rounded-2xl overflow-hidden border border-brand-border shadow-2xl bg-zinc-900 aspect-video flex items-center justify-center relative">
-              <img src="videodoyoutube.png" alt="Matheus Felipe em um show acústico aconchegante" class="w-full h-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=800&q=80'">
-              <div class="absolute inset-0 bg-black/30 flex items-center justify-center">
-                <div class="w-14 h-14 rounded-full bg-amber-500 text-black flex items-center justify-center shadow-lg font-bold text-xl pl-1">▶</div>
-              </div>
-            </div>
-          </div>
-        `;
+        content.innerHTML = `<p class="text-zinc-300 text-xs">Exibição de performances ao vivo do artista.</p>`;
       } else if(type === 'formatos') {
         subtitle.innerText = "Demonstração da Seção";
         title.innerText = "2. Formatos de Show Disponíveis";
-        content.innerHTML = `
-          <div class="space-y-4">
-            <p class="text-zinc-300 text-xs leading-relaxed">O contratante visualiza os formatos customizados com fotos reais e descrições das estruturas:</p>
-            <div class="grid sm:grid-cols-3 gap-4">
-              <div class="p-4 rounded-xl bg-zinc-900 border border-zinc-800 space-y-2">
-                <div class="rounded-lg overflow-hidden h-24 bg-zinc-800"><img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=400&q=80" class="w-full h-full object-cover"></div>
-                <h4 class="font-bold text-white text-xs">Barzinhos & Aniversários</h4>
-              </div>
-              <div class="p-4 rounded-xl bg-zinc-900 border border-amber-500/40 space-y-2 relative">
-                <div class="absolute -top-2 left-1/2 -translate-x-1/2 bg-amber-500 text-black font-extrabold text-[8px] uppercase px-2 py-0.5 rounded-full">Mais Pedido</div>
-                <div class="rounded-lg overflow-hidden h-24 bg-zinc-800 mt-1"><img src="https://images.unsplash.com/photo-1465847899084-d164df4dedc6?auto=format&fit=crop&w=400&q=80" class="w-full h-full object-cover"></div>
-                <h4 class="font-bold text-white text-xs">Casamentos & Cerimônias</h4>
-              </div>
-              <div class="p-4 rounded-xl bg-zinc-900 border border-zinc-800 space-y-2">
-                <div class="rounded-lg overflow-hidden h-24 bg-zinc-800"><img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=400&q=80" class="w-full h-full object-cover"></div>
-                <h4 class="font-bold text-white text-xs">Eventos & Formaturas</h4>
-              </div>
-            </div>
-          </div>
-        `;
+        content.innerHTML = `<p class="text-zinc-300 text-xs">Visualização de estruturas customizadas.</p>`;
       }
       modal.classList.remove('hidden');
-      try { lucide.createIcons(); } catch(e) {}
     }
 
-    function closeDemoModal() {
-      const modal = document.getElementById('demoModal');
-      if(modal) modal.classList.add('hidden');
-    }
+    function closeDemoModal() { document.getElementById('demoModal').classList.add('hidden'); }
 
-    function openFormatModal(formatName, isStaticSample = false) {
+    function openFormatModal(formatName) {
       selectedFormatForModal = formatName;
-      const mft = document.getElementById('modalFormatTitle');
-      if(mft) mft.innerText = formatName;
-      
-      const banner = document.getElementById('modalModeBanner');
-      const submitBtn = document.getElementById('modalSubmitBtn');
-
-      if(isStaticSample) {
-        if(banner) banner.innerHTML = "⚠️ <strong>Modo Exibição (Amostra):</strong> Este questionário é apenas uma demonstração visual.";
-        if(submitBtn) {
-          submitBtn.innerText = "Modo Exibição (Não Envia Wpp)";
-          submitBtn.onclick = () => alert('Este é apenas um exemplo de exibição da ferramenta.');
-        }
-      } else {
-        if(banner) banner.innerHTML = "Preencha os detalhes abaixo para verificar a disponibilidade e gerar sua proposta via WhatsApp!";
-        if(submitBtn) {
-          submitBtn.innerHTML = '<i data-lucide="message-square" class="w-4 h-4"></i> Verificar Disponibilidade & Enviar WhatsApp';
-          submitBtn.onclick = sendWhatsAppBudget;
-        }
-      }
-      const fm = document.getElementById('formatModal');
-      if(fm) fm.classList.remove('hidden');
-      try { lucide.createIcons(); } catch(e) {}
+      document.getElementById('modalFormatTitle').innerText = formatName;
+      document.getElementById('formatModal').classList.remove('hidden');
     }
 
-    function closeFormatModal() {
-      const fm = document.getElementById('formatModal');
-      if(fm) fm.classList.add('hidden');
-    }
+    function closeFormatModal() { document.getElementById('formatModal').classList.add('hidden'); }
 
     function sendWhatsAppBudget() {
-      const qcn = document.getElementById('qClientName');
-      const clientName = qcn ? qcn.value.trim() : '';
-      const qdt = document.getElementById('qDateTime');
-      const dt = qdt ? qdt.value || 'A combinar' : 'A combinar';
-      const qev = document.getElementById('qEventType');
-      const ev = qev ? qev.value : '';
-      const qaud = document.getElementById('qAudience');
-      const aud = qaud ? qaud.value : '';
-      const qloc = document.getElementById('qLocation');
-      const loc = qloc ? qloc.value || 'A combinar' : 'A combinar';
-      const qst = document.getElementById('qStyle');
-      const st = qst ? qst.value : '';
-      const qgen = document.getElementById('qGenre');
-      const genre = qgen ? qgen.value || 'Nenhuma preferência específica' : 'Nenhuma preferência específica';
-      const qsnd = document.getElementById('qSound');
-      const snd = qsnd ? qsnd.value : '';
+      const clientName = document.getElementById('qClientName').value.trim();
+      if(!clientName) { alert('Informe seu Nome Completo.'); return; }
+      
+      const dt = document.getElementById('qDateTime').value || 'A combinar';
+      const ev = document.getElementById('qEventType').value;
+      const aud = document.getElementById('qAudience').value;
+      const loc = document.getElementById('qLocation').value || 'A combinar';
 
-      if(!clientName) {
-        alert('Por favor, informe seu Nome Completo.');
-        return;
-      }
-
-      const text = `*Olá! Gostaria de verificar disponibilidade e solicitar orçamento.*\n\n` +
-                   `👤 *Contratante:* ${clientName}\n` +
-                   `🎵 *Formato:* ${selectedFormatForModal}\n` +
-                   `📅 *Data e Horário:* ${dt}\n` +
-                   `🎉 *Tipo de Evento:* ${ev}\n` +
-                   `👥 *Público Estimado:* ${aud}\n` +
-                   `📍 *Local:* ${loc}\n` +
-                   `🎸 *Estilo do Show:* ${st}\n` +
-                   `🎼 *Gêneros:* ${genre}\n` +
-                   `🔊 *Estrutura de Som:* ${snd}`;
-
+      const text = `*Olá! Gostaria de verificar disponibilidade.*\n\n👤 *Contratante:* ${clientName}\n🎵 *Formato:* ${selectedFormatForModal}\n📅 *Data:* ${dt}\n🎉 *Evento:* ${ev}\n👥 *Público:* ${aud}\n📍 *Local:* ${loc}`;
       const phoneNum = artistData.whatsapp.replace(/\D/g,'') || '21989368930';
-      const url = `https://wa.me/${phoneNum}?text=${encodeURIComponent(text)}`;
-      window.open(url, '_blank');
+      window.open(`https://wa.me/${phoneNum}?text=${encodeURIComponent(text)}`, '_blank');
       closeFormatModal();
     }
 
     function saveProfileEdits() {
-      const pName = document.getElementById('editProfileName');
-      if(pName) artistData.artistMainName = pName.value.toUpperCase();
-      const pCpf = document.getElementById('editProfileCpf');
-      if(pCpf) {
-        const cpfVal = pCpf.value.trim();
-        if(cpfVal && !isValidCPF(cpfVal)) {
-          alert('CPF inválido! Por favor, insira um CPF real.');
-          return;
-        }
-        artistData.cpf = cpfVal;
-      }
-      const pId = document.getElementById('editProfileMusicianId');
-      if(pId) artistData.musicianId = pId.value.trim();
-      const pPhone = document.getElementById('editProfilePhone');
-      if(pPhone) artistData.whatsapp = pPhone.value.trim();
+      artistData.artistMainName = document.getElementById('editProfileName').value.toUpperCase();
+      artistData.city = document.getElementById('editProfileCity').value.trim();
+      const cpfVal = document.getElementById('editProfileCpf').value.trim();
+      if(cpfVal && !isValidCPF(cpfVal)) { alert('CPF inválido!'); return; }
+      artistData.cpf = cpfVal;
+      artistData.musicianId = document.getElementById('editProfileMusicianId').value.trim();
+      artistData.whatsapp = document.getElementById('editProfilePhone').value.trim();
 
       saveData();
-      alert('Perfil e dados salvos com sucesso!');
+      alert('Perfil e dados salvos!');
       loadInputsFromState();
     }
 
     function saveArtistEdits() {
-      const ef1 = document.getElementById('editTitle');
-      if(ef1) artistData.title = ef1.value;
-      const ef2 = document.getElementById('editBio');
-      if(ef2) artistData.bio = ef2.value;
-      const ef3 = document.getElementById('editInstagram');
-      if(ef3) artistData.instagram = ef3.value;
-      const ef4 = document.getElementById('editTiktok');
-      if(ef4) artistData.tiktok = ef4.value;
-      const ef5 = document.getElementById('editFacebook');
-      if(ef5) artistData.facebook = ef5.value;
-      const ef6 = document.getElementById('editSpotify');
-      if(ef6) artistData.spotify = ef6.value;
-      const ef7 = document.getElementById('editDeezer');
-      if(ef7) artistData.deezer = ef7.value;
-      const ef8 = document.getElementById('editApple');
-      if(ef8) artistData.apple = ef8.value;
-      const ef9 = document.getElementById('editYoutubeMusic');
-      if(ef9) artistData.youtubeMusic = ef9.value;
-      const ef10 = document.getElementById('customSlugInput');
-      if(ef10) artistData.slug = ef10.value.toLowerCase().trim();
+      artistData.title = document.getElementById('editTitle').value;
+      artistData.bio = document.getElementById('editBio').value;
+      artistData.instagram = document.getElementById('editInstagram').value;
+      artistData.tiktok = document.getElementById('editTiktok').value;
+      artistData.facebook = document.getElementById('editFacebook').value;
+      artistData.spotify = document.getElementById('editSpotify').value;
+      artistData.deezer = document.getElementById('editDeezer').value;
+      artistData.apple = document.getElementById('editApple').value;
+      artistData.youtube1 = document.getElementById('editYoutube1').value;
+      artistData.youtube2 = document.getElementById('editYoutube2').value;
+      artistData.youtube3 = document.getElementById('editYoutube3').value;
+      artistData.slug = document.getElementById('customSlugInput').value.toLowerCase().trim();
 
-      const f1 = document.getElementById('fileFormat1') ? document.getElementById('fileFormat1').files[0] : null;
-      const f2 = document.getElementById('fileFormat2') ? document.getElementById('fileFormat2').files[0] : null;
-      const f3 = document.getElementById('fileFormat3') ? document.getElementById('fileFormat3').files[0] : null;
-
-      if(f1) {
-        const reader = new FileReader();
-        reader.onload = e => { artistData.formatPhoto1 = e.target.result; saveData(); applyPublicData(); };
-        reader.readAsDataURL(f1);
-      }
-      if(f2) {
-        const reader = new FileReader();
-        reader.onload = e => { artistData.formatPhoto2 = e.target.result; saveData(); applyPublicData(); };
-        reader.readAsDataURL(f2);
-      }
-      if(f3) {
-        const reader = new FileReader();
-        reader.onload = e => { artistData.formatPhoto3 = e.target.result; saveData(); applyPublicData(); };
-        reader.readAsDataURL(f3);
+      // Ler até 5 fotos da galeria
+      let photoPromises = [];
+      for(let i=1; i<=5; i++) {
+        let fileInput = document.getElementById(`galleryPhoto${i}`);
+        if(fileInput && fileInput.files[0]) {
+          let p = new Promise(resolve => {
+            let reader = new FileReader();
+            reader.onload = e => resolve(e.target.result);
+            reader.readAsDataURL(fileInput.files[0]);
+          });
+          photoPromises.push(p);
+        }
       }
 
-      saveData();
-      alert('Mídias e streaming salvas com sucesso!');
-      showArtistDashboard();
+      if(photoPromises.length > 0) {
+        Promise.all(photoPromises.then(results => {
+          artistData.galleryPhotos = [...(artistData.galleryPhotos || []), ...results];
+          saveData();
+          alert('Mídias salvas com sucesso!');
+          showArtistDashboard();
+        }));
+      } else {
+        saveData();
+        alert('Mídias salvas com sucesso!');
+        showArtistDashboard();
+      }
+    }
+
+    function saveFormatsEdits() {
+      artistData.formats[0].title = document.getElementById('fmt1Title').value;
+      artistData.formats[0].sub = document.getElementById('fmt1Sub').value;
+      artistData.formats[0].desc = document.getElementById('fmt1Desc').value;
+
+      artistData.formats[1].title = document.getElementById('fmt2Title').value;
+      artistData.formats[1].sub = document.getElementById('fmt2Option').value;
+      artistData.formats[1].desc = document.getElementById('fmt2Desc').value;
+
+      artistData.formats[2].title = document.getElementById('fmt3Title').value;
+      artistData.formats[2].sub = document.getElementById('fmt3Sub').value;
+      artistData.formats[2].desc = document.getElementById('fmt3Desc').value;
+
+      // Fotos dos formatos
+      let f1File = document.getElementById('fmt1PhotoFile').files[0];
+      let f2File = document.getElementById('fmt2PhotoFile').files[0];
+      let f3File = document.getElementById('fmt3PhotoFile').files[0];
+
+      let count = 0;
+      let checkDone = () => {
+        count++;
+        if(count >= 3) {
+          saveData();
+          alert('Formatos de show salvos com sucesso!');
+          loadInputsFromState();
+        }
+      };
+
+      if(f1File) {
+        let r = new FileReader();
+        r.onload = e => { artistData.formats[0].photo = e.target.result; checkDone(); };
+        r.readAsDataURL(f1File);
+      } else { checkDone(); }
+
+      if(f2File) {
+        let r = new FileReader();
+        r.onload = e => { artistData.formats[1].photo = e.target.result; checkDone(); };
+        r.readAsDataURL(f2File);
+      } else { checkDone(); }
+
+      if(f3File) {
+        let r = new FileReader();
+        r.onload = e => { artistData.formats[2].photo = e.target.result; checkDone(); };
+        r.readAsDataURL(f3File);
+      } else { checkDone(); }
     }
 
     function uploadRepertoire() {
       const fileInput = document.getElementById('repertoireFile');
-      if(fileInput && fileInput.files && fileInput.files[0]) {
-        const file = fileInput.files[0];
-        artistData.repertoireFileName = file.name;
+      if(fileInput && fileInput.files[0]) {
+        artistData.repertoireFileName = fileInput.files[0].name;
         saveData();
-        const repStatus = document.getElementById('repertoireStatus');
-        if(repStatus) repStatus.innerHTML = `✅ Arquivo enviado: <span class="text-white font-mono">${file.name}</span>`;
-        alert(`Repertório "${file.name}" enviado com sucesso!`);
+        document.getElementById('repertoireStatus').innerHTML = `✅ Arquivo enviado: <span class="text-white font-mono">${fileInput.files[0].name}</span>`;
+        alert('Repertório enviado com sucesso!');
       } else {
-        alert('Selecione um arquivo Word (.docx) ou PDF (.pdf) para enviar.');
+        alert('Selecione um arquivo.');
       }
     }
 
     function saveContractModel() {
-      const contractInput = document.getElementById('contractText');
-      if(contractInput) {
-        artistData.contractModelText = contractInput.value;
-        saveData();
-        alert('Modelo de contrato salvo com sucesso!');
-      }
+      artistData.contractModelText = document.getElementById('contractText').value;
+      saveData();
+      alert('Modelo de contrato salvo com sucesso!');
     }
 
     function updateCustomLinkPreview() {
-      const csi = document.getElementById('customSlugInput');
-      const slug = csi ? csi.value : '';
-      const fsp = document.getElementById('fullSlugPreview');
-      if(fsp) fsp.innerText = `stagekitcasa6.vercel.app/${slug}`;
+      const slug = document.getElementById('customSlugInput').value;
+      document.getElementById('fullSlugPreview').innerText = `stagekitcasa6.vercel.app/${slug}`;
     }
 
     function copyCustomPressKitLink() {
-      const csi = document.getElementById('customSlugInput');
-      const slug = csi ? csi.value : '';
+      const slug = document.getElementById('customSlugInput').value;
       navigator.clipboard.writeText(`https://stagekitcasa6.vercel.app/${slug}`);
-      alert('Link copiado para a área de transferência!');
+      alert('Link copiado!');
     }
 
     function addNewEvent() {
-      const nen = document.getElementById('newEventName');
-      const name = nen ? nen.value : '';
-      const ned = document.getElementById('newEventDate');
-      const date = ned ? ned.value : '';
-      const nep = document.getElementById('newEventProject');
-      const project = nep ? nep.value : '';
-      const nec = document.getElementById('newEventCache');
-      const cache = nec ? parseFloat(nec.value) || 0 : 0;
-      const nems = document.getElementById('newEventMusicianSelect');
-      const musicianName = nems ? nems.value : '';
-      const nemv = document.getElementById('newEventMusicianValue');
-      const musicianVal = nemv ? parseFloat(nemv.value) || 0 : 0;
-      const nef = document.getElementById('newEventFuel');
-      const fuel = nef ? parseFloat(nef.value) || 0 : 0;
-
+      const name = document.getElementById('newEventName').value;
       if(!name) { alert('Insira o nome do evento'); return; }
+      const date = document.getElementById('newEventDate').value;
+      const project = document.getElementById('newEventProject').value;
+      const cache = parseFloat(document.getElementById('newEventCache').value) || 0;
+      const musicianName = document.getElementById('newEventMusicianSelect').value;
+      const musicianVal = parseFloat(document.getElementById('newEventMusicianValue').value) || 0;
+      const fuel = parseFloat(document.getElementById('newEventFuel').value) || 0;
 
       eventsList.push({ name, date, project, cache, musicianName, musicianVal, fuel });
       saveData();
       renderEvents();
       updateCacheCalculations();
       renderCalendarEvents();
-
-      if(musiciansList.length > 0) {
-        musiciansList.forEach(m => {
-          if(m.whatsapp) {
-            const msg = `*Escala / Show Confirmado!* 🎵\n\nOlá ${m.name}, você está escalado para:\n📌 *Evento:* ${name}\n📅 *Data:* ${date || 'A combinar'}\n🎸 *Projeto:* ${project}\n💰 *Seu Cachê:* R$ ${musicianVal.toFixed(2)}`;
-            console.log(`Disparando WhatsApp para ${m.whatsapp}: ${msg}`);
-          }
-        });
-        alert(`Evento cadastrado! O resumo e os valores foram disparados automaticamente para todos os ${musiciansList.length} músicos da equipe via WhatsApp.`);
-      } else {
-        alert('Evento cadastrado com sucesso!');
-      }
-
-      if(nen) nen.value = '';
-      if(nec) nec.value = '';
-      if(nemv) nemv.value = '';
-      if(nef) nef.value = '';
+      alert('Evento cadastrado com sucesso!');
     }
 
     function renderEvents() {
       const container = document.getElementById('eventsListContainer');
-      const dec = document.getElementById('dashEventCount');
-      if(dec) dec.innerText = eventsList.length;
+      document.getElementById('dashEventCount').innerText = eventsList.length;
       if(!container) return;
-
       if(eventsList.length === 0) {
-        container.innerHTML = '<p class="text-zinc-500 italic">Nenhum evento cadastrado no momento.</p>';
+        container.innerHTML = '<p class="text-zinc-500 italic">Nenhum evento cadastrado.</p>';
         return;
       }
       container.innerHTML = eventsList.map((ev, idx) => `
         <div class="bg-zinc-900 p-4 rounded-xl border border-zinc-800 flex justify-between items-center">
           <div>
             <p class="font-bold text-white text-sm">${ev.name} (${ev.project})</p>
-            <p class="text-zinc-400">Data: ${ev.date || 'A combinar'} | Cachê Total: R$ ${ev.cache.toFixed(2)} | Músico (${ev.musicianName || 'Geral'}): R$ ${ev.musicianVal.toFixed(2)}</p>
+            <p class="text-zinc-400">Data: ${ev.date || 'A combinar'} | Cachê: R$ ${ev.cache.toFixed(2)}</p>
           </div>
-          <button onclick="removeEvent(${idx})" class="text-red-400 hover:text-red-300 text-xs font-bold cursor-pointer">Remover</button>
+          <button onclick="removeEvent(${idx})" class="text-red-400 font-bold cursor-pointer text-xs">Remover</button>
         </div>
       `).join('');
     }
@@ -1687,65 +1893,45 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
     }
 
     function updateCacheCalculations() {
-      let totalCache = 0;
-      let totalMusicians = 0;
-      let totalFuel = 0;
-
+      let totalCache = 0, totalMusicians = 0, totalFuel = 0;
       eventsList.forEach(ev => {
         totalCache += ev.cache;
         totalMusicians += ev.musicianVal;
         totalFuel += ev.fuel;
       });
-
-      const mine = totalCache - (totalMusicians + totalFuel);
-
-      const dtc = document.getElementById('dashTotalCache');
-      if(dtc) dtc.innerText = `R$ ${totalCache.toFixed(2)}`;
-      const cm = document.getElementById('cacheMusicians');
-      if(cm) cm.innerText = `R$ ${totalMusicians.toFixed(2)}`;
-      const cf = document.getElementById('cacheFuel');
-      if(cf) cf.innerText = `R$ ${totalFuel.toFixed(2)}`;
-      const cmin = document.getElementById('cacheMine');
-      if(cmin) cmin.innerText = `R$ ${mine >= 0 ? mine.toFixed(2) : '0,00'}`;
+      let mine = totalCache - (totalMusicians + totalFuel);
+      document.getElementById('dashTotalCache').innerText = `R$ ${totalCache.toFixed(2)}`;
+      document.getElementById('cacheMusicians').innerText = `R$ ${totalMusicians.toFixed(2)}`;
+      document.getElementById('cacheFuel').innerText = `R$ ${totalFuel.toFixed(2)}`;
+      document.getElementById('cacheMine').innerText = `R$ ${mine >= 0 ? mine.toFixed(2) : '0,00'}`;
     }
 
     function addNewMusician() {
-      const nmn = document.getElementById('newMusicianName');
-      const name = nmn ? nmn.value : '';
-      const nmi = document.getElementById('newMusicianInstrument');
-      const instrument = nmi ? nmi.value : '';
-      const nmw = document.getElementById('newMusicianWhatsapp');
-      const whatsapp = nmw ? nmw.value : '';
+      const name = document.getElementById('newMusicianName').value;
+      const instrument = document.getElementById('newMusicianInstrument').value;
+      const whatsapp = document.getElementById('newMusicianWhatsapp').value;
       if(!name) { alert('Insira o nome do músico'); return; }
-
       musiciansList.push({ name, instrument, whatsapp });
       saveData();
       renderMusicians();
-
-      if(nmn) nmn.value = '';
-      if(nmi) nmi.value = '';
-      if(nmw) nmw.value = '';
-      alert('Músico adicionado com sucesso!');
+      alert('Músico adicionado!');
     }
 
     function renderMusicians() {
       const container = document.getElementById('musiciansListContainer');
       const selectContainer = document.getElementById('newEventMusicianSelect');
       if(!container || !selectContainer) return;
-      
       if(musiciansList.length === 0) {
         container.innerHTML = '<p class="text-zinc-500 italic">Nenhum músico cadastrado.</p>';
-        selectContainer.innerHTML = '<option value="">Nenhum músico cadastrado</option>';
+        selectContainer.innerHTML = '<option value="">Nenhum músico</option>';
         return;
       }
-
       container.innerHTML = musiciansList.map((m, idx) => `
         <div class="bg-zinc-900 p-3 rounded-xl border border-zinc-800 flex justify-between items-center">
-          <p class="text-white font-semibold">${m.name} <span class="text-amber-400 font-normal">(${m.instrument})</span> — <span class="text-zinc-400 text-[11px]">${m.whatsapp}</span></p>
-          <button onclick="removeMusician(${idx})" class="text-red-400 hover:text-red-300 text-xs cursor-pointer">Excluir</button>
+          <p class="text-white font-semibold">${m.name} (${m.instrument})</p>
+          <button onclick="removeMusician(${idx})" class="text-red-400 text-xs cursor-pointer">Excluir</button>
         </div>
       `).join('');
-
       selectContainer.innerHTML = '<option value="">Selecione o Músico</option>' + musiciansList.map(m => `<option value="${m.name}">${m.name} (${m.instrument})</option>`).join('');
     }
 
@@ -1758,30 +1944,22 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
     function connectGoogleCalendar() {
       artistData.googleCalendarConnected = true;
       saveData();
-      const st = document.getElementById('googleCalendarStatusText');
-      if(st) {
-        st.innerText = 'Conectado com sucesso';
-        st.className = 'text-emerald-400 font-bold';
-      }
-      const cbtn = document.getElementById('connectCalendarBtn');
-      if(cbtn) cbtn.innerText = 'Reconectar';
+      document.getElementById('googleCalendarStatusText').innerText = 'Conectado com sucesso';
+      document.getElementById('googleCalendarStatusText').className = 'text-emerald-400 font-bold';
       renderCalendarEvents();
-      alert('Google Agenda conectado com sucesso! Os eventos cadastrados agora estão sincronizados.');
+      alert('Google Agenda conectado!');
     }
 
     function renderCalendarEvents() {
       const container = document.getElementById('googleCalendarEventsList');
       if(!container) return;
       if(!artistData.googleCalendarConnected || eventsList.length === 0) {
-        container.innerHTML = '<p class="text-zinc-500 italic">Nenhum evento sincronizado na agenda no momento.</p>';
+        container.innerHTML = '<p class="text-zinc-500 italic">Nenhum evento sincronizado.</p>';
         return;
       }
       container.innerHTML = eventsList.map(ev => `
         <div class="bg-zinc-900 p-3 rounded-xl border border-zinc-800 flex justify-between items-center text-xs">
-          <div>
-            <p class="font-bold text-white">${ev.name} (${ev.project})</p>
-            <p class="text-zinc-400 text-[11px]">🗓️ ${ev.date || 'Data a definir'}</p>
-          </div>
+          <p class="font-bold text-white">${ev.name} (${ev.project})</p>
           <span class="px-2.5 py-1 rounded-full bg-blue-500/10 text-blue-400 font-semibold text-[10px]">Sincronizado</span>
         </div>
       `).join('');
@@ -1789,16 +1967,6 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
 
     function toggleTheme() {
       document.body.classList.toggle('light');
-      const isLight = document.body.classList.contains('light');
-      const icon = document.getElementById('dashThemeIcon');
-      if(icon) {
-        if(isLight) {
-          icon.setAttribute('data-lucide', 'moon');
-        } else {
-          icon.setAttribute('data-lucide', 'sun');
-        }
-      }
-      try { lucide.createIcons(); } catch(e) {}
     }
 
     window.onload = initApp;
