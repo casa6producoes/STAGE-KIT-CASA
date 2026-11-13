@@ -10,7 +10,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>StageKit — Press Kits para Músicos Profissionais</title>
-  <!-- StageKit v3.9: links de Reels e fotos de formatos no Storage -->
+  <!-- StageKit v3.10: links de Reels e fotos de formatos no Storage -->
   <!-- StageKit 3.7: identifica rotas diretas antes de renderizar a página inicial. -->
   <script>
     (function () {
@@ -554,7 +554,7 @@
           <!-- SEÇÃO CAPA & NOME EM TEXTO CUSTOMIZADO (ATUALIZADO) -->
           <div class="space-y-4 pb-4 border-b border-zinc-800">
             <label class="block font-semibold text-amber-400 text-sm">Capa do Press Kit / Título em Texto</label>
-            <p class="text-zinc-400 text-xs">Envie uma imagem de capa panorâmica (exibida sem texto por cima) ou configure o nome em texto estilizado.</p>
+            <p class="text-zinc-400 text-xs">Envie uma imagem panorâmica de até 3 MB após otimização automática. Arquivos JPG/PNG/WebP maiores serão compactados antes de salvar, ou use o nome em texto estilizado.</p>
             
             <div class="bg-zinc-900 border border-zinc-700 rounded-2xl p-5 space-y-4">
               <!-- Upload de Capa Aumentada -->
@@ -637,7 +637,7 @@
                     <i data-lucide="trash-2" class="w-4 h-4"></i> Remover
                   </button>
                 </div>
-                <p class="text-[11px] text-zinc-500">Insira uma imagem quadrada para melhor visualização.</p>
+                <p class="text-[11px] text-zinc-500">Foto quadrada recomendada. Limite de 1 MB após compactação automática. Imagens maiores serão otimizadas antes do envio.</p>
               </div>
             </div>
           </div>
@@ -735,7 +735,7 @@
             <div class="flex items-center gap-2 text-amber-500 font-bold text-sm">
               <i data-lucide="image" class="w-5 h-5"></i> <span>Fotos de Show & Apresentação (Galeria)</span>
             </div>
-            <p class="text-zinc-400">Adicione até cinco fotos para sua galeria pública. Você pode substituir ou remover individualmente cada foto salva.</p>
+            <p class="text-zinc-400">Insira até 5 fotos. Cada foto ocupa no máximo 2 MB no Supabase (compactação automática).</p>
             <div class="space-y-3">
               <div>
                 <label class="block font-semibold text-zinc-300 mb-1">Foto 1</label>
@@ -811,7 +811,7 @@
           <div class="flex items-center gap-2 text-amber-500 font-bold text-sm">
             <i data-lucide="message-square" class="w-5 h-5"></i> <span>Depoimentos de Clientes (Até 5 Cards com Prints)</span>
           </div>
-          <p class="text-zinc-400">Adicione até 5 depoimentos com texto ou anexe prints de conversas com clientes satisfeitos.</p>
+          <p class="text-zinc-400">Adicione até 5 depoimentos com texto ou prints de até 1 MB cada (compactação automática).</p>
           
           <div id="testimonialsBuilderContainer" class="space-y-4">
             <!-- Renderizado dinamicamente via JS -->
@@ -829,7 +829,7 @@
       <div id="tabFormats" class="dashboard-tab max-w-4xl space-y-6 hidden">
         <div>
           <h2 class="text-xl font-bold text-white">Gestão de Formatos de Show</h2>
-          <p class="text-xs text-zinc-400 mt-1">Edite os títulos, subtítulos, descrições e fotos de cada formato exibido no seu kit.</p>
+          <p class="text-xs text-zinc-400 mt-1">Edite títulos, subtítulos, descrições e fotos. Cada foto tem limite de 2 MB após compactação automática.</p>
         </div>
 
         <div class="grid md:grid-cols-3 gap-6">
@@ -851,6 +851,7 @@
               <label class="block font-semibold text-zinc-300 mb-1">Foto do Formato</label>
               <input type="file" id="fmt1PhotoFile" accept="image/jpeg,image/png,image/webp,image/gif" onchange="renderFormatPhotoStatus()" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-2 text-zinc-300 text-xs">
               <div id="fmt1PhotoStatus" class="pt-1 text-[11px] text-zinc-400" aria-live="polite"></div>
+              <button type="button" id="fmt1RemovePhotoBtn" onclick="removeFormatPhoto(0)" class="hidden items-center gap-2 mt-2 px-3 py-2 rounded-lg border border-red-500/35 bg-red-500/10 hover:bg-red-500/20 text-red-400 font-bold text-xs cursor-pointer"><i data-lucide="trash-2" class="w-4 h-4"></i> Remover foto</button>
             </div>
           </div>
 
@@ -877,6 +878,7 @@
               <label class="block font-semibold text-zinc-300 mb-1">Foto do Formato</label>
               <input type="file" id="fmt2PhotoFile" accept="image/jpeg,image/png,image/webp,image/gif" onchange="renderFormatPhotoStatus()" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-2 text-zinc-300 text-xs">
               <div id="fmt2PhotoStatus" class="pt-1 text-[11px] text-zinc-400" aria-live="polite"></div>
+              <button type="button" id="fmt2RemovePhotoBtn" onclick="removeFormatPhoto(1)" class="hidden items-center gap-2 mt-2 px-3 py-2 rounded-lg border border-red-500/35 bg-red-500/10 hover:bg-red-500/20 text-red-400 font-bold text-xs cursor-pointer"><i data-lucide="trash-2" class="w-4 h-4"></i> Remover foto</button>
             </div>
           </div>
 
@@ -898,6 +900,7 @@
               <label class="block font-semibold text-zinc-300 mb-1">Foto do Formato</label>
               <input type="file" id="fmt3PhotoFile" accept="image/jpeg,image/png,image/webp,image/gif" onchange="renderFormatPhotoStatus()" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-2 text-zinc-300 text-xs">
               <div id="fmt3PhotoStatus" class="pt-1 text-[11px] text-zinc-400" aria-live="polite"></div>
+              <button type="button" id="fmt3RemovePhotoBtn" onclick="removeFormatPhoto(2)" class="hidden items-center gap-2 mt-2 px-3 py-2 rounded-lg border border-red-500/35 bg-red-500/10 hover:bg-red-500/20 text-red-400 font-bold text-xs cursor-pointer"><i data-lucide="trash-2" class="w-4 h-4"></i> Remover foto</button>
             </div>
           </div>
         </div>
@@ -1364,8 +1367,106 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
 
     // Utilitários StageKit v3.5
     const STAGEKIT_MEDIA_BUCKET = 'stagekit-media';
-    const STAGEKIT_MAX_IMAGE_BYTES = 12 * 1024 * 1024;
-    const STAGEKIT_MAX_VIDEO_BYTES = 100 * 1024 * 1024;
+    // Supabase Free: até 50 MB por arquivo. A plataforma usa tetos muito menores.
+    const STAGEKIT_MAX_IMAGE_BYTES = 50 * 1024 * 1024; // limite do arquivo original
+    const STAGEKIT_MAX_VIDEO_BYTES = 50 * 1024 * 1024; // legado; upload de vídeo está desativado
+    const STAGEKIT_IMAGE_LIMITS = Object.freeze({
+      capa: {mb:3, maxSide:2200, label:'Capa'},
+      perfil: {mb:1, maxSide:900, label:'Foto de perfil'},
+      galeria: {mb:2, maxSide:1700, label:'Foto da galeria'},
+      formatos: {mb:2, maxSide:1700, label:'Foto do formato'},
+      depoimentos: {mb:1, maxSide:1300, label:'Print do depoimento'}
+    });
+
+    function imageCapFor(category) {
+      const cap = STAGEKIT_IMAGE_LIMITS[category];
+      if (!cap) throw new Error('Categoria de imagem não configurada: ' + category);
+      return {...cap, bytes:Math.floor(cap.mb * 1024 * 1024)};
+    }
+
+    // O arquivo pode ser maior, mas NUNCA envia mais de 1 a 3 MB conforme a área.
+    // JPG, PNG e WebP são convertidos em WebP apenas quando ultrapassam o limite.
+    // GIF animado é preservado e deve estar dentro do limite, sem perder a animação.
+    async function prepareStagekitImage(file, category) {
+      if (!file) throw new Error('Selecione uma imagem para enviar.');
+      const cap=imageCapFor(category);
+      if (!['image/jpeg','image/png','image/webp','image/gif'].includes(file.type)) {
+        throw new Error(`${cap.label}: use JPG, PNG, WebP ou GIF.`);
+      }
+      if (file.size > STAGEKIT_MAX_IMAGE_BYTES) {
+        throw new Error(`${cap.label}: a foto original não pode ultrapassar 50 MB.`);
+      }
+      if (file.size <= cap.bytes) return file;
+      if (file.type === 'image/gif') {
+        throw new Error(`${cap.label}: GIFs animados devem ter até ${cap.mb} MB. Escolha um GIF menor.`);
+      }
+      if (typeof document === 'undefined' || !document.createElement) {
+        throw new Error('Seu navegador não disponibilizou a compactação de imagens.');
+      }
+      showToast(`Otimizando ${cap.label.toLowerCase()} para até ${cap.mb} MB...`, 'loading');
+      const objectUrl=URL.createObjectURL(file);
+      try {
+        const image=await new Promise((resolve,reject)=>{
+          const img=new Image();
+          img.onload=()=>resolve(img);
+          img.onerror=()=>reject(new Error(`Não foi possível abrir a imagem ${file.name}.`));
+          img.src=objectUrl;
+        });
+        const originalWidth=image.naturalWidth || image.width;
+        const originalHeight=image.naturalHeight || image.height;
+        if (!originalWidth || !originalHeight) throw new Error('Imagem sem dimensões válidas.');
+        let maxSide=cap.maxSide;
+        let quality=0.88;
+        for (let attempt=0; attempt<9; attempt++) {
+          const ratio=Math.min(1,maxSide/Math.max(originalWidth,originalHeight));
+          const canvas=document.createElement('canvas');
+          canvas.width=Math.max(1,Math.round(originalWidth*ratio));
+          canvas.height=Math.max(1,Math.round(originalHeight*ratio));
+          const ctx=canvas.getContext('2d');
+          if (!ctx) throw new Error('Falha ao preparar a compactação.');
+          ctx.drawImage(image,0,0,canvas.width,canvas.height);
+          const blob=await new Promise(resolve=>canvas.toBlob(resolve,'image/webp',quality));
+          canvas.width=0;canvas.height=0;
+          if (!blob || blob.type!=='image/webp') throw new Error('Seu navegador não suporta compactação WebP. Use uma foto menor.');
+          if (blob.size<=cap.bytes) {
+            const newName=file.name.replace(/\.[^.]+$/,'')+'.webp';
+            return new File([blob],newName,{type:'image/webp',lastModified:Date.now()});
+          }
+          maxSide=Math.max(350,Math.round(maxSide*0.76));
+          quality=Math.max(0.52,quality-0.055);
+        }
+        throw new Error(`${cap.label}: não foi possível reduzir a foto para ${cap.mb} MB. Escolha outra imagem.`);
+      } finally { URL.revokeObjectURL(objectUrl); }
+    }
+
+    function showPhotoLimit(input, category) {
+      if (!input?.files?.[0]) return;
+      const file=input.files[0], cap=imageCapFor(category);
+      if (file.size > STAGEKIT_MAX_IMAGE_BYTES || !['image/jpeg','image/png','image/webp','image/gif'].includes(file.type)) {
+        input.value='';
+        showToast(`${cap.label}: selecione JPG/PNG/WebP/GIF de até 50 MB para compactação.`, 'error');
+        return;
+      }
+      if (file.size > cap.bytes && file.type==='image/gif') {
+        input.value='';
+        showToast(`${cap.label}: GIF maior que ${cap.mb} MB não pode ser compactado sem perder a animação.`, 'error');
+        return;
+      }
+      if (file.size > cap.bytes) {
+        showToast(`${cap.label}: a foto será compactada para até ${cap.mb} MB ao salvar.`, 'loading');
+      }
+    }
+
+    // Inclui também os campos criados dinamicamente dos depoimentos.
+    document.addEventListener('change', event => {
+      const input=event.target;
+      if (!input || input.type!=='file') return;
+      const id=input.id||'';
+      if (/^galleryPhoto[1-5]$/.test(id)) showPhotoLimit(input,'galeria');
+      else if (/^fmt[1-3]PhotoFile$/.test(id)) showPhotoLimit(input,'formatos');
+      else if (/^testPrint_\d+$/.test(id)) showPhotoLimit(input,'depoimentos');
+    }, true);
+
     const STAGEKIT_RESERVED_SLUGS = new Set(['dashboard', 'modovisualizacao', 'index', 'index-html', 'api', 'admin', 'login', 'logout', 'assets']);
 
     function escHtml(value) {
@@ -2199,14 +2300,13 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       if(formatsGrid && artistData.formats) {
         formatsGrid.innerHTML = artistData.formats.map((fmt, idx) => {
           let isMiddle = (idx === 1);
-          let defaultPhoto = idx === 0 ? 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=600&q=80' : (idx === 1 ? 'https://images.unsplash.com/photo-1465847899084-d164df4dedc6?auto=format&fit=crop&w=600&q=80' : 'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=600&q=80');
-          let photoSrc = fmt.photo || defaultPhoto;
+          const photoSrc = safeExternalUrl(fmt.photo || '');
 
           return `
             <div class="p-6 rounded-2xl bg-brand-cardBg ${isMiddle ? 'border border-amber-500/40 relative shadow-xl' : 'border border-brand-border'} flex flex-col justify-between space-y-4">
               ${isMiddle ? '<div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-amber-500 text-black font-extrabold text-[10px] uppercase px-3 py-0.5 rounded-full">Mais Pedido</div>' : ''}
               <div class="rounded-xl overflow-hidden h-40 border border-zinc-800 bg-zinc-900 ${isMiddle ? 'mt-2' : ''}">
-                <img src="${escHtml(safeExternalUrl(photoSrc))}" class="w-full h-full object-cover" alt="Foto do formato">
+                ${photoSrc ? `<img src="${escHtml(photoSrc)}" class="w-full h-full object-cover" alt="Foto do formato">` : `<div class="h-full flex items-center justify-center text-zinc-500 text-xs">Foto ainda não cadastrada</div>`}
               </div>
               <div>
                 <span class="text-[10px] font-bold text-amber-500 uppercase">${fmt.sub}</span>
@@ -2424,19 +2524,30 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       if(sidebar) sidebar.classList.toggle('hidden');
     }
 
-    function handleCoverUpload(event) {
-      if(sessionUser && sessionUser.role === 'admin') return;
-      const file = event.target.files[0];
-      if(file) {
-        const reader = new FileReader();
-        reader.onload = async e => {
-          artistData.coverUrl = e.target.result;
-          artistData.coverZoom = 1;
-          artistData.coverRotate = 0;
-          await saveData(true);
-          updateCoverPreviews();
-        };
-        reader.readAsDataURL(file);
+    async function handleCoverUpload(event) {
+      if (!sessionUser || sessionUser.role === 'admin') return;
+      const input=event.target, file=input?.files?.[0];
+      if (!file) return;
+      const previous={url:artistData.coverUrl||'',zoom:artistData.coverZoom,rotate:artistData.coverRotate};
+      let uploadedUrl='';
+      try {
+        showPhotoLimit(input,'capa');
+        if (!input.files.length) return;
+        const session=await getStorageSession();
+        uploadedUrl=await uploadStagekitFile(file,'capa',session);
+        artistData.coverUrl=uploadedUrl;
+        artistData.coverZoom=1;artistData.coverRotate=0;
+        if (!(await saveData(true))) throw new Error('Não foi possível salvar a capa no banco de dados.');
+        input.value='';
+        updateCoverPreviews();
+        applyPublicData();
+        if (previous.url && previous.url!==uploadedUrl) await tryRemoveOwnStorageObject(previous.url,'capa');
+        showToast('Capa salva, com limite de 3 MB.', 'success');
+      } catch(err) {
+        artistData.coverUrl=previous.url;
+        artistData.coverZoom=previous.zoom;artistData.coverRotate=previous.rotate;
+        if (uploadedUrl) await tryRemoveOwnStorageObject(uploadedUrl,'capa');
+        showToast('Erro ao enviar capa: '+(err.message||err),'error');
       }
     }
 
@@ -2493,28 +2604,44 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
     }
 
     async function removeCoverPhoto() {
-      if(sessionUser && sessionUser.role === 'admin') return;
-      artistData.coverUrl = "";
-      artistData.coverZoom = 1;
-      artistData.coverRotate = 0;
-      await saveData(true);
-      updateCoverPreviews();
-      alert('Capa removida. O press kit agora exibirá o texto estilizado.');
+      if (!sessionUser || sessionUser.role==='admin') return;
+      const previous={url:artistData.coverUrl||'',zoom:artistData.coverZoom,rotate:artistData.coverRotate};
+      artistData.coverUrl='';artistData.coverZoom=1;artistData.coverRotate=0;
+      try {
+        if (!(await saveData(false))) throw new Error('Não foi possível atualizar o banco de dados.');
+        updateCoverPreviews();applyPublicData();
+        const removed=await tryRemoveOwnStorageObject(previous.url,'capa');
+        showToast(removed ? 'Capa removida do Storage e do Press Kit.' : 'Capa removida do Press Kit. O arquivo anterior pode permanecer no Storage.','success');
+      } catch(e) {
+        artistData.coverUrl=previous.url;artistData.coverZoom=previous.zoom;artistData.coverRotate=previous.rotate;
+        showToast('Erro ao remover capa: '+(e.message||e),'error');
+      }
     }
 
-    function handleAvatarUpload(event) {
-      if(sessionUser && sessionUser.role === 'admin') return;
-      const file = event.target.files[0];
-      if(file) {
-        const reader = new FileReader();
-        reader.onload = async e => {
-          artistData.avatarUrl = e.target.result;
-          artistData.avatarZoom = 1;
-          artistData.avatarRotate = 0;
-          await saveData(true);
-          updateAvatarPreviews();
-        };
-        reader.readAsDataURL(file);
+    async function handleAvatarUpload(event) {
+      if (!sessionUser || sessionUser.role === 'admin') return;
+      const input=event.target, file=input?.files?.[0];
+      if (!file) return;
+      const previous={url:artistData.avatarUrl||'',zoom:artistData.avatarZoom,rotate:artistData.avatarRotate};
+      let uploadedUrl='';
+      try {
+        showPhotoLimit(input,'perfil');
+        if (!input.files.length) return;
+        const session=await getStorageSession();
+        uploadedUrl=await uploadStagekitFile(file,'perfil',session);
+        artistData.avatarUrl=uploadedUrl;
+        artistData.avatarZoom=1;artistData.avatarRotate=0;
+        if (!(await saveData(true))) throw new Error('Não foi possível salvar a foto de perfil no banco de dados.');
+        input.value='';
+        updateAvatarPreviews();
+        applyPublicData();
+        if(previous.url && previous.url!==uploadedUrl) await tryRemoveOwnStorageObject(previous.url,'perfil');
+        showToast('Foto de perfil salva, com limite de 1 MB.','success');
+      } catch(err) {
+        artistData.avatarUrl=previous.url;
+        artistData.avatarZoom=previous.zoom;artistData.avatarRotate=previous.rotate;
+        if(uploadedUrl) await tryRemoveOwnStorageObject(uploadedUrl,'perfil');
+        showToast('Erro ao enviar foto de perfil: '+(err.message||err),'error');
       }
     }
 
@@ -2568,13 +2695,18 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
     }
 
     async function removeAvatarPhoto() {
-      if(sessionUser && sessionUser.role === 'admin') return;
-      artistData.avatarUrl = "";
-      artistData.avatarZoom = 1;
-      artistData.avatarRotate = 0;
-      await saveData(true);
-      updateAvatarPreviews();
-      alert('Foto de perfil removida.');
+      if (!sessionUser || sessionUser.role==='admin') return;
+      const previous={url:artistData.avatarUrl||'',zoom:artistData.avatarZoom,rotate:artistData.avatarRotate};
+      artistData.avatarUrl='';artistData.avatarZoom=1;artistData.avatarRotate=0;
+      try {
+        if (!(await saveData(false))) throw new Error('Não foi possível atualizar o banco de dados.');
+        updateAvatarPreviews();applyPublicData();
+        const removed=await tryRemoveOwnStorageObject(previous.url,'perfil');
+        showToast(removed ? 'Foto de perfil removida do Storage.' : 'Foto removida do Press Kit. O arquivo antigo pode permanecer no Storage.','success');
+      } catch(e) {
+        artistData.avatarUrl=previous.url;artistData.avatarZoom=previous.zoom;artistData.avatarRotate=previous.rotate;
+        showToast('Erro ao remover foto de perfil: '+(e.message||e),'error');
+      }
     }
 
     window.openLoginModal = function() {
@@ -3018,7 +3150,8 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       try { lucide.createIcons(); } catch (e) {}
     }
 
-    // Remove a foto do perfil persistido e, se autorizado, também do Storage.
+    // Remove a foto do Press Kit e tenta excluir o objeto no Storage.
+    // Exclusão física requer política DELETE e a mesma sessão Supabase Auth.
     // Apenas arquivos da pasta do mesmo auth.uid() são elegíveis para exclusão física.
     let galleryRemovalInProgress = false;
     async function removeGalleryPhoto(index) {
@@ -3046,7 +3179,7 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
         if (input) input.value = '';
         renderMediaExistingStatus();
         applyPublicData();
-        const deletedFromStorage = await tryRemoveOwnGalleryStorageObject(originalUrl);
+        const deletedFromStorage = await tryRemoveOwnStorageObject(originalUrl,'galeria');
         showToast(
           deletedFromStorage ? 'Foto removida do Press Kit e do Storage.' : 'Foto removida do Press Kit. O arquivo original pode permanecer no Storage.',
           'success'
@@ -3059,7 +3192,7 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       }
     }
 
-    async function tryRemoveOwnGalleryStorageObject(fileUrl) {
+    async function tryRemoveOwnStorageObject(fileUrl,category) {
       if (!supabaseClient || !fileUrl) return false;
       let path = '';
       try {
@@ -3074,7 +3207,7 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
         if (sessionError) return false;
         const authId = current?.session?.user?.id;
         const prefix = `${authId}/artists/`;
-        if (!authId || !path.startsWith(prefix) || !path.includes('/galeria/')) return false;
+        if (!authId || !path.startsWith(prefix) || !STAGEKIT_IMAGE_LIMITS[category] || !path.includes(`/${category}/`)) return false;
         const { error } = await supabaseClient.storage.from(STAGEKIT_MEDIA_BUCKET).remove([path]);
         if (error) { console.warn('Arquivo continua no Storage:', error.message); return false; }
         return true;
@@ -3101,36 +3234,40 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
 
     async function uploadStagekitFile(file, category, session) {
       if (!file) return '';
-      const ext = getFileExt(file);
       const isVideo = category === 'videos';
-      if (!ext || (isVideo ? file.type !== 'video/mp4' : !file.type.startsWith('image/'))) {
-        throw new Error(`Formato de arquivo inválido: ${file.name}. Use JPG/PNG/WEBP/GIF ou MP4.`);
+      const preparedFile = isVideo ? file : await prepareStagekitImage(file, category);
+      const ext = getFileExt(preparedFile);
+      if (!ext || (isVideo ? preparedFile.type !== 'video/mp4' : !STAGEKIT_IMAGE_LIMITS[category])) {
+        throw new Error('Tipo de mídia inválido para esta área.');
       }
-      if (file.size > (isVideo ? STAGEKIT_MAX_VIDEO_BYTES : STAGEKIT_MAX_IMAGE_BYTES)) {
-        throw new Error(`${file.name} ultrapassa o limite de ${isVideo ? '100 MB' : '12 MB'}.`);
+      if (isVideo && preparedFile.size > STAGEKIT_MAX_VIDEO_BYTES) {
+        throw new Error('Vídeo maior que 50 MB. Prefira um link de vídeo.');
+      }
+      if (!isVideo && preparedFile.size > imageCapFor(category).bytes) {
+        throw new Error(`${imageCapFor(category).label} acima do limite de ${imageCapFor(category).mb} MB.`);
       }
       const userId = session.user?.id;
       if (!userId) throw new Error('Usuário do Storage não identificado.');
       const randomName = (self.crypto?.randomUUID?.() || `${Date.now()}-${Math.random().toString(36).slice(2)}`);
       const path = `${userId}/artists/${normalizeWhatsapp(artistData.whatsapp)}/${category}/${randomName}.${ext}`;
 
-      if (file.size > 6 * 1024 * 1024 && window.tus?.Upload) {
+      if (preparedFile.size > 6 * 1024 * 1024 && window.tus?.Upload) {
         await new Promise((resolve,reject) => {
-          const upload = new window.tus.Upload(file, {
+          const upload = new window.tus.Upload(preparedFile, {
             endpoint: `${SUPABASE_URL}/storage/v1/upload/resumable`,
             headers: { authorization: `Bearer ${session.access_token}`, apikey: SUPABASE_KEY, 'x-upsert':'false' },
             uploadDataDuringCreation: true,
             chunkSize: 6 * 1024 * 1024,
             retryDelays: [0,1000,3000,5000],
-            metadata: {bucketName:STAGEKIT_MEDIA_BUCKET, objectName:path, contentType:file.type, cacheControl:'3600'},
+            metadata: {bucketName:STAGEKIT_MEDIA_BUCKET, objectName:path, contentType:preparedFile.type, cacheControl:'3600'},
             onError: reject,
             onSuccess: resolve
           });
           upload.start();
         });
       } else {
-        const {error} = await supabaseClient.storage.from(STAGEKIT_MEDIA_BUCKET).upload(path,file,{
-          contentType:file.type, cacheControl:'3600', upsert:false
+        const {error} = await supabaseClient.storage.from(STAGEKIT_MEDIA_BUCKET).upload(path,preparedFile,{
+          contentType:preparedFile.type, cacheControl:'3600', upsert:false
         });
         if(error) throw error;
       }
@@ -3156,6 +3293,14 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       const saveBtn = document.querySelector('#tabMedia button[onclick="saveMediaEdits()"]');
       if (saveBtn?.disabled) return;
       if (saveBtn) { saveBtn.disabled=true; saveBtn.textContent='Salvando mídias...'; saveBtn.classList.add('opacity-60'); }
+      const uploadedObjects=[];
+      const previousMedia={
+        spotify:artistData.spotify,deezer:artistData.deezer,apple:artistData.apple,
+        youtube1:artistData.youtube1,youtube2:artistData.youtube2,youtube3:artistData.youtube3,
+        galleryPhotos:[...(artistData.galleryPhotos||[])],
+        testimonials:(artistData.testimonials||[]).map(t=>({...t}))
+      };
+      let databaseSaved=false;
       try {
         const newData = {
           spotify: document.getElementById('editSpotify').value.trim(),
@@ -3184,20 +3329,21 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
         const queue = [];
         for(let i=0;i<5;i++) {
           const input = document.getElementById(`galleryPhoto${i+1}`);
-          if (input?.files?.[0]) queue.push({file:input.files[0],category:'galeria',commit:url=>newData.galleryPhotos[i]=url, input});
+          if (input?.files?.[0]) queue.push({file:input.files[0],category:'galeria', oldUrl:newData.galleryPhotos[i], commit:url=>newData.galleryPhotos[i]=url, input});
         }
         // Não há mais uploads MP4 na seção Na Prática: apenas referências de links.
         for(let i=0;i<testimonials.length;i++) {
           const input = document.getElementById(`testPrint_${i}`);
-          if (input?.files?.[0]) queue.push({file:input.files[0],category:'depoimentos',commit:url=>testimonials[i].printUrl=url,input});
+          if (input?.files?.[0]) queue.push({file:input.files[0],category:'depoimentos',oldUrl:testimonials[i].printUrl,commit:url=>testimonials[i].printUrl=url,input});
         }
-        let session = null;
         if (queue.length) {
-          session = await getStorageSession();
+          const session = await getStorageSession();
           for (let i=0;i<queue.length;i++) {
             const task=queue[i];
             showToast(`Enviando mídia ${i+1} de ${queue.length}: ${task.file.name}`, 'loading');
             const url=await uploadStagekitFile(task.file,task.category,session);
+            task.newUrl=url;
+            uploadedObjects.push({url,category:task.category});
             task.commit(url);
           }
         }
@@ -3205,12 +3351,20 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
         artistData.testimonials = testimonials;
         showToast('Gravando referências no banco de dados...', 'loading');
         if (!(await saveData(true))) throw new Error('O perfil não pôde ser gravado no banco.');
-        for(const task of queue) task.input.value='';
+        databaseSaved=true;
+        for(const task of queue) {
+          task.input.value='';
+          if (task.oldUrl && task.oldUrl!==task.newUrl) await tryRemoveOwnStorageObject(task.oldUrl, task.category);
+        }
         renderMediaExistingStatus();
         renderTestimonialsBuilder();
         applyPublicData();
       } catch(e) {
         console.error('Erro ao salvar mídias no StageKit:',e);
+        if (!databaseSaved) {
+          Object.assign(artistData,previousMedia);
+          for(const item of uploadedObjects) await tryRemoveOwnStorageObject(item.url,item.category);
+        }
         showToast(`Erro ao salvar mídias: ${e.message||e}`, 'error');
       } finally {
         if(saveBtn) { saveBtn.disabled=false; saveBtn.textContent='Salvar Mídias, Streaming & Depoimentos'; saveBtn.classList.remove('opacity-60'); }
@@ -3224,12 +3378,53 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       for (let i=0; i<3; i++) {
         const slot = document.getElementById(`fmt${i+1}PhotoStatus`);
         if (!slot) continue;
-        const file=document.getElementById(`fmt${i+1}PhotoFile`)?.files?.[0];
+        const input=document.getElementById(`fmt${i+1}PhotoFile`);
+        const file=input?.files?.[0];
         const saved=artistData.formats?.[i]?.photo || '';
         const photoUrl=safeExternalUrl(saved);
-        const preview=photoUrl ? `<img src="${escHtml(photoUrl)}" alt="Foto salva do formato ${i+1}" class="w-16 h-12 object-cover rounded-lg border border-zinc-700">` : '';
-        slot.innerHTML = `<div class="flex items-center gap-2">${preview}<span>${file ? 'Nova imagem selecionada: '+escHtml(file.name) : saved ? 'Foto salva no Press Kit. Selecione outra para substituir.' : 'Nenhuma foto salva.'}</span></div>`;
+        const preview=photoUrl
+          ? `<img src="${escHtml(photoUrl)}" alt="Foto salva do formato ${i+1}" class="w-16 h-12 object-cover rounded-lg border border-zinc-700">`
+          : `<span class="w-16 h-12 rounded-lg bg-zinc-900 flex items-center justify-center text-zinc-500">Sem foto</span>`;
+        const cap=imageCapFor('formatos');
+        slot.innerHTML=`<div class="flex items-center gap-2">${preview}<span>${file ? 'Nova foto: '+escHtml(file.name)+' (${(file.size/1048576).toFixed(1)} MB). Limite final: '+cap.mb+' MB.' : saved ? 'Foto publicada (até '+cap.mb+' MB para novos uploads).' : 'Nenhuma foto salva.'}</span></div>`;
+        const button=document.getElementById(`fmt${i+1}RemovePhotoBtn`);
+        button?.classList.toggle('hidden',!saved && !file);
+        button?.classList.toggle('inline-flex',!!saved || !!file);
       }
+      try { lucide.createIcons(); } catch(e) {}
+    }
+
+    let formatPhotoRemovalInProgress=false;
+    async function removeFormatPhoto(index) {
+      if (!sessionUser || sessionUser.role==='admin' || formatPhotoRemovalInProgress) return;
+      if (!Number.isInteger(index) || index<0 || index>=3) return;
+      const input=document.getElementById(`fmt${index+1}PhotoFile`);
+      const previous=(artistData.formats||[]).map(f=>({...f}));
+      const previousUrl=previous[index]?.photo||'';
+      if (!previousUrl) {
+        if(input) input.value='';
+        renderFormatPhotoStatus();
+        showToast('Seleção de foto descartada.','success');
+        return;
+      }
+      if(!window.confirm(`Remover a foto do Formato ${index+1} do Press Kit?`)) return;
+      formatPhotoRemovalInProgress=true;
+      try {
+        const updated=previous.map(f=>({...f}));
+        updated[index].photo='';
+        artistData.formats=updated;
+        if (!(await saveData(false))) throw new Error('A remoção não foi confirmada pelo Supabase.');
+        if(input) input.value='';
+        renderFormatPhotoStatus();
+        applyPublicData();
+        const removed=await tryRemoveOwnStorageObject(previousUrl,'formatos');
+        showToast(removed?'Foto removida do Press Kit e do Storage.':'Foto removida do Press Kit. O arquivo antigo pode continuar no Storage.','success');
+      } catch(e) {
+        artistData.formats=previous;
+        for(const url of uploadedFormatUrls) await tryRemoveOwnStorageObject(url,'formatos');
+        renderFormatPhotoStatus();
+        showToast('Erro ao remover foto do formato: '+(e.message||e),'error');
+      } finally {formatPhotoRemovalInProgress=false;}
     }
 
     async function saveFormatsEdits() {
@@ -3239,6 +3434,7 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       if (saveBtn) { saveBtn.disabled=true; saveBtn.textContent='Salvando formatos...'; saveBtn.classList.add('opacity-60'); }
       const previous = (artistData.formats || []).map(f=>({...f}));
       const updated = Array.from({length:3},(_,i)=>({...previous[i]}));
+      const uploadedFormatUrls=[];
       try {
         if (updated.length !== 3 || updated.some(f=>!f)) throw new Error('Dados dos formatos de show incompletos.');
         updated[0].title=document.getElementById('fmt1Title').value.trim();
@@ -3261,13 +3457,18 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
             const item=uploads[n];
             showToast(`Enviando foto ${n+1} de ${uploads.length} para o Storage...`, 'loading');
             updated[item.i].photo=await uploadStagekitFile(item.file,'formatos',session);
+            uploadedFormatUrls.push(updated[item.i].photo);
           }
         }
         artistData.formats=updated;
         showToast('Salvando formatos no banco de dados...', 'loading');
         const saved=await saveData(true);
         if (!saved) throw new Error('O Supabase não confirmou o salvamento dos formatos. Confira as permissões da tabela stagekit_users.');
-        uploads.forEach(item=>{item.input.value='';});
+        for (const item of uploads) {
+          item.input.value='';
+          const oldUrl=previous[item.i]?.photo;
+          if (oldUrl && oldUrl!==updated[item.i].photo) await tryRemoveOwnStorageObject(oldUrl,'formatos');
+        }
         renderFormatPhotoStatus();
         applyPublicData();
         showToast('Formatos e fotos salvos com sucesso!', 'success');
@@ -3671,8 +3872,3 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
   </script>
 </body>
 </html>
-
-
-
-
-
