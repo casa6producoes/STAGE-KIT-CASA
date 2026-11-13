@@ -71,7 +71,7 @@
 <body class="min-h-screen flex flex-col antialiased selection:bg-amber-500 selection:text-black">
 
   <!-- ==================== HEADER DA PLATAFORMA ==================== -->
-  <header class="fixed top-0 left-0 w-full z-50 bg-[#09090B]/90 backdrop-blur-header border-b border-brand-border">
+  <header class="fixed top-0 left-0 w-full z-[60] bg-[#09090B]/90 backdrop-blur-header border-b border-brand-border">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
       
       <div class="flex items-center gap-4">
@@ -88,9 +88,9 @@
 
       <!-- Ações da Landing Page -->
       <div id="landingHeaderActions" class="flex items-center gap-3">
-   <button onclick="openLoginModal()" class="text-zinc-300 hover:text-white text-xs font-bold px-4 py-2 transition-colors cursor-pointer">
-  Entrar no meu painel
-</button>
+        <button onclick="openLoginModal()" class="text-zinc-300 hover:text-white text-xs font-bold px-4 py-2 transition-colors cursor-pointer">
+          Entrar no meu painel
+        </button>
         <button onclick="openRegisterModal()" class="bg-amber-500 hover:bg-amber-600 text-black text-xs font-extrabold px-4.5 py-2.5 rounded-xl transition-all shadow-md cursor-pointer">
           Criar meu kit
         </button>
@@ -104,9 +104,9 @@
               <i data-lucide="arrow-left" class="w-4 h-4"></i> <span id="backToDashboardBtnText">Voltar para área do artista</span>
             </button>
           </div>
-          <button id="viewOnlineKitBtn" onclick="showPublicPressKit(true)" class="...">
-  <i data-lucide="eye" class="w-4 h-4"></i> Ver meu kit online
-</button>
+          <button id="viewOnlineKitBtn" onclick="openOwnOnlineKit()" class="bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/30 text-amber-400 font-bold px-3.5 py-2 rounded-xl text-xs flex items-center gap-2 transition-all cursor-pointer">
+            <i data-lucide="eye" class="w-4 h-4"></i> Ver meu kit online
+          </button>
           <button onclick="logoutToHome()" class="p-2.5 rounded-xl bg-zinc-900 border border-zinc-800 text-red-400 hover:bg-zinc-800 transition-colors cursor-pointer flex items-center gap-2 text-xs font-semibold" title="Desconectar da conta">
             <i data-lucide="log-out" class="w-4 h-4"></i> <span class="hidden sm:inline">Desconectar</span>
           </button>
@@ -1172,7 +1172,7 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
     </div>
   </div>
 
-  <div id="loginModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
+  <div id="loginModal" class="fixed inset-0 z-[100] bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
     <div class="bg-brand-cardBg border border-brand-border rounded-3xl max-w-md w-full p-6 sm:p-8 space-y-6 shadow-2xl relative">
       <button onclick="closeLoginModal()" class="absolute top-6 right-6 text-zinc-400 hover:text-white cursor-pointer"><i data-lucide="x" class="w-5 h-5"></i></button>
       <div>
@@ -2151,23 +2151,25 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       }
     }
 
-   function showPublicPressKit(fromOwnPanel = false) {
-  if(fromOwnPanel) {
-    isViewingOwnOnlineKit = true;
-    try { window.history.pushState({}, '', '/modovisualizacao'); } catch(e) {}
-  } else {
-    try { window.history.pushState({}, '', `/${artistData.slug}`); } catch(e) {}
-  }
+    function showPublicPressKit(fromOwnPanel = false) {
+      if(fromOwnPanel) {
+        isViewingOwnOnlineKit = true;
+        try { window.history.pushState({}, '', '/modovisualizacao'); } catch(e) {}
+      } else {
+        try { window.history.pushState({}, '', `/${artistData.slug}`); } catch(e) {}
+      }
 
-  document.getElementById('landingPage').classList.add('hidden');
-  document.getElementById('contractorView').classList.remove('hidden');
-  document.getElementById('artistDashboard').classList.add('hidden');
-  document.getElementById('landingHeaderActions').classList.add('hidden');
-  document.getElementById('panelHeaderActions').classList.remove('hidden');
+      const lp = document.getElementById('landingPage');
+      if(lp) lp.classList.add('hidden');
+      const cv = document.getElementById('contractorView');
+      if(cv) cv.classList.remove('hidden');
+      const ad = document.getElementById('artistDashboard');
+      if(ad) ad.classList.add('hidden');
+      const lha = document.getElementById('landingHeaderActions');
+      if(lha) lha.classList.add('hidden');
+      const pha = document.getElementById('panelHeaderActions');
+      if(pha) pha.classList.remove('hidden');
 
-  applyPublicData();
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-}
       const backBtnContainer = document.getElementById('backToDashboardContainer');
       const viewOnlineBtn = document.getElementById('viewOnlineKitBtn');
       const backText = document.getElementById('backToDashboardBtnText');
@@ -2447,23 +2449,47 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       alert('Foto de perfil removida.');
     }
 
-    function openLoginModal() { 
-      document.getElementById('loginWhatsapp').value = '';
-      document.getElementById('loginPassword').value = '';
-      document.getElementById('loginModal').classList.remove('hidden'); 
-    }
+    window.openLoginModal = function() {
+      const modal = document.getElementById('loginModal');
+      const waInput = document.getElementById('loginWhatsapp');
+      const passInput = document.getElementById('loginPassword');
+      if (waInput) waInput.value = '';
+      if (passInput) passInput.value = '';
+      if (modal) {
+        modal.classList.remove('hidden');
+        modal.style.display = 'flex';
+      }
+    };
 
-    function closeLoginModal() { document.getElementById('loginModal').classList.add('hidden'); }
-    function handleLoginKey(e) { if(e.key === 'Enter') submitLogin(); }
+    window.closeLoginModal = function() {
+      const modal = document.getElementById('loginModal');
+      if (modal) {
+        modal.classList.add('hidden');
+        modal.style.display = 'none';
+      }
+    };
 
-    async function submitLogin() {
-      const loginInput = document.getElementById('loginWhatsapp').value.trim();
-      const pass = document.getElementById('loginPassword').value.trim();
+    window.handleLoginKey = function(e) {
+      if (e && e.key === 'Enter') {
+        e.preventDefault();
+        window.submitLogin();
+      }
+    };
 
-      if(!loginInput || !pass) { alert('Digite seu WhatsApp de acesso e senha.'); return; }
+    window.submitLogin = async function() {
+      const loginInput = (document.getElementById('loginWhatsapp')?.value || '').trim();
+      const pass = (document.getElementById('loginPassword')?.value || '').trim();
+
+      if (!loginInput || !pass) {
+        alert('Digite seu WhatsApp de acesso e senha.');
+        return;
+      }
 
       const cleanPhone = normalizeWhatsapp(loginInput);
-      if(!cleanPhone) { alert('Digite um número de WhatsApp válido.'); return; }
+      if (!cleanPhone) {
+        alert('Digite um número de WhatsApp válido.');
+        return;
+      }
 
       showToast('Verificando credenciais no servidor...', 'loading');
 
@@ -2475,9 +2501,7 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
             .eq('whatsapp', cleanPhone)
             .maybeSingle();
 
-          if (error) {
-            console.error('Erro ao consultar Supabase no login:', error);
-          } else if (userRow) {
+          if (!error && userRow) {
             if (userRow.password !== pass) {
               showToast('Senha incorreta.', 'error');
               alert('Credenciais incorretas!');
@@ -2501,7 +2525,7 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
             renderMusicians();
             updateCacheCalculations();
             renderCalendarEvents();
-            closeLoginModal();
+            window.closeLoginModal();
             showToast('Login realizado com sucesso!', 'success');
             showArtistDashboard();
             return;
@@ -2511,21 +2535,24 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
         }
       }
 
-      // Fallback local caso seja o Admin na primeira inicialização offline
-      if(cleanPhone === "21989368930" && pass === "@Alohomora21") {
+      // Acesso Super Admin
+      if (cleanPhone === "21989368930" && pass === "@Alohomora21") {
         sessionUser = superAdminAccount;
         artistData = superAdminAccount;
         localStorage.setItem('stagekit_session', JSON.stringify(sessionUser));
         await ensureSuperAdminInSupabase();
         loadInputsFromState();
-        closeLoginModal();
+        window.closeLoginModal();
         showToast('Bem-vindo, Super Admin!', 'success');
         showArtistDashboard();
         return;
       }
 
-      const userFound = usersDatabase.find(u => normalizeWhatsapp(u.whatsapp) === cleanPhone && u.registeredPassword === pass);
-      if(userFound) {
+      // Fallback local
+      const userFound = usersDatabase.find(
+        u => normalizeWhatsapp(u.whatsapp) === cleanPhone && u.registeredPassword === pass
+      );
+      if (userFound) {
         if (userFound.status === 'Bloqueado') {
           showToast('Conta bloqueada.', 'error');
           alert('Sua conta está bloqueada.');
@@ -2535,17 +2562,29 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
         artistData = userFound;
         localStorage.setItem('stagekit_session', JSON.stringify(sessionUser));
         loadInputsFromState();
-        closeLoginModal();
+        window.closeLoginModal();
         showToast('Login realizado!', 'success');
         showArtistDashboard();
       } else {
         showToast('Usuário ou senha inválidos.', 'error');
         alert('Credenciais incorretas!');
       }
-    }
+    };
 
-    function openRegisterModal() { document.getElementById('registerModal').classList.remove('hidden'); }
-    function closeRegisterModal() { document.getElementById('registerModal').classList.add('hidden'); }
+    window.openRegisterModal = function() {
+      const modal = document.getElementById('registerModal');
+      if (modal) {
+        modal.classList.remove('hidden');
+        modal.style.display = 'flex';
+      }
+    };
+    window.closeRegisterModal = function() {
+      const modal = document.getElementById('registerModal');
+      if (modal) {
+        modal.classList.add('hidden');
+        modal.style.display = 'none';
+      }
+    };
 
     async function submitRegister() {
       const fullName = document.getElementById('regFullName').value.trim();
@@ -2809,38 +2848,33 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       loadInputsFromState();
     }
 
-   async function saveArtistEdits() {
-  if(sessionUser && sessionUser.role === 'admin') return;
-  artistData.title = document.getElementById('editTitle').value;
-  artistData.bio = document.getElementById('editBio').value;
-  artistData.channelYoutube = document.getElementById('editChannelYoutube').value;
-  artistData.instagram = document.getElementById('editInstagram').value;
-  artistData.tiktok = document.getElementById('editTiktok').value;
-  artistData.facebook = document.getElementById('editFacebook').value;
-  artistData.spotify = document.getElementById('editSpotify').value;
-  artistData.deezer = document.getElementById('editDeezer').value;
-  artistData.apple = document.getElementById('editApple').value;
-  
-  artistData.youtube1 = document.getElementById('editYoutube1').value;
-  artistData.youtube2 = document.getElementById('editYoutube2').value;
-  artistData.youtube3 = document.getElementById('editYoutube3').value;
-  artistData.slug = document.getElementById('customSlugInput').value.toLowerCase().trim();
+    function saveArtistEdits() {
+      if(sessionUser && sessionUser.role === 'admin') return;
+      artistData.title = document.getElementById('editTitle').value;
+      artistData.bio = document.getElementById('editBio').value;
+      artistData.channelYoutube = document.getElementById('editChannelYoutube').value;
+      artistData.instagram = document.getElementById('editInstagram').value;
+      artistData.tiktok = document.getElementById('editTiktok').value;
+      artistData.facebook = document.getElementById('editFacebook').value;
+      artistData.spotify = document.getElementById('editSpotify').value;
+      artistData.deezer = document.getElementById('editDeezer').value;
+      artistData.apple = document.getElementById('editApple').value;
+      
+      artistData.youtube1 = document.getElementById('editYoutube1').value;
+      artistData.youtube2 = document.getElementById('editYoutube2').value;
+      artistData.youtube3 = document.getElementById('editYoutube3').value;
+      artistData.slug = document.getElementById('customSlugInput').value.toLowerCase().trim();
 
-  // Salva os depoimentos preenchidos
-  let newTestimonials = [];
-  if(artistData.testimonials) {
-    artistData.testimonials.forEach((t, idx) => {
-      let txt = document.getElementById(`testText_${idx}`)?.value || '';
-      let auth = document.getElementById(`testAuthor_${idx}`)?.value || 'Nome do Contratante';
-      newTestimonials.push({ text: txt, author: auth, printUrl: t.printUrl || '' });
-    });
-  }
-  artistData.testimonials = newTestimonials.filter(t => t.text || t.printUrl);
+      let newTestimonials = [];
+      if(artistData.testimonials) {
+        artistData.testimonials.forEach((t, idx) => {
+          let txt = document.getElementById(`testText_${idx}`)?.value || '';
+          let auth = document.getElementById(`testAuthor_${idx}`)?.value || 'Nome do Contratante';
+          newTestimonials.push({ text: txt, author: auth, printUrl: t.printUrl || '' });
+        });
+      }
+      artistData.testimonials = newTestimonials.filter(t => t.text || t.printUrl);
 
-  await saveData(true); // Força a gravação e exibe o Toast de sucesso
-  alert('✅ Mídias, streaming e depoimentos salvos com sucesso!');
-  loadInputsFromState();
-}
       let getFileBase64 = (file) => new Promise(res => {
         if(!file) return res(null);
         let r = new FileReader();
@@ -2979,18 +3013,15 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       alert('Contrato baixado com sucesso!');
     }
 
- function updateCustomLinkPreview() {
-  const slug = document.getElementById('customSlugInput').value.toLowerCase().trim();
-  artistData.slug = slug;
-  const previewEl = document.getElementById('fullSlugPreview');
-  if(previewEl) {
-    previewEl.innerText = `stagekitcasa6.vercel.app/${slug}`;
-  }
-  clearTimeout(window._slugSaveTimer);
-  window._slugSaveTimer = setTimeout(() => {
-    saveData(true);
-  }, 900);
-}
+    function updateCustomLinkPreview() {
+      const slug = document.getElementById('customSlugInput').value.toLowerCase().trim();
+      artistData.slug = slug;
+      document.getElementById('fullSlugPreview').innerText = `stagekitcasa6.vercel.app/${slug}`;
+      clearTimeout(window._slugSaveTimer);
+      window._slugSaveTimer = setTimeout(() => {
+        saveData(true);
+      }, 900);
+    }
 
     function copyCustomPressKitLink() {
       const slug = document.getElementById('customSlugInput').value;
