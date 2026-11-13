@@ -10,7 +10,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>StageKit — Press Kits para Músicos Profissionais</title>
-  <!-- StageKit v3.7: player de redes sociais incorporado na aba Na Prática -->
+  <!-- StageKit v3.8: players incorporados e remoção individual de fotos -->
   <!-- StageKit 3.7: identifica rotas diretas antes de renderizar a página inicial. -->
   <script>
     (function () {
@@ -735,27 +735,27 @@
             <div class="flex items-center gap-2 text-amber-500 font-bold text-sm">
               <i data-lucide="image" class="w-5 h-5"></i> <span>Fotos de Show & Apresentação (Galeria)</span>
             </div>
-            <p class="text-zinc-400">Insira fotos para a galeria pública do seu press kit.</p>
+            <p class="text-zinc-400">Adicione até cinco fotos para sua galeria pública. Você pode substituir ou remover individualmente cada foto salva.</p>
             <div class="space-y-3">
               <div>
                 <label class="block font-semibold text-zinc-300 mb-1">Foto 1</label>
-                <input type="file" id="galleryPhoto1" accept="image/*" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-2 text-zinc-300 text-xs">
+                <input type="file" id="galleryPhoto1" accept="image/*" onchange="renderMediaExistingStatus()" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-2 text-zinc-300 text-xs">
               </div>
               <div>
                 <label class="block font-semibold text-zinc-300 mb-1">Foto 2</label>
-                <input type="file" id="galleryPhoto2" accept="image/*" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-2 text-zinc-300 text-xs">
+                <input type="file" id="galleryPhoto2" accept="image/*" onchange="renderMediaExistingStatus()" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-2 text-zinc-300 text-xs">
               </div>
               <div>
                 <label class="block font-semibold text-zinc-300 mb-1">Foto 3</label>
-                <input type="file" id="galleryPhoto3" accept="image/*" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-2 text-zinc-300 text-xs">
+                <input type="file" id="galleryPhoto3" accept="image/*" onchange="renderMediaExistingStatus()" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-2 text-zinc-300 text-xs">
               </div>
               <div>
                 <label class="block font-semibold text-zinc-300 mb-1">Foto 4</label>
-                <input type="file" id="galleryPhoto4" accept="image/*" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-2 text-zinc-300 text-xs">
+                <input type="file" id="galleryPhoto4" accept="image/*" onchange="renderMediaExistingStatus()" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-2 text-zinc-300 text-xs">
               </div>
               <div>
                 <label class="block font-semibold text-zinc-300 mb-1">Foto 5</label>
-                <input type="file" id="galleryPhoto5" accept="image/*" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-2 text-zinc-300 text-xs">
+                <input type="file" id="galleryPhoto5" accept="image/*" onchange="renderMediaExistingStatus()" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-2 text-zinc-300 text-xs">
               </div>
             </div>
           </div>
@@ -765,7 +765,7 @@
             <div class="flex items-center gap-2 text-amber-500 font-bold text-sm">
               <i data-lucide="video" class="w-5 h-5"></i> <span>Na Prática (Vídeos das Redes Sociais)</span>
             </div>
-            <p class="text-zinc-400 leading-relaxed">Cole o link público de um vídeo do <strong class="text-zinc-300">YouTube, YouTube Shorts, Instagram Reels, TikTok ou Facebook</strong>. Ele será exibido diretamente no seu Press Kit, sem enviar um arquivo de vídeo ao Supabase.</p>
+            <p class="text-zinc-400 leading-relaxed">Cole um link público de <strong class="text-zinc-300">YouTube, Shorts, Instagram Reels, TikTok, Facebook ou Vimeo</strong>. O StageKit carrega o player incorporado na própria página, sem armazenar o vídeo. Para reprodução mais previsível, recomendamos YouTube ou TikTok.</p>
             <div class="space-y-4">
               <div class="p-3 bg-zinc-900 rounded-xl border border-zinc-800 space-y-2">
                 <label for="editYoutube1" class="block font-semibold text-zinc-200">Vídeo 1 · Link da rede social</label>
@@ -780,7 +780,7 @@
                 <input type="url" id="editYoutube3" inputmode="url" placeholder="https://www.tiktok.com/@perfil/video/..." class="w-full bg-zinc-800 border border-zinc-700 rounded-xl p-2 text-white">
               </div>
             </div>
-            <p class="text-[11px] text-zinc-500 leading-relaxed">Use o link direto e completo do vídeo, não o link do perfil. Vídeos privados, bloqueados para incorporação ou links curtos do TikTok podem não reproduzir. O player pode exibir a marca e os controles da rede social.</p>
+            <p class="text-[11px] text-zinc-500 leading-relaxed">Use o link do vídeo público, não o perfil. O Instagram pode exibir um cartão de prévia ou limitar a reprodução fora do aplicativo, mesmo dentro de um player incorporado. O StageKit não consegue remover essas restrições da rede social. Para garantir reprodução no próprio site, prefira YouTube (público ou não listado) ou TikTok.</p>
           </div>
         </div>
 
@@ -1417,8 +1417,10 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
         const match = url.pathname.match(/^\/(reel|reels|p|tv)\/([a-zA-Z0-9_-]+)(?:\/|$)/);
         if (!match) return null;
         const type = match[1] === 'reels' ? 'reel' : match[1];
-        return { platform:'Instagram', kind:'instagram', format:'portrait',
-          url:`https://www.instagram.com/${type}/${match[2]}/` };
+        // O iframe de vídeo evita o cartão completo gerado por embed.js.
+        // A reprodução depende das permissões do Instagram (nem todo Reel toca no iframe).
+        return { platform:'Instagram', kind:'iframe', format:'portrait',
+          url:`https://www.instagram.com/${type}/${match[2]}/embed/` };
       }
 
       // Facebook: plugin incorporado para vídeos e reels públicos.
@@ -1439,23 +1441,6 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
           url:`https://player.vimeo.com/video/${match[1]}` };
       }
       return null;
-    }
-
-    // Carrega o embed oficial do Instagram apenas quando houver posts na página.
-    function activateInstagramEmbeds() {
-      if (!document.querySelector('#displayVideosContainer .instagram-media')) return;
-      if (window.instgrm?.Embeds?.process) {
-        try { window.instgrm.Embeds.process(); } catch(e) { console.warn('Embed Instagram:', e); }
-        return;
-      }
-      if (document.querySelector('script[data-stagekit-instagram-embed]')) return;
-      const script = document.createElement('script');
-      script.async = true;
-      script.dataset.stagekitInstagramEmbed = 'true';
-      script.src = 'https://www.instagram.com/embed.js';
-      script.onload = () => { try { window.instgrm?.Embeds?.process?.(); } catch(e) {} };
-      script.onerror = () => console.warn('Instagram indisponível para incorporação neste navegador.');
-      document.head.appendChild(script);
     }
 
     function getEmbedAudio(input) {
@@ -2120,20 +2105,11 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
             const cardClass = portrait
               ? 'w-full min-h-[540px] sm:min-h-[570px]'
               : 'aspect-video w-full';
-            if (item.kind === 'instagram') {
-              return `
-                <div class="rounded-2xl overflow-hidden border border-brand-border shadow-xl bg-brand-cardBg p-2 flex items-start justify-center min-h-[550px]" aria-label="Vídeo ${index + 1} do Instagram">
-                  <blockquote class="instagram-media" data-instgrm-permalink="${escHtml(item.url)}" data-instgrm-version="14" style="background:#fff;border:0;border-radius:12px;min-width:260px;max-width:540px;width:100%;margin:0 auto;">
-                    <p style="color:#52525b;font-size:12px;padding:14px;">Carregando vídeo do Instagram...</p>
-                  </blockquote>
-                </div>`;
-            }
             return `
-              <div class="rounded-2xl overflow-hidden border border-brand-border shadow-xl bg-brand-cardBg ${cardClass}">
-                <iframe class="w-full h-full min-h-[260px] ${portrait ? 'sm:min-h-[570px]' : ''}" src="${escHtml(item.url)}" title="Vídeo ${index + 1} do ${escHtml(item.platform)}" loading="lazy" allow="autoplay; encrypted-media; fullscreen; picture-in-picture; clipboard-write; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+              <div class="rounded-2xl overflow-hidden border border-brand-border shadow-xl bg-black ${cardClass} flex flex-col" aria-label="Player de vídeo ${index + 1}">
+                <iframe class="w-full flex-1 border-0 min-h-[300px] ${portrait ? 'sm:min-h-[570px]' : ''}" src="${escHtml(item.url)}" title="Reproduzir vídeo ${index + 1} do ${escHtml(item.platform)} aqui no StageKit" loading="lazy" allow="accelerometer; autoplay; encrypted-media; fullscreen; picture-in-picture; clipboard-write; web-share; gyroscope" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
               </div>`;
           }).join('');
-          activateInstagramEmbeds();
         } else {
           vContainer.innerHTML = `
             <div class="col-span-full rounded-2xl overflow-hidden border border-brand-border shadow-2xl bg-brand-cardBg aspect-video flex items-center justify-center relative">
@@ -2143,24 +2119,15 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       }
 
       const galleryGrid = document.getElementById('displayPublicGalleryGrid');
-      if(galleryGrid) {
-        let photos = artistData.galleryPhotos || [];
-        let defaultPhotos = [
-          'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=800&q=80',
-          'https://images.unsplash.com/photo-1465847899084-d164df4dedc6?auto=format&fit=crop&w=800&q=80',
-          'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=800&q=80',
-          'https://images.unsplash.com/photo-1501386761578-eac5c94b800a?auto=format&fit=crop&w=800&q=80',
-          'https://images.unsplash.com/photo-1470225620780-dba8ba36b745?auto=format&fit=crop&w=800&q=80'
-        ];
-        
-        let finalPhotos = [];
-        for(let i=0; i<5; i++) {
-          finalPhotos.push(photos[i] || defaultPhotos[i]);
-        }
-
-        galleryGrid.innerHTML = finalPhotos.map(photo => `
+      if (galleryGrid) {
+        // Renderiza somente as fotos de verdade. Foto removida NÃO vira imagem genérica.
+        const photos = (Array.isArray(artistData.galleryPhotos) ? artistData.galleryPhotos : [])
+          .filter(url => typeof url === 'string' && safeExternalUrl(url));
+        const gallerySection = document.getElementById('secaoGaleriaFotos');
+        if (gallerySection) gallerySection.classList.toggle('hidden', photos.length === 0);
+        galleryGrid.innerHTML = photos.map((photo, index) => `
           <div class="rounded-2xl overflow-hidden h-48 sm:h-56 border border-zinc-800 bg-zinc-900 shadow-xl">
-            <img src="${escHtml(safeExternalUrl(photo))}" alt="Foto do artista" loading="lazy" class="w-full h-full object-cover hover:scale-105 transition-transform">
+            <img src="${escHtml(safeExternalUrl(photo))}" alt="Foto ${index + 1} do artista" loading="lazy" class="w-full h-full object-cover hover:scale-105 transition-transform">
           </div>
         `).join('');
       }
@@ -3000,19 +2967,100 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
     }
 
     function renderMediaExistingStatus() {
-      const slots = Array.from({length:5},(_,i)=>({id:`galleryPhoto${i+1}`,url:(artistData.galleryPhotos||[])[i]}));
-      for (const {id,url} of slots) {
-        const inp = document.getElementById(id);
-        if (!inp) continue;
-        let status = document.getElementById(`status_${id}`);
-        if (!status) {
-          status = document.createElement('p');
-          status.id = `status_${id}`;
-          status.className = 'text-[11px] mt-1';
-          inp.insertAdjacentElement('afterend',status);
+      for (let i = 0; i < 5; i++) {
+        const input = document.getElementById(`galleryPhoto${i + 1}`);
+        if (!input) continue;
+        const saved = (artistData.galleryPhotos || [])[i] || '';
+        const selected = input.files?.[0];
+        let container = document.getElementById(`galleryStatus_${i}`);
+        if (!container) {
+          container = document.createElement('div');
+          container.id = `galleryStatus_${i}`;
+          container.className = 'mt-2';
+          input.insertAdjacentElement('afterend', container);
         }
-        status.className = `text-[11px] mt-1 ${url ? 'text-emerald-400' : 'text-zinc-500'}`;
-        status.textContent = url ? '✓ Arquivo salvo no Supabase. Anexe outro para substituir.' : 'Nenhum arquivo salvo';
+        const photoUrl = safeExternalUrl(saved);
+        const preview = photoUrl
+          ? `<img src="${escHtml(photoUrl)}" alt="Foto ${i + 1} salva" loading="lazy" class="w-16 h-16 rounded-lg object-cover border border-zinc-700 shrink-0">`
+          : '<span class="w-16 h-16 rounded-lg bg-zinc-800 flex items-center justify-center shrink-0 text-zinc-500 text-[10px]">Sem foto</span>';
+        const info = selected
+          ? `Selecionada: ${escHtml(selected.name)}. Clique em Salvar para publicar.`
+          : saved ? 'Foto salva e publicada no Press Kit.' : 'Nenhuma foto cadastrada.';
+        container.innerHTML = `
+          <div class="flex items-center gap-3 bg-zinc-950/60 border border-zinc-800 rounded-xl p-2">
+            ${preview}
+            <div class="min-w-0 flex-1 space-y-2">
+              <p class="text-[11px] ${saved ? 'text-emerald-400' : 'text-zinc-400'} break-words">${info}</p>
+              ${saved || selected ? `<button type="button" onclick="removeGalleryPhoto(${i})" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-red-400 bg-red-500/10 hover:bg-red-500/20 border border-red-500/25 font-bold text-[11px]"><i data-lucide="trash-2" class="w-3.5 h-3.5"></i> Remover foto</button>` : ''}
+            </div>
+          </div>`;
+      }
+      try { lucide.createIcons(); } catch (e) {}
+    }
+
+    // Remove a foto do perfil persistido e, se autorizado, também do Storage.
+    // Apenas arquivos da pasta do mesmo auth.uid() são elegíveis para exclusão física.
+    let galleryRemovalInProgress = false;
+    async function removeGalleryPhoto(index) {
+      if (!sessionUser || sessionUser.role === 'admin' || galleryRemovalInProgress) return;
+      if (!Number.isInteger(index) || index < 0 || index >= 5) return;
+      const input = document.getElementById(`galleryPhoto${index + 1}`);
+      const originalPhotos = Array.from({length:5}, (_,i) => (artistData.galleryPhotos || [])[i] || '');
+      const originalUrl = originalPhotos[index];
+      if (!originalUrl) {
+        if (input) input.value = '';
+        renderMediaExistingStatus();
+        return;
+      }
+      if (!window.confirm(`Remover a Foto ${index + 1} do Press Kit?`)) return;
+      galleryRemovalInProgress = true;
+      try {
+        showToast(`Removendo Foto ${index + 1}...`, 'loading');
+        const nextPhotos = [...originalPhotos];
+        nextPhotos[index] = '';
+        artistData.galleryPhotos = nextPhotos;
+        if (!(await saveData(false))) {
+          artistData.galleryPhotos = originalPhotos;
+          throw new Error('Não foi possível salvar a remoção no Supabase.');
+        }
+        if (input) input.value = '';
+        renderMediaExistingStatus();
+        applyPublicData();
+        const deletedFromStorage = await tryRemoveOwnGalleryStorageObject(originalUrl);
+        showToast(
+          deletedFromStorage ? 'Foto removida do Press Kit e do Storage.' : 'Foto removida do Press Kit. O arquivo original pode permanecer no Storage.',
+          'success'
+        );
+      } catch (error) {
+        console.error('Erro ao remover foto:', error);
+        showToast(error.message || 'Falha ao remover foto.', 'error');
+      } finally {
+        galleryRemovalInProgress = false;
+      }
+    }
+
+    async function tryRemoveOwnGalleryStorageObject(fileUrl) {
+      if (!supabaseClient || !fileUrl) return false;
+      let path = '';
+      try {
+        const u = new URL(fileUrl);
+        const base = new URL(SUPABASE_URL);
+        const prefix = `/storage/v1/object/public/${STAGEKIT_MEDIA_BUCKET}/`;
+        if (u.origin !== base.origin || !u.pathname.startsWith(prefix)) return false;
+        path = decodeURIComponent(u.pathname.slice(prefix.length));
+      } catch (e) { return false; }
+      try {
+        const { data: current, error: sessionError } = await supabaseClient.auth.getSession();
+        if (sessionError) return false;
+        const authId = current?.session?.user?.id;
+        const prefix = `${authId}/artists/`;
+        if (!authId || !path.startsWith(prefix) || !path.includes('/galeria/')) return false;
+        const { error } = await supabaseClient.storage.from(STAGEKIT_MEDIA_BUCKET).remove([path]);
+        if (error) { console.warn('Arquivo continua no Storage:', error.message); return false; }
+        return true;
+      } catch (error) {
+        console.warn('Não foi possível excluir o arquivo do Storage:', error);
+        return false;
       }
     }
 
