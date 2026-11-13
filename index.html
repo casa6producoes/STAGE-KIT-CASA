@@ -10,7 +10,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>StageKit — Press Kits para Músicos Profissionais</title>
-  <!-- StageKit v3.10: links de Reels e fotos de formatos no Storage -->
+  <!-- StageKit v3.11: múltiplos músicos por evento e edição de eventos. Mantém correções anteriores. -->
   <!-- StageKit 3.7: identifica rotas diretas antes de renderizar a página inicial. -->
   <script>
     (function () {
@@ -1032,21 +1032,24 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       <div id="tabEvents" class="dashboard-tab max-w-4xl space-y-6 hidden">
         <div>
           <h2 class="text-xl font-bold text-white">Gestão de Eventos & Shows Fechados</h2>
-          <p class="text-xs text-zinc-400 mt-1">Cadastre os shows fechados para gerar valores e compartilhar automaticamente.</p>
+          <p class="text-xs text-zinc-400 mt-1">Cadastre ou edite shows e distribua o cachê entre vários músicos.</p>
         </div>
 
-        <div class="bg-brand-cardBg border border-brand-border p-6 rounded-2xl space-y-4 text-xs">
+        <div id="eventEditorCard" class="bg-brand-cardBg border border-brand-border p-6 rounded-2xl space-y-4 text-xs">
+          <div id="editingEventBanner" class="hidden p-3 rounded-xl border border-amber-500/40 bg-amber-500/10 text-amber-400 font-semibold">
+            <span id="editingEventLabel">Editando evento</span>. Faça os ajustes abaixo e clique em "Salvar alterações".
+          </div>
           <div class="grid sm:grid-cols-2 gap-4">
             <div>
-              <label class="block font-semibold text-zinc-300 mb-1">Nome do Evento / Cliente</label>
+              <label for="newEventName" class="block font-semibold text-zinc-300 mb-1">Nome do Evento / Cliente</label>
               <input type="text" id="newEventName" placeholder="Ex: Casamento Ana e Bruno" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white">
             </div>
             <div>
-              <label class="block font-semibold text-zinc-300 mb-1">Data e Horário</label>
+              <label for="newEventDate" class="block font-semibold text-zinc-300 mb-1">Data e Horário</label>
               <input type="datetime-local" id="newEventDate" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white">
             </div>
             <div>
-              <label class="block font-semibold text-zinc-300 mb-1">Projeto / Formato</label>
+              <label for="newEventProject" class="block font-semibold text-zinc-300 mb-1">Projeto / Formato</label>
               <select id="newEventProject" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white">
                 <option>Voz e Violão</option>
                 <option>Dupla</option>
@@ -1055,24 +1058,31 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
               </select>
             </div>
             <div>
-              <label class="block font-semibold text-zinc-300 mb-1">Valor Total do Cachê (R$)</label>
-              <input type="number" id="newEventCache" placeholder="2500" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white">
+              <label for="newEventCache" class="block font-semibold text-zinc-300 mb-1">Valor Total do Cachê (R$)</label>
+              <input type="number" id="newEventCache" min="0" step="0.01" placeholder="2500" oninput="updateEventFinancialPreview()" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white">
+            </div>
+            <div class="sm:col-span-2 space-y-3">
+              <label class="block font-semibold text-zinc-300">Músicos & Cachês Individuais</label>
+              <p class="text-zinc-500 text-[11px]">Selecione músicos cadastrados em Gestão de Equipe. Cada músico pode ter um valor diferente.</p>
+              <div id="eventMusicianRows" class="space-y-2"></div>
+              <button type="button" onclick="addEventMusicianRow()" id="addEventMusicianButton" class="inline-flex items-center gap-2 rounded-xl border border-amber-500/45 bg-amber-500/10 px-4 py-2.5 font-bold text-amber-400 hover:bg-amber-500/20 cursor-pointer">
+                <i data-lucide="user-plus" class="w-4 h-4"></i> Adicionar músico
+              </button>
             </div>
             <div>
-              <label class="block font-semibold text-zinc-300 mb-1">Músico & Valor por Músico</label>
-              <div class="grid grid-cols-2 gap-2">
-                <select id="newEventMusicianSelect" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white">
-                  <option value="">Selecione o Músico</option>
-                </select>
-                <input type="number" id="newEventMusicianValue" placeholder="Valor p/ Músico (R$)" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white">
-              </div>
+              <label for="newEventFuel" class="block font-semibold text-zinc-300 mb-1">Combustível / Despesas (R$)</label>
+              <input type="number" id="newEventFuel" min="0" step="0.01" placeholder="200" oninput="updateEventFinancialPreview()" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white">
             </div>
-            <div>
-              <label class="block font-semibold text-zinc-300 mb-1">Combustível / Despesas (R$)</label>
-              <input type="number" id="newEventFuel" placeholder="200" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white">
+            <div class="rounded-xl border border-zinc-700 bg-zinc-900 p-3 space-y-1" aria-live="polite">
+              <p class="text-zinc-400">Total dos músicos: <strong id="eventMusiciansTotal" class="text-white">R$ 0,00</strong></p>
+              <p class="text-zinc-400">Saldo após cachês e despesas: <strong id="eventNetPreview" class="text-amber-400">R$ 0,00</strong></p>
             </div>
           </div>
-          <button onclick="addNewEvent()" class="bg-amber-500 hover:bg-amber-600 text-black font-extrabold py-3 px-6 rounded-xl shadow-md cursor-pointer">Adicionar Evento & Enviar p/ Todos os Músicos (WhatsApp)</button>
+          <div class="flex flex-wrap items-center gap-3">
+            <button type="button" onclick="addNewEvent()" id="saveEventButton" class="bg-amber-500 hover:bg-amber-600 text-black font-extrabold py-3 px-6 rounded-xl shadow-md cursor-pointer">Adicionar Evento</button>
+            <button type="button" onclick="cancelEventEdit()" id="cancelEventEditButton" class="hidden border border-zinc-700 bg-zinc-800 hover:bg-zinc-700 text-zinc-200 font-semibold py-3 px-5 rounded-xl cursor-pointer">Cancelar edição</button>
+          </div>
+          <p class="text-[11px] text-zinc-500">Os eventos e os cachês são salvos na sua conta. O envio por WhatsApp não é automático nesta versão.</p>
         </div>
 
         <div class="bg-brand-cardBg border border-brand-border p-6 rounded-2xl space-y-4">
@@ -1710,6 +1720,8 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
     };
 
     let eventsList = (sessionUser && Array.isArray(sessionUser.eventsList)) ? sessionUser.eventsList : (JSON.parse(localStorage.getItem('stagekit_events')) || []);
+    let editingEventIndex = null;
+    let eventSaveInProgress = false;
     let musiciansList = (sessionUser && Array.isArray(sessionUser.musiciansList)) ? sessionUser.musiciansList : (JSON.parse(localStorage.getItem('stagekit_musicians')) || []);
     let globalContractModel = localStorage.getItem('stagekit_global_contract') || `CONTRATO DE PRESTAÇÃO DE SERVIÇOS ARTÍSTICOS - PADRÃO CASA 6 PRODUÇÕES
 
@@ -3576,47 +3588,275 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       }
     }
 
-    async function addNewEvent() {
-      if(sessionUser && sessionUser.role === 'admin') return;
-      const name = document.getElementById('newEventName').value;
-      if(!name) { alert('Insira o nome do evento'); return; }
-      const date = document.getElementById('newEventDate').value;
-      const project = document.getElementById('newEventProject').value;
-      const cache = parseFloat(document.getElementById('newEventCache').value) || 0;
-      const musicianName = document.getElementById('newEventMusicianSelect').value;
-      const musicianVal = parseFloat(document.getElementById('newEventMusicianValue').value) || 0;
-      const fuel = parseFloat(document.getElementById('newEventFuel').value) || 0;
+    // ==================== STAGEKIT v3.11: MÚLTIPLOS MÚSICOS POR EVENTO ====================
+    function formatStagekitMoney(value) {
+      return Number(value || 0).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+    }
 
-      eventsList.push({ name, date, project, cache, musicianName, musicianVal, fuel });
-      await saveData(true);
-      renderEvents();
-      updateCacheCalculations();
-      renderCalendarEvents();
-      alert('Evento cadastrado com sucesso!');
+    function readMoneyField(id) {
+      const raw = document.getElementById(id)?.value ?? '';
+      const number = raw === '' ? 0 : Number(raw);
+      if (!Number.isFinite(number) || number < 0) throw new Error('Informe valores válidos e não negativos.');
+      return number;
+    }
+
+    // Migração em memória: eventos antigos tinham somente musicianName e musicianVal.
+    // O formato novo mantém os campos antigos como compatibilidade, mas a fonte é musicians[].
+    function getEventMusicians(event) {
+      if (Array.isArray(event?.musicians)) {
+        return event.musicians.map(item => ({
+          name: String(item?.name || '').trim(),
+          value: Number(item?.value || 0),
+          instrument: String(item?.instrument || ''),
+          whatsapp: String(item?.whatsapp || '')
+        })).filter(item => item.name);
+      }
+      return event?.musicianName ? [{
+        name: String(event.musicianName),
+        value: Number(event.musicianVal || 0),
+        instrument: '',
+        whatsapp: ''
+      }] : [];
+    }
+
+    function refreshEventMusicianSelects() {
+      document.querySelectorAll('#eventMusicianRows .event-musician-select').forEach(select => {
+        const current = select.value;
+        select.replaceChildren();
+        select.add(new Option('Selecione o músico', ''));
+        musiciansList.forEach(m => {
+          select.add(new Option(`${m.name || ''} (${m.instrument || ''})`, String(m.name || '')));
+        });
+        // Preserva escala de um evento antigo mesmo após remover o músico do catálogo.
+        if (current && !Array.from(select.options).some(o => o.value === current)) {
+          select.add(new Option(current + ' (não está na equipe atual)', current));
+        }
+        select.value = current;
+      });
+    }
+
+    function addEventMusicianRow(member = {}) {
+      const container = document.getElementById('eventMusicianRows');
+      if (!container) return;
+      const row = document.createElement('div');
+      row.className = 'event-musician-row grid grid-cols-1 sm:grid-cols-[minmax(0,1fr)_minmax(0,0.7fr)_auto] items-center gap-2 rounded-xl border border-zinc-700 bg-zinc-900 p-3';
+      row.innerHTML = `
+        <select class="event-musician-select w-full bg-zinc-800 border border-zinc-700 rounded-xl p-2.5 text-white" aria-label="Selecionar músico" onchange="updateEventFinancialPreview()"></select>
+        <input type="number" min="0" step="0.01" class="event-musician-value w-full bg-zinc-800 border border-zinc-700 rounded-xl p-2.5 text-white" placeholder="Cachê (R$)" aria-label="Cachê individual" oninput="updateEventFinancialPreview()">
+        <button type="button" class="text-red-400 font-bold text-[11px] px-3 py-2 hover:bg-red-500/10 rounded-xl" onclick="removeEventMusicianRow(this)" aria-label="Remover este músico do evento">Remover</button>`;
+      container.appendChild(row);
+      const select = row.querySelector('.event-musician-select');
+      select.value = String(member.name || '');
+      refreshEventMusicianSelects();
+      select.value = String(member.name || '');
+      row.querySelector('.event-musician-value').value = member.value === undefined || member.value === null ? '' : String(member.value);
+      updateEventFinancialPreview();
+      return row;
+    }
+
+    function removeEventMusicianRow(button) {
+      const row = button?.closest('.event-musician-row');
+      const container = document.getElementById('eventMusicianRows');
+      if (!row || !container) return;
+      if (container.children.length > 1) row.remove();
+      else {
+        row.querySelector('.event-musician-select').value = '';
+        row.querySelector('.event-musician-value').value = '';
+      }
+      updateEventFinancialPreview();
+    }
+
+    function readEventMusicians() {
+      const result = [];
+      const names = new Set();
+      for (const row of document.querySelectorAll('#eventMusicianRows .event-musician-row')) {
+        const name = row.querySelector('.event-musician-select').value.trim();
+        const rawValue = row.querySelector('.event-musician-value').value;
+        const value = rawValue === '' ? 0 : Number(rawValue);
+        if (!Number.isFinite(value) || value < 0) throw new Error('Informe um cachê válido para cada músico.');
+        if (!name) {
+          if (value > 0) throw new Error('Selecione o músico que receberá o cachê informado.');
+          continue;
+        }
+        if (names.has(name.toLocaleLowerCase('pt-BR'))) throw new Error(`O músico ${name} está repetido neste evento.`);
+        names.add(name.toLocaleLowerCase('pt-BR'));
+        const registered = musiciansList.find(m => m.name === name);
+        result.push({
+          name,
+          value,
+          instrument: String(registered?.instrument || ''),
+          whatsapp: String(registered?.whatsapp || '')
+        });
+      }
+      return result;
+    }
+
+    function updateEventFinancialPreview() {
+      const memberSum = Array.from(document.querySelectorAll('#eventMusicianRows .event-musician-value'))
+        .reduce((sum, input) => sum + Math.max(0, Number(input.value) || 0), 0);
+      const cache = Math.max(0, Number(document.getElementById('newEventCache')?.value) || 0);
+      const expenses = Math.max(0, Number(document.getElementById('newEventFuel')?.value) || 0);
+      const totalEl = document.getElementById('eventMusiciansTotal');
+      const netEl = document.getElementById('eventNetPreview');
+      if (totalEl) totalEl.textContent = formatStagekitMoney(memberSum);
+      if (netEl) {
+        const net = cache - memberSum - expenses;
+        netEl.textContent = formatStagekitMoney(net);
+        netEl.classList.toggle('text-red-400', net < 0);
+        netEl.classList.toggle('text-amber-400', net >= 0);
+      }
+    }
+
+    function resetEventEditor() {
+      editingEventIndex = null;
+      ['newEventName', 'newEventDate', 'newEventCache', 'newEventFuel'].forEach(id => {
+        const input = document.getElementById(id);
+        if (input) input.value = '';
+      });
+      const project = document.getElementById('newEventProject');
+      if (project) project.selectedIndex = 0;
+      const container = document.getElementById('eventMusicianRows');
+      if (container) { container.replaceChildren(); addEventMusicianRow(); }
+      document.getElementById('editingEventBanner')?.classList.add('hidden');
+      document.getElementById('cancelEventEditButton')?.classList.add('hidden');
+      const saveButton = document.getElementById('saveEventButton');
+      if (saveButton) saveButton.textContent = 'Adicionar Evento';
+      updateEventFinancialPreview();
+    }
+
+    function cancelEventEdit() { resetEventEditor(); }
+
+    function editEvent(index) {
+      if (sessionUser?.role === 'admin') return;
+      const event = eventsList[index];
+      if (!event) return;
+      editingEventIndex = index;
+      document.getElementById('newEventName').value = String(event.name || '');
+      document.getElementById('newEventDate').value = String(event.date || '').slice(0,16);
+      const projectSelect = document.getElementById('newEventProject');
+      const project = String(event.project || '');
+      if (project && !Array.from(projectSelect.options).some(o => o.value === project)) {
+        projectSelect.add(new Option(project, project));
+      }
+      projectSelect.value = project || projectSelect.options[0].value;
+      document.getElementById('newEventCache').value = String(Number(event.cache || 0));
+      document.getElementById('newEventFuel').value = String(Number(event.fuel || 0));
+      const rows = document.getElementById('eventMusicianRows');
+      rows.replaceChildren();
+      const members = getEventMusicians(event);
+      if (members.length) members.forEach(m => addEventMusicianRow(m));
+      else addEventMusicianRow();
+      document.getElementById('editingEventLabel').textContent = `Editando: ${event.name || 'Evento'}`;
+      document.getElementById('editingEventBanner').classList.remove('hidden');
+      document.getElementById('cancelEventEditButton').classList.remove('hidden');
+      document.getElementById('saveEventButton').textContent = 'Salvar alterações do evento';
+      updateEventFinancialPreview();
+      document.getElementById('eventEditorCard').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    async function addNewEvent() {
+      if (!sessionUser || sessionUser.role === 'admin' || eventSaveInProgress) return;
+      const name = document.getElementById('newEventName').value.trim();
+      if (!name) { alert('Insira o nome do evento.'); return; }
+      let cache, fuel, members;
+      try {
+        cache = readMoneyField('newEventCache');
+        fuel = readMoneyField('newEventFuel');
+        members = readEventMusicians();
+      } catch (err) {
+        alert(err.message);
+        return;
+      }
+      const event = {
+        name,
+        date: document.getElementById('newEventDate').value,
+        project: document.getElementById('newEventProject').value,
+        cache,
+        fuel,
+        musicians: members,
+        // Campos antigos preservados para compatibilidade com integrações existentes.
+        musicianName: members[0]?.name || '',
+        musicianVal: members[0]?.value || 0
+      };
+      const wasEditing = editingEventIndex !== null;
+      const index = editingEventIndex;
+      const previous = wasEditing ? eventsList[index] : null;
+      eventSaveInProgress = true;
+      const button = document.getElementById('saveEventButton');
+      if (button) { button.disabled = true; button.textContent = 'Salvando...'; }
+      if (wasEditing && index >= 0 && index < eventsList.length) eventsList[index] = { ...previous, ...event };
+      else eventsList.push(event);
+      try {
+        const success = await saveData(true);
+        if (!success) {
+          if (wasEditing && index >= 0 && index < eventsList.length) eventsList[index] = previous;
+          else eventsList.pop();
+          artistData.eventsList = eventsList;
+          return;
+        }
+        resetEventEditor();
+        renderEvents();
+        updateCacheCalculations();
+        renderCalendarEvents();
+        showToast(wasEditing ? 'Evento atualizado com os músicos!' : 'Evento e músicos salvos!', 'success');
+      } catch (err) {
+        if (wasEditing && index >= 0 && index < eventsList.length) eventsList[index] = previous;
+        else eventsList.pop();
+        artistData.eventsList = eventsList;
+        showToast('Erro ao salvar evento: ' + err.message, 'error');
+      } finally {
+        eventSaveInProgress = false;
+        if (button) button.disabled = false;
+        const inEdit = editingEventIndex !== null;
+        if (button) button.textContent = inEdit ? 'Salvar alterações do evento' : 'Adicionar Evento';
+      }
     }
 
     function renderEvents() {
       const container = document.getElementById('eventsListContainer');
-      document.getElementById('dashEventCount').innerText = eventsList.length;
-      if(!container) return;
-      if(eventsList.length === 0) {
+      const count = document.getElementById('dashEventCount');
+      if (count) count.textContent = String(eventsList.length);
+      if (!container) return;
+      if (eventsList.length === 0) {
         container.innerHTML = '<p class="text-zinc-500 italic">Nenhum evento cadastrado.</p>';
         return;
       }
-      container.innerHTML = eventsList.map((ev, idx) => `
-        <div class="bg-zinc-900 p-4 rounded-xl border border-zinc-800 flex justify-between items-center">
-          <div>
-            <p class="font-bold text-white text-sm">{ev.project})</p>
-            <p class="text-zinc-400">Data:  ${ev.cache.toFixed(2)}</p>
-          </div>
-          <button onclick="removeEvent(${idx})" class="text-red-400 font-bold cursor-pointer text-xs">Remover</button>
-        </div>
-      `).join('');
+      container.innerHTML = eventsList.map((ev, index) => {
+        const members = getEventMusicians(ev);
+        const musiciansTotal = members.reduce((sum, m) => sum + (Number(m.value) || 0), 0);
+        const detail = members.length
+          ? members.map(m => `${escHtml(m.name)}: ${formatStagekitMoney(m.value)}`).join(' · ')
+          : 'Músicos ainda não definidos';
+        const date = ev.date ? escHtml(ev.date.replace('T', ' ')) : 'Data a combinar';
+        return `
+          <div class="bg-zinc-900 p-4 rounded-xl border border-zinc-800 space-y-3">
+            <div class="flex flex-col sm:flex-row justify-between gap-3">
+              <div class="space-y-1 min-w-0">
+                <p class="font-bold text-white text-sm">${escHtml(ev.name || 'Evento')} <span class="text-amber-400 text-[11px]">(${escHtml(ev.project || '')})</span></p>
+                <p class="text-zinc-400">Data: ${date}</p>
+                <p class="text-zinc-400">Cachê total: <span class="text-white font-semibold">${formatStagekitMoney(ev.cache)}</span> · Músicos: ${members.length} (${formatStagekitMoney(musiciansTotal)})</p>
+                <p class="text-zinc-500 break-words leading-relaxed">${detail}</p>
+              </div>
+              <div class="flex items-start gap-2 shrink-0">
+                <button type="button" onclick="editEvent(${index})" class="bg-amber-500/15 hover:bg-amber-500/25 text-amber-400 font-bold px-3 py-2 rounded-xl text-xs">Editar</button>
+                <button type="button" onclick="removeEvent(${index})" class="bg-red-500/10 hover:bg-red-500/20 text-red-400 font-bold px-3 py-2 rounded-xl text-xs">Excluir</button>
+              </div>
+            </div>
+          </div>`;
+      }).join('');
     }
 
-    async function removeEvent(idx) {
-      eventsList.splice(idx, 1);
-      await saveData(true);
+    async function removeEvent(index) {
+      if (!sessionUser || sessionUser.role === 'admin' || eventSaveInProgress || !eventsList[index]) return;
+      if (!confirm(`Excluir o evento "${eventsList[index].name}"?`)) return;
+      const removed = eventsList.splice(index, 1)[0];
+      const success = await saveData(true);
+      if (!success) {
+        eventsList.splice(index, 0, removed);
+        artistData.eventsList = eventsList;
+        return;
+      }
+      resetEventEditor();
       renderEvents();
       updateCacheCalculations();
       renderCalendarEvents();
@@ -3625,15 +3865,15 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
     function updateCacheCalculations() {
       let totalCache = 0, totalMusicians = 0, totalFuel = 0;
       eventsList.forEach(ev => {
-        totalCache += ev.cache;
-        totalMusicians += ev.musicianVal;
-        totalFuel += ev.fuel;
+        totalCache += Number(ev.cache) || 0;
+        totalMusicians += getEventMusicians(ev).reduce((sum, member) => sum + (Number(member.value) || 0), 0);
+        totalFuel += Number(ev.fuel) || 0;
       });
-      let mine = totalCache - (totalMusicians + totalFuel);
-      document.getElementById('dashTotalCache').innerText = `R$ ${totalCache.toFixed(2)}`;
-      document.getElementById('cacheMusicians').innerText = `R$ ${totalMusicians.toFixed(2)}`;
-      document.getElementById('cacheFuel').innerText = `R$ ${totalFuel.toFixed(2)}`;
-      document.getElementById('cacheMine').innerText = `R$ ${mine >= 0 ? mine.toFixed(2) : '0,00'}`;
+      const mine = totalCache - totalMusicians - totalFuel;
+      document.getElementById('dashTotalCache').textContent = formatStagekitMoney(totalCache);
+      document.getElementById('cacheMusicians').textContent = formatStagekitMoney(totalMusicians);
+      document.getElementById('cacheFuel').textContent = formatStagekitMoney(totalFuel);
+      document.getElementById('cacheMine').textContent = formatStagekitMoney(mine);
     }
 
     async function addNewMusician() {
@@ -3650,20 +3890,19 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
 
     function renderMusicians() {
       const container = document.getElementById('musiciansListContainer');
-      const selectContainer = document.getElementById('newEventMusicianSelect');
-      if(!container || !selectContainer) return;
-      if(musiciansList.length === 0) {
+      if (!container) return;
+      if (musiciansList.length === 0) {
         container.innerHTML = '<p class="text-zinc-500 italic">Nenhum músico cadastrado.</p>';
-        selectContainer.innerHTML = '<option value="">Nenhum músico</option>';
-        return;
+      } else {
+        container.innerHTML = musiciansList.map((m, idx) => `
+          <div class="bg-zinc-900 p-3 rounded-xl border border-zinc-800 flex justify-between items-center gap-2">
+            <p class="text-white font-semibold">${escHtml(m.name)} (${escHtml(m.instrument)})</p>
+            <button type="button" onclick="removeMusician(${idx})" class="text-red-400 text-xs cursor-pointer">Excluir</button>
+          </div>`).join('');
       }
-      container.innerHTML = musiciansList.map((m, idx) => `
-        <div class="bg-zinc-900 p-3 rounded-xl border border-zinc-800 flex justify-between items-center">
-          <p class="text-white font-semibold">${escHtml(m.name)} (${escHtml(m.instrument)})</p>
-          <button onclick="removeMusician(${idx})" class="text-red-400 text-xs cursor-pointer">Excluir</button>
-        </div>
-      `).join('');
-      selectContainer.innerHTML = '<option value="">Selecione o Músico</option>' + musiciansList.map(m => `<option value="${escHtml(m.name)}">${escHtml(m.name)} (${escHtml(m.instrument)})</option>`).join('');
+      // Mantém os músicos já selecionados no evento enquanto atualiza as opções.
+      if (!document.querySelector('#eventMusicianRows .event-musician-row')) addEventMusicianRow();
+      refreshEventMusicianSelects();
     }
 
     async function removeMusician(idx) {
@@ -3872,3 +4111,8 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
   </script>
 </body>
 </html>
+
+
+
+
+
