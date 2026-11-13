@@ -1873,7 +1873,7 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
         if(artistData.coverUrl) {
           heroHeaderContainer.innerHTML = `
             <div class="w-full h-64 sm:h-96 rounded-3xl overflow-hidden border border-amber-500/40 shadow-2xl bg-brand-cardBg relative">
-              <img src="${artistData.coverUrl}" style="transform: scale(${artistData.coverZoom || 1}) rotate(${artistData.coverRotate || 0}deg);" class="w-full h-full object-cover" alt="Capa">
+              <img src="${artistData.coverUrl}" style="transform: scale(${artistData.coverZoom || 1}) rotate(${artistData.coverRotate || 0}deg);" class="w-full h-full object-cover" alt="Capa">artistData.coverUrl"style="transform:scale(
             </div>
           `;
         } else {
@@ -1886,7 +1886,7 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
 
           heroHeaderContainer.innerHTML = `
             <div class="py-10 px-6 rounded-3xl bg-gradient-to-r from-amber-500/20 via-brand-cardBg to-brand-cardBg border border-amber-500/40 shadow-2xl flex items-center justify-center">
-              <span style="font-family: '${fFamily}', sans-serif;" class="${fSize} ${fBold} ${fItalic} ${fUnderline} text-amber-400 tracking-wider text-center uppercase">
+              <span style="font-family: '${fFamily}', sans-serif;" class="${fSize} ${fBold} ${fItalic} ${fUnderline} text-amber-400 tracking-wider text-center uppercase">fFamily',sans-serif;"class="
                 🎵 ${cText}
               </span>
             </div>
@@ -1909,7 +1909,7 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       if(pubAvatar) {
         if(artistData.avatarUrl) {
           pubAvatar.src = artistData.avatarUrl;
-          pubAvatar.style.transform = `scale(${artistData.avatarZoom || 1}) rotate(${artistData.avatarRotate || 0}deg)`;
+          pubAvatar.style.transform = `scale(${artistData.avatarZoom || 1}) rotate(${artistData.avatarRotate || 0}deg)`;artistData.avatarZoom||1)rotate(
         } else {
           pubAvatar.src = 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=800&q=80';
           pubAvatar.style.transform = 'scale(1) rotate(0deg)';
@@ -2096,12 +2096,12 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
             <span class="font-bold text-amber-400">Depoimento ${idx + 1}</span>
             ${artistData.testimonials.length > 1 ? `<button type="button" onclick="removeTestimonialSlot(${idx})" class="text-red-400 text-xs font-bold hover:underline cursor-pointer">Remover</button>` : ''}
           </div>
-          <textarea id="testText_${idx}" placeholder="Ex: Show incrível no nosso casamento! Todos elogiaram." class="w-full bg-zinc-800 border border-zinc-700 rounded-xl p-3 text-white h-20 text-xs">${t.text || ''}</textarea>
+          <textarea id="testText_${idx}" placeholder="Ex: Show incrível no nosso casamento! Todos elogiaram." class="w-full bg-zinc-800 border border-zinc-700 rounded-xl p-3 text-white h-20 text-xs">${t.text || ''}</textarea>idx"placeholder="Ex:Showincrívelnonossocasamento!Todoselogiaram."class="w-fullbg-zinc-800borderborder-zinc-700rounded-xlp-3text-whiteh-20text-xs">
           
           <div class="grid sm:grid-cols-2 gap-3">
             <div>
               <label class="block text-zinc-400 mb-1">Nome do Contratante</label>
-              <input type="text" id="testAuthor_${idx}" value="${t.author || 'Nome do Contratante'}" placeholder="Nome do Contratante" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl p-2.5 text-white text-xs">
+              <input type="text" id="testAuthor_${idx}" value="${t.author || 'Nome do Contratante'}" placeholder="Nome do Contratante" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl p-2.5 text-white text-xs">idx"value="
             </div>
             <div>
               <label class="block text-zinc-400 mb-1">Anexar Print (Opcional)</label>
@@ -2333,7 +2333,7 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       if(previewImg && previewPlaceholder) {
         if(artistData.coverUrl) {
           previewImg.src = artistData.coverUrl;
-          previewImg.style.transform = `scale(${artistData.coverZoom || 1}) rotate(${artistData.coverRotate || 0}deg)`;
+          previewImg.style.transform = `scale(${artistData.coverZoom || 1}) rotate(${artistData.coverRotate || 0}deg)`;artistData.coverZoom||1)rotate(
           previewImg.classList.remove('hidden');
           previewPlaceholder.classList.add('hidden');
         } else {
@@ -2366,7 +2366,7 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       const zoom = document.getElementById('coverZoomRange').value;
       const rotate = document.getElementById('coverRotateRange').value;
       const cropImg = document.getElementById('modalCoverCropImg');
-      if(cropImg) cropImg.style.transform = `scale(${zoom}) rotate(${rotate}deg)`;
+      if(cropImg) cropImg.style.transform = `scale(${zoom}) rotate(${rotate}deg)`;zoom)rotate(
     }
 
     async function saveCoverTransform() {
@@ -2410,7 +2410,7 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       if(previewImg) {
         if(artistData.avatarUrl) {
           previewImg.src = artistData.avatarUrl;
-          previewImg.style.transform = `scale(${artistData.avatarZoom || 1}) rotate(${artistData.avatarRotate || 0}deg)`;
+          previewImg.style.transform = `scale(${artistData.avatarZoom || 1}) rotate(${artistData.avatarRotate || 0}deg)`;artistData.avatarZoom||1)rotate(
         } else {
           previewImg.src = 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=400&q=80';
           previewImg.style.transform = 'scale(1) rotate(0deg)';
@@ -2441,7 +2441,7 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       const zoom = document.getElementById('avatarZoomRange').value;
       const rotate = document.getElementById('avatarRotateRange').value;
       const cropImg = document.getElementById('modalAvatarCropImg');
-      if(cropImg) cropImg.style.transform = `scale(${zoom}) rotate(${rotate}deg)`;
+      if(cropImg) cropImg.style.transform = `scale(${zoom}) rotate(${rotate}deg)`;zoom)rotate(
     }
 
     async function saveAvatarTransform() {
@@ -2829,7 +2829,7 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       const text = `*Olá! Gostaria de verificar disponibilidade.*\n\n👤 *Nome do Contratante:* ${clientName}\n🎵 *Formato:* ${selectedFormatForModal}\n📅 *Data:* ${dt}\n🎉 *Evento:* ${ev}\n👥 *Público:* ${aud}\n📍 *Local:* ${loc}`;
       const phoneNum = normalizeWhatsapp(artistData.whatsapp) || '21989368930';
       const fullWa = phoneNum.startsWith('55') ? phoneNum : `55${phoneNum}`;
-      window.open(`https://wa.me/${fullWa}?text=${encodeURIComponent(text)}`, '_blank');
+      window.open(`https://wa.me/${fullWa}?text=${encodeURIComponent(text)}`, '_blank');fullWa?text=
       closeFormatModal();
     }
 
@@ -3047,7 +3047,7 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       artistData.slug = slug;
       saveData(false);
       const origin = (window.location.origin && window.location.origin !== 'null') ? window.location.origin : 'https://stagekitcasa6.vercel.app';
-      const fullUrl = `${origin}/${slug}`;
+      const fullUrl = `${origin}/${slug}`;origin/
       navigator.clipboard.writeText(fullUrl).then(() => {
         showToast('Link copiado: ' + fullUrl, 'success');
       }).catch(() => {
@@ -3085,8 +3085,8 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       container.innerHTML = eventsList.map((ev, idx) => `
         <div class="bg-zinc-900 p-4 rounded-xl border border-zinc-800 flex justify-between items-center">
           <div>
-            <p class="font-bold text-white text-sm">${ev.name} (${ev.project})</p>
-            <p class="text-zinc-400">Data: ${ev.date || 'A combinar'} | Cachê: R$ ${ev.cache.toFixed(2)}</p>
+            <p class="font-bold text-white text-sm">${ev.name} (${ev.project})</p>ev.name(
+            <p class="text-zinc-400">Data: ${ev.date || 'A combinar'} | Cachê: R$ ${ev.cache.toFixed(2)}</p>ev.date||'Acombinar'|Cachê:R
           </div>
           <button onclick="removeEvent(${idx})" class="text-red-400 font-bold cursor-pointer text-xs">Remover</button>
         </div>
@@ -3138,11 +3138,11 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       }
       container.innerHTML = musiciansList.map((m, idx) => `
         <div class="bg-zinc-900 p-3 rounded-xl border border-zinc-800 flex justify-between items-center">
-          <p class="text-white font-semibold">${m.name} (${m.instrument})</p>
+          <p class="text-white font-semibold">${m.name} (${m.instrument})</p>m.name(
           <button onclick="removeMusician(${idx})" class="text-red-400 text-xs cursor-pointer">Excluir</button>
         </div>
       `).join('');
-      selectContainer.innerHTML = '<option value="">Selecione o Músico</option>' + musiciansList.map(m => `<option value="${m.name}">${m.name} (${m.instrument})</option>`).join('');
+      selectContainer.innerHTML = '<option value="">Selecione o Músico</option>' + musiciansList.map(m => `<option value="${m.name}">${m.name} (${m.instrument})</option>`).join('');m.name">
     }
 
     async function removeMusician(idx) {
@@ -3170,7 +3170,7 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       }
       container.innerHTML = eventsList.map(ev => `
         <div class="bg-zinc-900 p-3 rounded-xl border border-zinc-800 flex justify-between items-center text-xs">
-          <p class="font-bold text-white">${ev.name} (${ev.project})</p>
+          <p class="font-bold text-white">${ev.name} (${ev.project})</p>ev.name(
           <span class="px-2.5 py-1 rounded-full bg-blue-500/10 text-blue-400 font-semibold text-[10px]">Sincronizado</span>
         </div>
       `).join('');
@@ -3199,7 +3199,7 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
 
     async function adminDeleteUser(whatsapp, artistName) {
       if (!supabaseClient) return;
-      if (!confirm(`Tem certeza que deseja excluir permanentemente o cadastro de "${artistName}" (${whatsapp})?`)) return;
+      if (!confirm(`Tem certeza que deseja excluir permanentemente o cadastro de "${artistName}" (${whatsapp})?`)) return;artistName"(
 
       const cleanPhone = normalizeWhatsapp(whatsapp);
       showToast('Excluindo cadastro...', 'loading');
@@ -3253,8 +3253,8 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
           <td class="p-3">${statusBadge}</td>
           <td class="p-3 text-right space-x-1.5 whitespace-nowrap">
             <button onclick="adminViewUserKit('${u.slug}')" class="bg-amber-500/10 hover:bg-amber-500/20 text-amber-400 px-3 py-1.5 rounded-lg font-bold text-xs cursor-pointer">Ver Kit</button>
-            <button onclick="adminToggleUserStatus('${u.whatsapp}', '${u.status || 'Ativo'}')" class="${toggleBtnClass} px-3 py-1.5 rounded-lg font-bold text-xs cursor-pointer">${toggleBtnLabel}</button>
-            <button onclick="adminDeleteUser('${u.whatsapp}', '${(u.artistMainName || '').replace(/'/g, "\\'")}')" class="bg-red-500/15 hover:bg-red-500/25 text-red-400 px-3 py-1.5 rounded-lg font-bold text-xs cursor-pointer">Excluir</button>
+            <button onclick="adminToggleUserStatus('${u.whatsapp}', '${u.status || 'Ativo'}')" class="${toggleBtnClass} px-3 py-1.5 rounded-lg font-bold text-xs cursor-pointer">${toggleBtnLabel}</button>u.whatsapp','toggleBtnClasspx-3py-1.5rounded-lgfont-boldtext-xscursor-pointer">
+            <button onclick="adminDeleteUser('${u.whatsapp}', '${(u.artistMainName || '').replace(/'/g, "\'")}')" class="bg-red-500/15 hover:bg-red-500/25 text-red-400 px-3 py-1.5 rounded-lg font-bold text-xs cursor-pointer">Excluir</button>u.whatsapp','
           </td>
         </tr>
       `}).join('');
@@ -3275,14 +3275,14 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
           <div>
             <div class="flex items-center gap-2">
               <p class="font-bold text-white text-sm">${u.artistMainName}</p>
-              <span class="px-2 py-0.5 rounded text-[10px] ${isBlocked ? 'bg-red-500/15 text-red-400' : 'bg-emerald-500/10 text-emerald-400'} font-bold">${u.status || 'Ativo'}</span>
+              <span class="px-2 py-0.5 rounded text-[10px] ${isBlocked ? 'bg-red-500/15 text-red-400' : 'bg-emerald-500/10 text-emerald-400'} font-bold">${u.status || 'Ativo'}</span>isBlocked?'bg-red-500/15text-red-400':'bg-emerald-500/10text-emerald-400'font-bold">
             </div>
             <p class="text-zinc-400">Telefone / WhatsApp: <span class="text-amber-400 font-mono">${u.whatsapp}</span></p>
           </div>
           <div class="flex items-center gap-2">
             <button onclick="adminViewUserKit('${u.slug}')" class="bg-amber-500 hover:bg-amber-600 text-black font-bold px-3 py-2 rounded-lg text-xs cursor-pointer">Visualizar Kit</button>
-            <button onclick="adminToggleUserStatus('${u.whatsapp}', '${u.status || 'Ativo'}')" class="bg-zinc-800 hover:bg-zinc-700 text-zinc-200 font-bold px-3 py-2 rounded-lg text-xs cursor-pointer">${isBlocked ? 'Ativar' : 'Bloquear'}</button>
-            <button onclick="adminDeleteUser('${u.whatsapp}', '${(u.artistMainName || '').replace(/'/g, "\\'")}')" class="bg-red-500/15 hover:bg-red-500/25 text-red-400 font-bold px-3 py-2 rounded-lg text-xs cursor-pointer">Excluir</button>
+            <button onclick="adminToggleUserStatus('${u.whatsapp}', '${u.status || 'Ativo'}')" class="bg-zinc-800 hover:bg-zinc-700 text-zinc-200 font-bold px-3 py-2 rounded-lg text-xs cursor-pointer">${isBlocked ? 'Ativar' : 'Bloquear'}</button>u.whatsapp','
+            <button onclick="adminDeleteUser('${u.whatsapp}', '${(u.artistMainName || '').replace(/'/g, "\'")}')" class="bg-red-500/15 hover:bg-red-500/25 text-red-400 font-bold px-3 py-2 rounded-lg text-xs cursor-pointer">Excluir</button>u.whatsapp','
           </div>
         </div>
       `}).join('');
