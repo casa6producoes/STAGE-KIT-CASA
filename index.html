@@ -10,7 +10,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>StageKit — Press Kits para Músicos Profissionais</title>
-  <!-- StageKit v3.11: múltiplos músicos por evento e edição de eventos. Mantém correções anteriores. -->
+  <!-- StageKit v3.12: envio manual de escala por WhatsApp, local/data/hora e cachê individual. Mantém correções anteriores. -->
   <!-- StageKit 3.7: identifica rotas diretas antes de renderizar a página inicial. -->
   <script>
     (function () {
@@ -1048,6 +1048,10 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
               <label for="newEventDate" class="block font-semibold text-zinc-300 mb-1">Data e Horário</label>
               <input type="datetime-local" id="newEventDate" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white">
             </div>
+            <div class="sm:col-span-2">
+              <label for="newEventLocation" class="block font-semibold text-zinc-300 mb-1">Local do Evento</label>
+              <input type="text" id="newEventLocation" maxlength="250" placeholder="Ex: Espaço Garden, Rua das Flores, 100, Rio de Janeiro" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white">
+            </div>
             <div>
               <label for="newEventProject" class="block font-semibold text-zinc-300 mb-1">Projeto / Formato</label>
               <select id="newEventProject" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white">
@@ -1082,7 +1086,7 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
             <button type="button" onclick="addNewEvent()" id="saveEventButton" class="bg-amber-500 hover:bg-amber-600 text-black font-extrabold py-3 px-6 rounded-xl shadow-md cursor-pointer">Adicionar Evento</button>
             <button type="button" onclick="cancelEventEdit()" id="cancelEventEditButton" class="hidden border border-zinc-700 bg-zinc-800 hover:bg-zinc-700 text-zinc-200 font-semibold py-3 px-5 rounded-xl cursor-pointer">Cancelar edição</button>
           </div>
-          <p class="text-[11px] text-zinc-500">Os eventos e os cachês são salvos na sua conta. O envio por WhatsApp não é automático nesta versão.</p>
+          <p class="text-[11px] text-zinc-500">Após salvar o evento, use <strong>Enviar pro WPP</strong> em Eventos Cadastrados. Cada músico recebe uma mensagem com o seu próprio cachê. O envio é confirmado por você no WhatsApp.</p>
         </div>
 
         <div class="bg-brand-cardBg border border-brand-border p-6 rounded-2xl space-y-4">
@@ -1097,7 +1101,7 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       <div id="tabTeam" class="dashboard-tab max-w-4xl space-y-6 hidden">
         <div>
           <h2 class="text-xl font-bold text-white">Gestão de Equipe & Projetos</h2>
-          <p class="text-xs text-zinc-400 mt-1">Cadastre músicos com WhatsApp para recebimento automático de escalas.</p>
+          <p class="text-xs text-zinc-400 mt-1">Cadastre o WhatsApp de cada músico. Na aba Eventos, você poderá abrir a mensagem individual de cada integrante para envio.</p>
         </div>
 
         <div class="bg-brand-cardBg border border-brand-border p-6 rounded-2xl space-y-4 text-xs">
@@ -3709,7 +3713,7 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
 
     function resetEventEditor() {
       editingEventIndex = null;
-      ['newEventName', 'newEventDate', 'newEventCache', 'newEventFuel'].forEach(id => {
+      ['newEventName', 'newEventDate', 'newEventLocation', 'newEventCache', 'newEventFuel'].forEach(id => {
         const input = document.getElementById(id);
         if (input) input.value = '';
       });
@@ -3733,6 +3737,7 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       editingEventIndex = index;
       document.getElementById('newEventName').value = String(event.name || '');
       document.getElementById('newEventDate').value = String(event.date || '').slice(0,16);
+      document.getElementById('newEventLocation').value = String(event.location || event.local || '');
       const projectSelect = document.getElementById('newEventProject');
       const project = String(event.project || '');
       if (project && !Array.from(projectSelect.options).some(o => o.value === project)) {
@@ -3770,6 +3775,7 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       const event = {
         name,
         date: document.getElementById('newEventDate').value,
+        location: document.getElementById('newEventLocation').value.trim(),
         project: document.getElementById('newEventProject').value,
         cache,
         fuel,
@@ -3812,6 +3818,63 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       }
     }
 
+    // ==================== STAGEKIT v3.12: ESCALA VIA WHATSAPP ====================
+    // Hora local digitada em datetime-local: não converter para UTC nem alterar o horário.
+    function getStagekitEventDateTime(value) {
+      const text = String(value || '').trim();
+      const match = text.match(/^(\d{4})-(\d{2})-(\d{2})[T ](\d{2}):(\d{2})/);
+      if (!match) return {date:'', time:''};
+      const [, year, month, day, hour, minute] = match;
+      const yearNum = Number(year), monthNum = Number(month), dayNum = Number(day);
+      const hourNum = Number(hour), minuteNum = Number(minute);
+      const dateCheck = new Date(Date.UTC(yearNum,monthNum-1,dayNum));
+      if (dateCheck.getUTCFullYear() !== yearNum || dateCheck.getUTCMonth() !== monthNum-1 ||
+          dateCheck.getUTCDate() !== dayNum || hourNum > 23 || minuteNum > 59) {
+        return {date:'', time:''};
+      }
+      return {date:`${day}/${month}/${year}`, time:`${hour}:${minute}`};
+    }
+
+    function getStagekitMemberPhone(member) {
+      const exactName = String(member?.name || '').trim().toLocaleLowerCase('pt-BR');
+      const currentContact = musiciansList.find(m => String(m.name || '').trim().toLocaleLowerCase('pt-BR') === exactName);
+      // Prefere o WhatsApp mais recente cadastrado na aba Gestão de Equipe.
+      const possibleNumbers = [currentContact?.whatsapp, member?.whatsapp];
+      for (const raw of possibleNumbers) {
+        let digits = normalizeWhatsapp(raw);
+        if (/^\d{10,11}$/.test(digits)) digits = '55' + digits;
+        if (/^55\d{10,11}$/.test(digits)) return digits;
+      }
+      return '';
+    }
+
+    function buildStagekitEventMessage(event, member) {
+      const {date, time} = getStagekitEventDateTime(event.date);
+      return [
+        `Olá, ${member.name}!`,
+        '',
+        '*Informações do evento*',
+        `*Evento:* ${event.name || 'Show'}`,
+        `*Projeto / Formato:* ${event.project || 'A combinar'}`,
+        `*Local:* ${String(event.location || event.local || '').trim()}`,
+        `*Data:* ${date}`,
+        `*Horário:* ${time}`,
+        `*Cachê:* ${formatStagekitMoney(member.value).replace(/ /g, " ")}`
+      ].join('\n');
+    }
+
+    function toggleEventWhatsappPanel(index) {
+      const panel = document.getElementById(`eventWhatsappPanel_${index}`);
+      const toggle = document.getElementById(`eventWhatsappToggle_${index}`);
+      if (!panel || !toggle) return;
+      const willOpen = panel.classList.contains('hidden');
+      panel.classList.toggle('hidden', !willOpen);
+      toggle.setAttribute('aria-expanded', String(willOpen));
+      if (willOpen && panel.dataset.ready !== 'true') {
+        showToast('Preencha local, data, horário e WhatsApp dos músicos para enviar a escala.', 'error');
+      }
+    }
+
     function renderEvents() {
       const container = document.getElementById('eventsListContainer');
       const count = document.getElementById('dashEventCount');
@@ -3827,23 +3890,49 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
         const detail = members.length
           ? members.map(m => `${escHtml(m.name)}: ${formatStagekitMoney(m.value)}`).join(' · ')
           : 'Músicos ainda não definidos';
-        const date = ev.date ? escHtml(ev.date.replace('T', ' ')) : 'Data a combinar';
+        const formatted = getStagekitEventDateTime(ev.date);
+        const displayDate = formatted.date && formatted.time ? `${formatted.date} às ${formatted.time}` : 'Data e horário não informados';
+        const location = String(ev.location || ev.local || '').trim();
+        const missingEventData = !formatted.date || !formatted.time || !location;
+        const whatsappRows = members.length ? members.map((member) => {
+          const phone = getStagekitMemberPhone(member);
+          const enabled = !missingEventData && !!phone;
+          const link = enabled ? `https://wa.me/${phone}?text=${encodeURIComponent(buildStagekitEventMessage(ev, member))}` : '';
+          return `
+            <div class="rounded-xl border border-zinc-700 bg-zinc-950/60 p-3 flex flex-wrap items-center justify-between gap-3">
+              <div class="space-y-1 min-w-0">
+                <p class="text-white font-semibold">${escHtml(member.name)}</p>
+                <p class="text-zinc-400">Cachê individual: <strong class="text-amber-400">${formatStagekitMoney(member.value)}</strong></p>
+                <p class="text-zinc-500">${phone ? 'WhatsApp: ' + escHtml(phone) : 'Sem WhatsApp cadastrado. Atualize em Gestão de Equipe.'}</p>
+              </div>
+              ${enabled ? `<a href="${escHtml(link)}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center gap-2 rounded-xl bg-emerald-600 px-4 py-2.5 font-bold text-white hover:bg-emerald-500 cursor-pointer"><i data-lucide="message-circle" class="w-4 h-4"></i> Enviar para ${escHtml(member.name)}</a>` : `<span class="rounded-xl border border-zinc-700 px-3 py-2 text-zinc-400 font-semibold">${missingEventData ? 'Complete os dados do evento' : 'Cadastre o WhatsApp'}</span>`}
+            </div>`;
+        }).join('') : '<p class="text-zinc-400">Adicione músicos a este evento antes de enviar as informações.</p>';
         return `
           <div class="bg-zinc-900 p-4 rounded-xl border border-zinc-800 space-y-3">
             <div class="flex flex-col sm:flex-row justify-between gap-3">
               <div class="space-y-1 min-w-0">
                 <p class="font-bold text-white text-sm">${escHtml(ev.name || 'Evento')} <span class="text-amber-400 text-[11px]">(${escHtml(ev.project || '')})</span></p>
-                <p class="text-zinc-400">Data: ${date}</p>
+                <p class="text-zinc-400">Local: ${escHtml(location || 'Não informado')}</p>
+                <p class="text-zinc-400">Data e horário: ${escHtml(displayDate)}</p>
                 <p class="text-zinc-400">Cachê total: <span class="text-white font-semibold">${formatStagekitMoney(ev.cache)}</span> · Músicos: ${members.length} (${formatStagekitMoney(musiciansTotal)})</p>
                 <p class="text-zinc-500 break-words leading-relaxed">${detail}</p>
               </div>
-              <div class="flex items-start gap-2 shrink-0">
+              <div class="flex flex-wrap items-start gap-2 shrink-0">
+                <button type="button" id="eventWhatsappToggle_${index}" aria-controls="eventWhatsappPanel_${index}" aria-expanded="false" onclick="toggleEventWhatsappPanel(${index})" class="inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-500 text-white font-bold px-3 py-2 rounded-xl text-xs cursor-pointer"><i data-lucide="message-circle" class="w-4 h-4"></i> Enviar pro WPP</button>
                 <button type="button" onclick="editEvent(${index})" class="bg-amber-500/15 hover:bg-amber-500/25 text-amber-400 font-bold px-3 py-2 rounded-xl text-xs">Editar</button>
                 <button type="button" onclick="removeEvent(${index})" class="bg-red-500/10 hover:bg-red-500/20 text-red-400 font-bold px-3 py-2 rounded-xl text-xs">Excluir</button>
               </div>
             </div>
+            <div id="eventWhatsappPanel_${index}" data-ready="${missingEventData ? 'false' : 'true'}" class="hidden space-y-3 rounded-2xl border border-emerald-700/40 bg-emerald-950/10 p-4">
+              <p class="text-emerald-400 font-bold text-sm">Enviar escala aos músicos</p>
+              <p class="text-zinc-400 text-[11px]">Cada botão abre o WhatsApp com a mensagem pronta e o cachê individual. Confira e clique em enviar no WhatsApp.</p>
+              ${missingEventData ? '<p class="text-amber-400 text-xs font-semibold">Atenção: edite este evento para preencher Local, Data e Horário antes de enviar.</p>' : ''}
+              ${whatsappRows}
+            </div>
           </div>`;
       }).join('');
+      try { lucide.createIcons(); } catch(e) {}
     }
 
     async function removeEvent(index) {
