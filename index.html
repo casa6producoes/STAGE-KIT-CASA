@@ -28,6 +28,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Montserrat:wght@400;700;900&family=Playfair+Display:wght@400;700&family=Cinzel:wght@400;700&family=Bebas+Neue&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/lucide@latest"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- Supabase JS Client CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
   <style>
     body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: var(--bg-color, #09090B); color: var(--text-color, #FAFAFA); transition: background-color 0.3s, color 0.3s; scroll-behavior: smooth; }
@@ -1280,7 +1282,55 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
     </div>
   </div>
 
+
+  <!-- FEEDBACK VISUAL SUPABASE (TOAST) -->
+  <div id="supabaseToast" class="fixed bottom-6 right-6 z-[100] hidden items-center gap-3 px-5 py-3.5 rounded-2xl bg-zinc-900 border border-amber-500/50 text-white text-xs font-bold shadow-2xl transition-all duration-300">
+    <span id="supabaseToastIcon" class="w-2.5 h-2.5 rounded-full bg-amber-500 animate-pulse"></span>
+    <span id="supabaseToastText">Sincronizando com o banco de dados...</span>
+  </div>
+
   <script>
+    // ==================== CONFIGURAÇÃO SUPABASE ====================
+    const SUPABASE_URL = 'https://gixxspfvcgxumyxnyumi.supabase.co';
+    const SUPABASE_KEY = 'sb_publishable_IjxfEWK0jyD72SKNzqCqkg_hFJ8_rIF';
+    const supabaseClient = window.supabase ? window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY) : null;
+
+    function normalizeWhatsapp(phone) {
+      return String(phone || '').replace(/\D/g, '');
+    }
+
+    function showToast(message, type = 'loading') {
+      const toast = document.getElementById('supabaseToast');
+      const icon = document.getElementById('supabaseToastIcon');
+      const text = document.getElementById('supabaseToastText');
+      if (!toast || !icon || !text) return;
+
+      text.innerText = message;
+      toast.classList.remove('hidden');
+      toast.classList.add('flex');
+
+      if (type === 'loading') {
+        icon.className = 'w-2.5 h-2.5 rounded-full bg-amber-500 animate-ping';
+        toast.style.borderColor = 'rgba(245, 158, 11, 0.5)';
+      } else if (type === 'success') {
+        icon.className = 'w-2.5 h-2.5 rounded-full bg-emerald-400';
+        toast.style.borderColor = 'rgba(16, 185, 129, 0.6)';
+        clearTimeout(window._toastTimer);
+        window._toastTimer = setTimeout(() => {
+          toast.classList.add('hidden');
+          toast.classList.remove('flex');
+        }, 3200);
+      } else if (type === 'error') {
+        icon.className = 'w-2.5 h-2.5 rounded-full bg-red-500';
+        toast.style.borderColor = 'rgba(239, 68, 68, 0.6)';
+        clearTimeout(window._toastTimer);
+        window._toastTimer = setTimeout(() => {
+          toast.classList.add('hidden');
+          toast.classList.remove('flex');
+        }, 4500);
+      }
+    }
+
     let usersDatabase = JSON.parse(localStorage.getItem('stagekit_users_db')) || [];
     let sessionUser = JSON.parse(localStorage.getItem('stagekit_session')) || null;
     let isViewingOwnOnlineKit = false;
@@ -1288,7 +1338,8 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
 
     const superAdminAccount = {
       role: "admin",
-      whatsapp: "(21) 98936-8930",
+      status: "Ativo",
+      whatsapp: "21989368930",
       registeredPassword: "@Alohomora21",
       artistMainName: "CASA 6 PRODUÇÕES (ADMIN)",
       city: "Rio de Janeiro, RJ",
@@ -1296,14 +1347,15 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       createdAt: "2026-01-01"
     };
 
-    if(!usersDatabase.some(u => u.whatsapp === "(21) 98936-8930")) {
+    if(!usersDatabase.some(u => normalizeWhatsapp(u.whatsapp) === "21989368930")) {
       usersDatabase.push(superAdminAccount);
       localStorage.setItem('stagekit_users_db', JSON.stringify(usersDatabase));
     }
 
     let artistData = sessionUser || {
       role: "artista",
-      whatsapp: "(21) 98936-8930",
+      status: "Ativo",
+      whatsapp: "21989368930",
       artistMainName: "SEU NOME",
       city: "Rio de Janeiro, RJ",
       title: "A TRILHA SONORA PERFEITA PARA O SEU MOMENTO",
@@ -1350,11 +1402,13 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       repertoireFileName: "",
       googleCalendarConnected: false,
       createdAt: new Date().toISOString().split('T')[0],
-      budgetsGeneratedCount: 0
+      budgetsGeneratedCount: 0,
+      eventsList: [],
+      musiciansList: []
     };
 
-    let eventsList = JSON.parse(localStorage.getItem('stagekit_events')) || [];
-    let musiciansList = JSON.parse(localStorage.getItem('stagekit_musicians')) || [];
+    let eventsList = (sessionUser && Array.isArray(sessionUser.eventsList)) ? sessionUser.eventsList : (JSON.parse(localStorage.getItem('stagekit_events')) || []);
+    let musiciansList = (sessionUser && Array.isArray(sessionUser.musiciansList)) ? sessionUser.musiciansList : (JSON.parse(localStorage.getItem('stagekit_musicians')) || []);
     let globalContractModel = localStorage.getItem('stagekit_global_contract') || `CONTRATO DE PRESTAÇÃO DE SERVIÇOS ARTÍSTICOS - PADRÃO CASA 6 PRODUÇÕES
 
 Pelo presente instrumento particular, de um lado o(a) contratado(a) [NOME DO ARTISTA], inscrito(a) no CPF sob o nº [CPF], doravante denominado(a) ARTISTA, e de outro o CONTRATANTE acordam a realização da apresentação musical conforme termos combinados.
@@ -1368,6 +1422,115 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
     let selectedFormatForModal = "";
     let totalBudgetsCount = parseInt(localStorage.getItem('stagekit_budgets_count')) || 0;
     let pieChartInstance = null;
+
+    function buildArtistObjectFromSupabaseRow(row) {
+      if (!row) return null;
+      const pData = (row.profile_data && typeof row.profile_data === 'object') ? row.profile_data : {};
+      return {
+        ...pData,
+        whatsapp: normalizeWhatsapp(row.whatsapp),
+        registeredPassword: row.password || pData.registeredPassword || '',
+        role: row.role || pData.role || 'artista',
+        status: row.status || pData.status || 'Ativo',
+        createdAt: row.created_at || pData.createdAt || '2026-01-01',
+        slug: row.slug || pData.slug || ''
+      };
+    }
+
+    async function ensureSuperAdminInSupabase() {
+      if (!supabaseClient) return;
+      try {
+        const { data, error } = await supabaseClient
+          .from('stagekit_users')
+          .select('whatsapp')
+          .eq('whatsapp', '21989368930')
+          .maybeSingle();
+
+        if (!error && !data) {
+          await supabaseClient.from('stagekit_users').upsert({
+            whatsapp: '21989368930',
+            password: '@Alohomora21',
+            role: 'admin',
+            status: 'Ativo',
+            created_at: '2026-01-01',
+            slug: 'casa6',
+            profile_data: superAdminAccount
+          }, { onConflict: 'whatsapp' });
+        }
+      } catch (err) {
+        console.warn('Aviso ao verificar Admin no Supabase:', err);
+      }
+    }
+
+    async function fetchAllUsersFromSupabase() {
+      if (!supabaseClient) return;
+      try {
+        const { data, error } = await supabaseClient
+          .from('stagekit_users')
+          .select('*');
+
+        if (!error && Array.isArray(data)) {
+          usersDatabase = data.map(buildArtistObjectFromSupabaseRow).filter(Boolean);
+          if (!usersDatabase.some(u => normalizeWhatsapp(u.whatsapp) === '21989368930')) {
+            usersDatabase.push(superAdminAccount);
+          }
+          localStorage.setItem('stagekit_users_db', JSON.stringify(usersDatabase));
+
+          const artists = usersDatabase.filter(u => u.role !== 'admin');
+          const sumBudgets = artists.reduce((acc, u) => acc + (u.budgetsGeneratedCount || 0), 0);
+          if (sumBudgets > totalBudgetsCount) {
+            totalBudgetsCount = sumBudgets;
+          }
+
+          renderSuperAdminData();
+          renderClientsData();
+        }
+      } catch (err) {
+        console.warn('Erro ao carregar lista de usuários do Supabase:', err);
+      }
+    }
+
+    async function syncArtistToSupabase(targetUserObj, showFeedback = false) {
+      if (!supabaseClient || !targetUserObj || !targetUserObj.whatsapp) return false;
+      const cleanPhone = normalizeWhatsapp(targetUserObj.whatsapp);
+      if (!cleanPhone) return false;
+
+      if (showFeedback) showToast('Salvando alterações na nuvem...', 'loading');
+
+      const payloadToSave = {
+        ...targetUserObj,
+        whatsapp: cleanPhone,
+        eventsList: targetUserObj.role === 'admin' ? [] : eventsList,
+        musiciansList: targetUserObj.role === 'admin' ? [] : musiciansList
+      };
+
+      try {
+        const { error } = await supabaseClient
+          .from('stagekit_users')
+          .upsert({
+            whatsapp: cleanPhone,
+            password: payloadToSave.registeredPassword || '',
+            role: payloadToSave.role || 'artista',
+            status: payloadToSave.status || 'Ativo',
+            created_at: payloadToSave.createdAt || new Date().toISOString().split('T')[0],
+            slug: (payloadToSave.slug || '').toLowerCase().trim(),
+            profile_data: payloadToSave
+          }, { onConflict: 'whatsapp' });
+
+        if (error) {
+          console.error('Erro Supabase upsert:', error);
+          if (showFeedback) showToast('Erro ao salvar no banco de dados: ' + error.message, 'error');
+          return false;
+        }
+
+        if (showFeedback) showToast('Dados salvos e sincronizados com sucesso!', 'success');
+        return true;
+      } catch (err) {
+        console.error('Exceção Supabase upsert:', err);
+        if (showFeedback) showToast('Falha de conexão ao salvar dados.', 'error');
+        return false;
+      }
+    }
 
     function isValidPassword(password) {
       if (password.length < 8) return false;
@@ -1390,18 +1553,27 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       return true;
     }
 
-    function saveData() {
+    async function saveData(showFeedback = false) {
       if(sessionUser) {
-        sessionUser = { ...sessionUser, ...artistData };
+        const cleanPhone = normalizeWhatsapp(artistData.whatsapp || sessionUser.whatsapp);
+        artistData.whatsapp = cleanPhone;
+        artistData.eventsList = eventsList;
+        artistData.musiciansList = musiciansList;
+        sessionUser = { ...sessionUser, ...artistData, whatsapp: cleanPhone };
         localStorage.setItem('stagekit_session', JSON.stringify(sessionUser));
         
-        const userIndex = usersDatabase.findIndex(u => u.whatsapp.toLowerCase() === sessionUser.whatsapp.toLowerCase());
+        const userIndex = usersDatabase.findIndex(u => normalizeWhatsapp(u.whatsapp) === cleanPhone);
         if(userIndex !== -1) {
           usersDatabase[userIndex] = sessionUser;
         } else {
           usersDatabase.push(sessionUser);
         }
         localStorage.setItem('stagekit_users_db', JSON.stringify(usersDatabase));
+
+        await syncArtistToSupabase(sessionUser, showFeedback);
+      } else if (artistData && artistData.whatsapp && isViewingOwnOnlineKit === false) {
+        // Caso um contratante gere um orçamento na página pública do artista
+        await syncArtistToSupabase(artistData, false);
       }
       localStorage.setItem('stagekit_events', JSON.stringify(eventsList));
       localStorage.setItem('stagekit_musicians', JSON.stringify(musiciansList));
@@ -1409,7 +1581,7 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       localStorage.setItem('stagekit_global_contract', globalContractModel);
     }
 
-    function initApp() {
+    async function initApp() {
       loadInputsFromState();
       renderEvents();
       renderMusicians();
@@ -1418,18 +1590,62 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       renderSuperAdminData();
       renderClientsData();
       renderTestimonialsBuilder();
+
+      await ensureSuperAdminInSupabase();
+
+      if (sessionUser && sessionUser.whatsapp && supabaseClient) {
+        try {
+          const cleanSessPhone = normalizeWhatsapp(sessionUser.whatsapp);
+          const { data: freshRow } = await supabaseClient
+            .from('stagekit_users')
+            .select('*')
+            .eq('whatsapp', cleanSessPhone)
+            .maybeSingle();
+
+          if (freshRow) {
+            if (freshRow.status === 'Bloqueado') {
+              sessionUser = null;
+              localStorage.removeItem('stagekit_session');
+              alert('Sua conta foi bloqueada pelo administrador.');
+            } else {
+              const refreshedObj = buildArtistObjectFromSupabaseRow(freshRow);
+              sessionUser = refreshedObj;
+              artistData = refreshedObj;
+              if (Array.isArray(refreshedObj.eventsList)) eventsList = refreshedObj.eventsList;
+              if (Array.isArray(refreshedObj.musiciansList)) musiciansList = refreshedObj.musiciansList;
+              localStorage.setItem('stagekit_session', JSON.stringify(sessionUser));
+              loadInputsFromState();
+              renderEvents();
+              renderMusicians();
+              updateCacheCalculations();
+              renderCalendarEvents();
+              renderTestimonialsBuilder();
+            }
+          }
+        } catch (e) {
+          console.warn('Erro ao revalidar sessão no Supabase:', e);
+        }
+      }
+
+      await fetchAllUsersFromSupabase();
       
       try {
         window.addEventListener('popstate', handleRouting);
-        handleRouting();
+        await handleRouting();
       } catch(e) {}
       try { lucide.createIcons(); } catch(e) {}
     }
 
-    function handleRouting() {
+    async function handleRouting() {
       let rawPath = "";
       try {
-        rawPath = window.location.pathname.replace(/^\/+/, '').trim().toLowerCase();
+        const urlParams = new URLSearchParams(window.location.search);
+        const queryArtist = urlParams.get('artista');
+        if (queryArtist) {
+          rawPath = queryArtist.trim().toLowerCase();
+        } else {
+          rawPath = window.location.pathname.replace(/^\/+/, '').trim().toLowerCase();
+        }
       } catch(e) {}
       
       if(!rawPath || rawPath === 'index.html') {
@@ -1453,7 +1669,27 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       }
 
       if (rawPath && rawPath !== '') {
-        const matchedArtist = usersDatabase.find(u => u.slug && u.slug.toLowerCase() === rawPath);
+        let matchedArtist = null;
+
+        if (supabaseClient) {
+          try {
+            const { data: sbArtist } = await supabaseClient
+              .from('stagekit_users')
+              .select('*')
+              .eq('slug', rawPath)
+              .maybeSingle();
+
+            if (sbArtist) {
+              matchedArtist = buildArtistObjectFromSupabaseRow(sbArtist);
+            }
+          } catch (err) {
+            console.warn('Erro ao buscar slug no Supabase:', err);
+          }
+        }
+
+        if (!matchedArtist) {
+          matchedArtist = usersDatabase.find(u => u.slug && u.slug.toLowerCase() === rawPath);
+        }
         
         if (matchedArtist || (artistData && artistData.slug && artistData.slug.toLowerCase() === rawPath)) {
           if (matchedArtist) artistData = matchedArtist;
@@ -1562,7 +1798,7 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       if(style === 'bold') artistData.coverBold = !artistData.coverBold;
       if(style === 'italic') artistData.coverItalic = !artistData.coverItalic;
       if(style === 'underline') artistData.coverUnderline = !artistData.coverUnderline;
-      saveData();
+      saveData(true);
       updateStyleButtonStates();
     }
 
@@ -1579,7 +1815,10 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       artistData.coverText = document.getElementById('editCoverText').value;
       artistData.coverFont = document.getElementById('editCoverFont').value;
       artistData.coverFontSize = document.getElementById('editCoverFontSize').value;
-      saveData();
+      clearTimeout(window._quietSaveTimer);
+      window._quietSaveTimer = setTimeout(() => {
+        saveData(false);
+      }, 800);
     }
 
     function applyPublicData() {
@@ -1964,6 +2203,7 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
         });
 
         document.getElementById('sidebarAreaTitle').innerText = "Painel Super Admin";
+        fetchAllUsersFromSupabase();
         switchTab('tabSuperAdmin');
       } else {
         document.getElementById('btnTabSuperAdmin').classList.add('hidden');
@@ -2005,11 +2245,11 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       const file = event.target.files[0];
       if(file) {
         const reader = new FileReader();
-        reader.onload = e => {
+        reader.onload = async e => {
           artistData.coverUrl = e.target.result;
           artistData.coverZoom = 1;
           artistData.coverRotate = 0;
-          saveData();
+          await saveData(true);
           updateCoverPreviews();
         };
         reader.readAsDataURL(file);
@@ -2058,22 +2298,22 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       if(cropImg) cropImg.style.transform = `scale(${zoom}) rotate(${rotate}deg)`;
     }
 
-    function saveCoverTransform() {
+    async function saveCoverTransform() {
       if(sessionUser && sessionUser.role === 'admin') return;
       artistData.coverZoom = parseFloat(document.getElementById('coverZoomRange').value);
       artistData.coverRotate = parseInt(document.getElementById('coverRotateRange').value);
-      saveData();
+      await saveData(true);
       updateCoverPreviews();
       closeEditCoverModal();
       alert('Ajustes da capa aplicados com sucesso!');
     }
 
-    function removeCoverPhoto() {
+    async function removeCoverPhoto() {
       if(sessionUser && sessionUser.role === 'admin') return;
       artistData.coverUrl = "";
       artistData.coverZoom = 1;
       artistData.coverRotate = 0;
-      saveData();
+      await saveData(true);
       updateCoverPreviews();
       alert('Capa removida. O press kit agora exibirá o texto estilizado.');
     }
@@ -2083,11 +2323,11 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       const file = event.target.files[0];
       if(file) {
         const reader = new FileReader();
-        reader.onload = e => {
+        reader.onload = async e => {
           artistData.avatarUrl = e.target.result;
           artistData.avatarZoom = 1;
           artistData.avatarRotate = 0;
-          saveData();
+          await saveData(true);
           updateAvatarPreviews();
         };
         reader.readAsDataURL(file);
@@ -2133,22 +2373,22 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       if(cropImg) cropImg.style.transform = `scale(${zoom}) rotate(${rotate}deg)`;
     }
 
-    function saveAvatarTransform() {
+    async function saveAvatarTransform() {
       if(sessionUser && sessionUser.role === 'admin') return;
       artistData.avatarZoom = parseFloat(document.getElementById('avatarZoomRange').value);
       artistData.avatarRotate = parseInt(document.getElementById('avatarRotateRange').value);
-      saveData();
+      await saveData(true);
       updateAvatarPreviews();
       closeEditAvatarModal();
       alert('Ajustes da foto aplicados com sucesso!');
     }
 
-    function removeAvatarPhoto() {
+    async function removeAvatarPhoto() {
       if(sessionUser && sessionUser.role === 'admin') return;
       artistData.avatarUrl = "";
       artistData.avatarZoom = 1;
       artistData.avatarRotate = 0;
-      saveData();
+      await saveData(true);
       updateAvatarPreviews();
       alert('Foto de perfil removida.');
     }
@@ -2162,31 +2402,90 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
     function closeLoginModal() { document.getElementById('loginModal').classList.add('hidden'); }
     function handleLoginKey(e) { if(e.key === 'Enter') submitLogin(); }
 
-    function submitLogin() {
+    async function submitLogin() {
       const loginInput = document.getElementById('loginWhatsapp').value.trim();
       const pass = document.getElementById('loginPassword').value.trim();
 
       if(!loginInput || !pass) { alert('Digite seu WhatsApp de acesso e senha.'); return; }
 
-      if(loginInput === "(21) 98936-8930" && pass === "@Alohomora21") {
+      const cleanPhone = normalizeWhatsapp(loginInput);
+      if(!cleanPhone) { alert('Digite um número de WhatsApp válido.'); return; }
+
+      showToast('Verificando credenciais no servidor...', 'loading');
+
+      if (supabaseClient) {
+        try {
+          const { data: userRow, error } = await supabaseClient
+            .from('stagekit_users')
+            .select('*')
+            .eq('whatsapp', cleanPhone)
+            .maybeSingle();
+
+          if (error) {
+            console.error('Erro ao consultar Supabase no login:', error);
+          } else if (userRow) {
+            if (userRow.password !== pass) {
+              showToast('Senha incorreta.', 'error');
+              alert('Credenciais incorretas!');
+              return;
+            }
+            if (userRow.status === 'Bloqueado') {
+              showToast('Acesso bloqueado pelo administrador.', 'error');
+              alert('Sua conta está bloqueada. Entre em contato com o suporte da Casa 6 Produções.');
+              return;
+            }
+
+            const loadedUser = buildArtistObjectFromSupabaseRow(userRow);
+            sessionUser = loadedUser;
+            artistData = loadedUser;
+            if (Array.isArray(loadedUser.eventsList)) eventsList = loadedUser.eventsList;
+            if (Array.isArray(loadedUser.musiciansList)) musiciansList = loadedUser.musiciansList;
+            localStorage.setItem('stagekit_session', JSON.stringify(sessionUser));
+
+            loadInputsFromState();
+            renderEvents();
+            renderMusicians();
+            updateCacheCalculations();
+            renderCalendarEvents();
+            closeLoginModal();
+            showToast('Login realizado com sucesso!', 'success');
+            showArtistDashboard();
+            return;
+          }
+        } catch (err) {
+          console.error('Exceção no login Supabase:', err);
+        }
+      }
+
+      // Fallback local caso seja o Admin na primeira inicialização offline
+      if(cleanPhone === "21989368930" && pass === "@Alohomora21") {
         sessionUser = superAdminAccount;
         artistData = superAdminAccount;
         localStorage.setItem('stagekit_session', JSON.stringify(sessionUser));
+        await ensureSuperAdminInSupabase();
         loadInputsFromState();
         closeLoginModal();
+        showToast('Bem-vindo, Super Admin!', 'success');
         showArtistDashboard();
         return;
       }
 
-      const userFound = usersDatabase.find(u => u.whatsapp.toLowerCase() === loginInput.toLowerCase() && u.registeredPassword === pass);
+      const userFound = usersDatabase.find(u => normalizeWhatsapp(u.whatsapp) === cleanPhone && u.registeredPassword === pass);
       if(userFound) {
+        if (userFound.status === 'Bloqueado') {
+          showToast('Conta bloqueada.', 'error');
+          alert('Sua conta está bloqueada.');
+          return;
+        }
         sessionUser = userFound;
         artistData = userFound;
         localStorage.setItem('stagekit_session', JSON.stringify(sessionUser));
         loadInputsFromState();
         closeLoginModal();
+        showToast('Login realizado!', 'success');
         showArtistDashboard();
       } else {
+        showToast('Usuário ou senha inválidos.', 'error');
         alert('Credenciais incorretas!');
       }
     }
@@ -2194,20 +2493,46 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
     function openRegisterModal() { document.getElementById('registerModal').classList.remove('hidden'); }
     function closeRegisterModal() { document.getElementById('registerModal').classList.add('hidden'); }
 
-    function submitRegister() {
+    async function submitRegister() {
       const fullName = document.getElementById('regFullName').value.trim();
+      const birthDate = document.getElementById('regBirthDate') ? document.getElementById('regBirthDate').value.trim() : '';
       const phone = document.getElementById('regPhone').value.trim();
       const pass = document.getElementById('regPassword').value.trim();
       
       if(!fullName || !phone || !pass) { alert('Preencha os campos obrigatórios.'); return; }
       if(!isValidPassword(pass)) { alert('A senha deve ter no mínimo 8 caracteres, com letras e números.'); return; }
 
+      const cleanPhone = normalizeWhatsapp(phone);
+      if(cleanPhone.length < 10) { alert('Informe um número de WhatsApp válido com DDD.'); return; }
+
       const generatedSlug = fullName.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]/g, '');
       const realRegistrationDate = new Date().toISOString().split('T')[0];
 
+      showToast('Criando sua conta no banco de dados...', 'loading');
+
+      if (supabaseClient) {
+        try {
+          const { data: existingUser } = await supabaseClient
+            .from('stagekit_users')
+            .select('whatsapp')
+            .eq('whatsapp', cleanPhone)
+            .maybeSingle();
+
+          if (existingUser) {
+            showToast('Este WhatsApp já está cadastrado.', 'error');
+            alert('Já existe uma conta cadastrada com este número de WhatsApp! Faça login para acessar.');
+            return;
+          }
+        } catch (err) {
+          console.warn('Erro ao verificar duplicidade:', err);
+        }
+      }
+
       const newUser = {
         role: "artista",
-        whatsapp: phone,
+        status: "Ativo",
+        whatsapp: cleanPhone,
+        birthDate: birthDate,
         artistMainName: fullName.toUpperCase(),
         city: "Rio de Janeiro, RJ",
         title: "A TRILHA SONORA PERFEITA PARA O SEU MOMENTO",
@@ -2236,6 +2561,8 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
         deezer: "",
         apple: "",
         avatarUrl: "",
+        avatarZoom: 1,
+        avatarRotate: 0,
         galleryPhotos: [],
         testimonials: [
           { text: "Show incrível no nosso evento! Todos elogiaram.", author: "Nome do Contratante", printUrl: "" }
@@ -2252,23 +2579,54 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
         contractModelText: globalContractModel,
         googleCalendarConnected: false,
         createdAt: realRegistrationDate,
-        budgetsGeneratedCount: 0
+        budgetsGeneratedCount: 0,
+        eventsList: [],
+        musiciansList: []
       };
+
+      if (supabaseClient) {
+        const { error: insertError } = await supabaseClient
+          .from('stagekit_users')
+          .upsert({
+            whatsapp: cleanPhone,
+            password: pass,
+            role: 'artista',
+            status: 'Ativo',
+            created_at: realRegistrationDate,
+            slug: generatedSlug,
+            profile_data: newUser
+          }, { onConflict: 'whatsapp' });
+
+        if (insertError) {
+          showToast('Erro ao cadastrar no Supabase: ' + insertError.message, 'error');
+          alert('Erro ao salvar cadastro no banco de dados: ' + insertError.message);
+          return;
+        }
+      }
 
       usersDatabase.push(newUser);
       localStorage.setItem('stagekit_users_db', JSON.stringify(usersDatabase));
       sessionUser = newUser;
       artistData = newUser;
+      eventsList = [];
+      musiciansList = [];
       localStorage.setItem('stagekit_session', JSON.stringify(sessionUser));
 
       loadInputsFromState();
+      renderEvents();
+      renderMusicians();
+      updateCacheCalculations();
+      renderCalendarEvents();
       closeRegisterModal();
+      showToast('Conta criada e salva na nuvem!', 'success');
       alert('Cadastro realizado com sucesso na comunidade!');
       showArtistDashboard();
     }
 
     function logoutToHome() {
       sessionUser = null;
+      eventsList = [];
+      musiciansList = [];
       localStorage.removeItem('stagekit_session');
       goHome();
     }
@@ -2312,8 +2670,10 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
         }
       }
 
-      if(tabId === 'tabSuperAdmin') {
-        renderSuperAdminChart();
+      if(tabId === 'tabSuperAdmin' || tabId === 'tabClients') {
+        fetchAllUsersFromSupabase().then(() => {
+          if (tabId === 'tabSuperAdmin') renderSuperAdminChart();
+        });
       }
     }
 
@@ -2345,7 +2705,7 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
 
     function closeFormatModal() { document.getElementById('formatModal').classList.add('hidden'); }
 
-    function sendWhatsAppBudget() {
+    async function sendWhatsAppBudget() {
       const clientName = document.getElementById('qClientName').value.trim();
       if(!clientName) { alert('Informe o Nome do Contratante.'); return; }
       
@@ -2356,15 +2716,16 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
 
       totalBudgetsCount++;
       artistData.budgetsGeneratedCount = (artistData.budgetsGeneratedCount || 0) + 1;
-      saveData();
+      await saveData(false);
 
       const text = `*Olá! Gostaria de verificar disponibilidade.*\n\n👤 *Nome do Contratante:* ${clientName}\n🎵 *Formato:* ${selectedFormatForModal}\n📅 *Data:* ${dt}\n🎉 *Evento:* ${ev}\n👥 *Público:* ${aud}\n📍 *Local:* ${loc}`;
-      const phoneNum = artistData.whatsapp.replace(/\D/g,'') || '21989368930';
-      window.open(`https://wa.me/${phoneNum}?text=${encodeURIComponent(text)}`, '_blank');
+      const phoneNum = normalizeWhatsapp(artistData.whatsapp) || '21989368930';
+      const fullWa = phoneNum.startsWith('55') ? phoneNum : `55${phoneNum}`;
+      window.open(`https://wa.me/${fullWa}?text=${encodeURIComponent(text)}`, '_blank');
       closeFormatModal();
     }
 
-    function saveProfileEdits() {
+    async function saveProfileEdits() {
       if(sessionUser && sessionUser.role === 'admin') return;
       artistData.artistMainName = document.getElementById('editProfileName').value.toUpperCase();
       artistData.city = document.getElementById('editProfileCity').value.trim();
@@ -2376,7 +2737,12 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       if(cpfVal && !isValidCPF(cpfVal)) { alert('CPF inválido!'); return; }
       artistData.cpf = cpfVal;
       artistData.musicianId = document.getElementById('editProfileMusicianId').value.trim();
-      artistData.whatsapp = document.getElementById('editProfilePhone').value.trim();
+      
+      const newPhoneRaw = document.getElementById('editProfilePhone').value.trim();
+      const newCleanPhone = normalizeWhatsapp(newPhoneRaw);
+      if (newCleanPhone) {
+        artistData.whatsapp = newCleanPhone;
+      }
 
       const newPass = document.getElementById('editProfileNewPassword').value.trim();
       if(newPass) {
@@ -2384,7 +2750,7 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
         artistData.registeredPassword = newPass;
       }
 
-      saveData();
+      await saveData(true);
       alert('Perfil e dados salvos!');
       loadInputsFromState();
     }
@@ -2450,7 +2816,7 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       promises.push(getFileBase64(file2).then(res => ({type: 'mp4_2', val: res})));
       promises.push(getFileBase64(file3).then(res => ({type: 'mp4_3', val: res})));
 
-      Promise.all(promises).then(results => {
+      Promise.all(promises).then(async results => {
         let newGallery = [];
         results.forEach(r => {
           if(r && r.type === 'gallery' && r.val) newGallery.push(r.val);
@@ -2463,8 +2829,8 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
           artistData.galleryPhotos = [...(artistData.galleryPhotos || []), ...newGallery];
         }
 
-        saveData();
-        alert('Mídias, Streaming & Depoimentos salvos com sucesso!');
+        await saveData(true);
+        alert('Dados e mídias salvos e sincronizados com sucesso!');
         loadInputsFromState();
       });
     }
@@ -2488,10 +2854,10 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       let f3File = document.getElementById('fmt3PhotoFile').files[0];
 
       let count = 0;
-      let checkDone = () => {
+      let checkDone = async () => {
         count++;
         if(count >= 3) {
-          saveData();
+          await saveData(true);
           alert('Formatos de show salvos com sucesso!');
           loadInputsFromState();
         }
@@ -2516,12 +2882,12 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       } else { checkDone(); }
     }
 
-    function uploadRepertoire() {
+    async function uploadRepertoire() {
       if(sessionUser && sessionUser.role === 'admin') return;
       const fileInput = document.getElementById('repertoireFile');
       if(fileInput && fileInput.files[0]) {
         artistData.repertoireFileName = fileInput.files[0].name;
-        saveData();
+        await saveData(true);
         document.getElementById('repertoireStatus').innerHTML = `✅ Arquivo enviado: <span class="text-white font-mono">${fileInput.files[0].name}</span>`;
         alert('Repertório enviado com sucesso!');
       } else {
@@ -2529,7 +2895,7 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       }
     }
 
-    function saveContractModel() {
+    async function saveContractModel() {
       const textVal = document.getElementById('contractText').value;
       if(sessionUser && sessionUser.role === 'admin') {
         globalContractModel = textVal;
@@ -2537,7 +2903,7 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
         alert('Modelo de contrato global do sistema salvo com sucesso!');
       } else {
         artistData.contractModelText = textVal;
-        saveData();
+        await saveData(true);
         alert('Modelo de contrato salvo com sucesso!');
       }
     }
@@ -2555,8 +2921,13 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
     }
 
     function updateCustomLinkPreview() {
-      const slug = document.getElementById('customSlugInput').value;
+      const slug = document.getElementById('customSlugInput').value.toLowerCase().trim();
+      artistData.slug = slug;
       document.getElementById('fullSlugPreview').innerText = `stagekitcasa6.vercel.app/${slug}`;
+      clearTimeout(window._slugSaveTimer);
+      window._slugSaveTimer = setTimeout(() => {
+        saveData(true);
+      }, 900);
     }
 
     function copyCustomPressKitLink() {
@@ -2565,7 +2936,7 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       alert('Link copiado!');
     }
 
-    function addNewEvent() {
+    async function addNewEvent() {
       if(sessionUser && sessionUser.role === 'admin') return;
       const name = document.getElementById('newEventName').value;
       if(!name) { alert('Insira o nome do evento'); return; }
@@ -2577,7 +2948,7 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       const fuel = parseFloat(document.getElementById('newEventFuel').value) || 0;
 
       eventsList.push({ name, date, project, cache, musicianName, musicianVal, fuel });
-      saveData();
+      await saveData(true);
       renderEvents();
       updateCacheCalculations();
       renderCalendarEvents();
@@ -2603,9 +2974,9 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       `).join('');
     }
 
-    function removeEvent(idx) {
+    async function removeEvent(idx) {
       eventsList.splice(idx, 1);
-      saveData();
+      await saveData(true);
       renderEvents();
       updateCacheCalculations();
       renderCalendarEvents();
@@ -2625,14 +2996,14 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       document.getElementById('cacheMine').innerText = `R$ ${mine >= 0 ? mine.toFixed(2) : '0,00'}`;
     }
 
-    function addNewMusician() {
+    async function addNewMusician() {
       if(sessionUser && sessionUser.role === 'admin') return;
       const name = document.getElementById('newMusicianName').value;
       const instrument = document.getElementById('newMusicianInstrument').value;
       const whatsapp = document.getElementById('newMusicianWhatsapp').value;
       if(!name) { alert('Insira o nome do músico'); return; }
       musiciansList.push({ name, instrument, whatsapp });
-      saveData();
+      await saveData(true);
       renderMusicians();
       alert('Músico adicionado!');
     }
@@ -2655,16 +3026,16 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       selectContainer.innerHTML = '<option value="">Selecione o Músico</option>' + musiciansList.map(m => `<option value="${m.name}">${m.name} (${m.instrument})</option>`).join('');
     }
 
-    function removeMusician(idx) {
+    async function removeMusician(idx) {
       musiciansList.splice(idx, 1);
-      saveData();
+      await saveData(true);
       renderMusicians();
     }
 
-    function connectGoogleCalendar() {
+    async function connectGoogleCalendar() {
       if(sessionUser && sessionUser.role === 'admin') return;
       artistData.googleCalendarConnected = true;
-      saveData();
+      await saveData(true);
       document.getElementById('googleCalendarStatusText').innerText = 'Conectado com sucesso';
       document.getElementById('googleCalendarStatusText').className = 'text-emerald-400 font-bold';
       renderCalendarEvents();
@@ -2686,10 +3057,53 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       `).join('');
     }
 
+    async function adminToggleUserStatus(whatsapp, currentStatus) {
+      if (!supabaseClient) return;
+      const cleanPhone = normalizeWhatsapp(whatsapp);
+      const nextStatus = currentStatus === 'Bloqueado' ? 'Ativo' : 'Bloqueado';
+      showToast(`Atualizando status para ${nextStatus}...`, 'loading');
+
+      const { error } = await supabaseClient
+        .from('stagekit_users')
+        .update({ status: nextStatus })
+        .eq('whatsapp', cleanPhone);
+
+      if (error) {
+        showToast('Erro ao atualizar status: ' + error.message, 'error');
+        return;
+      }
+
+      showToast(`Status alterado para ${nextStatus}!`, 'success');
+      await fetchAllUsersFromSupabase();
+      renderSuperAdminChart();
+    }
+
+    async function adminDeleteUser(whatsapp, artistName) {
+      if (!supabaseClient) return;
+      if (!confirm(`Tem certeza que deseja excluir permanentemente o cadastro de "${artistName}" (${whatsapp})?`)) return;
+
+      const cleanPhone = normalizeWhatsapp(whatsapp);
+      showToast('Excluindo cadastro...', 'loading');
+
+      const { error } = await supabaseClient
+        .from('stagekit_users')
+        .delete()
+        .eq('whatsapp', cleanPhone);
+
+      if (error) {
+        showToast('Erro ao excluir cadastro: ' + error.message, 'error');
+        return;
+      }
+
+      showToast('Cadastro excluído com sucesso!', 'success');
+      await fetchAllUsersFromSupabase();
+      renderSuperAdminChart();
+    }
+
     function renderSuperAdminData() {
       const artists = usersDatabase.filter(u => u.role !== 'admin');
       document.getElementById('superAdminTotalArtists').innerText = artists.length;
-      document.getElementById('superAdminActiveLinks').innerText = artists.length;
+      document.getElementById('superAdminActiveLinks').innerText = artists.filter(u => (u.status || 'Ativo') === 'Ativo').length;
       document.getElementById('superAdminBudgets').innerText = totalBudgetsCount;
 
       const tbody = document.getElementById('superAdminUsersTableBody');
@@ -2699,7 +3113,17 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
         return;
       }
 
-      tbody.innerHTML = artists.map(u => `
+      tbody.innerHTML = artists.map(u => {
+        const isBlocked = u.status === 'Bloqueado';
+        const statusBadge = isBlocked
+          ? '<span class="px-2 py-0.5 rounded text-[10px] bg-red-500/15 text-red-400 font-bold">Bloqueado</span>'
+          : '<span class="px-2 py-0.5 rounded text-[10px] bg-emerald-500/10 text-emerald-400 font-bold">Ativo</span>';
+        const toggleBtnLabel = isBlocked ? 'Ativar' : 'Bloquear';
+        const toggleBtnClass = isBlocked
+          ? 'bg-emerald-500/15 hover:bg-emerald-500/25 text-emerald-400'
+          : 'bg-zinc-800 hover:bg-zinc-700 text-zinc-300';
+
+        return `
         <tr class="hover:bg-zinc-900/50">
           <td class="p-3 font-bold text-white flex items-center gap-2">
             ${u.artistMainName}
@@ -2707,12 +3131,14 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
           </td>
           <td class="p-3 text-zinc-400 font-mono">${u.whatsapp}</td>
           <td class="p-3 text-zinc-400">${u.createdAt || '2026-01-01'}</td>
-          <td class="p-3"><span class="px-2 py-0.5 rounded text-[10px] bg-emerald-500/10 text-emerald-400 font-bold">Ativo</span></td>
-          <td class="p-3 text-right">
-            <button onclick="adminViewUserKit('${u.slug}')" class="bg-amber-500/10 hover:bg-amber-500/20 text-amber-400 px-3 py-1.5 rounded-lg font-bold text-xs">Ver Kit</button>
+          <td class="p-3">${statusBadge}</td>
+          <td class="p-3 text-right space-x-1.5 whitespace-nowrap">
+            <button onclick="adminViewUserKit('${u.slug}')" class="bg-amber-500/10 hover:bg-amber-500/20 text-amber-400 px-3 py-1.5 rounded-lg font-bold text-xs cursor-pointer">Ver Kit</button>
+            <button onclick="adminToggleUserStatus('${u.whatsapp}', '${u.status || 'Ativo'}')" class="${toggleBtnClass} px-3 py-1.5 rounded-lg font-bold text-xs cursor-pointer">${toggleBtnLabel}</button>
+            <button onclick="adminDeleteUser('${u.whatsapp}', '${(u.artistMainName || '').replace(/'/g, "\\'")}')" class="bg-red-500/15 hover:bg-red-500/25 text-red-400 px-3 py-1.5 rounded-lg font-bold text-xs cursor-pointer">Excluir</button>
           </td>
         </tr>
-      `).join('');
+      `}).join('');
     }
 
     function renderClientsData() {
@@ -2723,19 +3149,36 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
         container.innerHTML = '<p class="text-zinc-500 italic">Nenhum artista cadastrado na comunidade.</p>';
         return;
       }
-      container.innerHTML = artists.map(u => `
-        <div class="bg-zinc-900 p-4 rounded-xl border border-zinc-800 flex justify-between items-center">
+      container.innerHTML = artists.map(u => {
+        const isBlocked = u.status === 'Bloqueado';
+        return `
+        <div class="bg-zinc-900 p-4 rounded-xl border border-zinc-800 flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3">
           <div>
-            <p class="font-bold text-white text-sm">${u.artistMainName}</p>
+            <div class="flex items-center gap-2">
+              <p class="font-bold text-white text-sm">${u.artistMainName}</p>
+              <span class="px-2 py-0.5 rounded text-[10px] ${isBlocked ? 'bg-red-500/15 text-red-400' : 'bg-emerald-500/10 text-emerald-400'} font-bold">${u.status || 'Ativo'}</span>
+            </div>
             <p class="text-zinc-400">Telefone / WhatsApp: <span class="text-amber-400 font-mono">${u.whatsapp}</span></p>
           </div>
-          <button onclick="adminViewUserKit('${u.slug}')" class="bg-amber-500 hover:bg-amber-600 text-black font-bold px-3 py-2 rounded-lg text-xs">Visualizar Kit</button>
+          <div class="flex items-center gap-2">
+            <button onclick="adminViewUserKit('${u.slug}')" class="bg-amber-500 hover:bg-amber-600 text-black font-bold px-3 py-2 rounded-lg text-xs cursor-pointer">Visualizar Kit</button>
+            <button onclick="adminToggleUserStatus('${u.whatsapp}', '${u.status || 'Ativo'}')" class="bg-zinc-800 hover:bg-zinc-700 text-zinc-200 font-bold px-3 py-2 rounded-lg text-xs cursor-pointer">${isBlocked ? 'Ativar' : 'Bloquear'}</button>
+            <button onclick="adminDeleteUser('${u.whatsapp}', '${(u.artistMainName || '').replace(/'/g, "\\'")}')" class="bg-red-500/15 hover:bg-red-500/25 text-red-400 font-bold px-3 py-2 rounded-lg text-xs cursor-pointer">Excluir</button>
+          </div>
         </div>
-      `).join('');
+      `}).join('');
     }
 
-    function adminViewUserKit(slug) {
-      const found = usersDatabase.find(u => u.slug === slug);
+    async function adminViewUserKit(slug) {
+      let found = usersDatabase.find(u => u.slug === slug);
+      if (!found && supabaseClient) {
+        const { data } = await supabaseClient
+          .from('stagekit_users')
+          .select('*')
+          .eq('slug', slug)
+          .maybeSingle();
+        if (data) found = buildArtistObjectFromSupabaseRow(data);
+      }
       if(found) {
         artistData = found;
         isAdminViewingArtistKit = true;
