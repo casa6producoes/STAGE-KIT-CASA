@@ -2811,33 +2811,38 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       loadInputsFromState();
     }
 
-    function saveArtistEdits() {
-      if(sessionUser && sessionUser.role === 'admin') return;
-      artistData.title = document.getElementById('editTitle').value;
-      artistData.bio = document.getElementById('editBio').value;
-      artistData.channelYoutube = document.getElementById('editChannelYoutube').value;
-      artistData.instagram = document.getElementById('editInstagram').value;
-      artistData.tiktok = document.getElementById('editTiktok').value;
-      artistData.facebook = document.getElementById('editFacebook').value;
-      artistData.spotify = document.getElementById('editSpotify').value;
-      artistData.deezer = document.getElementById('editDeezer').value;
-      artistData.apple = document.getElementById('editApple').value;
-      
-      artistData.youtube1 = document.getElementById('editYoutube1').value;
-      artistData.youtube2 = document.getElementById('editYoutube2').value;
-      artistData.youtube3 = document.getElementById('editYoutube3').value;
-      artistData.slug = document.getElementById('customSlugInput').value.toLowerCase().trim();
+   async function saveArtistEdits() {
+  if(sessionUser && sessionUser.role === 'admin') return;
+  artistData.title = document.getElementById('editTitle').value;
+  artistData.bio = document.getElementById('editBio').value;
+  artistData.channelYoutube = document.getElementById('editChannelYoutube').value;
+  artistData.instagram = document.getElementById('editInstagram').value;
+  artistData.tiktok = document.getElementById('editTiktok').value;
+  artistData.facebook = document.getElementById('editFacebook').value;
+  artistData.spotify = document.getElementById('editSpotify').value;
+  artistData.deezer = document.getElementById('editDeezer').value;
+  artistData.apple = document.getElementById('editApple').value;
+  
+  artistData.youtube1 = document.getElementById('editYoutube1').value;
+  artistData.youtube2 = document.getElementById('editYoutube2').value;
+  artistData.youtube3 = document.getElementById('editYoutube3').value;
+  artistData.slug = document.getElementById('customSlugInput').value.toLowerCase().trim();
 
-      let newTestimonials = [];
-      if(artistData.testimonials) {
-        artistData.testimonials.forEach((t, idx) => {
-          let txt = document.getElementById(`testText_${idx}`)?.value || '';
-          let auth = document.getElementById(`testAuthor_${idx}`)?.value || 'Nome do Contratante';
-          newTestimonials.push({ text: txt, author: auth, printUrl: t.printUrl || '' });
-        });
-      }
-      artistData.testimonials = newTestimonials.filter(t => t.text || t.printUrl);
+  // Salva os depoimentos preenchidos
+  let newTestimonials = [];
+  if(artistData.testimonials) {
+    artistData.testimonials.forEach((t, idx) => {
+      let txt = document.getElementById(`testText_${idx}`)?.value || '';
+      let auth = document.getElementById(`testAuthor_${idx}`)?.value || 'Nome do Contratante';
+      newTestimonials.push({ text: txt, author: auth, printUrl: t.printUrl || '' });
+    });
+  }
+  artistData.testimonials = newTestimonials.filter(t => t.text || t.printUrl);
 
+  await saveData(true); // Força a gravação e exibe o Toast de sucesso
+  alert('✅ Mídias, streaming e depoimentos salvos com sucesso!');
+  loadInputsFromState();
+}
       let getFileBase64 = (file) => new Promise(res => {
         if(!file) return res(null);
         let r = new FileReader();
