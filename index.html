@@ -10,7 +10,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>StageKit — Press Kits para Músicos Profissionais</title>
-  <!-- StageKit v3.8: players incorporados e remoção individual de fotos -->
+  <!-- StageKit v3.9: links de Reels e fotos de formatos no Storage -->
   <!-- StageKit 3.7: identifica rotas diretas antes de renderizar a página inicial. -->
   <script>
     (function () {
@@ -780,7 +780,7 @@
                 <input type="url" id="editYoutube3" inputmode="url" placeholder="https://www.tiktok.com/@perfil/video/..." class="w-full bg-zinc-800 border border-zinc-700 rounded-xl p-2 text-white">
               </div>
             </div>
-            <p class="text-[11px] text-zinc-500 leading-relaxed">Use o link do vídeo público, não o perfil. O Instagram pode exibir um cartão de prévia ou limitar a reprodução fora do aplicativo, mesmo dentro de um player incorporado. O StageKit não consegue remover essas restrições da rede social. Para garantir reprodução no próprio site, prefira YouTube (público ou não listado) ou TikTok.</p>
+            <p class="text-[11px] text-zinc-500 leading-relaxed">Cole o endereço completo de uma publicação pública do Instagram (ex.: instagram.com/reel/CODIGO/), inclusive com parâmetros de compartilhamento. Links /share/reel/ são apenas redirecionamentos e devem ser abertos no navegador antes de copiar a URL final. O Instagram pode restringir a reprodução incorporada; para maior previsibilidade use YouTube.</p>
           </div>
         </div>
 
@@ -849,7 +849,8 @@
             </div>
             <div>
               <label class="block font-semibold text-zinc-300 mb-1">Foto do Formato</label>
-              <input type="file" id="fmt1PhotoFile" accept="image/*" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-2 text-zinc-300 text-xs">
+              <input type="file" id="fmt1PhotoFile" accept="image/jpeg,image/png,image/webp,image/gif" onchange="renderFormatPhotoStatus()" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-2 text-zinc-300 text-xs">
+              <div id="fmt1PhotoStatus" class="pt-1 text-[11px] text-zinc-400" aria-live="polite"></div>
             </div>
           </div>
 
@@ -874,7 +875,8 @@
             </div>
             <div>
               <label class="block font-semibold text-zinc-300 mb-1">Foto do Formato</label>
-              <input type="file" id="fmt2PhotoFile" accept="image/*" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-2 text-zinc-300 text-xs">
+              <input type="file" id="fmt2PhotoFile" accept="image/jpeg,image/png,image/webp,image/gif" onchange="renderFormatPhotoStatus()" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-2 text-zinc-300 text-xs">
+              <div id="fmt2PhotoStatus" class="pt-1 text-[11px] text-zinc-400" aria-live="polite"></div>
             </div>
           </div>
 
@@ -894,7 +896,8 @@
             </div>
             <div>
               <label class="block font-semibold text-zinc-300 mb-1">Foto do Formato</label>
-              <input type="file" id="fmt3PhotoFile" accept="image/*" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-2 text-zinc-300 text-xs">
+              <input type="file" id="fmt3PhotoFile" accept="image/jpeg,image/png,image/webp,image/gif" onchange="renderFormatPhotoStatus()" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-2 text-zinc-300 text-xs">
+              <div id="fmt3PhotoStatus" class="pt-1 text-[11px] text-zinc-400" aria-live="polite"></div>
             </div>
           </div>
         </div>
@@ -1382,10 +1385,21 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
         .replace(/[\s-]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 64);
     }
 
-    // StageKit 3.7: transforma links sociais em players incorporados, sem enviar MP4.
-    // Aceita apenas domínios conhecidos e URLs HTTPS para evitar injeção de iframes.
+    // StageKit 3.9: aceita URLs sociais completas, sem protocolo ou copiadas com texto ao redor.
+    // O player incorporado depende de cada rede permitir embeds, principalmente Instagram.
+    function cleanSocialVideoUrl(input) {
+      let raw = String(input || '').trim();
+      if (!raw) return '';
+      // Compartilhamentos de apps às vezes incluem uma legenda antes/depois do link.
+      const extracted = raw.match(/https?:\/\/[^\s<>"']+/i) || raw.match(/(?:www\.)?(?:instagram\.com|instagr\.am|youtu\.be|youtube\.com|tiktok\.com|facebook\.com|fb\.watch|vimeo\.com)\/[^\s<>"']+/i);
+      if (extracted) raw = extracted[0];
+      raw = raw.replace(/[\s\u200b\u200c\u200d]+/g, '').replace(/[),.;!?]+$/g, '');
+      if (/^(?:www\.)?(?:instagram\.com|instagr\.am|youtu\.be|youtube\.com|tiktok\.com|facebook\.com|fb\.watch|vimeo\.com)\//i.test(raw)) raw='https://'+raw;
+      return raw;
+    }
+
     function getSocialVideoEmbed(input) {
-      const raw = String(input || '').trim();
+      const raw = cleanSocialVideoUrl(input);
       if (!raw) return null;
       let url;
       try { url = new URL(raw); } catch(e) { return null; }
@@ -1393,54 +1407,59 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       const host = url.hostname.toLowerCase();
       const segments = url.pathname.split('/').filter(Boolean);
 
-      // YouTube: vídeos convencionais, links curtos, Shorts e lives.
+      // YouTube (vídeos, links curtos, Shorts e lives)
       if (['youtube.com', 'www.youtube.com', 'm.youtube.com', 'music.youtube.com', 'youtube-nocookie.com', 'www.youtube-nocookie.com', 'youtu.be'].includes(host)) {
         let id = '';
         if (host === 'youtu.be') id = segments[0] || '';
         else if (segments[0] === 'watch') id = url.searchParams.get('v') || '';
-        else if (['shorts', 'embed', 'live', 'v'].includes(segments[0])) id = segments[1] || '';
+        else if (['shorts','embed','live','v'].includes(segments[0])) id = segments[1] || '';
         if (!/^[a-zA-Z0-9_-]{11}$/.test(id)) return null;
-        return { platform:'YouTube', kind:'iframe', format: segments[0] === 'shorts' ? 'portrait' : 'landscape',
-          url:`https://www.youtube.com/embed/${id}?rel=0&playsinline=1` };
+        return {platform:'YouTube',kind:'iframe',format:segments[0]==='shorts'?'portrait':'landscape',url:`https://www.youtube.com/embed/${id}?rel=0&playsinline=1`};
       }
 
-      // TikTok: URL completa do post com ID; vm.tiktok.com precisa ser expandido.
+      // Instagram: /reel/ID, /reels/ID, /p/ID, /tv/ID, com ou sem igsh/utm.
+      // Os endereços /share/reel/TOKEN/ são redirecionamentos e não revelam o shortcode.
+      if (['instagram.com','www.instagram.com','m.instagram.com','instagr.am','www.instagr.am'].includes(host)) {
+        let type = (segments[0] || '').toLowerCase();
+        if (type === 'reels') type='reel';
+        if (!['reel','p','tv'].includes(type) || !segments[1]) return null;
+        const shortcode = segments[1];
+        if (!/^[a-zA-Z0-9_-]{5,64}$/.test(shortcode)) return null;
+        const canonical=`https://www.instagram.com/${type}/${shortcode}/`;
+        return {platform:'Instagram',kind:'iframe',format:'portrait',canonical, url:`${canonical}embed/`};
+      }
+
       if (['tiktok.com','www.tiktok.com','m.tiktok.com'].includes(host)) {
-        const match = url.pathname.match(/\/(?:video|player\/v1)\/(\d{12,24})(?:\/|$)/);
+        const match=url.pathname.match(/\/(?:video|player\/v1)\/(\d{12,24})(?:\/|$)/);
         if (!match) return null;
-        return { platform:'TikTok', kind:'iframe', format:'portrait',
-          url:`https://www.tiktok.com/player/v1/${match[1]}?description=1&music_info=1` };
+        return {platform:'TikTok',kind:'iframe',format:'portrait',url:`https://www.tiktok.com/player/v1/${match[1]}?description=1&music_info=1`};
       }
 
-      // Instagram: incorporação oficial para reels e publicações públicas.
-      if (['instagram.com','www.instagram.com','m.instagram.com'].includes(host)) {
-        const match = url.pathname.match(/^\/(reel|reels|p|tv)\/([a-zA-Z0-9_-]+)(?:\/|$)/);
-        if (!match) return null;
-        const type = match[1] === 'reels' ? 'reel' : match[1];
-        // O iframe de vídeo evita o cartão completo gerado por embed.js.
-        // A reprodução depende das permissões do Instagram (nem todo Reel toca no iframe).
-        return { platform:'Instagram', kind:'iframe', format:'portrait',
-          url:`https://www.instagram.com/${type}/${match[2]}/embed/` };
-      }
-
-      // Facebook: plugin incorporado para vídeos e reels públicos.
       if (['facebook.com','www.facebook.com','m.facebook.com','web.facebook.com','fb.watch'].includes(host)) {
-        const isVideo = host === 'fb.watch' || /\/(videos|reel|watch)(?:\/|$)/.test(url.pathname) || (url.searchParams.has('v') && url.pathname.startsWith('/watch'));
+        const isVideo=host==='fb.watch' || /\/(videos|reel|watch)(?:\/|$)/.test(url.pathname) || (url.searchParams.has('v') && url.pathname.startsWith('/watch'));
         if (!isVideo) return null;
-        const canonical = host === 'fb.watch' ? url.href : `https://www.facebook.com${url.pathname}${url.search}`;
-        const portrait = /\/reel\//.test(url.pathname);
-        return { platform:'Facebook', kind:'iframe', format:portrait ? 'portrait':'landscape',
-          url:`https://www.facebook.com/plugins/video.php?href=${encodeURIComponent(canonical)}&show_text=false&width=560` };
+        const canonical=host==='fb.watch' ? url.href : `https://www.facebook.com${url.pathname}${url.search}`;
+        const portrait=/\/reel\//.test(url.pathname);
+        return {platform:'Facebook',kind:'iframe',format:portrait?'portrait':'landscape',url:`https://www.facebook.com/plugins/video.php?href=${encodeURIComponent(canonical)}&show_text=false&width=560`};
       }
 
-      // Vimeo: hospedagem externa opcional para vídeos profissionais.
       if (['vimeo.com','www.vimeo.com','player.vimeo.com'].includes(host)) {
-        const match = url.pathname.match(/(?:\/video)?\/(\d+)(?:\/|$)/);
+        const match=url.pathname.match(/(?:\/video)?\/(\d+)(?:\/|$)/);
         if (!match) return null;
-        return { platform:'Vimeo', kind:'iframe', format:'landscape',
-          url:`https://player.vimeo.com/video/${match[1]}` };
+        return {platform:'Vimeo',kind:'iframe',format:'landscape',url:`https://player.vimeo.com/video/${match[1]}`};
       }
       return null;
+    }
+
+    function explainUnsupportedSocialLink(raw, i) {
+      const link = cleanSocialVideoUrl(raw);
+      if (/instagram\.com\/share\/(?:reel|p)\//i.test(link)) {
+        return `Vídeo ${i}: o link compartilhado do Instagram (/share/reel/) é um redirecionamento. Abra o Reel no navegador e copie o endereço /reel/CODIGO/ para incorporá-lo no StageKit.`;
+      }
+      if (/instagram\.com/i.test(link)) {
+        return `Vídeo ${i}: use o endereço da publicação, por exemplo https://www.instagram.com/reel/CODIGO/ (não o link do perfil ou da seção Reels).`;
+      }
+      return `Vídeo ${i}: informe o endereço do vídeo do YouTube, Instagram, TikTok, Facebook ou Vimeo. Não use links de perfil ou redirecionamentos curtos.`;
     }
 
     function getEmbedAudio(input) {
@@ -1993,6 +2012,7 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
         document.getElementById('fmt3Sub').value = artistData.formats[2].sub;
         document.getElementById('fmt3Desc').value = artistData.formats[2].desc;
       }
+      renderFormatPhotoStatus();
 
       updateAvatarPreviews();
       updateCoverPreviews();
@@ -3151,7 +3171,12 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
           const link = newData[`youtube${i}`];
           if (link && !getSocialVideoEmbed(link)) {
             document.getElementById(`editYoutube${i}`).focus();
-            throw new Error(`Vídeo ${i}: use um link HTTPS direto do YouTube, Instagram Reel, TikTok, Facebook ou Vimeo. Links de perfis e links curtos do TikTok não são aceitos.`);
+            throw new Error(explainUnsupportedSocialLink(link, i));
+          }
+          // Guarde apenas a URL canônica do Instagram, nunca a legenda copiada do app.
+          if (link) {
+            const embed = getSocialVideoEmbed(link);
+            newData[`youtube${i}`] = embed.canonical || cleanSocialVideoUrl(link);
           }
         }
         captureTestimonialsDraft();
@@ -3195,51 +3220,67 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
     // Alias para eventuais integrações antigas que chamam o botão anterior.
     async function saveArtistEdits() { return saveMediaEdits(); }
 
-    function saveFormatsEdits() {
-      if(sessionUser && sessionUser.role === 'admin') return;
-      artistData.formats[0].title = document.getElementById('fmt1Title').value;
-      artistData.formats[0].sub = document.getElementById('fmt1Sub').value;
-      artistData.formats[0].desc = document.getElementById('fmt1Desc').value;
+    function renderFormatPhotoStatus() {
+      for (let i=0; i<3; i++) {
+        const slot = document.getElementById(`fmt${i+1}PhotoStatus`);
+        if (!slot) continue;
+        const file=document.getElementById(`fmt${i+1}PhotoFile`)?.files?.[0];
+        const saved=artistData.formats?.[i]?.photo || '';
+        const photoUrl=safeExternalUrl(saved);
+        const preview=photoUrl ? `<img src="${escHtml(photoUrl)}" alt="Foto salva do formato ${i+1}" class="w-16 h-12 object-cover rounded-lg border border-zinc-700">` : '';
+        slot.innerHTML = `<div class="flex items-center gap-2">${preview}<span>${file ? 'Nova imagem selecionada: '+escHtml(file.name) : saved ? 'Foto salva no Press Kit. Selecione outra para substituir.' : 'Nenhuma foto salva.'}</span></div>`;
+      }
+    }
 
-      artistData.formats[1].title = document.getElementById('fmt2Title').value;
-      artistData.formats[1].sub = document.getElementById('fmt2Option').value;
-      artistData.formats[1].desc = document.getElementById('fmt2Desc').value;
-
-      artistData.formats[2].title = document.getElementById('fmt3Title').value;
-      artistData.formats[2].sub = document.getElementById('fmt3Sub').value;
-      artistData.formats[2].desc = document.getElementById('fmt3Desc').value;
-
-      let f1File = document.getElementById('fmt1PhotoFile').files[0];
-      let f2File = document.getElementById('fmt2PhotoFile').files[0];
-      let f3File = document.getElementById('fmt3PhotoFile').files[0];
-
-      let count = 0;
-      let checkDone = async () => {
-        count++;
-        if(count >= 3) {
-          await saveData(true);
-          alert('Formatos de show salvos com sucesso!');
-          loadInputsFromState();
+    async function saveFormatsEdits() {
+      if (!sessionUser || sessionUser.role === 'admin') return false;
+      const saveBtn = document.querySelector('#tabFormats button[onclick="saveFormatsEdits()"]');
+      if (saveBtn?.disabled) return false;
+      if (saveBtn) { saveBtn.disabled=true; saveBtn.textContent='Salvando formatos...'; saveBtn.classList.add('opacity-60'); }
+      const previous = (artistData.formats || []).map(f=>({...f}));
+      const updated = Array.from({length:3},(_,i)=>({...previous[i]}));
+      try {
+        if (updated.length !== 3 || updated.some(f=>!f)) throw new Error('Dados dos formatos de show incompletos.');
+        updated[0].title=document.getElementById('fmt1Title').value.trim();
+        updated[0].sub=document.getElementById('fmt1Sub').value.trim();
+        updated[0].desc=document.getElementById('fmt1Desc').value.trim();
+        updated[1].title=document.getElementById('fmt2Title').value.trim();
+        updated[1].sub=document.getElementById('fmt2Option').value;
+        updated[1].desc=document.getElementById('fmt2Desc').value.trim();
+        updated[2].title=document.getElementById('fmt3Title').value.trim();
+        updated[2].sub=document.getElementById('fmt3Sub').value.trim();
+        updated[2].desc=document.getElementById('fmt3Desc').value.trim();
+        const uploads=[];
+        for(let i=0; i<3; i++) {
+          const input=document.getElementById(`fmt${i+1}PhotoFile`);
+          if (input?.files?.[0]) uploads.push({i,input,file:input.files[0]});
         }
-      };
-
-      if(f1File) {
-        let r = new FileReader();
-        r.onload = e => { artistData.formats[0].photo = e.target.result; checkDone(); };
-        r.readAsDataURL(f1File);
-      } else { checkDone(); }
-
-      if(f2File) {
-        let r = new FileReader();
-        r.onload = e => { artistData.formats[1].photo = e.target.result; checkDone(); };
-        r.readAsDataURL(f2File);
-      } else { checkDone(); }
-
-      if(f3File) {
-        let r = new FileReader();
-        r.onload = e => { artistData.formats[2].photo = e.target.result; checkDone(); };
-        r.readAsDataURL(f3File);
-      } else { checkDone(); }
+        if (uploads.length) {
+          const session=await getStorageSession();
+          for(let n=0; n<uploads.length; n++) {
+            const item=uploads[n];
+            showToast(`Enviando foto ${n+1} de ${uploads.length} para o Storage...`, 'loading');
+            updated[item.i].photo=await uploadStagekitFile(item.file,'formatos',session);
+          }
+        }
+        artistData.formats=updated;
+        showToast('Salvando formatos no banco de dados...', 'loading');
+        const saved=await saveData(true);
+        if (!saved) throw new Error('O Supabase não confirmou o salvamento dos formatos. Confira as permissões da tabela stagekit_users.');
+        uploads.forEach(item=>{item.input.value='';});
+        renderFormatPhotoStatus();
+        applyPublicData();
+        showToast('Formatos e fotos salvos com sucesso!', 'success');
+        return true;
+      } catch(e) {
+        artistData.formats=previous;
+        renderFormatPhotoStatus();
+        console.error('Erro ao salvar formatos do StageKit:',e);
+        showToast('Erro ao salvar formatos: '+(e.message||e), 'error');
+        return false;
+      } finally {
+        if (saveBtn) {saveBtn.disabled=false;saveBtn.textContent='Salvar Formatos de Show';saveBtn.classList.remove('opacity-60');}
+      }
     }
 
     async function uploadRepertoire() {
