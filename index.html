@@ -1639,6 +1639,7 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       
       try {
         window.addEventListener('popstate', handleRouting);
+        window.addEventListener('hashchange', handleRouting);
         await handleRouting();
       } catch(e) {}
       try { lucide.createIcons(); } catch(e) {}
@@ -2151,6 +2152,15 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       }
     }
 
+    function openOwnOnlineKit() {
+      isViewingOwnOnlineKit = true;
+      isAdminViewingArtistKit = false;
+      if (sessionUser) {
+        artistData = sessionUser;
+      }
+      showPublicPressKit(true);
+    }
+
     function showPublicPressKit(fromOwnPanel = false) {
       if(fromOwnPanel) {
         isViewingOwnOnlineKit = true;
@@ -2179,9 +2189,12 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
         if(backText) backText.innerText = "Voltar para o admin";
         if(viewOnlineBtn) viewOnlineBtn.classList.add('hidden');
       } else if(isViewingOwnOnlineKit && sessionUser) {
-        // Conforme solicitado: o link personalizado do artista em modo visualização não deve conter o botão "voltar pra área do artista"
-        if(backBtnContainer) backBtnContainer.classList.add('hidden');
-        if(viewOnlineBtn) viewOnlineBtn.classList.remove('hidden');
+        if(backBtnContainer) {
+          backBtnContainer.classList.remove('hidden');
+          backBtnContainer.style.display = 'block';
+        }
+        if(backText) backText.innerText = "Voltar para área do artista";
+        if(viewOnlineBtn) viewOnlineBtn.classList.add('hidden');
       } else {
         if(backBtnContainer) backBtnContainer.classList.add('hidden');
         if(viewOnlineBtn) viewOnlineBtn.classList.remove('hidden');
@@ -2202,11 +2215,13 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
     }
 
     function handleBackToDashboardFromPublic() {
+      isViewingOwnOnlineKit = false;
       if (sessionUser && sessionUser.role === 'admin' && isAdminViewingArtistKit) {
         isAdminViewingArtistKit = false;
         artistData = sessionUser;
         showArtistDashboard();
       } else {
+        if (sessionUser) artistData = sessionUser;
         showArtistDashboard();
       }
     }
@@ -3024,9 +3039,20 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
     }
 
     function copyCustomPressKitLink() {
-      const slug = document.getElementById('customSlugInput').value;
-      navigator.clipboard.writeText(`https://stagekitcasa6.vercel.app/${slug}`);
-      alert('Link copiado!');
+      const slug = (document.getElementById('customSlugInput').value || artistData.slug || '').toLowerCase().trim();
+      if (!slug) {
+        alert('Digite um nome para o seu link personalizado antes de copiar.');
+        return;
+      }
+      artistData.slug = slug;
+      saveData(false);
+      const origin = (window.location.origin && window.location.origin !== 'null') ? window.location.origin : 'https://stagekitcasa6.vercel.app';
+      const fullUrl = `${origin}/${slug}`;
+      navigator.clipboard.writeText(fullUrl).then(() => {
+        showToast('Link copiado: ' + fullUrl, 'success');
+      }).catch(() => {
+        alert('Link copiado: ' + fullUrl);
+      });
     }
 
     async function addNewEvent() {
