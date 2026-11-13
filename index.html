@@ -2151,25 +2151,23 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       }
     }
 
-    function showPublicPressKit(fromOwnPanel = false) {
-      if(fromOwnPanel) {
-        isViewingOwnOnlineKit = true;
-        try { window.history.pushState({}, '', '/modovisualizacao'); } catch(e) {}
-      } else {
-        try { window.history.pushState({}, '', `/${artistData.slug}`); } catch(e) {}
-      }
+   function showPublicPressKit(fromOwnPanel = false) {
+  if(fromOwnPanel) {
+    isViewingOwnOnlineKit = true;
+    try { window.history.pushState({}, '', '/modovisualizacao'); } catch(e) {}
+  } else {
+    try { window.history.pushState({}, '', `/${artistData.slug}`); } catch(e) {}
+  }
 
-      const lp = document.getElementById('landingPage');
-      if(lp) lp.classList.add('hidden');
-      const cv = document.getElementById('contractorView');
-      if(cv) cv.classList.remove('hidden');
-      const ad = document.getElementById('artistDashboard');
-      if(ad) ad.classList.add('hidden');
-      const lha = document.getElementById('landingHeaderActions');
-      if(lha) lha.classList.add('hidden');
-      const pha = document.getElementById('panelHeaderActions');
-      if(pha) pha.classList.remove('hidden');
+  document.getElementById('landingPage').classList.add('hidden');
+  document.getElementById('contractorView').classList.remove('hidden');
+  document.getElementById('artistDashboard').classList.add('hidden');
+  document.getElementById('landingHeaderActions').classList.add('hidden');
+  document.getElementById('panelHeaderActions').classList.remove('hidden');
 
+  applyPublicData();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
       const backBtnContainer = document.getElementById('backToDashboardContainer');
       const viewOnlineBtn = document.getElementById('viewOnlineKitBtn');
       const backText = document.getElementById('backToDashboardBtnText');
