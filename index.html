@@ -2979,15 +2979,18 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       alert('Contrato baixado com sucesso!');
     }
 
-    function updateCustomLinkPreview() {
-      const slug = document.getElementById('customSlugInput').value.toLowerCase().trim();
-      artistData.slug = slug;
-      document.getElementById('fullSlugPreview').innerText = `stagekitcasa6.vercel.app/${slug}`;
-      clearTimeout(window._slugSaveTimer);
-      window._slugSaveTimer = setTimeout(() => {
-        saveData(true);
-      }, 900);
-    }
+ function updateCustomLinkPreview() {
+  const slug = document.getElementById('customSlugInput').value.toLowerCase().trim();
+  artistData.slug = slug;
+  const previewEl = document.getElementById('fullSlugPreview');
+  if(previewEl) {
+    previewEl.innerText = `stagekitcasa6.vercel.app/${slug}`;
+  }
+  clearTimeout(window._slugSaveTimer);
+  window._slugSaveTimer = setTimeout(() => {
+    saveData(true);
+  }, 900);
+}
 
     function copyCustomPressKitLink() {
       const slug = document.getElementById('customSlugInput').value;
