@@ -1,3 +1,9 @@
+
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="pt-BR" class="dark">
 <head>
@@ -30,6 +36,7 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <!-- Supabase JS Client CDN -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="https://cdn.jsdelivr.net/npm/tus-js-client@4.3.1/dist/tus.min.js"></script>
 
   <style>
     body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: var(--bg-color, #09090B); color: var(--text-color, #FAFAFA); transition: background-color 0.3s, color 0.3s; scroll-behavior: smooth; }
@@ -247,6 +254,15 @@
 
   <!-- ==================== PRESS KIT PÚBLICO ==================== -->
   <div id="contractorView" class="flex-1 pt-20 hidden">
+    <!-- Visível somente para o artista ao visualizar o próprio kit -->
+    <div id="previewModeBanner" class="hidden max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-6">
+      <div class="flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-amber-500/35 bg-amber-500/10 px-4 py-3">
+        <span class="text-xs font-bold text-amber-400 flex items-center gap-2"><i data-lucide="eye" class="w-4 h-4"></i> Modelo de visualização do seu Press Kit</span>
+        <button type="button" onclick="handleBackToDashboardFromPublic()" class="bg-amber-500 hover:bg-amber-600 text-black font-bold text-xs px-4 py-2.5 rounded-xl flex items-center gap-2">
+          <i data-lucide="arrow-left" class="w-4 h-4"></i> Voltar para área do artista
+        </button>
+      </div>
+    </div>
     <section id="hero" class="relative py-16 md:py-24 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto text-center space-y-6">
       
       <!-- CAPA OU TEXTO COM ESTILO CUSTOMIZADO (ATUALIZADO) -->
@@ -402,7 +418,7 @@
         <button onclick="toggleTheme()" class="w-full flex items-center justify-center gap-2 p-3 rounded-xl bg-zinc-900 border border-zinc-800 text-amber-400 hover:bg-zinc-800 transition-colors text-xs font-bold cursor-pointer">
           <i data-lucide="sun" id="dashThemeIcon" class="w-4 h-4"></i> Alternar Tema
         </button>
-        <p class="text-[10px] text-zinc-500 text-center">StageKit v3.4 — Casa 6</p>
+        <p class="text-[10px] text-zinc-500 text-center">StageKit v3.5 — Casa 6</p>
       </div>
     </aside>
 
@@ -655,7 +671,7 @@
               </div>
             </div>
           </div>
-          <button onclick="saveArtistEdits()" class="bg-amber-500 hover:bg-amber-600 text-black font-extrabold py-3 px-6 rounded-xl shadow-md cursor-pointer">Salvar Bio & Redes</button>
+          <button onclick="saveBioEdits()" class="bg-amber-500 hover:bg-amber-600 text-black font-extrabold py-3 px-6 rounded-xl shadow-md cursor-pointer">Salvar Bio & Redes</button>
         </div>
       </div>
 
@@ -761,7 +777,7 @@
           </button>
         </div>
 
-        <button onclick="saveArtistEdits()" class="bg-amber-500 hover:bg-amber-600 text-black font-extrabold py-3 px-6 rounded-xl shadow-md cursor-pointer">Salvar Mídias, Streaming & Depoimentos</button>
+        <button onclick="saveMediaEdits()" class="bg-amber-500 hover:bg-amber-600 text-black font-extrabold py-3 px-6 rounded-xl shadow-md cursor-pointer">Salvar Mídias, Streaming & Depoimentos</button>
       </div>
 
       <!-- ABA 4: FORMATOS DE SHOW -->
@@ -853,13 +869,15 @@
             <i data-lucide="link" class="w-5 h-5"></i> <span>Seu Link Personalizado do Press Kit</span>
           </div>
           <div class="flex flex-col sm:flex-row items-center gap-2 pt-1">
-            <span class="text-xs text-zinc-400 font-mono select-none bg-zinc-900 px-3 py-2.5 rounded-xl border border-zinc-700">stagekitcasa6.vercel.app/</span>
+            <span id="customSlugDomain" class="text-xs text-zinc-400 font-mono select-none bg-zinc-900 px-3 py-2.5 rounded-xl border border-zinc-700">stagekitcasa6.vercel.app/</span>
             <input type="text" id="customSlugInput" value="" oninput="updateCustomLinkPreview()" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl px-4 py-2.5 text-xs text-amber-400 font-mono">
-            <button onclick="copyCustomPressKitLink()" class="bg-amber-500 hover:bg-amber-600 text-black font-bold px-5 py-2.5 rounded-xl text-xs shrink-0 flex items-center justify-center gap-2 cursor-pointer">
+            <button onclick="saveCustomSlug()" class="bg-zinc-800 hover:bg-zinc-700 text-amber-400 border border-amber-500/30 font-bold px-4 py-2.5 rounded-xl text-xs shrink-0 cursor-pointer">Salvar link</button>
+          <button onclick="copyCustomPressKitLink()" class="bg-amber-500 hover:bg-amber-600 text-black font-bold px-5 py-2.5 rounded-xl text-xs shrink-0 flex items-center justify-center gap-2 cursor-pointer">
               <i data-lucide="copy" class="w-4 h-4"></i> Copiar Link
             </button>
           </div>
-          <p class="text-[11px] text-zinc-400 italic">Link completo: <span id="fullSlugPreview" class="text-amber-400 font-mono">stagekitcasa6.vercel.app/</span></p>
+          <p class="text-[11px] text-zinc-400 italic">Link completo: <span id="fullSlugPreview" class="text-amber-400 font-mono">https://stagekitcasa6.vercel.app/</span></p>
+        <p id="customSlugHelp" class="text-[11px] text-zinc-500">Use letras, números e hífens. Clique em Salvar link antes de divulgar.</p>
         </div>
 
         <div class="flex justify-start">
@@ -1295,6 +1313,76 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
     const SUPABASE_KEY = 'sb_publishable_IjxfEWK0jyD72SKNzqCqkg_hFJ8_rIF';
     const supabaseClient = window.supabase ? window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY) : null;
 
+
+    // Utilitários StageKit v3.5
+    const STAGEKIT_MEDIA_BUCKET = 'stagekit-media';
+    const STAGEKIT_MAX_IMAGE_BYTES = 12 * 1024 * 1024;
+    const STAGEKIT_MAX_VIDEO_BYTES = 100 * 1024 * 1024;
+    const STAGEKIT_RESERVED_SLUGS = new Set(['dashboard', 'modovisualizacao', 'index', 'index-html', 'api', 'admin', 'login', 'logout', 'assets']);
+
+    function escHtml(value) {
+      return String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;'}[c]));
+    }
+
+    function getStagekitOrigin() {
+      return (window.location.origin && window.location.origin !== 'null')
+        ? window.location.origin.replace(/\/$/, '')
+        : 'https://stagekitcasa6.vercel.app';
+    }
+
+    function normalizeSlug(input) {
+      return String(input ?? '')
+        .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+        .toLowerCase().trim().replace(/[^a-z0-9-\s]/g, '')
+        .replace(/[\s-]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 64);
+    }
+
+    function getYouTubeEmbed(input) {
+      try {
+        const url = new URL(String(input));
+        if (url.hostname === 'youtu.be') return `https://www.youtube.com/embed/${encodeURIComponent(url.pathname.slice(1))}`;
+        if (/(^|\.)youtube\.com$/.test(url.hostname)) {
+          const videoId = url.searchParams.get('v') || url.pathname.split('/').filter(Boolean).pop();
+          return videoId ? `https://www.youtube.com/embed/${encodeURIComponent(videoId)}` : '';
+        }
+      } catch (e) {}
+      return '';
+    }
+
+    function getEmbedAudio(input) {
+      const raw = String(input || '').trim();
+      try {
+        // Nunca injetar HTML/iframe fornecido por usuários diretamente na página.
+        const match = raw.match(/src=["']([^"']+)["']/i);
+        const url = new URL(match ? match[1] : raw);
+        if (url.protocol !== 'https:') return null;
+        if (['open.spotify.com', 'spotify.com'].includes(url.hostname)) {
+          if (url.pathname.includes('/embed/')) return url.href;
+          return `https://open.spotify.com/embed${url.pathname}`;
+        }
+        if (url.hostname === 'www.deezer.com' || url.hostname === 'deezer.com') {
+          return url.pathname.includes('/plugins/player') ? url.href : null;
+        }
+        if (url.hostname === 'embed.music.apple.com' || url.hostname === 'music.apple.com') {
+          return `https://embed.music.apple.com${url.pathname}`;
+        }
+      } catch(e) {}
+      return null;
+    }
+
+    function safeExternalUrl(input) {
+      const raw = String(input || '').trim();
+      // Compatibilidade de leitura com mídias Base64 já gravadas no StageKit antigo.
+      if (/^data:(?:image\/(?:jpeg|png|webp|gif)|video\/mp4|audio\/(?:mpeg|wav|ogg));base64,[a-z0-9+/=]+$/i.test(raw)) return raw;
+      try { const u = new URL(raw); return ['https:', 'http:'].includes(u.protocol) ? u.href : ''; }
+      catch(e) { return ''; }
+    }
+
+    function safeCacheSet(key, value) {
+      try { localStorage.setItem(key, typeof value === 'string' ? value : JSON.stringify(value)); }
+      catch(e) { console.warn('Cache local indisponível; Supabase continua como fonte principal.', e); }
+    }
+
     function normalizeWhatsapp(phone) {
       return String(phone || '').replace(/\D/g, '');
     }
@@ -1554,39 +1642,36 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
     }
 
     async function saveData(showFeedback = false) {
-      if(sessionUser) {
-        const cleanPhone = normalizeWhatsapp(artistData.whatsapp || sessionUser.whatsapp);
-        artistData.whatsapp = cleanPhone;
-        artistData.eventsList = eventsList;
-        artistData.musiciansList = musiciansList;
-        sessionUser = { ...sessionUser, ...artistData, whatsapp: cleanPhone };
-        localStorage.setItem('stagekit_session', JSON.stringify(sessionUser));
-        
-        const userIndex = usersDatabase.findIndex(u => normalizeWhatsapp(u.whatsapp) === cleanPhone);
-        if(userIndex !== -1) {
-          usersDatabase[userIndex] = sessionUser;
-        } else {
-          usersDatabase.push(sessionUser);
-        }
-        localStorage.setItem('stagekit_users_db', JSON.stringify(usersDatabase));
-
-        if (supabaseClient) {
-          await syncArtistToSupabase(sessionUser, showFeedback);
-        } else if (showFeedback) {
-          showToast('Salvo!', 'success');
-        }
-      } else {
-        if (artistData && artistData.whatsapp && isViewingOwnOnlineKit === false) {
-          await syncArtistToSupabase(artistData, false);
-        }
-        if (showFeedback) {
-          showToast('Salvo!', 'success');
-        }
+      if (!sessionUser || !artistData || !artistData.whatsapp) {
+        if (showFeedback) showToast('Faça login para salvar suas alterações.', 'error');
+        return false;
       }
-      localStorage.setItem('stagekit_events', JSON.stringify(eventsList));
-      localStorage.setItem('stagekit_musicians', JSON.stringify(musiciansList));
-      localStorage.setItem('stagekit_budgets_count', totalBudgetsCount);
-      localStorage.setItem('stagekit_global_contract', globalContractModel);
+      const oldPhone = normalizeWhatsapp(sessionUser.whatsapp);
+      const cleanPhone = normalizeWhatsapp(artistData.whatsapp || oldPhone);
+      artistData.whatsapp = cleanPhone;
+      artistData.eventsList = eventsList;
+      artistData.musiciansList = musiciansList;
+      // O Supabase é a fonte da verdade. Erros na nuvem não geram alertas falsos de sucesso.
+      const updatedUser = { ...sessionUser, ...artistData, whatsapp: cleanPhone };
+      if (!supabaseClient) {
+        if (showFeedback) showToast('Sem conexão com Supabase; nada foi publicado.', 'error');
+        return false;
+      }
+      const ok = await syncArtistToSupabase(updatedUser, showFeedback);
+      if (!ok) return false;
+      sessionUser = updatedUser;
+      const oldIndex = usersDatabase.findIndex(u => normalizeWhatsapp(u.whatsapp) === oldPhone);
+      if (oldIndex >= 0) usersDatabase.splice(oldIndex, 1);
+      const currentIndex = usersDatabase.findIndex(u => normalizeWhatsapp(u.whatsapp) === cleanPhone);
+      if (currentIndex >= 0) usersDatabase[currentIndex] = updatedUser;
+      else usersDatabase.push(updatedUser);
+      safeCacheSet('stagekit_session', sessionUser);
+      safeCacheSet('stagekit_users_db', usersDatabase);
+      safeCacheSet('stagekit_events', eventsList);
+      safeCacheSet('stagekit_musicians', musiciansList);
+      safeCacheSet('stagekit_budgets_count', String(totalBudgetsCount));
+      safeCacheSet('stagekit_global_contract', globalContractModel);
+      return true;
     }
 
     async function initApp() {
@@ -1645,102 +1730,57 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       try { lucide.createIcons(); } catch(e) {}
     }
 
+    // Roteamento SPA; rotas públicas funcionam sem sessão/localStorage.
     async function handleRouting() {
-      let rawPath = "";
-      try {
-        const urlParams = new URLSearchParams(window.location.search);
-        const queryArtist = urlParams.get('artista') || urlParams.get('slug');
-        if (queryArtist) {
-          rawPath = queryArtist;
-        } else {
-          rawPath = window.location.pathname;
-        }
-      } catch(e) {}
-
-      rawPath = decodeURIComponent(rawPath || '')
-        .replace(/^\/+|\/+$/g, '')
-        .replace(/^index\.html$/i, '')
-        .trim()
-        .toLowerCase();
-
-      if (!rawPath && window.location.hash) {
-        rawPath = decodeURIComponent(window.location.hash)
-          .replace(/^#\/?/, '')
-          .replace(/\/+$/, '')
-          .trim()
-          .toLowerCase();
-      }
-
-      if (rawPath === 'dashboard') {
-        if(sessionUser) {
-          showArtistDashboard();
-        } else {
-          goHome();
-          openLoginModal();
-        }
+      const params = new URLSearchParams(window.location.search);
+      const rawPath = (params.get('artista') || params.get('slug') || decodeURIComponent(window.location.pathname || '/').slice(1))
+        .replace(/^\/+|\/+$/g, '').toLowerCase().trim();
+      const route = rawPath === 'index.html' ? '' : rawPath;
+      if (route === 'dashboard') {
+        if (sessionUser) showArtistDashboard(false);
+        else { goHome(false); openLoginModal(); }
         return;
       }
-
-      if (rawPath === 'modovisualizacao') {
-        if(sessionUser) {
+      if (route === 'modovisualizacao') {
+        if (sessionUser) {
           artistData = sessionUser;
           isViewingOwnOnlineKit = true;
-          showPublicPressKit(false);
+          isAdminViewingArtistKit = false;
+          showPublicPressKit(true, false);
+        } else { goHome(false); openLoginModal(); }
+        return;
+      }
+      if (route) {
+        const slug = normalizeSlug(route);
+        let matchedArtist = null;
+        if (supabaseClient) {
+          const { data, error } = await supabaseClient.from('stagekit_users')
+            .select('whatsapp,role,status,slug,profile_data,created_at')
+            .eq('slug', slug).maybeSingle();
+          if (error) console.warn('Falha ao consultar o link público:', error.message);
+          if (data) matchedArtist = buildArtistObjectFromSupabaseRow(data);
+        }
+        if (!matchedArtist && sessionUser && normalizeSlug(sessionUser.slug) === slug) matchedArtist = sessionUser;
+        if (!matchedArtist && !supabaseClient) {
+          matchedArtist = usersDatabase.find(u => normalizeSlug(u.slug) === slug) || null;
+        }
+        if (matchedArtist && matchedArtist.role !== 'admin' && matchedArtist.status !== 'Bloqueado') {
+          artistData = matchedArtist;
+          isViewingOwnOnlineKit = !!(sessionUser && normalizeWhatsapp(sessionUser.whatsapp) === normalizeWhatsapp(matchedArtist.whatsapp));
+          isAdminViewingArtistKit = false;
+          showPublicPressKit(false, false);
         } else {
-          goHome();
+          showNotFoundPublicKit(route);
         }
         return;
       }
+      if (sessionUser) showArtistDashboard(false);
+      else goHome(false);
+    }
 
-      if (rawPath && rawPath !== '') {
-        let matchedArtist = null;
-
-        if (supabaseClient) {
-          try {
-            const { data: sbArtist } = await supabaseClient
-              .from('stagekit_users')
-              .select('*')
-              .ilike('slug', rawPath)
-              .maybeSingle();
-
-            if (sbArtist) {
-              matchedArtist = buildArtistObjectFromSupabaseRow(sbArtist);
-            }
-          } catch (err) {
-            console.warn('Erro ao buscar slug no Supabase:', err);
-          }
-        }
-
-        if (!matchedArtist && Array.isArray(usersDatabase)) {
-          matchedArtist = usersDatabase.find(u => u.slug && u.slug.trim().toLowerCase() === rawPath);
-        }
-
-        if (!matchedArtist && sessionUser && sessionUser.slug && sessionUser.slug.trim().toLowerCase() === rawPath) {
-          matchedArtist = sessionUser;
-        }
-
-        if (matchedArtist) {
-          if (matchedArtist.status === 'Bloqueado') {
-            alert('Este PressKit encontra-se temporariamente indisponível.');
-            goHome();
-            return;
-          }
-          artistData = matchedArtist;
-          isViewingOwnOnlineKit = Boolean(sessionUser && normalizeWhatsapp(sessionUser.whatsapp) === normalizeWhatsapp(matchedArtist.whatsapp));
-          isAdminViewingArtistKit = false;
-          showPublicPressKit(false);
-          return;
-        } else {
-          try { window.history.replaceState({}, '', '/'); } catch(e) {}
-          goHome();
-        }
-      } else {
-        if(sessionUser) {
-          showArtistDashboard();
-        } else {
-          goHome();
-        }
-      }
+    function showNotFoundPublicKit(route) {
+      goHome(false);
+      showToast(`O link /${route} não foi encontrado ou está indisponível.`, 'error');
     }
 
     function loadInputsFromState() {
@@ -1793,7 +1833,9 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       if(elY3) elY3.value = artistData.youtube3 || '';
 
       const elSlug = document.getElementById('customSlugInput');
-      if(elSlug) elSlug.value = artistData.slug;
+      if(elSlug) elSlug.value = artistData.slug || '';
+      updateCustomLinkPreview();
+      renderMediaExistingStatus();
 
       const elContract = document.getElementById('contractText');
       if(elContract) {
@@ -1828,16 +1870,7 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       renderTestimonialsBuilder();
       applyPublicData();
 
-      const backBtn = document.getElementById('btnBackToArtistArea') || document.querySelector('[onclick*="handleBackToDashboardFromPublic"]');
-      if (backBtn) {
-        if (sessionUser || isViewingOwnOnlineKit || isAdminViewingArtistKit) {
-          backBtn.classList.remove('hidden');
-          backBtn.style.display = 'inline-flex';
-          backBtn.innerText = isAdminViewingArtistKit ? '← Voltar ao Painel Admin' : '← Voltar para Área do Artista';
-        } else {
-          backBtn.classList.add('hidden');
-        }
-      }
+
     }
 
     function toggleCoverStyle(style) {
@@ -1873,7 +1906,7 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
         if(artistData.coverUrl) {
           heroHeaderContainer.innerHTML = `
             <div class="w-full h-64 sm:h-96 rounded-3xl overflow-hidden border border-amber-500/40 shadow-2xl bg-brand-cardBg relative">
-              <img src="${artistData.coverUrl}" style="transform: scale(${artistData.coverZoom || 1}) rotate(${artistData.coverRotate || 0}deg);" class="w-full h-full object-cover" alt="Capa">artistData.coverUrl"style="transform:scale(
+              <img src="${escHtml(artistData.coverUrl)}" style="transform: scale(${Number(artistData.coverZoom) || 1}) rotate(${Number(artistData.coverRotate) || 0}deg);" class="w-full h-full object-cover" alt="Capa">
             </div>
           `;
         } else {
@@ -1886,8 +1919,8 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
 
           heroHeaderContainer.innerHTML = `
             <div class="py-10 px-6 rounded-3xl bg-gradient-to-r from-amber-500/20 via-brand-cardBg to-brand-cardBg border border-amber-500/40 shadow-2xl flex items-center justify-center">
-              <span style="font-family: '${fFamily}', sans-serif;" class="${fSize} ${fBold} ${fItalic} ${fUnderline} text-amber-400 tracking-wider text-center uppercase">fFamily',sans-serif;"class="
-                🎵 ${cText}
+              <span style="font-family: '${escHtml(fFamily)}'" class="${fSize} ${fBold} ${fItalic} ${fUnderline} text-amber-400 tracking-wider text-center uppercase">
+                🎵 ${escHtml(cText)}
               </span>
             </div>
           `;
@@ -1901,7 +1934,7 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       const e4 = document.getElementById('displayBio');
       if(e4) e4.innerText = artistData.bio;
       const e5 = document.getElementById('fullSlugPreview');
-      if(e5) e5.innerText = `stagekitcasa6.vercel.app/${artistData.slug}`;
+      if(e5) e5.innerText = `${getStagekitOrigin()}/${encodeURIComponent(normalizeSlug(artistData.slug))}`;
       const eCity = document.getElementById('displayArtistCity');
       if(eCity) eCity.innerText = `📍 ${artistData.city || 'Rio de Janeiro, RJ'}`;
 
@@ -1909,7 +1942,7 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       if(pubAvatar) {
         if(artistData.avatarUrl) {
           pubAvatar.src = artistData.avatarUrl;
-          pubAvatar.style.transform = `scale(${artistData.avatarZoom || 1}) rotate(${artistData.avatarRotate || 0}deg)`;artistData.avatarZoom||1)rotate(
+          pubAvatar.style.transform = `scale(${Number(artistData.avatarZoom) || 1}) rotate(${Number(artistData.avatarRotate) || 0}deg)`;
         } else {
           pubAvatar.src = 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=800&q=80';
           pubAvatar.style.transform = 'scale(1) rotate(0deg)';
@@ -1925,7 +1958,7 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
         socials.push({name: 'Facebook', url: artistData.facebook ? `https://facebook.com/${artistData.facebook}` : '#', icon: 'facebook', color: 'text-blue-500'});
 
         socialContainer.innerHTML = socials.map(s => `
-          <a href="${s.url}" target="_blank" class="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-brand-cardBg border border-brand-border text-white text-xs font-bold hover:border-amber-500/50 transition-all shadow-md">
+          <a href="${escHtml(safeExternalUrl(s.url) || '#')}" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-brand-cardBg border border-brand-border text-white text-xs font-bold hover:border-amber-500/50 transition-all shadow-md">
             <i data-lucide="${s.icon}" class="w-4 h-4 ${s.color}"></i> ${s.name}
           </a>
         `).join('');
@@ -1949,15 +1982,15 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
             if(item.type === 'mp4') {
               return `
                 <div class="rounded-2xl overflow-hidden border border-brand-border shadow-2xl bg-brand-cardBg aspect-video flex items-center justify-center relative">
-                  <video controls class="w-full h-full object-cover" src="${item.src}"></video>
+                  <video controls preload="metadata" playsinline class="w-full h-full object-cover" src="${escHtml(safeExternalUrl(item.src))}"></video>
                 </div>
               `;
             } else {
-              let embedUrl = item.src;
-              if(embedUrl.includes('watch?v=')) embedUrl = embedUrl.replace('watch?v=', 'embed/');
+              let embedUrl = getYouTubeEmbed(item.src);
+              if (!embedUrl) return '';
               return `
                 <div class="rounded-2xl overflow-hidden border border-brand-border shadow-2xl bg-brand-cardBg aspect-video flex items-center justify-center relative">
-                  <iframe class="w-full h-full" src="${embedUrl}" frameborder="0" allowfullscreen></iframe>
+                  <iframe class="w-full h-full" src="${escHtml(embedUrl)}" title="Vídeo do artista" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="encrypted-media; picture-in-picture" allowfullscreen></iframe>
                 </div>
               `;
             }
@@ -1990,7 +2023,7 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
 
         galleryGrid.innerHTML = finalPhotos.map(photo => `
           <div class="rounded-2xl overflow-hidden h-48 sm:h-56 border border-zinc-800 bg-zinc-900 shadow-xl">
-            <img src="${photo}" class="w-full h-full object-cover hover:scale-105 transition-transform">
+            <img src="${escHtml(safeExternalUrl(photo))}" alt="Foto do artista" loading="lazy" class="w-full h-full object-cover hover:scale-105 transition-transform">
           </div>
         `).join('');
       }
@@ -2003,36 +2036,15 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
           {title: 'Música de Trabalho 3', src: artistData.apple}
         ].filter(s => s.src);
 
-        if(songs.length > 0) {
-          playerList.innerHTML = songs.map((song, i) => {
-            let isEmbed = song.src.includes('<iframe') || song.src.includes('embed');
-            if(isEmbed) {
-              return `<div class="rounded-xl overflow-hidden bg-zinc-900 p-2">${song.src}</div>`;
-            } else if(song.src.match(/\.(mp3|wav|ogg)$/i) || song.src.startsWith('data:audio')) {
-              return `
-                <div class="bg-zinc-900 p-4 rounded-2xl border border-zinc-800 space-y-2">
-                  <span class="text-xs font-bold text-amber-400">🎵 ${song.title}</span>
-                  <audio controls class="w-full" src="${song.src}"></audio>
-                </div>
-              `;
-            } else {
-              return `
-                <div class="bg-zinc-900 p-4 rounded-2xl border border-zinc-800 flex items-center justify-between">
-                  <div class="flex items-center gap-3">
-                    <div class="w-10 h-10 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center font-bold">
-                      <i data-lucide="music" class="w-5 h-5"></i>
-                    </div>
-                    <div>
-                      <p class="font-bold text-white text-xs">${song.title}</p>
-                      <p class="text-[10px] text-zinc-400 truncate max-w-xs">${song.src}</p>
-                    </div>
-                  </div>
-                  <a href="${song.src}" target="_blank" class="px-4 py-2 bg-amber-500 hover:bg-amber-600 text-black font-bold rounded-xl text-xs flex items-center gap-1.5 shadow-md">
-                    <i data-lucide="play" class="w-3.5 h-3.5"></i> Ouvir Faixa
-                  </a>
-                </div>
-              `;
-            }
+        if (songs.length > 0) {
+          playerList.innerHTML = songs.map(song => {
+            const embedUrl = getEmbedAudio(song.src);
+            if (embedUrl) return `<div class="rounded-xl overflow-hidden bg-zinc-900 p-2"><iframe title="${escHtml(song.title)}" loading="lazy" src="${escHtml(embedUrl)}" class="w-full h-32 border-0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe></div>`;
+            const url = safeExternalUrl(song.src);
+            if (!url) return '';
+            const isAudio = /\.(mp3|wav|ogg|m4a)(\?|$)/i.test(url);
+            if (isAudio) return `<div class="bg-zinc-900 p-4 rounded-2xl border border-zinc-800 space-y-2"><span class="text-xs font-bold text-amber-400">${escHtml(song.title)}</span><audio controls class="w-full" src="${escHtml(url)}"></audio></div>`;
+            return `<div class="bg-zinc-900 p-4 rounded-2xl border border-zinc-800 flex items-center justify-between gap-3"><span class="text-xs text-zinc-300">${escHtml(song.title)}</span><a href="${escHtml(url)}" target="_blank" rel="noopener noreferrer" class="px-4 py-2 bg-amber-500 text-black font-bold rounded-xl text-xs">Ouvir faixa</a></div>`;
           }).join('');
         } else {
           playerList.innerHTML = `
@@ -2046,14 +2058,14 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       const testGrid = document.getElementById('displayTestimonialsGrid');
       if(testGrid && artistData.testimonials) {
         testGrid.innerHTML = artistData.testimonials.map(t => {
-          let printHtml = t.printUrl ? `<div class="rounded-xl overflow-hidden border border-zinc-700 h-48 mt-2"><img src="${t.printUrl}" class="w-full h-full object-cover"></div>` : '';
+          let printHtml = t.printUrl ? `<div class="rounded-xl overflow-hidden border border-zinc-700 h-48 mt-2"><img src="${escHtml(safeExternalUrl(t.printUrl))}" alt="Print de depoimento" class="w-full h-full object-cover"></div>` : '';
           return `
             <div class="bg-brand-cardBg border border-brand-border p-6 rounded-3xl shadow-xl space-y-3 flex flex-col justify-between">
               <div>
-                <p class="text-xs sm:text-sm text-zinc-300 italic leading-relaxed">"${t.text}"</p>
+                <p class="text-xs sm:text-sm text-zinc-300 italic leading-relaxed">"${escHtml(t.text)}"</p>
                 ${printHtml}
               </div>
-              <p class="text-amber-400 font-bold text-xs uppercase tracking-wider">— ${t.author || 'Nome do Contratante'}</p>
+              <p class="text-amber-400 font-bold text-xs uppercase tracking-wider">— ${escHtml(t.author || 'Nome do Contratante')}</p>
             </div>
           `;
         }).join('');
@@ -2070,14 +2082,14 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
             <div class="p-6 rounded-2xl bg-brand-cardBg ${isMiddle ? 'border border-amber-500/40 relative shadow-xl' : 'border border-brand-border'} flex flex-col justify-between space-y-4">
               ${isMiddle ? '<div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-amber-500 text-black font-extrabold text-[10px] uppercase px-3 py-0.5 rounded-full">Mais Pedido</div>' : ''}
               <div class="rounded-xl overflow-hidden h-40 border border-zinc-800 bg-zinc-900 ${isMiddle ? 'mt-2' : ''}">
-                <img src="${photoSrc}" class="w-full h-full object-cover">
+                <img src="${escHtml(safeExternalUrl(photoSrc))}" class="w-full h-full object-cover" alt="Foto do formato">
               </div>
               <div>
                 <span class="text-[10px] font-bold text-amber-500 uppercase">${fmt.sub}</span>
                 <h3 class="text-xl font-bold text-white mt-1 mb-2">${fmt.title}</h3>
                 <p class="text-xs text-zinc-400 leading-relaxed">${fmt.desc}</p>
               </div>
-              <button onclick="openFormatModal('${fmt.title}')" class="w-full bg-amber-500 hover:bg-amber-600 text-black font-bold py-3 rounded-xl text-sm flex items-center justify-center gap-2 cursor-pointer">Quero este formato <i data-lucide="arrow-right" class="w-4 h-4"></i></button>
+              <button onclick="openFormatModalByIndex(${idx})" class="w-full bg-amber-500 hover:bg-amber-600 text-black font-bold py-3 rounded-xl text-sm flex items-center justify-center gap-2 cursor-pointer">Quero este formato <i data-lucide="arrow-right" class="w-4 h-4"></i></button>
             </div>
           `;
         }).join('');
@@ -2085,52 +2097,58 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       try { lucide.createIcons(); } catch(e) {}
     }
 
+    function captureTestimonialsDraft() {
+      if (!Array.isArray(artistData.testimonials)) artistData.testimonials = [];
+      artistData.testimonials = artistData.testimonials.map((t, idx) => ({
+        text: document.getElementById(`testText_${idx}`)?.value ?? t.text ?? '',
+        author: document.getElementById(`testAuthor_${idx}`)?.value ?? t.author ?? '',
+        printUrl: t.printUrl || ''
+      }));
+    }
+
     function renderTestimonialsBuilder() {
       const container = document.getElementById('testimonialsBuilderContainer');
-      if(!container) return;
-      if(!artistData.testimonials) artistData.testimonials = [];
-
+      if (!container) return;
+      if (!Array.isArray(artistData.testimonials)) artistData.testimonials = [];
       container.innerHTML = artistData.testimonials.map((t, idx) => `
         <div class="p-4 bg-zinc-900 rounded-2xl border border-zinc-800 space-y-3 relative">
           <div class="flex items-center justify-between">
             <span class="font-bold text-amber-400">Depoimento ${idx + 1}</span>
-            ${artistData.testimonials.length > 1 ? `<button type="button" onclick="removeTestimonialSlot(${idx})" class="text-red-400 text-xs font-bold hover:underline cursor-pointer">Remover</button>` : ''}
+            <button type="button" onclick="removeTestimonialSlot(${idx})" class="text-red-400 text-xs font-bold hover:underline cursor-pointer">Remover</button>
           </div>
-          <textarea id="testText_${idx}" placeholder="Ex: Show incrível no nosso casamento! Todos elogiaram." class="w-full bg-zinc-800 border border-zinc-700 rounded-xl p-3 text-white h-20 text-xs">${t.text || ''}</textarea>idx"placeholder="Ex:Showincrívelnonossocasamento!Todoselogiaram."class="w-fullbg-zinc-800borderborder-zinc-700rounded-xlp-3text-whiteh-20text-xs">
-          
+          <textarea id="testText_${idx}" placeholder="O que o cliente disse?" class="w-full min-h-20 bg-zinc-800 border border-zinc-700 rounded-xl p-2.5 text-white text-xs">${escHtml(t.text || '')}</textarea>
           <div class="grid sm:grid-cols-2 gap-3">
             <div>
-              <label class="block text-zinc-400 mb-1">Nome do Contratante</label>
-              <input type="text" id="testAuthor_${idx}" value="${t.author || 'Nome do Contratante'}" placeholder="Nome do Contratante" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl p-2.5 text-white text-xs">idx"value="
+              <label class="block text-zinc-400 mb-1">Nome do contratante</label>
+              <input type="text" id="testAuthor_${idx}" value="${escHtml(t.author || '')}" placeholder="Nome do Contratante" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl p-2.5 text-white text-xs">
             </div>
             <div>
-              <label class="block text-zinc-400 mb-1">Anexar Print (Opcional)</label>
-              <input type="file" id="testPrint_${idx}" accept="image/*" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl p-1.5 text-zinc-300 text-[11px]">
+              <label class="block text-zinc-400 mb-1">Anexar print (opcional)</label>
+              <input type="file" id="testPrint_${idx}" accept="image/png,image/jpeg,image/webp" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl p-1.5 text-zinc-300 text-[11px]">
             </div>
           </div>
-          ${t.printUrl ? `<p class="text-[10px] text-emerald-400">✅ Print anexado com sucesso.</p>` : ''}
-        </div>
-      `).join('');
+          <p class="text-[10px] ${t.printUrl ? 'text-emerald-400' : 'text-zinc-500'}" id="existingTestPrint_${idx}">${t.printUrl ? '✓ Print salvo na nuvem' : 'Nenhum print salvo'}</p>
+        </div>`).join('');
+      try { lucide.createIcons(); } catch(e) {}
     }
 
     function addTestimonialSlot() {
-      if(!artistData.testimonials) artistData.testimonials = [];
-      if(artistData.testimonials.length >= 5) {
-        alert('Você pode adicionar no máximo 5 cards de depoimento.');
-        return;
-      }
-      artistData.testimonials.push({ text: '', author: 'Nome do Contratante', printUrl: '' });
+      captureTestimonialsDraft();
+      if (artistData.testimonials.length >= 5) { alert('Limite de cinco depoimentos.'); return; }
+      artistData.testimonials.push({text:'', author:'', printUrl:''});
       renderTestimonialsBuilder();
     }
 
     function removeTestimonialSlot(idx) {
-      artistData.testimonials.splice(idx, 1);
+      captureTestimonialsDraft();
+      artistData.testimonials.splice(idx,1);
       renderTestimonialsBuilder();
     }
 
-    function goHome() {
+    function goHome(updateUrl = true) {
       isAdminViewingArtistKit = false;
-      try { window.history.pushState({}, '', '/'); } catch(e) {}
+      isViewingOwnOnlineKit = false;
+      if (updateUrl && window.location.pathname !== '/') window.history.pushState({}, '', '/');
       const lp = document.getElementById('landingPage');
       if(lp) lp.classList.remove('hidden');
       const cv = document.getElementById('contractorView');
@@ -2153,83 +2171,54 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
     }
 
     function openOwnOnlineKit() {
+      if (!sessionUser) { openLoginModal(); return; }
+      artistData = sessionUser;
       isViewingOwnOnlineKit = true;
       isAdminViewingArtistKit = false;
-      if (sessionUser) {
-        artistData = sessionUser;
-      }
-      showPublicPressKit(true);
+      showPublicPressKit(true, true);
     }
 
-    function showPublicPressKit(fromOwnPanel = false) {
-      if(fromOwnPanel) {
-        isViewingOwnOnlineKit = true;
-        try { window.history.pushState({}, '', '/modovisualizacao'); } catch(e) {}
-      } else {
-        try { window.history.pushState({}, '', `/${artistData.slug}`); } catch(e) {}
+    // updateUrl=false quando chamado pelo roteador, para não criar entradas duplicadas no histórico.
+    function showPublicPressKit(fromOwnPanel = false, updateUrl = true) {
+      if (fromOwnPanel) isViewingOwnOnlineKit = true;
+      if (updateUrl) {
+        const target = fromOwnPanel ? '/modovisualizacao' : `/${encodeURIComponent(normalizeSlug(artistData.slug))}`;
+        if (window.location.pathname !== target) window.history.pushState({}, '', target);
       }
+      document.getElementById('landingPage')?.classList.add('hidden');
+      document.getElementById('contractorView')?.classList.remove('hidden');
+      document.getElementById('artistDashboard')?.classList.add('hidden');
 
-      const lp = document.getElementById('landingPage');
-      if(lp) lp.classList.add('hidden');
-      const cv = document.getElementById('contractorView');
-      if(cv) cv.classList.remove('hidden');
-      const ad = document.getElementById('artistDashboard');
-      if(ad) ad.classList.add('hidden');
-      const lha = document.getElementById('landingHeaderActions');
-      if(lha) lha.classList.add('hidden');
-      const pha = document.getElementById('panelHeaderActions');
-      if(pha) pha.classList.remove('hidden');
-
-      const backBtnContainer = document.getElementById('backToDashboardContainer');
-      const viewOnlineBtn = document.getElementById('viewOnlineKitBtn');
+      const preview = !!(sessionUser && (isViewingOwnOnlineKit || isAdminViewingArtistKit));
+      document.getElementById('previewModeBanner')?.classList.toggle('hidden', !preview);
+      const landingActions = document.getElementById('landingHeaderActions');
+      const panelActions = document.getElementById('panelHeaderActions');
+      landingActions?.classList.toggle('hidden', !!sessionUser);
+      panelActions?.classList.toggle('hidden', !sessionUser);
+      if (sessionUser) panelActions?.classList.add('flex');
+      const back = document.getElementById('backToDashboardContainer');
       const backText = document.getElementById('backToDashboardBtnText');
-
-      if (sessionUser && sessionUser.role === 'admin' && isAdminViewingArtistKit) {
-        if(backBtnContainer) backBtnContainer.classList.remove('hidden');
-        if(backText) backText.innerText = "Voltar para o admin";
-        if(viewOnlineBtn) viewOnlineBtn.classList.add('hidden');
-      } else if(isViewingOwnOnlineKit && sessionUser) {
-        if(backBtnContainer) {
-          backBtnContainer.classList.remove('hidden');
-          backBtnContainer.style.display = 'block';
-        }
-        if(backText) backText.innerText = "Voltar para área do artista";
-        if(viewOnlineBtn) viewOnlineBtn.classList.add('hidden');
-      } else {
-        if(backBtnContainer) backBtnContainer.classList.add('hidden');
-        if(viewOnlineBtn) viewOnlineBtn.classList.remove('hidden');
-      }
-
+      back?.classList.toggle('hidden', !preview);
+      if (backText) backText.textContent = isAdminViewingArtistKit ? 'Voltar para o admin' : 'Voltar para área do artista';
+      document.getElementById('viewOnlineKitBtn')?.classList.add('hidden');
       applyPublicData();
-
-      const backBtn = document.getElementById('btnBackToArtistArea') || document.querySelector('[onclick*="handleBackToDashboardFromPublic"]');
-      if (backBtn) {
-        if (sessionUser || isViewingOwnOnlineKit || isAdminViewingArtistKit) {
-          backBtn.classList.remove('hidden');
-          backBtn.style.display = 'inline-flex';
-          backBtn.innerText = isAdminViewingArtistKit ? '← Voltar ao Painel Admin' : '← Voltar para Área do Artista';
-        } else {
-          backBtn.classList.add('hidden');
-        }
-      }
+      window.scrollTo(0,0);
+      try { lucide.createIcons(); } catch(e) {}
     }
 
     function handleBackToDashboardFromPublic() {
-      isViewingOwnOnlineKit = false;
-      if (sessionUser && sessionUser.role === 'admin' && isAdminViewingArtistKit) {
-        isAdminViewingArtistKit = false;
-        artistData = sessionUser;
-        showArtistDashboard();
-      } else {
-        if (sessionUser) artistData = sessionUser;
-        showArtistDashboard();
-      }
-    }
-
-    function showArtistDashboard() {
+      if (!sessionUser) { goHome(); return; }
+      artistData = sessionUser;
       isViewingOwnOnlineKit = false;
       isAdminViewingArtistKit = false;
-      try { window.history.pushState({}, '', '/dashboard'); } catch(e) {}
+      showArtistDashboard();
+    }
+
+    function showArtistDashboard(updateUrl = true) {
+      isViewingOwnOnlineKit = false;
+      isAdminViewingArtistKit = false;
+      if (updateUrl && window.location.pathname !== '/dashboard') window.history.pushState({}, '', '/dashboard');
+      document.getElementById('previewModeBanner')?.classList.add('hidden');
       const lp = document.getElementById('landingPage');
       if(lp) lp.classList.add('hidden');
       const cv = document.getElementById('contractorView');
@@ -2333,7 +2322,7 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       if(previewImg && previewPlaceholder) {
         if(artistData.coverUrl) {
           previewImg.src = artistData.coverUrl;
-          previewImg.style.transform = `scale(${artistData.coverZoom || 1}) rotate(${artistData.coverRotate || 0}deg)`;artistData.coverZoom||1)rotate(
+          previewImg.style.transform = `scale(${Number(artistData.coverZoom) || 1}) rotate(${Number(artistData.coverRotate) || 0}deg)`;
           previewImg.classList.remove('hidden');
           previewPlaceholder.classList.add('hidden');
         } else {
@@ -2366,7 +2355,7 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       const zoom = document.getElementById('coverZoomRange').value;
       const rotate = document.getElementById('coverRotateRange').value;
       const cropImg = document.getElementById('modalCoverCropImg');
-      if(cropImg) cropImg.style.transform = `scale(${zoom}) rotate(${rotate}deg)`;zoom)rotate(
+      if(cropImg) cropImg.style.transform = `scale(${zoom}) rotate(${rotate}deg)`;
     }
 
     async function saveCoverTransform() {
@@ -2410,7 +2399,7 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       if(previewImg) {
         if(artistData.avatarUrl) {
           previewImg.src = artistData.avatarUrl;
-          previewImg.style.transform = `scale(${artistData.avatarZoom || 1}) rotate(${artistData.avatarRotate || 0}deg)`;artistData.avatarZoom||1)rotate(
+          previewImg.style.transform = `scale(${Number(artistData.avatarZoom) || 1}) rotate(${Number(artistData.avatarRotate) || 0}deg)`;
         } else {
           previewImg.src = 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=400&q=80';
           previewImg.style.transform = 'scale(1) rotate(0deg)';
@@ -2441,7 +2430,7 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       const zoom = document.getElementById('avatarZoomRange').value;
       const rotate = document.getElementById('avatarRotateRange').value;
       const cropImg = document.getElementById('modalAvatarCropImg');
-      if(cropImg) cropImg.style.transform = `scale(${zoom}) rotate(${rotate}deg)`;zoom)rotate(
+      if(cropImg) cropImg.style.transform = `scale(${zoom}) rotate(${rotate}deg)`;
     }
 
     async function saveAvatarTransform() {
@@ -2805,6 +2794,11 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
 
     function closeDemoModal() { document.getElementById('demoModal').classList.add('hidden'); }
 
+    function openFormatModalByIndex(idx) {
+      const selected = (artistData.formats || [])[idx];
+      if (selected) openFormatModal(selected.title);
+    }
+
     function openFormatModal(formatName) {
       selectedFormatForModal = formatName;
       document.getElementById('modalFormatTitle').innerText = formatName;
@@ -2829,7 +2823,7 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       const text = `*Olá! Gostaria de verificar disponibilidade.*\n\n👤 *Nome do Contratante:* ${clientName}\n🎵 *Formato:* ${selectedFormatForModal}\n📅 *Data:* ${dt}\n🎉 *Evento:* ${ev}\n👥 *Público:* ${aud}\n📍 *Local:* ${loc}`;
       const phoneNum = normalizeWhatsapp(artistData.whatsapp) || '21989368930';
       const fullWa = phoneNum.startsWith('55') ? phoneNum : `55${phoneNum}`;
-      window.open(`https://wa.me/${fullWa}?text=${encodeURIComponent(text)}`, '_blank');fullWa?text=
+      window.open(`https://wa.me/${fullWa}?text=${encodeURIComponent(text)}`, '_blank', 'noopener,noreferrer');
       closeFormatModal();
     }
 
@@ -2863,85 +2857,157 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       loadInputsFromState();
     }
 
-    function saveArtistEdits() {
-      if(sessionUser && sessionUser.role === 'admin') return;
-      artistData.title = document.getElementById('editTitle').value;
-      artistData.bio = document.getElementById('editBio').value;
-      artistData.channelYoutube = document.getElementById('editChannelYoutube').value;
-      artistData.instagram = document.getElementById('editInstagram').value;
-      artistData.tiktok = document.getElementById('editTiktok').value;
-      artistData.facebook = document.getElementById('editFacebook').value;
-      artistData.spotify = document.getElementById('editSpotify').value;
-      artistData.deezer = document.getElementById('editDeezer').value;
-      artistData.apple = document.getElementById('editApple').value;
-      
-      artistData.youtube1 = document.getElementById('editYoutube1').value;
-      artistData.youtube2 = document.getElementById('editYoutube2').value;
-      artistData.youtube3 = document.getElementById('editYoutube3').value;
-      artistData.slug = document.getElementById('customSlugInput').value.toLowerCase().trim();
-
-      let newTestimonials = [];
-      if(artistData.testimonials) {
-        artistData.testimonials.forEach((t, idx) => {
-          let txt = document.getElementById(`testText_${idx}`)?.value || '';
-          let auth = document.getElementById(`testAuthor_${idx}`)?.value || 'Nome do Contratante';
-          newTestimonials.push({ text: txt, author: auth, printUrl: t.printUrl || '' });
-        });
-      }
-      artistData.testimonials = newTestimonials.filter(t => t.text || t.printUrl);
-
-      let getFileBase64 = (file) => new Promise(res => {
-        if(!file) return res(null);
-        let r = new FileReader();
-        r.onload = e => res(e.target.result);
-        r.readAsDataURL(file);
-      });
-
-      let promises = [];
-
-      for(let i=0; i<artistData.testimonials.length; i++) {
-        let printInput = document.getElementById(`testPrint_${i}`);
-        if(printInput && printInput.files[0]) {
-          let idx = i;
-          promises.push(getFileBase64(printInput.files[0]).then(res => {
-            if(res) artistData.testimonials[idx].printUrl = res;
-          }));
-        }
-      }
-
-      let file1 = document.getElementById('uploadMp4_1').files[0];
-      let file2 = document.getElementById('uploadMp4_2').files[0];
-      let file3 = document.getElementById('uploadMp4_3').files[0];
-
-      for(let i=1; i<=5; i++) {
-        let fileInput = document.getElementById(`galleryPhoto${i}`);
-        if(fileInput && fileInput.files[0]) {
-          promises.push(getFileBase64(fileInput.files[0]).then(res => ({type: 'gallery', val: res})));
-        }
-      }
-
-      promises.push(getFileBase64(file1).then(res => ({type: 'mp4_1', val: res})));
-      promises.push(getFileBase64(file2).then(res => ({type: 'mp4_2', val: res})));
-      promises.push(getFileBase64(file3).then(res => ({type: 'mp4_3', val: res})));
-
-      Promise.all(promises).then(async results => {
-        let newGallery = [];
-        results.forEach(r => {
-          if(r && r.type === 'gallery' && r.val) newGallery.push(r.val);
-          if(r && r.type === 'mp4_1' && r.val) artistData.mp4_1 = r.val;
-          if(r && r.type === 'mp4_2' && r.val) artistData.mp4_2 = r.val;
-          if(r && r.type === 'mp4_3' && r.val) artistData.mp4_3 = r.val;
-        });
-
-        if(newGallery.length > 0) {
-          artistData.galleryPhotos = [...(artistData.galleryPhotos || []), ...newGallery];
-        }
-
-        await saveData(true);
-        alert('Dados e mídias salvos e sincronizados com sucesso!');
-        loadInputsFromState();
-      });
+    function getFileExt(file) {
+      const mapping = {'image/jpeg':'jpg','image/png':'png','image/webp':'webp','image/gif':'gif','video/mp4':'mp4'};
+      return mapping[file.type] || '';
     }
+
+    function renderMediaExistingStatus() {
+      const slots = [
+        ...Array.from({length:5},(_,i)=>({id:`galleryPhoto${i+1}`,url:(artistData.galleryPhotos||[])[i]})),
+        ...Array.from({length:3},(_,i)=>({id:`uploadMp4_${i+1}`,url:artistData[`mp4_${i+1}`]}))
+      ];
+      for (const {id,url} of slots) {
+        const inp = document.getElementById(id);
+        if (!inp) continue;
+        let status = document.getElementById(`status_${id}`);
+        if (!status) {
+          status = document.createElement('p');
+          status.id = `status_${id}`;
+          status.className = 'text-[11px] mt-1';
+          inp.insertAdjacentElement('afterend',status);
+        }
+        status.className = `text-[11px] mt-1 ${url ? 'text-emerald-400' : 'text-zinc-500'}`;
+        status.textContent = url ? '✓ Arquivo salvo no Supabase. Anexe outro para substituir.' : 'Nenhum arquivo salvo';
+      }
+    }
+
+    // O StageKit original usa login por WhatsApp próprio, diferente do Supabase Auth.
+    // A autenticação anônima aqui dá uma identidade JWT ao upload e restringe o diretório
+    // ao auth.uid() nas políticas de Storage. Para produção, migrar o login para Supabase Auth.
+    async function getStorageSession() {
+      if (!supabaseClient) throw new Error('Supabase não inicializado.');
+      const {data:current,error:sessionError} = await supabaseClient.auth.getSession();
+      if (sessionError) throw sessionError;
+      if (current?.session?.access_token) return current.session;
+      const { data, error } = await supabaseClient.auth.signInAnonymously();
+      if (error || !data?.session?.access_token) {
+        throw new Error('Ative "Anonymous Sign-Ins" em Supabase → Authentication → Providers. ' + (error?.message || ''));
+      }
+      return data.session;
+    }
+
+    async function uploadStagekitFile(file, category, session) {
+      if (!file) return '';
+      const ext = getFileExt(file);
+      const isVideo = category === 'videos';
+      if (!ext || (isVideo ? file.type !== 'video/mp4' : !file.type.startsWith('image/'))) {
+        throw new Error(`Formato de arquivo inválido: ${file.name}. Use JPG/PNG/WEBP/GIF ou MP4.`);
+      }
+      if (file.size > (isVideo ? STAGEKIT_MAX_VIDEO_BYTES : STAGEKIT_MAX_IMAGE_BYTES)) {
+        throw new Error(`${file.name} ultrapassa o limite de ${isVideo ? '100 MB' : '12 MB'}.`);
+      }
+      const userId = session.user?.id;
+      if (!userId) throw new Error('Usuário do Storage não identificado.');
+      const randomName = (self.crypto?.randomUUID?.() || `${Date.now()}-${Math.random().toString(36).slice(2)}`);
+      const path = `${userId}/artists/${normalizeWhatsapp(artistData.whatsapp)}/${category}/${randomName}.${ext}`;
+
+      if (file.size > 6 * 1024 * 1024 && window.tus?.Upload) {
+        await new Promise((resolve,reject) => {
+          const upload = new window.tus.Upload(file, {
+            endpoint: `${SUPABASE_URL}/storage/v1/upload/resumable`,
+            headers: { authorization: `Bearer ${session.access_token}`, apikey: SUPABASE_KEY, 'x-upsert':'false' },
+            uploadDataDuringCreation: true,
+            chunkSize: 6 * 1024 * 1024,
+            retryDelays: [0,1000,3000,5000],
+            metadata: {bucketName:STAGEKIT_MEDIA_BUCKET, objectName:path, contentType:file.type, cacheControl:'3600'},
+            onError: reject,
+            onSuccess: resolve
+          });
+          upload.start();
+        });
+      } else {
+        const {error} = await supabaseClient.storage.from(STAGEKIT_MEDIA_BUCKET).upload(path,file,{
+          contentType:file.type, cacheControl:'3600', upsert:false
+        });
+        if(error) throw error;
+      }
+      const {data} = supabaseClient.storage.from(STAGEKIT_MEDIA_BUCKET).getPublicUrl(path);
+      if (!data?.publicUrl) throw new Error('Não foi possível obter a URL pública do arquivo.');
+      return data.publicUrl;
+    }
+
+    async function saveBioEdits() {
+      if (!sessionUser || sessionUser.role === 'admin') return;
+      artistData.title = document.getElementById('editTitle').value.trim();
+      artistData.bio = document.getElementById('editBio').value.trim();
+      artistData.channelYoutube = document.getElementById('editChannelYoutube').value.trim();
+      artistData.instagram = document.getElementById('editInstagram').value.trim().replace(/^@/, '');
+      artistData.tiktok = document.getElementById('editTiktok').value.trim().replace(/^@/, '');
+      artistData.facebook = document.getElementById('editFacebook').value.trim();
+      const ok = await saveData(true);
+      if (ok) applyPublicData();
+    }
+
+    async function saveMediaEdits() {
+      if (!sessionUser || sessionUser.role === 'admin') return;
+      const saveBtn = document.querySelector('#tabMedia button[onclick="saveMediaEdits()"]');
+      if (saveBtn?.disabled) return;
+      if (saveBtn) { saveBtn.disabled=true; saveBtn.textContent='Salvando mídias...'; saveBtn.classList.add('opacity-60'); }
+      try {
+        const newData = {
+          spotify: document.getElementById('editSpotify').value.trim(),
+          deezer: document.getElementById('editDeezer').value.trim(),
+          apple: document.getElementById('editApple').value.trim(),
+          youtube1: document.getElementById('editYoutube1').value.trim(),
+          youtube2: document.getElementById('editYoutube2').value.trim(),
+          youtube3: document.getElementById('editYoutube3').value.trim(),
+          galleryPhotos: Array.from({length:5},(_,i)=>(artistData.galleryPhotos||[])[i]||''),
+          mp4_1:artistData.mp4_1||'', mp4_2:artistData.mp4_2||'',mp4_3:artistData.mp4_3||''
+        };
+        captureTestimonialsDraft();
+        const testimonials = artistData.testimonials.map(t=>({...t}));
+        const queue = [];
+        for(let i=0;i<5;i++) {
+          const input = document.getElementById(`galleryPhoto${i+1}`);
+          if (input?.files?.[0]) queue.push({file:input.files[0],category:'galeria',commit:url=>newData.galleryPhotos[i]=url, input});
+        }
+        for(let i=1;i<=3;i++) {
+          const input = document.getElementById(`uploadMp4_${i}`);
+          if (input?.files?.[0]) queue.push({file:input.files[0],category:'videos',commit:url=>newData[`mp4_${i}`]=url,input});
+        }
+        for(let i=0;i<testimonials.length;i++) {
+          const input = document.getElementById(`testPrint_${i}`);
+          if (input?.files?.[0]) queue.push({file:input.files[0],category:'depoimentos',commit:url=>testimonials[i].printUrl=url,input});
+        }
+        let session = null;
+        if (queue.length) {
+          session = await getStorageSession();
+          for (let i=0;i<queue.length;i++) {
+            const task=queue[i];
+            showToast(`Enviando mídia ${i+1} de ${queue.length}: ${task.file.name}`, 'loading');
+            const url=await uploadStagekitFile(task.file,task.category,session);
+            task.commit(url);
+          }
+        }
+        Object.assign(artistData, newData);
+        artistData.testimonials = testimonials;
+        showToast('Gravando referências no banco de dados...', 'loading');
+        if (!(await saveData(true))) throw new Error('O perfil não pôde ser gravado no banco.');
+        for(const task of queue) task.input.value='';
+        renderMediaExistingStatus();
+        renderTestimonialsBuilder();
+        applyPublicData();
+      } catch(e) {
+        console.error('Erro ao salvar mídias no StageKit:',e);
+        showToast(`Erro ao salvar mídias: ${e.message||e}`, 'error');
+      } finally {
+        if(saveBtn) { saveBtn.disabled=false; saveBtn.textContent='Salvar Mídias, Streaming & Depoimentos'; saveBtn.classList.remove('opacity-60'); }
+      }
+    }
+
+    // Alias para eventuais integrações antigas que chamam o botão anterior.
+    async function saveArtistEdits() { return saveMediaEdits(); }
 
     function saveFormatsEdits() {
       if(sessionUser && sessionUser.role === 'admin') return;
@@ -3029,30 +3095,57 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
     }
 
     function updateCustomLinkPreview() {
-      const slug = document.getElementById('customSlugInput').value.toLowerCase().trim();
-      artistData.slug = slug;
-      document.getElementById('fullSlugPreview').innerText = `stagekitcasa6.vercel.app/${slug}`;
-      clearTimeout(window._slugSaveTimer);
-      window._slugSaveTimer = setTimeout(() => {
-        saveData(true);
-      }, 900);
+      const input = document.getElementById('customSlugInput');
+      const slug = normalizeSlug(input?.value || '');
+      const url = `${getStagekitOrigin()}/${encodeURIComponent(slug)}`;
+      const preview = document.getElementById('fullSlugPreview');
+      if (preview) preview.textContent = url;
+      const domain = document.getElementById('customSlugDomain');
+      if (domain) domain.textContent = `${new URL(getStagekitOrigin()).host}/`;
+      const help = document.getElementById('customSlugHelp');
+      if (help) help.textContent = slug && slug !== normalizeSlug(artistData.slug) ? 'Link alterado. Clique em Salvar link para publicar.' : 'Use letras, números e hífens. Clique em Salvar link antes de divulgar.';
     }
 
-    function copyCustomPressKitLink() {
-      const slug = (document.getElementById('customSlugInput').value || artistData.slug || '').toLowerCase().trim();
-      if (!slug) {
-        alert('Digite um nome para o seu link personalizado antes de copiar.');
-        return;
+    async function saveCustomSlug() {
+      if (!sessionUser || sessionUser.role === 'admin') { showToast('Entre como artista para alterar seu link.', 'error'); return false; }
+      const input = document.getElementById('customSlugInput');
+      const slug = normalizeSlug(input?.value || '');
+      if (slug.length < 3 || STAGEKIT_RESERVED_SLUGS.has(slug)) {
+        showToast('Use um link com 3 a 64 caracteres e um nome não reservado.', 'error');
+        return false;
       }
+      if (!supabaseClient) { showToast('Sem conexão com Supabase.', 'error'); return false; }
+      if (slug === normalizeSlug(artistData.slug)) {
+        if (input) input.value = slug;
+        updateCustomLinkPreview();
+        return true;
+      }
+      showToast('Verificando disponibilidade do link...', 'loading');
+      const {data, error} = await supabaseClient.from('stagekit_users').select('whatsapp').eq('slug',slug).maybeSingle();
+      if (error) { showToast('Não foi possível verificar o link: '+error.message,'error'); return false; }
+      if (data && normalizeWhatsapp(data.whatsapp) !== normalizeWhatsapp(sessionUser.whatsapp)) {
+        showToast('Este endereço já pertence a outro artista. Escolha outro nome.', 'error');
+        return false;
+      }
+      const originalSlug = artistData.slug;
       artistData.slug = slug;
-      saveData(false);
-      const origin = (window.location.origin && window.location.origin !== 'null') ? window.location.origin : 'https://stagekitcasa6.vercel.app';
-      const fullUrl = `${origin}/${slug}`;origin/
-      navigator.clipboard.writeText(fullUrl).then(() => {
-        showToast('Link copiado: ' + fullUrl, 'success');
-      }).catch(() => {
-        alert('Link copiado: ' + fullUrl);
-      });
+      const ok = await saveData(true);
+      if (!ok) { artistData.slug = originalSlug; return false; }
+      if (input) input.value = slug;
+      updateCustomLinkPreview();
+      return true;
+    }
+
+    async function copyCustomPressKitLink() {
+      if (!(await saveCustomSlug())) return;
+      const url = `${getStagekitOrigin()}/${encodeURIComponent(normalizeSlug(artistData.slug))}`;
+      try {
+        await navigator.clipboard.writeText(url);
+        showToast('Link copiado: ' + url, 'success');
+      } catch(e) {
+        // Navegadores sem Clipboard API: mostra o endereço sem alegar que copiou.
+        window.prompt('Copie o endereço do seu Press Kit:', url);
+      }
     }
 
     async function addNewEvent() {
@@ -3085,8 +3178,8 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       container.innerHTML = eventsList.map((ev, idx) => `
         <div class="bg-zinc-900 p-4 rounded-xl border border-zinc-800 flex justify-between items-center">
           <div>
-            <p class="font-bold text-white text-sm">${ev.name} (${ev.project})</p>ev.name(
-            <p class="text-zinc-400">Data: ${ev.date || 'A combinar'} | Cachê: R$ ${ev.cache.toFixed(2)}</p>ev.date||'Acombinar'|Cachê:R
+            <p class="font-bold text-white text-sm">{ev.project})</p>
+            <p class="text-zinc-400">Data:  ${ev.cache.toFixed(2)}</p>
           </div>
           <button onclick="removeEvent(${idx})" class="text-red-400 font-bold cursor-pointer text-xs">Remover</button>
         </div>
@@ -3138,11 +3231,11 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       }
       container.innerHTML = musiciansList.map((m, idx) => `
         <div class="bg-zinc-900 p-3 rounded-xl border border-zinc-800 flex justify-between items-center">
-          <p class="text-white font-semibold">${m.name} (${m.instrument})</p>m.name(
+          <p class="text-white font-semibold">${escHtml(m.name)} (${escHtml(m.instrument)})</p>
           <button onclick="removeMusician(${idx})" class="text-red-400 text-xs cursor-pointer">Excluir</button>
         </div>
       `).join('');
-      selectContainer.innerHTML = '<option value="">Selecione o Músico</option>' + musiciansList.map(m => `<option value="${m.name}">${m.name} (${m.instrument})</option>`).join('');m.name">
+      selectContainer.innerHTML = '<option value="">Selecione o Músico</option>' + musiciansList.map(m => `<option value="${escHtml(m.name)}">${escHtml(m.name)} (${escHtml(m.instrument)})</option>`).join('');
     }
 
     async function removeMusician(idx) {
@@ -3170,7 +3263,7 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       }
       container.innerHTML = eventsList.map(ev => `
         <div class="bg-zinc-900 p-3 rounded-xl border border-zinc-800 flex justify-between items-center text-xs">
-          <p class="font-bold text-white">${ev.name} (${ev.project})</p>ev.name(
+          <p class="font-bold text-white">${escHtml(ev.name)} (${escHtml(ev.project)})</p>
           <span class="px-2.5 py-1 rounded-full bg-blue-500/10 text-blue-400 font-semibold text-[10px]">Sincronizado</span>
         </div>
       `).join('');
@@ -3199,7 +3292,7 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
 
     async function adminDeleteUser(whatsapp, artistName) {
       if (!supabaseClient) return;
-      if (!confirm(`Tem certeza que deseja excluir permanentemente o cadastro de "${artistName}" (${whatsapp})?`)) return;artistName"(
+      if (!confirm(`Tem certeza que deseja excluir permanentemente o cadastro de "${artistName || whatsapp}"?`)) return;
 
       const cleanPhone = normalizeWhatsapp(whatsapp);
       showToast('Excluindo cadastro...', 'loading');
@@ -3253,8 +3346,8 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
           <td class="p-3">${statusBadge}</td>
           <td class="p-3 text-right space-x-1.5 whitespace-nowrap">
             <button onclick="adminViewUserKit('${u.slug}')" class="bg-amber-500/10 hover:bg-amber-500/20 text-amber-400 px-3 py-1.5 rounded-lg font-bold text-xs cursor-pointer">Ver Kit</button>
-            <button onclick="adminToggleUserStatus('${u.whatsapp}', '${u.status || 'Ativo'}')" class="${toggleBtnClass} px-3 py-1.5 rounded-lg font-bold text-xs cursor-pointer">${toggleBtnLabel}</button>u.whatsapp','toggleBtnClasspx-3py-1.5rounded-lgfont-boldtext-xscursor-pointer">
-            <button onclick="adminDeleteUser('${u.whatsapp}', '${(u.artistMainName || '').replace(/'/g, "\'")}')" class="bg-red-500/15 hover:bg-red-500/25 text-red-400 px-3 py-1.5 rounded-lg font-bold text-xs cursor-pointer">Excluir</button>u.whatsapp','
+            <button onclick="adminToggleUserStatus('${normalizeWhatsapp(u.whatsapp)}', '${u.status || 'Ativo'}')" class="${toggleBtnClass} px-3 py-1.5 rounded-lg font-bold text-xs cursor-pointer">${toggleBtnLabel}</button>
+            <button onclick="adminDeleteUser('${normalizeWhatsapp(u.whatsapp)}', '')" class="bg-red-500/15 hover:bg-red-500/25 text-red-400 px-3 py-1.5 rounded-lg font-bold text-xs cursor-pointer">Excluir</button>
           </td>
         </tr>
       `}).join('');
@@ -3275,14 +3368,14 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
           <div>
             <div class="flex items-center gap-2">
               <p class="font-bold text-white text-sm">${u.artistMainName}</p>
-              <span class="px-2 py-0.5 rounded text-[10px] ${isBlocked ? 'bg-red-500/15 text-red-400' : 'bg-emerald-500/10 text-emerald-400'} font-bold">${u.status || 'Ativo'}</span>isBlocked?'bg-red-500/15text-red-400':'bg-emerald-500/10text-emerald-400'font-bold">
+              <span class="px-2 py-0.5 rounded text-[10px] ${isBlocked ? 'text-red-400' : 'text-emerald-400'}">${isBlocked ? 'Bloqueado' : 'Ativo'}</span>
             </div>
             <p class="text-zinc-400">Telefone / WhatsApp: <span class="text-amber-400 font-mono">${u.whatsapp}</span></p>
           </div>
           <div class="flex items-center gap-2">
             <button onclick="adminViewUserKit('${u.slug}')" class="bg-amber-500 hover:bg-amber-600 text-black font-bold px-3 py-2 rounded-lg text-xs cursor-pointer">Visualizar Kit</button>
-            <button onclick="adminToggleUserStatus('${u.whatsapp}', '${u.status || 'Ativo'}')" class="bg-zinc-800 hover:bg-zinc-700 text-zinc-200 font-bold px-3 py-2 rounded-lg text-xs cursor-pointer">${isBlocked ? 'Ativar' : 'Bloquear'}</button>u.whatsapp','
-            <button onclick="adminDeleteUser('${u.whatsapp}', '${(u.artistMainName || '').replace(/'/g, "\'")}')" class="bg-red-500/15 hover:bg-red-500/25 text-red-400 font-bold px-3 py-2 rounded-lg text-xs cursor-pointer">Excluir</button>u.whatsapp','
+            <button onclick="adminToggleUserStatus('${normalizeWhatsapp(u.whatsapp)}', '${u.status || 'Ativo'}')" class="bg-zinc-800 hover:bg-zinc-700 text-zinc-200 font-bold px-3 py-2 rounded-lg text-xs cursor-pointer">${isBlocked ? 'Ativar' : 'Bloquear'}</button>
+            <button onclick="adminDeleteUser('${normalizeWhatsapp(u.whatsapp)}', '')" class="bg-red-500/15 hover:bg-red-500/25 text-red-400 font-bold px-3 py-2 rounded-lg text-xs cursor-pointer">Excluir</button>
           </div>
         </div>
       `}).join('');
@@ -3347,3 +3440,8 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
   </script>
 </body>
 </html>
+
+
+
+
+
